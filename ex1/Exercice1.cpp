@@ -38,10 +38,19 @@ private:
     }
   }
 
+  // fonction
+  double a(double z)
+  {
+    double S(M_PI*R*R);
+    return G*mL/((zL-z)*(zL-z)) - G*mT/(z*z) + rho0/m * exp(-(z-z0)/lambda)*S*Cx*v*v/2;
+  }
+
   // Iteration temporelle
   void step()
   {
-    // TODO: Mettre a jour z et v avec le schema d'Euler
+    double oldZ(z);
+    z = z + dt*v;
+    v = v + dt*a(oldZ);
   }
 
 

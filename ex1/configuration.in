@@ -11,7 +11,7 @@ rho0   = 0
 lambda = 1e4
 Cx     = 0.3
 z0     = 6378000
-v0     = 0
+v0     = 11065.71228038075
 
 % Parametres numeriques :
 nsteps   = 1000
