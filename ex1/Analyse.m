@@ -1,6 +1,24 @@
 % Nom du fichier d'output a analyser
-filename = 'output.out';
+%filename = 'output.out'
+%filename = '1000_steps.out';
+%filename = '2000_steps.out';
+%filename = '4000_steps.out';
 
+%filename = '200_atm.out'
+%filename = '400_atm.out'
+%filename = '800_atm.out'
+%filename = '1600_atm.out'
+%filename = '3200_atm.out'
+filename = '6400_atm.out'
+
+%fb200 = '200_atm.out'
+%fb400 = '400_atm.out'
+%fb800 = '800_atm.out'
+%fb1600 = '1600_atm.out'
+%fb3200 = '3200_atm.out'
+%fb6400 = '6400_atm.out'
+
+%filename = 'test.out'
 % Chargement des donnees
 data = load(filename);
 
