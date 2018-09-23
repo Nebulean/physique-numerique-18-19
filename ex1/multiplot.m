@@ -7,7 +7,7 @@ v = {};
 
 %% CHOIX: Nom des légendes
 % exercice A
-%StepsName = {'1000', '2000', '4000', '8000', '16000', '32000'};
+% StepsName = {'1000', '2000', '4000', '8000', '16000', '32000'};
 
 %exercice B
 StepsName = {'200', '400', '800', '1600', '3200', '6400'};
@@ -42,16 +42,15 @@ for i = 1:length(f)
 end
 
 %% Maintenant on va créer les graphiques
-%% z(t)
 figure('NumberTitle', 'Off', 'Name', 'z(t)');
 hold on; % permet de dessiner plusieurs trucs
 xlabel('t [s]');
 ylabel('z [m]');
 grid on;
 
-% dessine les graphs
+% dessine les résultats
 for i = 1:length(f)
-    plot(t{i}, z{i});
+    plot(t{i}, z{i}, '-');
 end
 
 % Un peu de déco
@@ -59,46 +58,23 @@ legend(StepsName); % donne des noms aux lignes
 legend('boxoff'); % enlève la boite autours des légendes
 title(legend, "steps"); % ajoute un titre aux légendes
 
-
 hold off; % de la figure
 
 
-%% v(t)
-figure('NumberTitle', 'Off', 'Name', 'v(t)');
-hold on; % permet de dessiner plusieurs trucs
-xlabel('t [s]');
-ylabel('v [m/s]');
-grid on;
+%% Graph de convergence
+% exercice A
+%nsteps = [1000 2000 4000 8000 16000 32000];
+% exercice B
+%nsteps = [200 400 800 1600 3200 6400];
 
-% dessine les graphs
-for i = 1:length(f)
-    plot(t{i}, v{i});
-end
-
-% Un peu de déco
-legend(StepsName); % donne des noms aux lignes
-legend('boxoff'); % enlève la boite autours des légendes
-title(legend, "steps"); % ajoute un titre aux légendes
-
-
-hold off; % de la figure
-
-%% v(z)
-figure('NumberTitle', 'Off', 'Name', 'v(z)');
-hold on; % permet de dessiner plusieurs trucs
-xlabel('z [m]');
-ylabel('v [m/s]');
-grid on;
-
-% dessine les graphs
-for i = 1:length(f)
-    plot(z{i}, v{i});
-end
-
-% Un peu de déco
-legend(StepsName); % donne des noms aux lignes
-legend('boxoff'); % enlève la boite autours des légendes
-title(legend, "steps"); % ajoute un titre aux légendes
-
-
-hold off; % de la figure
+%for i=1:length(f)
+%    zfin(i) = z{i}(length(z{i}));
+%end
+%figure;
+%plot(nsteps, zfin, '-');
+%hold on;
+%plot(nsteps, zfin, '+');
+%hold off;
+%xlabel('Nombre d''iterations');
+%ylabel('z(t_{fin})');
+%grid on;
