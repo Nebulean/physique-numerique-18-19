@@ -25,30 +25,30 @@ for i = 1:length(f)
 end
 
 %% Graph de convergence de z
-nsteps = [200 400 800 1600 3200 6400];
+nstepsZ = [200 400 800 1600 3200 6400];
 
 for i=1:length(f)
     zfin(i) = z{i}(length(z{i}));
 end
 figure;
-plot(nsteps, zfin, '-');
+plot(nstepsZ, zfin, '-');
 hold on;
-plot(nsteps, zfin, '+');
+plot(nstepsZ, zfin, '+');
 hold off;
 xlabel('Nombre d''itérations');
 ylabel('z( t = 10s ) [m]');
 grid on;
 
 %% Graph de convergence de v
-nsteps = [200 400 800 1600 3200 6400];
+nstepsV = [1000 2000 4000 8000 16000 32000];
 
 for i=1:length(f)
     vfin(i) = v{i}(length(v{i}));
 end
 figure;
-plot(nsteps, vfin, '-');
+plot(nstepsV, vfin, '-');
 hold on;
-plot(nsteps, vfin, '+');
+plot(nstepsV, vfin, '+');
 hold off;
 xlabel('Nombre d''itérations');
 ylabel('v( t = 10s ) [m/s]');

@@ -3,7 +3,7 @@
 
 % pour l'inclusion de figures en eps,pdf,jpg
 \usepackage{graphicx}
-\usepackage{subfigure}
+\usepackage{subcaption}
 \usepackage{wrapfig}
 \usepackage{siunitx} % pour utiliser les unités SI. Commande à utiliser: \SI{quantité}{unité}
 % quelques symboles mathematiques en plus
@@ -86,7 +86,7 @@ Dans la question a), il nous est demandé d'établir une équation différentiel
     \dot{z} \\
     G\cdot\frac{m_L}{(z_L - z)^2} - G\cdot\frac{m_T}{z^2} + \frac{\rho_0}{m}\cdot e^{-\frac{z-z_0}{\lambda}}\cdot S\cdot C_x\cdot \frac{\dot{z}^2}{2}
     \end{pmatrix}
-    \label{eq-diff}
+    \label{eq:sol}
 \end{equation}
 
 Cette solution nous permet donc de décrire la trajectoire du projectile, dans son periple entre la terre et la lune. Cette solution comprend l'attraction de la terre et de la lune sur l'objet. De plus, elle comprend une force de frottement visqueuse, qui ralenti le projectile lors de son passage dans l'atmosphère.\\
@@ -95,14 +95,14 @@ Dans la question b), il est demandé de trouver le point d'équilibre de l'objet
 
 \begin{equation}
     z_E = \SI{3.460d8}{\meter}
-    \label{zE}
+    \label{val:zE}
 \end{equation}
 
 Finalement, dans la question c), il nous est demandé de trouver, en négligeant l'atmosphère terrestre, la vitesse initiale qu'il faudrait pour que le projectile s'arrête sur le point d'équilibre. A VERIFIER. Pour obtenir ce résultat, nous avons utilisé la conservation de l'énergie mécanique. Nous avons donc considéré l'énergie mécanique du projectile lorsqu'il se trouve sur terre, et lorsqu'il atteint le point d'équilibre. Sur terre, juste après le décolage, l'énergie du projectile se découpe en trois parties: Les potentielles gravitationnelles de la terre et de la lune, et l'énergie cinétique du projectile. Au point d'équilibre, il ne reste plus que les potentielles gravitationnelles, car l'objet est à l'arrêt. Ainsi, en isolant la vitesse, en utilisant les données du rapport et la position $z_E$ trouvée précédemment, nous sommes arrivé à ce résultat.
 
 \begin{equation}
     v_0 = \SI{1.107d4}{\meter\per\second}
-    \label{v0}
+    \label{val:v0}
 \end{equation}
 
 
@@ -113,28 +113,49 @@ La deuxième partie de ce rapport se concentre sur l'implémentation numérique 
 
 \subsection{Question B - Simulation avec atmosphère}
 Dans cette deuxième question, nous nous intéressons à la traversée de l'atmosphère, avec différents pas-de-temps. Voici donc le resultat de ces simulations, durant les 10 premières secondes du décollage.\\
-\begin{wrapfigure}{r}{0.65\textwidth}
-\begin{center}
-    \includegraphics[width=0.63\textwidth]{graphs/vB.eps}
+
+\begin{wrapfigure}{R}{0.55\textwidth}
+	\vspace{-20pt}
+    \includegraphics[width=0.53\textwidth]{graphs/vB.eps}
+    \vspace{-15pt}
     \caption{Vitesse en fonction du temps}
-    \label{B-vt}
-\end{center}
+    \vspace{-10pt}
+    \label{fig:B-vt}
 \end{wrapfigure}
-La premier point intéressant est la vitesse du projectile. Le projectile est très fortement ralenti par l'atmosphère, et cela se ressent sur la figure \ref{B-vt}. Dans toutes les simulations, la vitesse suit plus ou moins la même courbe. Au bout des 10 secondes de vol, le projectile a une vitesse d'environ \SI{2500}{\meter\per\second}. Cela s'explique par la vitesse au carrée de l'équation \ref{eq-diff}, dans le terme aérodynamique. En effet, la vitesse initiale $v0$ est tellement titanesque lors du décollage, et se ressent vraiment dans l'équation. Concernant la tendance de l'accélération à tendre vers 0 provient du terme exponentiel de cette même force. Ce terme provient du calcul de la densité de l'air A VERIFIER, et il change de manière exponentielle lorsque la position change. Les paramètres gravitationnels se retrouvent aussi dans ces graphiques, mais ils agissent sur le projectile de la même manière qu'à la question A, donc nous n'en parlerons pas plus ici.\\
-\begin{wrapfigure}{l}{0.65\textwidth}
-\begin{center}
-	\includegraphics[width=0.63\textwidth]{graphs/zB.eps}
+
+La premier point intéressant est la vitesse du projectile. Le projectile est très fortement ralenti par l'atmosphère, et cela se ressent sur la figure \ref{fig:B-vt}. Dans toutes les simulations, la vitesse suit plus ou moins la même courbe. Au bout des 10 secondes de vol, le projectile a une vitesse d'environ \SI{2500}{\meter\per\second}. Cela s'explique par la vitesse au carrée de l'équation \ref{eq:sol}, dans le terme aérodynamique. En effet, la vitesse initiale $v0$ est tellement titanesque lors du décollage, et se ressent vraiment dans l'équation.\\
+
+\begin{wrapfigure}{L}{0.55\textwidth}
+	\vspace{-20pt}
+	\includegraphics[width=0.53\textwidth]{graphs/zB.eps}
+	\vspace{-15pt}
 	\caption{Position en fonction du temps}
-	\label{B-zt}
-\end{center}
+	\vspace{-10pt}
+	\label{fig:B-zt}
 \end{wrapfigure}
-Toutes ces changements sur la vitesse grandement la position de l'objet. Ainsi, sur la figure \ref{B-zt}, on observe que la position du projectile augmente drastiquement au début, mais ralenti rapidement son ascentions en deux secondes, pour finalement augmenter de manière plus ou moins constante sur la fin. Ainsi, au bout de 10 secondes, le projectile atteint une altitude d'environ \SI{40}{\kilo\meter} par rapport au sol terrestre.
-%\begin{wrapfigure}{r}{0.65\textwidth}
-%\begin{center}
-	%\includegraphics[width=0.63\textwidth]{graphs/zB.eps}
-	%\caption{Analyse de convergence}
-	%\label{B-zt}
-%\end{center}
-%\end{wrapfigure}
+
+Concernant la tendance de l'accélération à tendre vers 0 provient du terme exponentiel de cette même force. Ce terme provient du calcul de la densité de l'air A VERIFIER, et il change de manière exponentielle lorsque la position change. Les paramètres gravitationnels se retrouvent aussi dans ces graphiques, mais ils agissent sur le projectile de la même manière qu'à la question A, donc nous n'en parlerons pas plus ici.
+Toutes ces changements sur la vitesse grandement la position de l'objet. Ainsi, sur la figure \ref{fig:B-zt}, on observe que la position du projectile augmente drastiquement au début, mais ralenti rapidement son ascentions en deux secondes, pour finalement augmenter de manière plus ou moins constante sur la fin. Ainsi, au bout de 10 secondes, le projectile atteint une altitude d'environ \SI{40}{\kilo\meter} par rapport au sol terrestre.\\
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/zConvB.eps}
+		\caption{Graphique de convergence de la position}
+		\label{fig:B-zConv}
+	\end{subfigure}
+	~
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/vConvB.eps}
+		\caption{Graphique de convergence de la vitesse}
+		\label{fig:B-vConv}
+	\end{subfigure}
+	\caption{Graphiques d'étude de convergence}
+	\label{fig:B-conv}
+\end{figure}
+
+Dans les deux graphiques précédents (\ref{fig:B-vt} et \ref{fig:B-zt}), il semble que le nombre d'itérations de chaque simulation ne change pas drastiquement le déroulement de la simulation, du moins sur les 10 premières secondes. Il n'y a qu'un léger écart notoire entre les différents cas. Sur la figure \ref{fig:B-conv}, nous pouvons remarquer que les valeurs convergent vers une certaine vitesse ou position finale, en fonction du nombre d'itérations. À partir de ces deux graphiques, nous pouvons remarquer que le nombre d'itérations importe dans nos simulations. Plus le nombre d'itérations est important, plus la valeur finale va tendre vers la solution. Il n'y a donc pas de problème majeur dans l'utilisation de la méthode d'Euler pour résoudre numériquement l'équation différentielle \ref{eq:sol}.
+
+\section{Conclusion}
 
 \end{document}
