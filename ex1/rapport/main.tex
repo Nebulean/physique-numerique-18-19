@@ -67,10 +67,10 @@
 %%%% ON COMMENCE A ECRIRE D'ICI
 
 \section{Introduction}
-Le roman de Jules Vernes \textit{"De la Terre à la Lune"} décrit une méthode originale pour envoyer des projectiles jusqu'à la lune, à l'aide d'un canon. Cette rapport se concentre donc sur une analyse de la situation, en une dimension.
+Le roman de Jules Vernes \textit{"De la Terre à la Lune"} décrit une méthode originale pour envoyer des projectiles jusqu'à la lune, à l'aide d'un canon. Cette rapport se concentre donc sur une analyse de la situation, en négligeant tout aspects de rotations. Ainsi, nous nous concentrons donc sur une analyse unidimensionelle du problème.
 
 \section{Modélisation}
-Dans ce projet, nous\footnote{En utilisant les documents donnés par le professeur} avons modélisé une terre et une lune sur une droite. Le centre de la terre se situe à l'origine de cette droite. Depuis la surface de la terre, un projectile est envoyé à une certaine vitesse vers la lune. Nous considérerons le cas où l'atmosphère terrestre n'a aucune influence sur le projectile, et le cas où elle a une influence.
+Dans ce projet, nous avons modélisé une terre et une lune sur une droite, en suivant les données et instructions du professeur. Le centre de la terre se situe à l'origine de cette droite. Depuis la surface de la terre, un projectile est envoyé à une certaine vitesse vers la lune. Nous considérerons le cas où l'atmosphère terrestre n'a aucune influence sur le projectile, et le cas où elle a une influence.
 
 \section{Solutions analytiques}
 Dans la question a), il nous est demandé d'établir une équation différentielle régissant notre problème. Après plusieurs étapes de calcul faiblement pertinentes pour ce rapport, nous sommes arrivés à l'équation suivante.
@@ -155,6 +155,8 @@ Toutes ces changements sur la vitesse grandement la position de l'objet. Ainsi, 
 \end{figure}
 
 Dans les deux graphiques précédents (\ref{fig:B-vt} et \ref{fig:B-zt}), il semble que le nombre d'itérations de chaque simulation ne change pas drastiquement le déroulement de la simulation, du moins sur les 10 premières secondes. Il n'y a qu'un léger écart notoire entre les différents cas. Sur la figure \ref{fig:B-conv}, nous pouvons remarquer que les valeurs convergent vers une certaine vitesse ou position finale, en fonction du nombre d'itérations. À partir de ces deux graphiques, nous pouvons remarquer que le nombre d'itérations importe dans nos simulations. Plus le nombre d'itérations est important, plus la valeur finale va tendre vers la solution. Il n'y a donc pas de problème majeur dans l'utilisation de la méthode d'Euler pour résoudre numériquement l'équation différentielle \ref{eq:sol}.
+
+\subsection{Question C - Bonus}
 
 \section{Conclusion}
 
