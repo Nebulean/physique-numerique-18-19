@@ -30,7 +30,7 @@ end
 
 %% Maintenant on va créer les graphiques
 % Graphique de vitesse
-figure('NumberTitle', 'Off', 'Name', 'v(t)');
+f1 = figure('NumberTitle', 'Off', 'Name', 'v(t)');
 hold on; % Début de la figure
 xlabel('t [s]');
 ylabel('v [m]');
@@ -53,7 +53,7 @@ set(legend, 'FontSize', 16); % Pour changer la taille de la police de la légend
 hold off; % fin de la figure
 
 % Graphique de position
-figure('NumberTitle', 'Off', 'Name', 'z(t)');
+f2 = figure('NumberTitle', 'Off', 'Name', 'z(t)');
 hold on; % Début de la figure
 xlabel('t [s]');
 ylabel('z [m]');
@@ -74,3 +74,6 @@ title(legend, "steps"); % ajoute un titre aux légendes
 set(legend, 'FontSize', 16); % Pour changer la taille de la police de la légende
 
 hold off; % fin de la figure
+
+saveas(f1, "graphs/vA.eps", "epsc"); % exporte f1, avec le nom, en couleur (epsc).
+saveas(f2, "graphs/zA.eps", "epsc"); % pareil
