@@ -84,7 +84,7 @@ Dans la question a), il nous est demandé d'établir une équation différentiel
     =
     \begin{pmatrix}
     \dot{z} \\
-    G\cdot\frac{m_L}{(z_L - z)^2} - G\cdot\frac{m_T}{z^2} + \frac{\rho_0}{m}\cdot e^{-\frac{z-z_0}{\lambda}}\cdot S\cdot C_x\cdot \frac{\dot{z}^2}{2}
+    G\cdot\frac{m_L}{(z_L - z)^2} - G\cdot\frac{m_T}{z^2} - \frac{\rho_0}{m}\cdot e^{-\frac{z-z_0}{\lambda}}\cdot S\cdot C_x\cdot \frac{\dot{z}^2}{2}
     \end{pmatrix}
     \label{eq:sol}
 \end{equation}
@@ -164,6 +164,8 @@ La figure \ref{fig:A-zt} montre que l'intégration par la méthode d'Euler est s
 	\caption{Graphiques d'étude de convergence}
 	\label{fig:A-conv}
 \end{figure}
+
+Les graphes de convergence de la position et de la vitesse (figure \ref{fig:A-conv} montrent une convergence non-linéaire. Les équations ne sont donc pas compatibles avec une convergence linéaire.
 
 \subsection{Question B - Simulation avec atmosphère}
 Dans cette deuxième question, nous nous intéressons à la traversée de l'atmosphère, avec différents pas-de-temps. Voici donc le résultat de ces simulations, durant les 10 premières secondes du décollage.\\
