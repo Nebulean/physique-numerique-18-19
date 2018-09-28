@@ -67,15 +67,21 @@
 %%%% ON COMMENCE A ECRIRE D'ICI
 
 \section{Introduction}
-Le roman de Jules Vernes \textit{"De la Terre à la Lune"} décrit une méthode originale pour envoyer des projectiles jusqu'à la lune à l'aide d'un canon. Cette rapport se concentre donc sur une analyse unidimensionnelle de la situation, en négligeant tout aspect de rotation.
+Le roman de Jules Vernes \textit{"De la Terre à la Lune"} décrit une méthode originale pour envoyer des projectiles jusqu'à la lune à l'aide d'un canon.
+Cette rapport se concentre donc sur une analyse unidimensionnelle de la situation, en négligeant tout aspect de rotation.
 
 \section{Modélisation}
-Dans ce projet, nous avons modélisé une terre et une lune sur une droite. Le centre de la terre se situe à l'origine de cette droite. Depuis la surface de la terre, un projectile est envoyé à une certaine vitesse vers la lune. Nous considérerons le cas où l'atmosphère terrestre n'a aucune influence sur le projectile, et le cas où elle a une influence.
+Dans ce projet, nous avons modélisé une terre et une lune sur une droite.
+Le centre de la terre se situe à l'origine de cette droite.
+Depuis la surface de la terre, un projectile est envoyé à une certaine vitesse vers la lune.
+Nous considérerons le cas où l'atmosphère terrestre n'a aucune influence sur le projectile, et le cas où elle a une influence.
 
 [SCHÉMA ?]
 
 \section{Solutions analytiques}
-Dans la question a), il nous est demandé d'établir une équation différentielle régissant notre problème. Après plusieurs étapes de calcul faiblement pertinentes pour ce rapport, nous sommes arrivés à l'équation suivante.
+\subsubsection*{Question a}
+Il nous est demandé d'établir une équation différentielle régissant notre problème.
+Après plusieurs étapes de calcul faiblement pertinentes pour ce rapport, nous sommes arrivés à l'équation suivante.
 
 \begin{equation}
     \frac{d}{dt}
@@ -91,16 +97,28 @@ Dans la question a), il nous est demandé d'établir une équation différentiel
     \label{eq:sol}
 \end{equation}
 
-Cette solution nous permet donc de décrire la trajectoire du projectile, dans son periple entre la terre et la lune. Cette solution comprend l'attraction de la terre et de la lune sur l'objet. De plus, elle comprend une force de frottement visqueuse, qui ralenti le projectile lors de son passage dans l'atmosphère.\\
-\newline
-Dans la question b), il est demandé de trouver le point d'équilibre de l'objet, s'il était statique. Pour obtenir la solution, nous avons simplement égalisé les forces gravitationnelles appliquées sur le projectile, et isolé $z$. Avec les valeurs fournies par le professeur, nous sommes arrivés au résultat suivant.
+Cette solution nous permet donc de décrire la trajectoire du projectile, dans son periple entre la terre et la lune.
+Cette solution comprend l'attraction de la terre et de la lune sur l'objet.
+De plus, elle comprend une force de frottement visqueuse, qui ralenti le projectile lors de son passage dans l'atmosphère.\\
+
+\subsubsection*{Question b}
+Il est demandé de trouver le point d'équilibre de l'objet, s'il était statique.
+Pour obtenir la solution, nous avons simplement égalisé les forces gravitationnelles appliquées sur le projectile, et isolé $z$.
+Avec les valeurs fournies par le professeur, nous sommes arrivés au résultat suivant.
 
 \begin{equation}
     z_E = \SI{3.460d8}{\meter}
     \label{val:zE}
 \end{equation}
 
-Finalement, dans la question c), il nous est demandé de trouver, en négligeant l'atmosphère terrestre, la vitesse initiale qu'il faudrait pour que le projectile s'arrête sur le point d'équilibre. A VERIFIER. Pour obtenir ce résultat, nous avons utilisé la conservation de l'énergie mécanique. Nous avons donc considéré l'énergie mécanique du projectile lorsqu'il se trouve sur terre, et lorsqu'il atteint le point d'équilibre. Sur terre, juste après le décolage, l'énergie du projectile se découpe en trois parties: Les potentielles gravitationnelles de la terre et de la lune, et l'énergie cinétique du projectile. Au point d'équilibre, il ne reste plus que les potentielles gravitationnelles, car l'objet est à l'arrêt. Ainsi, en isolant la vitesse, en utilisant les données du rapport et la position $z_E$ trouvée précédemment, nous sommes arrivé à ce résultat.
+\subsubsection*{Question c}
+Il nous est demandé de trouver, en négligeant l'atmosphère terrestre, la vitesse initiale qu'il faudrait pour que le projectile s'arrête sur le point d'équilibre.A VERIFIER.
+Pour obtenir ce résultat, nous avons utilisé la conservation de l'énergie mécanique.
+Nous avons donc considéré l'énergie mécanique du projectile lorsqu'il se trouve sur terre, et lorsqu'il atteint le point d'équilibre.
+Sur terre, juste après le décolage, l'énergie du projectile se découpe en trois parties:
+Les potentielles gravitationnelles de la terre et de la lune, et l'énergie cinétique du projectile.
+Au point d'équilibre, il ne reste plus que les potentielles gravitationnelles, car l'objet est à l'arrêt.
+Ainsi, en isolant la vitesse, en utilisant les données du rapport et la position $z_E$ trouvée précédemment, nous sommes arrivé à ce résultat.
 
 \begin{equation}
     v_0 = \SI{1.107d4}{\meter\per\second}
@@ -109,19 +127,11 @@ Finalement, dans la question c), il nous est demandé de trouver, en négligeant
 
 
 \section{Résultats des simulations et réponses aux questions}
-La deuxième partie de ce rapport se concentre sur l'implémentation numérique de ce problème afin de répondre aux questions posées. À l'aide d'un schéma de Euler, nous avons résolu numériquement l'équation différentielle et simulé, avec plusieurs pas de temps, notre problème.
+La deuxième partie de ce rapport se concentre sur l'implémentation numérique de ce problème afin de répondre aux questions posées.
+À l'aide d'un schéma de Euler, nous avons résolu numériquement l'équation différentielle et simulé, avec plusieurs pas de temps, notre problème.
 
 \subsection{Question A - Simulation sans atmosphère}
 Dans un premier temps, le système est simulé sur une durée de 24 heures en négligeant les effets de l'atmosphère.
-
-%\begin{wrapfigure}{R}{0.55\textwidth}
-%	\vspace{-20pt}
-%    \includegraphics[width=0.53\textwidth]{graphs/vA.eps}
-%    \vspace{-15pt}
-%    \caption{Vitesse en fonction du temps}
-%    \vspace{-10pt}
-%    \label{fig:A-vt}
-%\end{wrapfigure}
 
 \begin{figure}[h]
 	\centering
@@ -132,15 +142,6 @@ Dans un premier temps, le système est simulé sur une durée de 24 heures en n�
 
 On constate sur la figure \ref{fig:A-vt} que la vitesse diminue fortement au début de la simulation, en réponse à l'attraction terrestre, jusqu'à atteindre \SI{3500}{\meter\per\second} au bout de 3 heures, puis diminue beaucoup plus lentement après que le vaisseau se soit suffisamment éloigné de la Terre.\\
 
-%\begin{wrapfigure}{L}{0.55\textwidth}
-%	\vspace{-20pt}
-%	\includegraphics[width=0.53\textwidth]{graphs/zA.eps}
-%	\vspace{-15pt}
-%	\caption{Position en fonction du temps}
-%	\vspace{-10pt}
-%	\label{fig:A-zt}
-%\end{wrapfigure}
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.53\textwidth]{graphs/zA.eps}
@@ -148,7 +149,8 @@ On constate sur la figure \ref{fig:A-vt} que la vitesse diminue fortement au dé
 	\label{fig:A-zt}
 \end{figure}
 
-La figure \ref{fig:A-zt} montre que l'intégration par la méthode d'Euler est susceptible à de fortes imprécisions en-dessous d'un certain nombre de pas; en effet, dans la simulation avec nsteps=1000, la distance au point de départ diminue après 15 heures de vol, alors que cela n'est pas possible dans la réalité puisque l'accélération est toujours positive dans ce système.\\
+La figure \ref{fig:A-zt} montre que l'intégration par la méthode d'Euler est susceptible à de fortes imprécisions en-dessous d'un certain nombre de pas;
+en effet, dans la simulation avec nsteps=1000, la distance au point de départ diminue après 15 heures de vol, alors que cela n'est pas possible dans la réalité puisque l'accélération est toujours positive dans ce système.\\
 
 \begin{figure}[h]
 	\centering
@@ -170,7 +172,8 @@ La figure \ref{fig:A-zt} montre que l'intégration par la méthode d'Euler est s
 Les graphes de convergence de la position et de la vitesse (figure \ref{fig:A-conv}) montrent une convergence quasi-linéaire. 
 
 \subsection{Question B - Simulation avec atmosphère}
-Dans cette deuxième question, nous nous intéressons à la traversée de l'atmosphère, avec différents pas-de-temps. Voici le résultat de ces simulations, durant les 10 premières secondes du décollage.\\
+Dans cette deuxième question, nous nous intéressons à la traversée de l'atmosphère, avec différents pas-de-temps.
+Voici le résultat de ces simulations, durant les 10 premières secondes du décollage.\\
 
 \begin{figure}[h]
 	\centering
@@ -179,16 +182,12 @@ Dans cette deuxième question, nous nous intéressons à la traversée de l'atmo
     \label{fig:B-vt}
 \end{figure}
 
-Le projectile est très fortement ralenti par l'atmosphère, et cela se reflète sur la figure \ref{fig:B-vt}. Dans toutes les simulations, la vitesse suit plus ou moins la même courbe. Au bout des 10 secondes de vol, le projectile a une vitesse d'environ \SI{2500}{\meter\per\second}. Cela s'explique par la vitesse au carré de l'équation \ref{eq:sol}, dans le terme aérodynamique. En effet, la vitesse initiale $v0$ est très grande lors du décollage, ce qui implique que la force de traînée est très grande également.\\
+Le projectile est très fortement ralenti par l'atmosphère, et cela se reflète sur la figure \ref{fig:B-vt}.
+Dans toutes les simulations, la vitesse suit plus ou moins la même courbe.
+Au bout des 10 secondes de vol, le projectile a une vitesse d'environ \SI{2500}{\meter\per\second}.
+Cela s'explique par la vitesse au carré de l'équation \ref{eq:sol}, dans le terme aérodynamique.
+En effet, la vitesse initiale $v0$ est très grande lors du décollage, ce qui implique que la force de traînée est très grande également.\\
 
-%\begin{wrapfigure}{L}{0.55\textwidth}
-%	\vspace{-20pt}
-%	\includegraphics[width=0.53\textwidth]{graphs/zB.eps}
-%	\vspace{-15pt}
-%	\caption{Position en fonction du temps}
-%	\vspace{-10pt}
-%	\label{fig:B-zt}
-%\end{wrapfigure}
 
 \begin{figure}[h]
 	\centering
@@ -197,8 +196,11 @@ Le projectile est très fortement ralenti par l'atmosphère, et cela se reflète
 	\label{fig:B-zt}
 \end{figure}
 
-Concernant la tendance de l'accélération à tendre vers 0, elle provient du terme exponentiel de la force traînée. Ce terme provient du calcul de la densité de l'air A VERIFIER, et il change de manière exponentielle lorsque la position change. Les paramètres gravitationnels se retrouvent aussi dans ces graphiques, mais ils agissent sur le projectile de la même manière qu'à la question A, donc nous n'en parlerons pas plus ici.
-Sur la figure \ref{fig:B-zt}, on observe que la position du projectile augmente drastiquement au début, mais ralentit rapidement son ascension en deux secondes, pour finalement augmenter de manière plus ou moins constante sur la fin. Ainsi, au bout de 10 secondes, le projectile atteint une altitude d'environ \SI{40}{\kilo\meter} par rapport au sol terrestre.\\
+Concernant la tendance de l'accélération à tendre vers 0, elle provient du terme exponentiel de la force traînée.
+Ce terme provient du calcul de la densité de l'air A VERIFIER, et il change de manière exponentielle lorsque la position change.
+Les paramètres gravitationnels se retrouvent aussi dans ces graphiques, mais ils agissent sur le projectile de la même manière qu'à la question A, donc nous n'en parlerons pas plus ici.
+Sur la figure \ref{fig:B-zt}, on observe que la position du projectile augmente drastiquement au début, mais ralentit rapidement son ascension en deux secondes, pour finalement augmenter de manière plus ou moins constante sur la fin.
+Ainsi, au bout de 10 secondes, le projectile atteint une altitude d'environ \SI{40}{\kilo\meter} par rapport au sol terrestre.\\
 
 \begin{figure}[h]
 	\centering
