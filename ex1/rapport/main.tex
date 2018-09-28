@@ -168,7 +168,7 @@ La figure \ref{fig:A-zt} montre que l'intégration par la méthode d'Euler est s
 Les graphes de convergence de la position et de la vitesse (figure \ref{fig:A-conv} montrent une convergence non-linéaire. Les équations ne sont donc pas compatibles avec une convergence linéaire.
 
 \subsection{Question B - Simulation avec atmosphère}
-Dans cette deuxième question, nous nous intéressons à la traversée de l'atmosphère, avec différents pas-de-temps. Voici donc le résultat de ces simulations, durant les 10 premières secondes du décollage.\\
+Dans cette deuxième question, nous nous intéressons à la traversée de l'atmosphère, avec différents pas-de-temps. Voici le résultat de ces simulations, durant les 10 premières secondes du décollage.\\
 
 \begin{figure}[h]
 	\centering
@@ -177,7 +177,7 @@ Dans cette deuxième question, nous nous intéressons à la traversée de l'atmo
     \label{fig:B-vt}
 \end{figure}
 
-La premier point intéressant est la vitesse du projectile. Le projectile est très fortement ralenti par l'atmosphère, et cela se ressent sur la figure \ref{fig:B-vt}. Dans toutes les simulations, la vitesse suit plus ou moins la même courbe. Au bout des 10 secondes de vol, le projectile a une vitesse d'environ \SI{2500}{\meter\per\second}. Cela s'explique par la vitesse au carrée de l'équation \ref{eq:sol}, dans le terme aérodynamique. En effet, la vitesse initiale $v0$ est tellement titanesque lors du décollage, et se ressent vraiment dans l'équation.\\
+Le projectile est très fortement ralenti par l'atmosphère, et cela se reflète sur la figure \ref{fig:B-vt}. Dans toutes les simulations, la vitesse suit plus ou moins la même courbe. Au bout des 10 secondes de vol, le projectile a une vitesse d'environ \SI{2500}{\meter\per\second}. Cela s'explique par la vitesse au carré de l'équation \ref{eq:sol}, dans le terme aérodynamique. En effet, la vitesse initiale $v0$ est très grande lors du décollage, ce qui implique que la force de traînée est très grande également.\\
 
 %\begin{wrapfigure}{L}{0.55\textwidth}
 %	\vspace{-20pt}
@@ -195,8 +195,8 @@ La premier point intéressant est la vitesse du projectile. Le projectile est tr
 	\label{fig:B-zt}
 \end{figure}
 
-Concernant la tendance de l'accélération à tendre vers 0 provient du terme exponentiel de cette même force. Ce terme provient du calcul de la densité de l'air A VERIFIER, et il change de manière exponentielle lorsque la position change. Les paramètres gravitationnels se retrouvent aussi dans ces graphiques, mais ils agissent sur le projectile de la même manière qu'à la question A, donc nous n'en parlerons pas plus ici.
-Toutes ces changements sur la vitesse grandement la position de l'objet. Ainsi, sur la figure \ref{fig:B-zt}, on observe que la position du projectile augmente drastiquement au début, mais ralenti rapidement son ascensions en deux secondes, pour finalement augmenter de manière plus ou moins constante sur la fin. Ainsi, au bout de 10 secondes, le projectile atteint une altitude d'environ \SI{40}{\kilo\meter} par rapport au sol terrestre.\\
+Concernant la tendance de l'accélération à tendre vers 0, elle provient du terme exponentiel de la force traînée. Ce terme provient du calcul de la densité de l'air A VERIFIER, et il change de manière exponentielle lorsque la position change. Les paramètres gravitationnels se retrouvent aussi dans ces graphiques, mais ils agissent sur le projectile de la même manière qu'à la question A, donc nous n'en parlerons pas plus ici.
+Sur la figure \ref{fig:B-zt}, on observe que la position du projectile augmente drastiquement au début, mais ralentit rapidement son ascension en deux secondes, pour finalement augmenter de manière plus ou moins constante sur la fin. Ainsi, au bout de 10 secondes, le projectile atteint une altitude d'environ \SI{40}{\kilo\meter} par rapport au sol terrestre.\\
 
 \begin{figure}[h]
 	\centering
@@ -215,7 +215,7 @@ Toutes ces changements sur la vitesse grandement la position de l'objet. Ainsi, 
 	\label{fig:B-conv}
 \end{figure}
 
-Dans les deux graphiques précédents (\ref{fig:B-vt} et \ref{fig:B-zt}), il semble que le nombre d'itérations de chaque simulation ne change pas drastiquement le déroulement de la simulation, du moins sur les 10 premières secondes. Il n'y a qu'un léger écart notoire entre les différents cas. Sur la figure \ref{fig:B-conv}, nous pouvons remarquer que les valeurs convergent vers une certaine vitesse ou position finale, en fonction du nombre d'itérations. À partir de ces deux graphiques, nous pouvons remarquer que le nombre d'itérations importe dans nos simulations. Plus le nombre d'itérations est important, plus la valeur finale va tendre vers la solution. Il n'y a donc pas de problème majeur dans l'utilisation de la méthode d'Euler pour résoudre numériquement l'équation différentielle \ref{eq:sol}.
+Dans les deux graphiques de convergence (\ref{fig:B-vt} et \ref{fig:B-zt}), il semble que le nombre d'itérations de chaque simulation ne change pas drastiquement le déroulement de la simulation, du moins sur les 10 premières secondes. Il n'y a qu'un léger écart notoire entre les différents cas. Sur la figure \ref{fig:B-conv}, nous pouvons remarquer que les valeurs convergent vers une certaine vitesse ou position finale, en fonction du nombre d'itérations. À partir de ces deux graphiques, nous pouvons remarquer que le nombre d'itérations importe dans nos simulations. Plus le nombre d'itérations est important, plus la valeur finale va tendre vers la solution. Il n'y a donc pas de problème majeur dans l'utilisation de la méthode d'Euler pour résoudre numériquement l'équation différentielle \ref{eq:sol}.
 
 \subsection{Question C - Bonus}
 
