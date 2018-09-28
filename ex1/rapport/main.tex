@@ -84,7 +84,7 @@ Dans la question a), il nous est demandé d'établir une équation différentiel
     =
     \begin{pmatrix}
     \dot{z} \\
-    G\cdot\frac{m_L}{(z_L - z)^2} - G\cdot\frac{m_T}{z^2} + \frac{\rho_0}{m}\cdot e^{-\frac{z-z_0}{\lambda}}\cdot S\cdot C_x\cdot \frac{\dot{z}^2}{2}
+    G\cdot\frac{m_L}{(z_L - z)^2} - G\cdot\frac{m_T}{z^2} - \frac{\rho_0}{m}\cdot e^{-\frac{z-z_0}{\lambda}}\cdot S\cdot C_x\cdot \frac{\dot{z}^2}{2}
     \end{pmatrix}
     \label{eq:sol}
 \end{equation}
@@ -113,22 +113,16 @@ La deuxième partie de ce rapport se concentre sur l'implémentation numérique 
 Dans un premier temps, le système est simulé sur une durée de 24 heures en négligeant les effets de l'atmosphère.
 
 \begin{wrapfigure}{R}{0.55\textwidth}
-	\vspace{-20pt}
     \includegraphics[width=0.53\textwidth]{graphs/vA.eps}
-    \vspace{-15pt}
     \caption{Vitesse en fonction du temps}
-    \vspace{-10pt}
     \label{fig:A-vt}
 \end{wrapfigure}
 
 On constate sur la figure \ref{fig:A-vt} que la vitesse diminue fortement au début de la simulation, en réponse à l'attraction terrestre, jusqu'à atteindre \SI{3500}{\meter\per\second} au bout de 3 heures, puis diminue beaucoup plus lentement après que le vaisseau se soit suffisamment éloigné de la Terre.\\
 
 \begin{wrapfigure}{L}{0.55\textwidth}
-	\vspace{-20pt}
 	\includegraphics[width=0.53\textwidth]{graphs/zA.eps}
-	\vspace{-15pt}
 	\caption{Position en fonction du temps}
-	\vspace{-10pt}
 	\label{fig:A-zt}
 \end{wrapfigure}
 
