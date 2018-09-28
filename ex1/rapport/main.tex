@@ -110,9 +110,49 @@ Finalement, dans la question c), il nous est demandé de trouver, en négligeant
 La deuxième partie de ce rapport se concentre sur l'implémentation numérique de ce problème afin de répondre aux questions posées. À l'aide d'un schéma de Euler, nous avons résolu numériquement l'équation différentielle et simulé, avec plusieurs pas de temps, notre problème.
 
 \subsection{Question A - Simulation sans atmosphère}
+Dans un premier temps, le système est simulé sur une durée de 24 heures en négligeant les effets de l'atmosphère.
+
+\begin{wrapfigure}{R}{0.55\textwidth}
+	\vspace{-20pt}
+    \includegraphics[width=0.53\textwidth]{graphs/vA.eps}
+    \vspace{-15pt}
+    \caption{Vitesse en fonction du temps}
+    \vspace{-10pt}
+    \label{fig:A-vt}
+\end{wrapfigure}
+
+On constate sur la figure \ref{fig:A-vt} que la vitesse diminue fortement au début de la simulation, en réponse à l'attraction terrestre, jusqu'à atteindre \SI{3500}{\meter\per\second} au bout de 3 heures, puis diminue beaucoup plus lentement après que le vaisseau se soit suffisamment éloigné de la Terre.\\
+
+\begin{wrapfigure}{L}{0.55\textwidth}
+	\vspace{-20pt}
+	\includegraphics[width=0.53\textwidth]{graphs/zA.eps}
+	\vspace{-15pt}
+	\caption{Position en fonction du temps}
+	\vspace{-10pt}
+	\label{fig:A-zt}
+\end{wrapfigure}
+
+La figure \ref{fig:A-zt} montre que l'intégration par la méthode d'Euler est susceptible à de fortes imprécisions en-dessous d'un certain nombre de pas; en effet, dans la simulation avec nsteps=1000, la distance au point de départ diminue après 15 heures de vol, alors que cela n'est pas possible dans la réalité puisque l'accélération est toujours positive dans ce système.\\
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/zConvA.eps}
+		\caption{Graphique de convergence de la position}
+		\label{fig:A-zConv}
+	\end{subfigure}
+	~
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/vConvA.eps}
+		\caption{Graphique de convergence de la vitesse}
+		\label{fig:A-vConv}
+	\end{subfigure}
+	\caption{Graphiques d'étude de convergence}
+	\label{fig:A-conv}
+\end{figure}
 
 \subsection{Question B - Simulation avec atmosphère}
-Dans cette deuxième question, la simulation s'intéresse à la traversée de l'atmosphère, avec différents pas-de-temps. Voici donc le résultat de ces simulations, durant les 10 premières secondes du décollage.\\
+Dans cette deuxième question, nous nous intéressons à la traversée de l'atmosphère, avec différents pas-de-temps. Voici donc le résultat de ces simulations, durant les 10 premières secondes du décollage.\\
 
 \begin{wrapfigure}{R}{0.55\textwidth}
 	\vspace{-20pt}
@@ -135,7 +175,7 @@ La premier point intéressant est la vitesse du projectile. Le projectile est tr
 \end{wrapfigure}
 
 Concernant la tendance de l'accélération à tendre vers 0 provient du terme exponentiel de cette même force. Ce terme provient du calcul de la densité de l'air A VERIFIER, et il change de manière exponentielle lorsque la position change. Les paramètres gravitationnels se retrouvent aussi dans ces graphiques, mais ils agissent sur le projectile de la même manière qu'à la question A, donc nous n'en parlerons pas plus ici.
-Toutes ces changements sur la vitesse grandement la position de l'objet. Ainsi, sur la figure \ref{fig:B-zt}, on observe que la position du projectile augmente drastiquement au début, mais ralenti rapidement son ascentions en deux secondes, pour finalement augmenter de manière plus ou moins constante sur la fin. Ainsi, au bout de 10 secondes, le projectile atteint une altitude d'environ \SI{40}{\kilo\meter} par rapport au sol terrestre.\\
+Toutes ces changements sur la vitesse grandement la position de l'objet. Ainsi, sur la figure \ref{fig:B-zt}, on observe que la position du projectile augmente drastiquement au début, mais ralenti rapidement son ascensions en deux secondes, pour finalement augmenter de manière plus ou moins constante sur la fin. Ainsi, au bout de 10 secondes, le projectile atteint une altitude d'environ \SI{40}{\kilo\meter} par rapport au sol terrestre.\\
 
 \begin{figure}[h]
 	\centering
