@@ -42,21 +42,25 @@ for i = 1:length(f)
 end
 
 %% Maintenant on va créer les graphiques
-figure('NumberTitle', 'Off', 'Name', 'z(t)');
+figure('NumberTitle', 'Off', 'Name', 'v(t)');
 hold on; % permet de dessiner plusieurs trucs
 xlabel('t [s]');
-ylabel('z [m]');
+ylabel('v [m]');
+set(gca,'fontsize',15); % Pour changer la taille de la police des axes
+set(gca, 'LineWidth', 2); % Rend les axes plus gras
 grid on;
 
 % dessine les résultats
 for i = 1:length(f)
-    plot(t{i}, z{i}, '-');
+    p = plot(t{i}, v{i}, '-');
+    p.LineWidth = 1.5; % Pour rendre les lignes plus grasses.
 end
 
 % Un peu de déco
 legend(StepsName); % donne des noms aux lignes
 legend('boxoff'); % enlève la boite autours des légendes
 title(legend, "steps"); % ajoute un titre aux légendes
+set(legend, 'FontSize', 15); % Pour changer la taille de la police de la légende
 
 hold off; % de la figure
 
@@ -68,13 +72,13 @@ hold off; % de la figure
 %%nsteps = [200 400 800 1600 3200 6400];
 %
 %for i=1:length(f)
-%    zfin(i) = z{i}(length(z{i}));
+%    vfin(i) = v{i}(length(v{i}));
 %end
 %figure;
-%plot(nsteps, zfin, '-');
+%plot(nsteps, vfin, '-');
 %hold on;
-%plot(nsteps, zfin, '+');
+%plot(nsteps, vfin, '+');
 %hold off;
 %xlabel('Nombre d''iterations');
-%ylabel('z(t_{fin})');
+%ylabel('v(t_{fin})');
 %grid on;
