@@ -6,5 +6,5 @@
 *.aux
 *.log
 *.synctex.gz
-ex1/Exercice1
+ex1/exercice/rapport/graphs/*.pdf
 ex1/exercice/Exercice1

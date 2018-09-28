@@ -27,6 +27,11 @@ end
 %% Graph de convergence de z
 nstepsZ = [200 400 800 1600 3200 6400];
 
+% On veut delta t et non le nb d'étapes
+for i=1:length(nstepsZ)
+    nstepsZ(1,i) = duration/nstepsZ(1,i);
+end
+
 for i=1:length(f)
     zfin(i) = z{i}(length(z{i}));
 end
@@ -39,12 +44,17 @@ p.LineWidth = 1.5; % Pour rendre les lignes plus grasses.
 set(gca,'fontsize',16); % Pour changer la taille de la police des axes
 set(gca, 'LineWidth', 1.2); % Rend les axes plus gras
 hold off;
-xlabel('Nombre d''itérations');
+xlabel('\Delta t [s]');
 ylabel('z( t = 10s ) [m]');
 grid on;
 
 %% Graph de convergence de v
 nstepsV = [1000 2000 4000 8000 16000 32000];
+
+% On veut delta t et non le nb d'étapes
+for i=1:length(nstepsV)
+    nstepsV(1,i) = duration/nstepsV(1,i);
+end
 
 for i=1:length(f)
     vfin(i) = v{i}(length(v{i}));
@@ -58,7 +68,7 @@ p.LineWidth = 1.5; % Pour rendre les lignes plus grasses.
 set(gca,'fontsize',16); % Pour changer la taille de la police des axes
 set(gca, 'LineWidth', 1.2); % Rend les axes plus gras
 hold off;
-xlabel('Nombre d''itérations');
+xlabel('\Delta t [s]');
 ylabel('v( t = 10s ) [m/s]');
 grid on;
 
