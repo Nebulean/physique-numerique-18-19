@@ -68,7 +68,7 @@
 
 \section{Introduction}
 Le roman de Jules Vernes \textit{"De la Terre à la Lune"} décrit une méthode originale pour envoyer des projectiles jusqu'à la Lune à l'aide d'un canon.
-Cette rapport se concentre donc sur une analyse unidimensionnelle de la situation, en négligeant tout aspect de rotation.
+Cette rapport se concentre donc sur une analyse unidimensionnelle de la situation, en négligeant tout aspect de révolution.
 
 \section{Modélisation}
 Dans ce projet, nous avons modélisé la Terre et la Lune sur une droite.
@@ -128,7 +128,7 @@ Ainsi, en isolant la vitesse, en utilisant les données du rapport et la positio
 
 \section{Résultats des simulations et réponses aux questions}
 La deuxième partie de ce rapport se concentre sur l'implémentation numérique de ce problème afin de répondre aux questions posées.
-À l'aide d'un schéma de Euler, nous avons résolu numériquement l'équation différentielle et simulé, avec plusieurs pas de temps différents, notre problème.
+À l'aide d'un schéma d'Euler, nous avons résolu numériquement l'équation différentielle et simulé, avec plusieurs pas de temps différents, notre problème.
 
 \subsection{Question A - Simulation sans atmosphère}
 Dans un premier temps, le système est simulé sur une durée de 24 heures en négligeant les effets de l'atmosphère.
@@ -150,7 +150,8 @@ On constate sur la figure \ref{fig:A-vt} que la vitesse diminue fortement au dé
 \end{figure}
 
 La figure \ref{fig:A-zt} montre que l'intégration par la méthode d'Euler est susceptible à de fortes imprécisions en-dessous d'un certain nombre de pas ;
-en effet, dans la simulation avec nsteps=1000, la distance au point de départ diminue après 15 heures de vol, alors que cela n'est pas possible dans la réalité puisque l'accélération est toujours positive dans ce système.\\
+en effet, dans la simulation avec nsteps=1000, la distance au point de départ diminue après 15 heures de vol, alors que cela n'est pas possible dans la réalité puisque l'accélération est toujours positive dans ce système.
+On constate par ailleurs que le projectile parcourt une distance de \SI{200000}{\kilo\meter} en 24 heures.\\
 
 \begin{figure}[h]
 	\centering
