@@ -151,7 +151,7 @@ On constate sur la figure \ref{fig:A-vt} que la vitesse diminue fortement au dé
 \end{figure}
 
 La figure \ref{fig:A-zt} montre que l'intégration par la méthode d'Euler est susceptible à de fortes imprécisions en-dessous d'un certain nombre de pas ;
-en effet, dans la simulation avec nsteps=1000, la distance au point de départ diminue après 15 heures de vol, alors que cela n'est pas possible dans la réalité puisque l'accélération est toujours positive dans ce système.
+en effet, dans la simulation avec nsteps=1000, la distance au point de départ diminue après 15 heures de vol, alors qu'elle continue d'augmenter dans les simulations avec un pas de temps plus petit.
 On constate par ailleurs que le projectile parcourt une distance de \SI{200000}{\kilo\meter} en 24 heures.\\
 
 \begin{figure}[h]
@@ -227,19 +227,20 @@ On constate sur la figure \ref{fig:B-conv} que la convergence de la position et 
 
 
 \section{Conclusion}
-(REPONDRE AUX TRUCS DE JULES VERNES)
+Le projectile de Jules Vernes s'apparente finalement à une fusée classique, bien que la méthode de propulsion soit différente.
+Le succès de son voyage repose uniquement sur sa vitesse de départ.
+Avec le v0 utilisé dans les questions A et B, le projectile arriverait donc à un point d'équilibre proche de la Lune. Il faudrait une vitesse initiale plus élevée pour atteindre la Lune elle-même.
 
-Concernant la convergence, un point est marqué dans nos résultats, l'importance d'un faible dt.
-Sans considérer la stabilité de notre schéma, il ressort de nos simulation qu'un faible dt est important pour avoir une simulation précise.
-Dans l'expérience A par exemple, le dt choisi est dans la plupart des cas trop grand pour la simulation demandé, ce qui ammène à des différence entre les résultats conséquentes.
-Le choix du dt est donc primordial pour la réussite d'une simulation
-Cela ammène au problème suivant: les simulations sur une longue durée sont dur à réaliser sur un ordinateur domestique.
-Pour avoir une précision raisonnable dans l'exercice B, on considérait quelques jusqu'à plusieurs centaines de points par secondes, soit un de l'ordre de la miliseconde pour les meilleurs cas.
+Concernant la convergence, sans considérer la stabilité de notre schéma, il ressort de nos simulation qu'un petit pas de temps est important pour avoir une simulation précise.
+Dans l'expérience A par exemple, le $\Delta$t choisi est dans la plupart des cas trop grand pour la simulation demandée, ce qui amène à des écarts conséquents entre les résultats des différentes simulations.
+Le choix du $\Delta$t est donc primordial pour la réussite d'une simulation
+Cela amène au problème suivant: les simulations sur une longue durée sont difficiles à réaliser sur un ordinateur domestique.
+Pour avoir une précision raisonnable dans l'exercice B, on considérait jusqu'à plusieurs centaines de points par secondes, soit un $\Delta$t de l'ordre de la milliseconde pour les meilleurs cas.
 Cette simulation a été possible pour un temps de simulation de 10 secondes.
-L'exercice A quant-à-elle se concentre sur une simulation de 24 heures, soit 86'400 secondes.
-Pour arriver à un dt d'une dixaine de millisecondes, il faut déjà considérer considérer plusieurs millions de points.
+L'exercice A, quant à lui, se concentre sur une simulation de 24 heures, soit 86'400 secondes.
+Pour arriver à un $\Delta$t d'une dizaine de millisecondes, il faut déjà considérer plusieurs millions de points.
 Et ce nombre augmente encore considérablement si la simulation est plus précise, ou si, comme dans l'exercice C, la simulation est plus longue.
 Ainsi, il devient compliqué de réaliser des simulations sur une longue durée avec une bonne précision.
-Il devient donc requis d'adopter une meilleure stratégie pour la résolution des équations différentielles, afin d'augmenter la qualité des simulations, sans augmenter de manière abusive le temps de calcul.
+Il est donc indispensable d'adopter une meilleure stratégie pour la résolution des équations différentielles, afin d'augmenter la qualité des simulations, sans augmenter de manière démesurée le temps de calcul.
 
 \end{document}
