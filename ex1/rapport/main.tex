@@ -1,3 +1,4 @@
+
 % debut d'un fichier latex standard
 \documentclass[a4paper,12pt,twoside]{article}
 
@@ -224,6 +225,21 @@ On constate sur la figure \ref{fig:B-conv} que la convergence de la position et 
 
 \subsection{Question C - Bonus}
 
+
 \section{Conclusion}
+(REPONDRE AUX TRUCS DE JULES VERNES)
+
+Concernant la convergence, un point est marqué dans nos résultats, l'importance d'un faible dt.
+Sans considérer la stabilité de notre schéma, il ressort de nos simulation qu'un faible dt est important pour avoir une simulation précise.
+Dans l'expérience A par exemple, le dt choisi est dans la plupart des cas trop grand pour la simulation demandé, ce qui ammène à des différence entre les résultats conséquentes.
+Le choix du dt est donc primordial pour la réussite d'une simulation
+Cela ammène au problème suivant: les simulations sur une longue durée sont dur à réaliser sur un ordinateur domestique.
+Pour avoir une précision raisonnable dans l'exercice B, on considérait quelques jusqu'à plusieurs centaines de points par secondes, soit un de l'ordre de la miliseconde pour les meilleurs cas.
+Cette simulation a été possible pour un temps de simulation de 10 secondes.
+L'exercice A quant-à-elle se concentre sur une simulation de 24 heures, soit 86'400 secondes.
+Pour arriver à un dt d'une dixaine de millisecondes, il faut déjà considérer considérer plusieurs millions de points.
+Et ce nombre augmente encore considérablement si la simulation est plus précise, ou si, comme dans l'exercice C, la simulation est plus longue.
+Ainsi, il devient compliqué de réaliser des simulations sur une longue durée avec une bonne précision.
+Il devient donc requis d'adopter une meilleure stratégie pour la résolution des équations différentielles, afin d'augmenter la qualité des simulations, sans augmenter de manière abusive le temps de calcul.
 
 \end{document}
