@@ -81,9 +81,8 @@ Nous considérerons le cas où l'atmosphère terrestre n'a aucune influence sur 
 
 \section{Solutions analytiques}
 \subsubsection*{Question a}
-Il nous est demandé d'établir une équation différentielle régissant notre problème.
-Après plusieurs étapes de calcul (À PRÉCISER ?), nous sommes arrivés à l'équation suivante.
-
+Il est demandé d'établir une équation différentielle régissant notre problème.
+Après quelques calculs qui seront décrit après l'équation, le résultat final est le suivant.
 \begin{equation}
     \frac{d}{dt}
     \begin{pmatrix}
@@ -242,4 +241,77 @@ Et ce nombre augmente encore considérablement si la simulation est plus précis
 Ainsi, il devient compliqué de réaliser des simulations sur une longue durée avec une bonne précision.
 Il devient donc requis d'adopter une meilleure stratégie pour la résolution des équations différentielles, afin d'augmenter la qualité des simulations, sans augmenter de manière abusive le temps de calcul.
 
+
+% Description de la bibliographie
+\begin{thebibliography}{99}
+
+\bibitem{ref:ansermet}
+	Jean-Philippe Ansermet,
+	\textit{Traité de Physique: Mécanique},
+	Presses Polytechniques et universitaires romandes, EPFL,
+	2ème édition,
+	p. 112,
+	2015.
+
+
+\end{thebibliography}
+
+
+\newpage
+
+%  à partir de là, on se trouve dans les annexes
+\appendix
+\section*{Annexes}
+\section{Cheminement analytique de l'équation différentielle}
+Dans cette annexe, il sera décrit le cheminement pour arriver à l'équation \ref{eq:sol}.
+Dans un premier temps, il faut considérer les forces appliques sur le projectile.
+Elles sont au nombre de 3:
+\begin{itemize}
+	\item La force gravitationnelle\cite{ref:ansermet} de la terre: $\vec{F_T} = -G\frac{m_T m}{z^2}\vec{e_z}$
+	\item La force gravitationnelle de la lune: $\vec{F_L} = G\frac{m m_L }{(z_L-z)^2}\vec{e_z}$
+	\item La force de frottement visqueuse: $\vec{f} = - \rho S C_x \frac{v^2}{2}\vec{e_z}$ où $\rho (z) = \rho_0 e^{-\frac{z-z_0}{\lambda}}$
+\end{itemize}
+
+Ensuite, il faut considérer un bilan des forces.
+\begin{equation}
+	\text{Newton II: }\Sigma\vec{F}^{ext} = m\vec{a} \Leftrightarrow \vec{F_T} + \vec{F_L} + \vec{f} = m\vec{a}
+\end{equation}
+
+Projection sur l'axe dirigé par $e_z$:
+\begin{equation}
+	-G\frac{m_T m}{z^2} + G\frac{m m_L }{(z_L-z)^2} . \rho S C_x \frac{v^2}{2} = m\ddot{z}
+\end{equation}
+
+Et en divisant par $m$, ainsi qu'en exprimant sous forme vectorielle cette équation, on obtient l'équation voulue \ref{eq:sol}.
+
+\section{Cheminement vers la position d'équilibre}
+Il suffit d'équilibrer les deux forces gravitationnelles s'appliquant sur l'objet.
+\begin{equation}
+	F_T = F_L
+\end{equation}
+Et en réalisant l'application numérique, le résultat est bien la valeur \ref{val:zE}.
+
+
+\section{Cheminement vers la vitesse initiale}
+Pour arriver au résultat, il faut considérer l'énergie de l'objet.
+Le résultat découle de la conservation de l'énergie mécanique.
+Il faut donc considérer deux moments dans la simulation: Le moment initial, et le moment où l'objet a atteint le point d'équilibre.
+Dans un premier temps, considérer les potentiels suivants:
+\begin{itemize}
+	\item Potentiel gravitationnel de la terre en z: $E_{P,T} = -G\frac{m_T m}{z}$
+	\item Potentiel gravitationnel de la lune en z: $E_{P,L} = -G\frac{m m_L}{z}$
+	\item Energie cinétique à vitesse v: $E_C = \frac{1}{2}mv^2$
+\end{itemize}
+
+En considérant donc les deux moments de la simulation et la conservation de l'énergie mécanique:
+\begin{equation}
+	-G\frac{m_T m}{z_0} - G\frac{m m_L}{z_L - z_0} + \frac{1}{2}mv_0^2 = -G\frac{m_T m}{z_E} - G\frac{m m_L}{z_L - z_E}
+\end{equation}
+
+Et en isolant $v_0$, on obtient:
+\begin{equation}
+v_0 = \sqrt{-2G\frac{m_T}{z_E} - 2G\frac{m_L}{z_L - z_E} + 2G\frac{m m_L}{z_L - z_0} + 2G\frac{m_T m}{z_0}}
+\end{equation}
+
+Et avec l'application numérique: $v_0 = \SI{11.065}{\kilo\meter\per\second}$
 \end{document}
