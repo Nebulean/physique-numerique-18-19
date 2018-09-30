@@ -228,7 +228,22 @@ Ainsi, au bout de 10 secondes, le projectile atteint une altitude d'environ \SI{
 On constate sur la figure \ref{fig:B-conv} que la convergence de la position et de la vitesse finales sont linéaires.
 
 \subsection{Question C - Bonus}
+Pour des raisons de temps et techniques, cette question n'a pas pu être réalisée.
+Nous en parlons plus en détail après.
+Cependant, voici tout-de-même la manière qui aurait été mis en place si il avait été réalisé.
+\begin{enumerate}
+	\item À l'aide d'un script (shell par exemple), réaliser beaucoup de simulation en modifiant la vitesse pour chacune d'entre-elles, et enregistrer la position de chaques simulations.
+	\item À l'aide de Matlab, réaliser un graph de la position en fonction de la vitesse choisie. Ainsi, il est possible d'estimer la vitesse que devrait avoir l'objet pour atteindre la lune.
+	\item Après avoir drastiquement réduit le champ de recherche, refaire un script (shell) qui exécute avec des simulations avec des variations de vitesses plus faibles, ce qui augmente la précision de notre résultat.
+	\item Finalement, trouver la vitesse idéale avec un graphique Matlab.
+\end{enumerate}
 
+Durant la tentative de réalisation de cette question, quelques obstacles se sont dressés.
+Le principale problème renconté est le temps de simulation assez long.
+Il était difficile de simuler beaucoup de cas, avec une bonne précision. 
+En effet, pour effectuer cela, il aurait fallu considérer des millions de points sur des centaines de simulation, ce qui représente une quantité titanesque de calculs pour de simples ordinateurs domestiques.
+Ensuite, en essayant de réduire légèrement la précision, afin d'obtenir une petite estimation, beaucoup de valeurs extrêmes sont apparues.
+Cela a donc posé beaucoup de problèmes au niveau du graph, car ces points le rendaient illisible.
 
 \section{Conclusion}
 Le projectile de Jules Vernes s'apparente finalement à une fusée classique, bien que la méthode de propulsion soit différente.
@@ -262,8 +277,6 @@ Il est donc indispensable d'adopter une meilleure stratégie pour la résolution
 
 \end{thebibliography}
 
-
-\newpage
 
 %  à partir de là, on se trouve dans les annexes
 \appendix
