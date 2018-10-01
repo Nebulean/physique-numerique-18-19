@@ -117,7 +117,7 @@ Avec les valeurs fournies par le professeur, nous sommes arrivés au résultat s
 \end{equation}
 
 \subsubsection*{Question c}
-Il nous est demandé de trouver, en négligeant l'atmosphère terrestre, la vitesse initiale qu'il faudrait pour que le projectile s'arrête sur le point d'équilibre.A VERIFIER.
+Il nous est demandé de trouver, en négligeant l'atmosphère terrestre, la vitesse initiale qu'il faudrait pour que le projectile s'arrête sur le point d'équilibre.
 Pour obtenir ce résultat, nous avons utilisé la conservation de l'énergie mécanique.
 Nous avons donc considéré l'énergie mécanique du projectile lorsqu'il se trouve sur Terre, et lorsqu'il atteint le point d'équilibre.
 Sur Terre, juste après le décollage, l'énergie du projectile se découpe en trois parties :
@@ -202,8 +202,8 @@ En effet, la vitesse initiale $v0$ est très grande lors du décollage, ce qui i
 	\label{fig:B-zt}
 \end{figure}
 
-Concernant la tendance de l'accélération à tendre vers 0, elle provient du terme exponentiel de la force traînée.
-Ce terme provient du calcul de la densité de l'air A VERIFIER, et il change de manière exponentielle lorsque la position change.
+Concernant la tendance de l'accélération à tendre vers 0, elle provient du terme exponentiel de la force de traînée.
+Ce terme provient du calcul de la densité de l'air, et il change de manière exponentielle lorsque la position change.
 Les paramètres gravitationnels se retrouvent aussi dans ces graphiques, mais ils agissent sur le projectile de la même manière qu'à la question A, donc nous n'en parlerons pas plus ici.
 Sur la figure \ref{fig:B-zt}, on observe que la position du projectile augmente drastiquement au début, mais ralentit rapidement son ascension en deux secondes, pour finalement augmenter de manière plus ou moins constante sur la fin.
 Ainsi, au bout de 10 secondes, le projectile atteint une altitude d'environ \SI{40}{\kilo\meter} par rapport au sol terrestre.\\
@@ -263,21 +263,6 @@ Ainsi, il devient compliqué de réaliser des simulations sur une longue durée 
 Il est donc indispensable d'adopter une meilleure stratégie pour la résolution des équations différentielles, afin d'augmenter la qualité des simulations, sans augmenter de manière démesurée le temps de calcul.
 
 
-% Description de la bibliographie
-\begin{thebibliography}{99}
-
-\bibitem{ref:ansermet}
-	Jean-Philippe Ansermet,
-	\textit{Traité de Physique: Mécanique},
-	Presses Polytechniques et universitaires romandes, EPFL,
-	2ème édition,
-	p. 112,
-	2015.
-
-
-\end{thebibliography}
-
-
 %  à partir de là, on se trouve dans les annexes
 \appendix
 \section*{Annexes}
@@ -286,7 +271,7 @@ Dans cette annexe, il sera décrit le cheminement pour arriver à l'équation \r
 Dans un premier temps, il faut considérer les forces appliques sur le projectile.
 Elles sont au nombre de 3:
 \begin{itemize}
-	\item La force gravitationnelle\cite{ref:ansermet} de la terre: $\vec{F_T} = -G\frac{m_T m}{z^2}\vec{e_z}$
+	\item La force gravitationnelle de la terre: $\vec{F_T} = -G\frac{m_T m}{z^2}\vec{e_z}$ \cite{ref:ansermet}
 	\item La force gravitationnelle de la lune: $\vec{F_L} = G\frac{m m_L }{(z_L-z)^2}\vec{e_z}$
 	\item La force de frottement visqueuse: $\vec{f} = - \rho S C_x \frac{v^2}{2}\vec{e_z}$ où $\rho (z) = \rho_0 e^{-\frac{z-z_0}{\lambda}}$
 \end{itemize}
@@ -333,4 +318,20 @@ v_0 = \sqrt{-2G\frac{m_T}{z_E} - 2G\frac{m_L}{z_L - z_E} + 2G\frac{m m_L}{z_L - 
 \end{equation}
 
 Et avec l'application numérique: $v_0 = \SI{11.065}{\kilo\meter\per\second}$
+
+
+% Description de la bibliographie
+\begin{thebibliography}{99}
+
+\bibitem{ref:ansermet}
+	Jean-Philippe Ansermet,
+	\textit{Traité de Physique: Mécanique},
+	Presses Polytechniques et universitaires romandes, EPFL,
+	2ème édition,
+	p. 112,
+	2015.
+
+
+\end{thebibliography}
+
 \end{document}
