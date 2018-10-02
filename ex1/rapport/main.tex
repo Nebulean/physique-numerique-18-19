@@ -104,7 +104,8 @@ Après quelques calculs qui seront décrit après l'équation, le résultat fina
 
 Cette solution nous permet donc de décrire la trajectoire du projectile, dans son périple entre la Terre et la Lune.
 Cette solution comprend l'attraction de la Terre et de la Lune sur l'objet.
-De plus, elle comprend une force de frottement visqueuse, qui ralentit le projectile lors de son passage dans l'atmosphère.\\
+De plus, elle comprend une force de frottement visqueuse, qui ralentit le projectile lors de son passage dans l'atmosphère.
+Le détail du calcul se trouve dans l'annexe \ref{ann:eq-diff}.\\
 
 \subsubsection*{Question b}
 Il est demandé de trouver le point d'équilibre de l'objet, s'il était statique.
@@ -115,6 +116,8 @@ Avec les valeurs fournies par le professeur, nous sommes arrivés au résultat s
     z_E = \SI{3.460d8}{\meter}
     \label{val:zE}
 \end{equation}
+
+Le détail du calcul se trouve dans l'annexe \ref{ann:pos-eq}.\\
 
 \subsubsection*{Question c}
 Il nous est demandé de trouver, en négligeant l'atmosphère terrestre, la vitesse initiale qu'il faudrait pour que le projectile s'arrête sur le point d'équilibre.
@@ -129,6 +132,8 @@ Ainsi, en isolant la vitesse, en utilisant les données du rapport et la positio
     v_0 = \SI{1.107d4}{\meter\per\second}
     \label{val:v0}
 \end{equation}
+
+Le détail du calcul se trouve dans l'annexe \ref{ann:vit-init}.\\
 
 
 \section{Résultats des simulations et réponses aux questions}
@@ -267,6 +272,7 @@ Il est donc indispensable d'adopter une meilleure stratégie pour la résolution
 \appendix
 \section*{Annexes}
 \section{Cheminement analytique de l'équation différentielle}
+\label{ann:eq-diff}
 Dans cette annexe, il sera décrit le cheminement pour arriver à l'équation \ref{eq:sol}.
 Dans un premier temps, il faut considérer les forces appliques sur le projectile.
 Elles sont au nombre de 3:
@@ -289,6 +295,7 @@ Projection sur l'axe dirigé par $e_z$:
 Et en divisant par $m$, ainsi qu'en exprimant sous forme vectorielle cette équation, on obtient l'équation voulue \ref{eq:sol}.
 
 \section{Cheminement vers la position d'équilibre}
+\label{ann:pos-eq}
 Il suffit d'équilibrer les deux forces gravitationnelles s'appliquant sur l'objet.
 \begin{equation}
 	F_T = F_L
@@ -297,6 +304,7 @@ Et en réalisant l'application numérique, le résultat est bien la valeur \ref{
 
 
 \section{Cheminement vers la vitesse initiale}
+\label{ann:vit-init}
 Pour arriver au résultat, il faut considérer l'énergie de l'objet.
 Le résultat découle de la conservation de l'énergie mécanique.
 Il faut donc considérer deux moments dans la simulation: Le moment initial, et le moment où l'objet a atteint le point d'équilibre.
