@@ -73,7 +73,7 @@ Cette rapport se concentre donc sur une analyse unidimensionnelle de la situatio
 
 \section{Modélisation}
 Dans ce projet, nous avons modélisé la Terre et la Lune sur une droite.
-Le centre de la terre se situe à l'origine de cette droite.
+Le centre de la Terre se situe à l'origine de cette droite.
 Depuis la surface de la Terre, un projectile est envoyé à une certaine vitesse vers la lune.
 Nous considérerons le cas où l'atmosphère terrestre n'a aucune influence sur le projectile, et le cas où elle a une influence.
 
@@ -87,7 +87,7 @@ Nous considérerons le cas où l'atmosphère terrestre n'a aucune influence sur 
 \section{Solutions analytiques}
 \subsubsection*{Question a}
 Il est demandé d'établir une équation différentielle régissant notre problème.
-Après quelques calculs qui seront décrit après l'équation, le résultat final est le suivant.
+Après quelques calculs qui seront décrits après l'équation, le résultat final est le suivant.
 \begin{equation}
     \frac{d}{dt}
     \begin{pmatrix}
@@ -161,7 +161,7 @@ On constate sur la figure \ref{fig:A-vt} que la vitesse diminue fortement au dé
 
 La figure \ref{fig:A-zt} montre que l'intégration par la méthode d'Euler est susceptible à de fortes imprécisions en-dessous d'un certain nombre de pas ;
 en effet, dans la simulation avec nsteps=1000, la distance au point de départ diminue après 15 heures de vol, alors qu'elle continue d'augmenter dans les simulations avec un pas de temps plus petit.
-On constate par ailleurs que le projectile parcourt une distance de \SI{200000}{\kilo\meter} en 24 heures.\\
+On constate par ailleurs que le projectile parcourt une distance de \SI{200000}{\kilo\meter} en 24 heures, soit plus de la moitié du trajet total.\\
 
 \begin{figure}[h]
 	\centering
@@ -194,7 +194,7 @@ Voici le résultat de ces simulations, durant les 10 premières secondes du déc
 \end{figure}
 
 Le projectile est très fortement ralenti par l'atmosphère, et cela se reflète sur la figure \ref{fig:B-vt}.
-Les différences entre les courbes des différentes simulations sont minimes.
+Les écarts entre les courbes des différentes simulations sont minimes.
 Au bout des 10 secondes de vol, le projectile a une vitesse de \SI{2500}{\meter\per\second}.
 Cela s'explique par la vitesse au carré de l'équation \ref{eq:sol}, dans le terme aérodynamique.
 En effet, la vitesse initiale $v_0$ est très grande lors du décollage, ce qui implique que la force de traînée est très grande également.\\
@@ -234,20 +234,20 @@ On constate sur la figure \ref{fig:B-conv} que la convergence de la position et 
 
 \subsection{Question C - Bonus}
 Pour des raisons de temps et techniques, cette question n'a pas pu être réalisée.
-Du travaille de réflexion a tout-de-même été effectué, ce qui amène donc un bref descriptif de la méthode qui aurait été abouti, si le temps l'avait permis.
+Du travail de réflexion a tout de même été effectué, ce qui amène donc un bref descriptif de la méthode qui aurait été mise en place, si le temps l'avait permis.
 \begin{enumerate}
-	\item À l'aide d'un script (shell par exemple), réaliser beaucoup de simulation en modifiant la vitesse pour chacune d'entre-elles, et enregistrer la position de chaques simulations.
-	\item À l'aide de Matlab, réaliser un graph de la position en fonction de la vitesse choisie. Ainsi, il est possible d'estimer la vitesse que devrait avoir l'objet pour atteindre la lune.
-	\item Après avoir drastiquement réduit le champ de recherche, refaire un script (shell) qui exécute avec des simulations avec des variations de vitesses plus faibles, ce qui augmente la précision de notre résultat.
+	\item À l'aide d'un script (shell par exemple), réaliser beaucoup de simulations en modifiant la vitesse pour chacune d'entre elles, et enregistrer la position de chaque simulations.
+	\item À l'aide de Matlab, réaliser un graph de la position en fonction de la vitesse choisie. Ainsi, il est possible d'estimer la vitesse que devrait avoir l'objet pour atteindre la Lune.
+	\item Après avoir drastiquement réduit le champ de recherche des vitesses considérées, refaire un script (shell) qui exécute avec des simulations avec des variations de vitesses plus faibles, ce qui augmente la précision de notre résultat.
 	\item Finalement, trouver la vitesse idéale avec un graphique Matlab.
 \end{enumerate}
 
-Durant la tentative de réalisation de cette question, quelques obstacles se sont dressés.
-Le principale problème renconté est le temps de simulation assez long.
-Il était difficile de simuler beaucoup de cas, avec une bonne précision. 
+Durant la tentative de réalisation de cette question, quelques obstacles ont été rencontrés.
+Le principale problème est le temps de simulation assez long : 
+il était difficile de simuler beaucoup de cas avec une bonne précision. 
 En effet, pour effectuer cela, il aurait fallu considérer des millions de points sur des centaines de simulation, ce qui représente une quantité titanesque de calculs pour de simples ordinateurs domestiques.
 Ensuite, en essayant de réduire légèrement la précision, afin d'obtenir une petite estimation, beaucoup de valeurs extrêmes sont apparues.
-Cela a donc posé beaucoup de problèmes au niveau du graph, car ces points le rendaient illisible.\\
+Cela a donc posé beaucoup de problèmes au niveau du graphe, car ces points le rendaient illisible.\\
 
 Concernant le travail effectué, le script du premier point a été réalisé.
 Cependant, c'est le traitement de ces données qui a posé problème, car des valeurs extrêmes dérangeaient le bon déroulement de l'analyse.
