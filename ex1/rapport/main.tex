@@ -197,7 +197,7 @@ Le projectile est très fortement ralenti par l'atmosphère, et cela se reflète
 Les différences entre les courbes des différentes simulations sont minimes.
 Au bout des 10 secondes de vol, le projectile a une vitesse de \SI{2500}{\meter\per\second}.
 Cela s'explique par la vitesse au carré de l'équation \ref{eq:sol}, dans le terme aérodynamique.
-En effet, la vitesse initiale $v0$ est très grande lors du décollage, ce qui implique que la force de traînée est très grande également.\\
+En effet, la vitesse initiale $v_0$ est très grande lors du décollage, ce qui implique que la force de traînée est très grande également.\\
 
 
 \begin{figure}[h]
@@ -234,8 +234,7 @@ On constate sur la figure \ref{fig:B-conv} que la convergence de la position et 
 
 \subsection{Question C - Bonus}
 Pour des raisons de temps et techniques, cette question n'a pas pu être réalisée.
-Nous en parlons plus en détail après.
-Cependant, voici tout-de-même la manière qui aurait été mis en place si il avait été réalisé.
+Du travaille de réflexion a tout-de-même été effectué, ce qui amène donc un bref descriptif de la méthode qui aurait été abouti, si le temps l'avait permis.
 \begin{enumerate}
 	\item À l'aide d'un script (shell par exemple), réaliser beaucoup de simulation en modifiant la vitesse pour chacune d'entre-elles, et enregistrer la position de chaques simulations.
 	\item À l'aide de Matlab, réaliser un graph de la position en fonction de la vitesse choisie. Ainsi, il est possible d'estimer la vitesse que devrait avoir l'objet pour atteindre la lune.
@@ -248,7 +247,10 @@ Le principale problème renconté est le temps de simulation assez long.
 Il était difficile de simuler beaucoup de cas, avec une bonne précision. 
 En effet, pour effectuer cela, il aurait fallu considérer des millions de points sur des centaines de simulation, ce qui représente une quantité titanesque de calculs pour de simples ordinateurs domestiques.
 Ensuite, en essayant de réduire légèrement la précision, afin d'obtenir une petite estimation, beaucoup de valeurs extrêmes sont apparues.
-Cela a donc posé beaucoup de problèmes au niveau du graph, car ces points le rendaient illisible.
+Cela a donc posé beaucoup de problèmes au niveau du graph, car ces points le rendaient illisible.\\
+
+Concernant le travail effectué, le script du premier point a été réalisé.
+Cependant, c'est le traitement de ces données qui a posé problème, car des valeurs extrêmes dérangeaient le bon déroulement de l'analyse.
 
 \section{Conclusion}
 Le projectile de Jules Vernes s'apparente finalement à une fusée classique, bien que la méthode de propulsion soit différente.
@@ -271,6 +273,7 @@ Il est donc indispensable d'adopter une meilleure stratégie pour la résolution
 %  à partir de là, on se trouve dans les annexes
 \appendix
 \section*{Annexes}
+\addcontentsline{toc}{section}{Annexes}% Ajoute "Annexe" à la table des matières. toc pour table of content, section pour le type, et Annexes pour le titre.
 \section{Cheminement analytique de l'équation différentielle}
 \label{ann:eq-diff}
 Dans cette annexe, il sera décrit le cheminement pour arriver à l'équation \ref{eq:sol}.
