@@ -274,11 +274,11 @@ Il est donc indispensable d'adopter une meilleure stratégie pour la résolution
 \section{Cheminement analytique de l'équation différentielle}
 \label{ann:eq-diff}
 Dans cette annexe, il sera décrit le cheminement pour arriver à l'équation \ref{eq:sol}.
-Dans un premier temps, il faut considérer les forces appliques sur le projectile.
+Dans un premier temps, il faut considérer les forces appliquées sur le projectile.
 Elles sont au nombre de 3:
 \begin{itemize}
-	\item La force gravitationnelle de la terre: $\vec{F_T} = -G\frac{m_T m}{z^2}\vec{e_z}$ \cite{ref:ansermet}
-	\item La force gravitationnelle de la lune: $\vec{F_L} = G\frac{m m_L }{(z_L-z)^2}\vec{e_z}$
+	\item La force gravitationnelle de la Terre: $\vec{F_T} = -G\frac{m_T m}{z^2}\vec{e_z}$ \cite{ref:ansermet}
+	\item La force gravitationnelle de la Lune: $\vec{F_L} = G\frac{m m_L }{(z_L-z)^2}\vec{e_z}$
 	\item La force de frottement visqueuse: $\vec{f} = - \rho S C_x \frac{v^2}{2}\vec{e_z}$ où $\rho (z) = \rho_0 e^{-\frac{z-z_0}{\lambda}}$
 \end{itemize}
 
@@ -287,16 +287,16 @@ Ensuite, il faut considérer un bilan des forces.
 	\text{Newton II: }\Sigma\vec{F}^{ext} = m\vec{a} \Leftrightarrow \vec{F_T} + \vec{F_L} + \vec{f} = m\vec{a}
 \end{equation}
 
-Projection sur l'axe dirigé par $e_z$:
+Projection sur l'axe dirigé par $\vec{e_z}$:
 \begin{equation}
-	-G\frac{m_T m}{z^2} + G\frac{m m_L }{(z_L-z)^2} . \rho S C_x \frac{v^2}{2} = m\ddot{z}
+	-G\frac{m_T m}{z^2} + G\frac{m m_L }{(z_L-z)^2} - \rho S C_x \frac{v^2}{2} = m\ddot{z}
 \end{equation}
 
 Et en divisant par $m$, ainsi qu'en exprimant sous forme vectorielle cette équation, on obtient l'équation voulue \ref{eq:sol}.
 
 \section{Cheminement vers la position d'équilibre}
 \label{ann:pos-eq}
-Il suffit d'équilibrer les deux forces gravitationnelles s'appliquant sur l'objet.
+Il suffit d'équilibrer les normes des deux forces gravitationnelles s'appliquant sur l'objet.
 \begin{equation}
 	F_T = F_L
 \end{equation}
@@ -306,7 +306,7 @@ Et en réalisant l'application numérique, le résultat est bien la valeur \ref{
 \section{Cheminement vers la vitesse initiale}
 \label{ann:vit-init}
 Pour arriver au résultat, il faut considérer l'énergie de l'objet.
-Le résultat découle de la conservation de l'énergie mécanique.
+le résultat découle de la conservation de l'énergie mécanique.
 Il faut donc considérer deux moments dans la simulation: Le moment initial, et le moment où l'objet a atteint le point d'équilibre.
 Dans un premier temps, considérer les potentiels suivants:
 \begin{itemize}
