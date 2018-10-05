@@ -46,6 +46,17 @@ private:
     return B0 * (1. + Kappa*x);
   }
 
+  //accel
+  double ax(double vx)
+  {
+    return q*B0/m *vx;
+  }
+
+  double ay(double vy)
+  {
+    return -ax(vy);
+  }
+
 protected:
   double dt; // Pas de temps
   double x, y, vx, vy;  // Position et vitesse de la particle
@@ -111,6 +122,11 @@ public:
   void step()
   {
     // TODO: Mettre a jour x, y, vx, vy avec le schema d'Euler
+    double oldx(x), oldy(y);
+    x += dt*v;
+    y += dt*v;
+    vx += dt*ax(oldx);
+    vy += dt*ay(oldy);
   }
 };
 
