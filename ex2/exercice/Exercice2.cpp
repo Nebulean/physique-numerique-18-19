@@ -47,14 +47,14 @@ private:
   }
 
   //accel
-  double ax(double vx)
+  double ax(double vy)
   {
-    return q*B0/m *vx;
+    return q*B0/m *vy;
   }
 
-  double ay(double vy)
+  double ay(double vx)
   {
-    return -ax(vy);
+    return -ax(vx);
   }
 
 protected:
@@ -121,12 +121,11 @@ public:
 
   void step()
   {
-    // TODO: Mettre a jour x, y, vx, vy avec le schema d'Euler
-    double oldx(x), oldy(y);
-    x += dt*v;
-    y += dt*v;
-    vx += dt*ax(oldx);
-    vy += dt*ay(oldy);
+    double oldvx(vx);
+    x += dt*vx;
+    y += dt*vy;
+    vx += dt*ax(vy);
+    vy += dt*ay(oldvx);
   }
 };
 
@@ -137,7 +136,10 @@ public:
 
   void step()
   {
-    // TODO: Mettre a jour x, y, vx, vy avec le schema d'Euler-Cromer
+    x += dt*vx;
+    y += dt*vy;
+    vx += dt*ax(vy);
+    vy += dt*ay(vx);
   }
 };
 
