@@ -136,10 +136,11 @@ public:
 
   void step()
   {
+    double oldvx(vx);
+    vx += dt*ax(vy);
+    vy += dt*ay(oldvx);
     x += dt*vx;
     y += dt*vy;
-    vx += dt*ax(vy);
-    vy += dt*ay(vx);
   }
 };
 
