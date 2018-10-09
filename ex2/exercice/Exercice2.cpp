@@ -4,6 +4,8 @@
 #include <iomanip>
 #include "ConfigFile.tpp" // Fichier .tpp car inclut un template
 
+#include <vector> // ajouté par les étudiants
+
 using namespace std;
 
 class Engine
@@ -46,6 +48,7 @@ private:
     return B0 * (1. + Kappa*x);
   }
 
+protected:
   //accel
   double ax(double vy)
   {
@@ -57,7 +60,6 @@ private:
     return -ax(vx);
   }
 
-protected:
   double dt; // Pas de temps
   double x, y, vx, vy;  // Position et vitesse de la particle
 
@@ -152,6 +154,37 @@ public:
   void step()
   {
     // TODO: Mettre a jour x, y, vx, vy avec le schema de Runge-Kutta d'ordre 2
+    vector<double> k1; // première constante de RK2 - vide initialement
+    vector<double> k2; // deuxième constante de RK2 - vide initialement
+
+    // On commence par s'occuper de faire évoluer la vitesse
+    vector<double> oldV; // v au temps i
+
+    // on garde en mémoire l'ancienne vitesse (pour la position)
+    oldV.push_back(vx);
+    oldV.push_back(vy);
+
+    k1.push_back(dt*ax(vx)); // on push la valeur en x
+    k1.push_back(dt*ay(vy)); // on push la valeur en y
+
+    // vérifier cette partie, je suis pas entièrement sur que c'est juste pour le temps t+1/2.
+    k2.push_back(dt*ax(vx + (1./2. * k1[0])));
+    k2.push_back(dt*ay(vy + (1./2. * k1[1])));
+
+    // on applique les changements à la vitesse.
+    vx += k2[0];
+    vy += k2[1];
+
+
+    // On fait évoluer la position (en réutilisant les variables d'avant)
+    for (size_t i = 0; i < oldV.size(); i++) {
+      k1[i] = dt*oldV[i];
+      k2[i] = dt*(oldV[i] + 1./2. * k1[i]);
+    }
+
+    // On modifie la vitesse.
+    x += k2[0];
+    y += k2[1];
   }
 };
 
