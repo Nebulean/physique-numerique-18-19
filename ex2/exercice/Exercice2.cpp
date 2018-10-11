@@ -138,9 +138,8 @@ public:
 
   void step()
   {
-    double oldvx(vx);
     vx += dt*ax(vy);
-    vy += dt*ay(oldvx);
+    vy += dt*ay(vx);
     x += dt*vx;
     y += dt*vy;
   }
@@ -164,12 +163,12 @@ public:
     oldV.push_back(vx);
     oldV.push_back(vy);
 
-    k1.push_back(dt*ax(vx)); // on push la valeur en x
-    k1.push_back(dt*ay(vy)); // on push la valeur en y
+    k1.push_back(dt*ax(vy)); // on push la valeur en x
+    k1.push_back(dt*ay(vx)); // on push la valeur en y
 
     // vérifier cette partie, je suis pas entièrement sur que c'est juste pour le temps t+1/2.
-    k2.push_back(dt*ax(vx + (1./2. * k1[0])));
-    k2.push_back(dt*ay(vy + (1./2. * k1[1])));
+    k2.push_back(dt*ax(vy + (1./2. * k1[0])));
+    k2.push_back(dt*ay(vx + (1./2. * k1[1])));
 
     // on applique les changements à la vitesse.
     vx += k2[0];
