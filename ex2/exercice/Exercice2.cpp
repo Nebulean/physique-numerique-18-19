@@ -50,14 +50,14 @@ private:
 
 protected:
   //accel
-  double ax(double vy)
+  double ax(double const& v) const
   {
-    return q * B0/m * vy;
+    return q * B0/m * v;
   }
 
-  double ay(double vx)
+  double ay(double const& v) const
   {
-    return -ax(vx);
+    return -ax(v);
   }
 
   double dt; // Pas de temps
