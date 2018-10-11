@@ -28,7 +28,7 @@ private:
     // Ecriture tous les [sampling] pas de temps, sauf si force est vrai
     if((!force && last>=sampling) || (force && last!=1))
     {
-      double energy = 1.0/2.0 * m * (abs(vx*vx) + abs(vy*vy)); // TODO: Completer l'expression de l'energie
+      double energy = 0.5 * m * (vx*vx + vy*vy); // TODO: Completer l'expression de l'energie
       double mu = 0.; // TODO: Completer l'expression du moment magnetique
       *outputFile << t << " " << x << " " << y << " " << vx << " " << vy << " " << energy << " " << mu << endl;
       last = 1;
@@ -52,7 +52,7 @@ protected:
   //accel
   double ax(double vy)
   {
-    return q*B0/m *vy;
+    return q * B0/m * vy;
   }
 
   double ay(double vx)
@@ -152,7 +152,6 @@ public:
 
   void step()
   {
-    // TODO: Mettre a jour x, y, vx, vy avec le schema de Runge-Kutta d'ordre 2
     vector<double> k1; // première constante de RK2 - vide initialement
     vector<double> k2; // deuxième constante de RK2 - vide initialement
 

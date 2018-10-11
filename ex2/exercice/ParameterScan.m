@@ -50,6 +50,7 @@ x0     = -vy0*m/(q*B0);
 y0     = 0;
 
 v0 = vy0;
+omega=q*B0/m;
 
 error = zeros(1,nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
@@ -57,8 +58,8 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     t = data(:,1);
     x = data(:,2);
     y = data(:,3);
-    x_th = v0*sin(q*B0*t/m); % TODO: Entrer la vraie solution analytique en fonction du temps
-    y_th = -v0*cos(q*B0*t/m); % TODO: Entrer la vraie solution analytique en fonction du temps
+    x_th = v0*sin(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
+    y_th = -v0*cos(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
     error(i) = max(sqrt((x-x_th).^2+(y-y_th).^2));
 end
 
