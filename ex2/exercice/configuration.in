@@ -1,5 +1,5 @@
 % Parametres physiques :
-tfin   = 10*3.141592*m/(q*B0)
+tfin   = 1.09321e-7
 q      = 1.6022e-19
 m      = 1.6726e-27
 B0     = 3
