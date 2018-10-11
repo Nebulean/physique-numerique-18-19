@@ -1,6 +1,20 @@
 % Nom du fichier d'output a analyser
-filename = 'Euler.out';
+%f = ['Euler.out', 'EulerCromer.out', 'RungeKutta2.out'];
+f = {};
+f{1} = 'Euler.out';
+f{2} = 'EulerCromer.out';
+f{3} = 'RungeKutta2.out';
 
+fig = {};
+
+output = {};
+output{1} = 'graphs/graphEuler';
+output{2} = 'graphs/graphEulerCromer';
+output{3} = 'graphs/graphRungeKutta2';
+
+for i=1:3
+filename = f{i};
+    
 % Chargement des donnees
 output = load(filename);
 
@@ -17,7 +31,7 @@ clear output
 
 % Figures
 
-figure
+fig{i} = figure
 subplot(2,3,1)
 plot(x,y)
 axis equal
@@ -57,4 +71,12 @@ plot(t,mu)
 grid on
 xlabel('t [s]')
 ylabel('\mu [J/T]')
+
+%saveas(fig{i}, output{i}, 'epsc');
+
+end
+
+saveas(fig{1}, 'graphs/gEuler', 'epsc');
+saveas(fig{2}, 'graphs/gEulerCromer', 'epsc');
+saveas(fig{3}, 'graphs/gRungeKutta2', 'epsc');
 
