@@ -2,13 +2,13 @@
 tfin   = 1.09321e-7
 q      = 1.6022e-19
 m      = 1.6726e-27
-B0     = 3
+B0     = 3.0
 E      = 0
 Kappa  = 0
 x0     = -vy0*m/(q*B0)
 y0     = 0
 vx0    = 0
-vy0    = 4e5
+vy0    = 4.0e5
 
 % Parametres numeriques :
 schema   = Euler

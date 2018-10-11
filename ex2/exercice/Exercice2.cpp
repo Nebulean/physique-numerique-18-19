@@ -28,7 +28,7 @@ private:
     // Ecriture tous les [sampling] pas de temps, sauf si force est vrai
     if((!force && last>=sampling) || (force && last!=1))
     {
-      double energy = 0.; // TODO: Completer l'expression de l'energie
+      double energy = 1.0/2.0 * m * (abs(vx*vx) + abs(vy*vy)); // TODO: Completer l'expression de l'energie
       double mu = 0.; // TODO: Completer l'expression du moment magnetique
       *outputFile << t << " " << x << " " << y << " " << vx << " " << vy << " " << energy << " " << mu << endl;
       last = 1;
