@@ -37,16 +37,19 @@ end
 
 %% Analyse %%
 %%%%%%%%%%%%%
+% Copie direct des valeurs de configuration.in
 tfin   = 1.09321e-7;
 q      = 1.6022e-19;
 m      = 1.6726e-27;
 B0     = 3;
 E      = 0;
 Kappa  = 0;
-x0     = -vy0*m/(q*B0);
-y0     = 0;
 vx0    = 0;
 vy0    = 4e5;
+x0     = -vy0*m/(q*B0);
+y0     = 0;
+
+v0 = vy0;
 
 error = zeros(1,nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
@@ -54,7 +57,7 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     t = data(:,1);
     x = data(:,2);
     y = data(:,3);
-    x_th = sin(q*B0*t/m); % TODO: Entrer la vraie solution analytique en fonction du temps
+    x_th = v0*sin(q*B0*t/m); % TODO: Entrer la vraie solution analytique en fonction du temps
     y_th = -v0*cos(q*B0*t/m); % TODO: Entrer la vraie solution analytique en fonction du temps
     error(i) = max(sqrt((x-x_th).^2+(y-y_th).^2));
 end
