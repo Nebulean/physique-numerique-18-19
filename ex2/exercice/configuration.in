@@ -1,11 +1,11 @@
 % Parametres physiques :
-tfin   = 0
+tfin   = 10*3.141592*m/(q*B0)
 q      = 1.6022e-19
 m      = 1.6726e-27
 B0     = 3
 E      = 0
 Kappa  = 0
-x0     = 0
+x0     = -vy0*m/(q*B0)
 y0     = 0
 vx0    = 0
 vy0    = 4e5
