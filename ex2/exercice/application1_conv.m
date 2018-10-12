@@ -41,7 +41,7 @@ tfin   = 1.09321e-7;
 q      = 1.6022e-19;
 m      = 1.6726e-27;
 B0     = 3;
-E      = 0;
+E      = 6e4;
 Kappa  = 0;
 vx0    = 0;
 vy0    = 4e5;
@@ -61,7 +61,7 @@ for n=1:3
     for i = 1:nsimul
         output{i} = [paramstr, '=', num2str(param(i)), '.out'];
         % Execution du programme en lui envoyant la valeur a scanner en argument
-        cmd = sprintf('%s%s %s %s=%.15g output=%s schema=%s', repertoire, executable, input, paramstr, param(i), output{i}, schema{n});
+        cmd = sprintf('%s%s %s %s=%.15g output=%s schema=%s E=%s', repertoire, executable, input, paramstr, param(i), output{i}, schema{n}, num2str(E));
         disp(cmd)
         system(cmd);
     end
@@ -108,7 +108,7 @@ for n=2:3
     for i = 1:nsimul
         output{i} = [paramstr, '=', num2str(param(i)), '.out'];
         % Execution du programme en lui envoyant la valeur a scanner en argument
-        cmd = sprintf('%s%s %s %s=%.15g output=%s schema=%s', repertoire, executable, input, paramstr, param(i), output{i}, schema{n});
+        cmd = sprintf('%s%s %s %s=%.15g output=%s schema=%s E=%s', repertoire, executable, input, paramstr, param(i), output{i}, schema{n}, num2str(E));
         disp(cmd)
         system(cmd);
     end

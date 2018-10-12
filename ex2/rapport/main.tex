@@ -98,6 +98,21 @@ This section focuses on a convergence study of all three methods used in this ex
 \end{subfigure}
 \end{figure}
 
+In the figure \ref{fig:app1_conv_ALL}, the main information is fact that Euler's method is not appropriate for this simulation.
+The error explodes really quickly, and just keep increasing.
+The problem with this figure, is that the others methods can not be analysed.
+The figure \ref{fig:app1_conv_noEuler} fixes the problem by focusing on the others methods.
+%TODO: Vérifier que l'analyse est encore à jour.
+This second figures shows the stability of both methods.
+Euler-Cromer clearly is better than Euler's one.
+But the error seems to keep increasing, which is bad for long simulation.
+Aside from that, the method can be used for small simulation of the same kind.
+On the other hand, Runge-Kutta of order 2 is a good option.
+The main difference between this method and the two others is the stability.
+In this case, the error decreases, which implies stability.
+For long simulation, Runge-Kutta of second order is a good option for this kind of simulation.
+
+
 
 
 \subsubsection{Analysis of simulations}
