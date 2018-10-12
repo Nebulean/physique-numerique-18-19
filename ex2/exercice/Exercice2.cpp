@@ -50,14 +50,15 @@ private:
 
 protected:
   //accel
-  double ax(double const& v) const
+  double ax(double const& vy) const
   {
-    return q * B0/m * v;
+    return q * B0/m * vy;
   }
 
-  double ay(double const& v) const
+  double ay(double const& vx) const
   {
-    return -ax(v);
+    return q*E/m -q*B0/m * vx;
+    // return -ax(vx);
   }
 
   double dt; // Pas de temps
@@ -155,34 +156,21 @@ public:
     vector<double> k1; // première constante de RK2 - vide initialement
     vector<double> k2; // deuxième constante de RK2 - vide initialement
 
-    // On commence par s'occuper de faire évoluer la vitesse
-    vector<double> oldV; // v au temps i
+    //////////////
+    k1.push_back(dt*ax(vy)); // k1x
+    k1.push_back(dt*ay(vx)); // k1y
+    k1.push_back(dt*ax(vy)); // k1vx
+    k1.push_back(dt*ay(vx)); // k1vy
 
-    // on garde en mémoire l'ancienne vitesse (pour la position)
-    oldV.push_back(vx);
-    oldV.push_back(vy);
+    k2.push_back(dt*(vx + 0.5*k1[0]));
+    k2.push_back(dt*(vy + 0.5*k1[1]));
+    k2.push_back(dt*ax(vy + 0.5*k1[3]));
+    k2.push_back(dt*ay(vx + 0.5*k1[2]));
 
-    k1.push_back(dt*ax(vy)); // on push la valeur en x
-    k1.push_back(dt*ay(vx)); // on push la valeur en y
-
-    // vérifier cette partie, je suis pas entièrement sur que c'est juste pour le temps t+1/2.
-    k2.push_back(dt*ax(vy + (1./2. * k1[0])));
-    k2.push_back(dt*ay(vx + (1./2. * k1[1])));
-
-    // on applique les changements à la vitesse.
-    vx += k2[0];
-    vy += k2[1];
-
-
-    // On fait évoluer la position (en réutilisant les variables d'avant)
-    for (size_t i = 0; i < oldV.size(); i++) {
-      k1[i] = dt*oldV[i];
-      k2[i] = dt*(oldV[i] + 1./2. * k1[i]);
-    }
-
-    // On modifie la vitesse.
     x += k2[0];
     y += k2[1];
+    vx += k2[2];
+    vy += k2[3];
   }
 };
 
