@@ -11,7 +11,7 @@ vx0    = 0
 vy0    = 4.0e5
 
 % Parametres numeriques :
-schema   = Euler
+schema   = RungeKutta2
 nsteps   = 500
-output   = Euler.out
+output   = RungeKutta2.out
 sampling = 1
