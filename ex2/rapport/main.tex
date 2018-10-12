@@ -8,7 +8,7 @@
 % quelques symboles mathematiques en plus
 \usepackage{amsmath}
 % le tout en langue francaise
-\usepackage[french]{babel}
+%\usepackage[english]{babel}
 % on peut ecrire directement les caracteres avec l'accent
 % a utiliser sur Linux/Windows
 \usepackage[utf8]{inputenc}
@@ -17,7 +17,7 @@
 %\usepackage[applemac]{inputenc}
 % pour l'inclusion de links dans le document 
 \usepackage[colorlinks,bookmarks=false,linkcolor=blue,urlcolor=blue]{hyperref}
-
+\usepackage{subcaption}
 \paperheight=297mm
 \paperwidth=210mm
 
@@ -49,9 +49,9 @@
 
 \begin{document}
 % Le titre, l'auteur et la date
-\title{Particule dans un champ électromagnétique\\{\small Physique Numérique I}\\{\small Rapport 2}}
+\title{Particle in an electromagnetic field\\{\small Physique Numérique I}\\{\small 2nd report}}
 \date{\today}
-\author{Delphine Martres et Damien Korber\\{\small \mail{delphine.martres@epfl.ch} et \mail{damien.korber@epfl.ch}}}
+\author{Delphine Martres and Damien Korber\\{\small \mail{delphine.martres@epfl.ch} and \mail{damien.korber@epfl.ch}}}
 \maketitle
 \tableofcontents % Table des matieres
 
@@ -67,27 +67,45 @@
 
 \section{Introduction}
 
-\section{Calculs analytiques}
-\subsection{Etablir le système d'équations différentiel}
+\section{Analytic computations}
+\subsection{Establishment of the linear equation system}
 
-\subsection{Solutions analytiques dans un champ électrique nul}
+\subsection{Analytics solutions with an null electric field}
 
-\subsection{Centre du cercle pour un rayon particulier}
+\subsection{Center of cercle for a particular radius}
 
-\section{Etude des trois schémas d'intégration}
+\section{Study of three numerical methods}
 % Faire le 2.2 ii) en plusieurs sous parties
 \section{Applications}
-\subsection{Dérive $E\times B$}
-Dans cette application, le proton est désormais soumis à un champ électrique $E=\SI{6d4}{\volt\per\meter}$, ainsi qu'un champ magnétique constant $B_0 = \SI{3}{\tesla}$.
-Il part avec des vitesses initiales $v_{0x}=\SI{0}{\meter\per\second}$ et $v_{0y}=\SI{4d5}{\meter\per\second}$, et la simulation durera le temps que le proton met pour réaliser cinq révolutions.
-\subsubsection{Etude de convergence}
+\subsection{Dérive $E\times B$} %TODO: Traduire "Dérive"
+In this experiement, the proton is now subjected to an electric field $E=\SI{6d4}{\volt\per\meter}$, as well as a constant magnetic field $B_0 = \SI{3}{\tesla}$.
+The proton starts with an initial velocity of $v_{0x}=\SI{0}{\meter\per\second}$ and $v_{0y}=\SI{4d5}{\meter\per\second}$, and the simulation will last the time it take for the proton to end five revolutions.
+\subsubsection{Convergence study}
+This section focuses on a convergence study of all three methods used in this experiment, and will compare them.
+\begin{figure}[h]
+\centering
+\begin{subfigure}[c]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{graphs/app1_conv_ALL.eps}
+	\caption{Convergence graph where three methods are drawn.}
+	\label{fig:app1_conv_ALL}
+\end{subfigure}
+~
+\begin{subfigure}[c]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{graphs/app1_conv_noEuler.eps}
+	\vfill
+	\caption{Convergence graph where Euler's method isn't drawn for readability reasons.}
+	\label{fig:app1_conv_noEuler}
+\end{subfigure}
+\end{figure}
 
-\subsubsection{Analyse des simulations}
+
+
+\subsubsection{Analysis of simulations}
 % Faire le 2.3 ii)
 
-\subsubsection{Proton dans un référentiel accéléré}
+\subsubsection{Proton in an accelerated referential}
 
-\subsubsection{Dérive $\nabla B$}
+\subsubsection{Dérive $\nabla B$} %TODO: Traduire "Dérive"
 
-\section{Pour aller plus loin...}
+\section{Further analysis...}
 \end{document}
