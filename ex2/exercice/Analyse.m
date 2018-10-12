@@ -4,6 +4,8 @@ f = {};
 f{1} = 'Euler.out';
 f{2} = 'EulerCromer.out';
 f{3} = 'RungeKutta2.out';
+f{4} = 'App2pos.out';
+f{5} = 'App2neg.out';
 
 fig = {};
 
@@ -11,8 +13,10 @@ output = {};
 output{1} = 'graphs/graphEuler';
 output{2} = 'graphs/graphEulerCromer';
 output{3} = 'graphs/graphRungeKutta2';
+output{4} = 'graphs/graphApp2pos';
+output{5} = 'graphs/graphApp2neg';
 
-for i=1:3
+for i=1:5
 filename = f{i};
     
 % Chargement des donnees
@@ -79,4 +83,5 @@ end
 saveas(fig{1}, 'graphs/gEuler', 'epsc');
 saveas(fig{2}, 'graphs/gEulerCromer', 'epsc');
 saveas(fig{3}, 'graphs/gRungeKutta2', 'epsc');
-
+saveas(fig{4}, 'graphs/gApp2pos', 'epsc');
+saveas(fig{5}, 'graphs/gApp2neg', 'epsc');

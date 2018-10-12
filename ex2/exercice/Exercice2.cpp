@@ -50,14 +50,14 @@ private:
 
 protected:
   //accel
-  double ax(double const& vy) const
+  double ax(double const& x, double const& vy) const
   {
-    return q * B0/m * vy;
+    return q * B(x)/m * vy;
   }
 
-  double ay(double const& vx) const
+  double ay(double const& x, double const& vx) const
   {
-    return q*E/m -q*B0/m * vx;
+    return q*E/m -q*B(x)/m * vx;
     // return -ax(vx);
   }
 
@@ -124,11 +124,12 @@ public:
 
   void step()
   {
+    double oldx(x);
     double oldvx(vx);
     x += dt*vx;
     y += dt*vy;
-    vx += dt*ax(vy);
-    vy += dt*ay(oldvx);
+    vx += dt*ax(oldx, vy);
+    vy += dt*ay(oldx, oldvx);
   }
 };
 
@@ -139,8 +140,8 @@ public:
 
   void step()
   {
-    vx += dt*ax(vy);
-    vy += dt*ay(vx);
+    vx += dt*ax(x, vy);
+    vy += dt*ay(x, vx);
     x += dt*vx;
     y += dt*vy;
   }
@@ -157,15 +158,15 @@ public:
     vector<double> k2; // deuxième constante de RK2 - vide initialement
 
     //////////////
-    k1.push_back(dt*ax(vy)); // k1x
-    k1.push_back(dt*ay(vx)); // k1y
-    k1.push_back(dt*ax(vy)); // k1vx
-    k1.push_back(dt*ay(vx)); // k1vy
+    k1.push_back(dt*vx); // k1x
+    k1.push_back(dt*vy); // k1y
+    k1.push_back(dt*ax(x, vy)); // k1vx
+    k1.push_back(dt*ay(x, vx)); // k1vy
 
     k2.push_back(dt*(vx + 0.5*k1[0]));
     k2.push_back(dt*(vy + 0.5*k1[1]));
-    k2.push_back(dt*ax(vy + 0.5*k1[3]));
-    k2.push_back(dt*ay(vx + 0.5*k1[2]));
+    k2.push_back(dt*ax(x + 0.5*k1[0], vy + 0.5*k1[3]));
+    k2.push_back(dt*ay(x + 0.5*k1[0], vx + 0.5*k1[2]));
 
     x += k2[0];
     y += k2[1];
