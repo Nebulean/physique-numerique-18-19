@@ -97,18 +97,20 @@ The proton starts with an initial velocity of $v_{0x}=\SI{0}{\meter\per\second}$
 This section focuses on a convergence study of all three methods used in this experiment, and will compare them.
 \begin{figure}[h]
 \centering
-\begin{subfigure}[c]{0.45\textwidth}
+\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/app1_conv_ALL.eps}
 	\caption{Convergence graph where three methods are drawn.}
 	\label{fig:app1-conv-ALL}
 \end{subfigure}
 ~
-\begin{subfigure}[c]{0.45\textwidth}
+\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/app1_conv_noEuler.eps}
 	\vfill
 	\caption{Convergence graph where Euler's method isn't drawn for readability reasons.}
 	\label{fig:app1-conv-noEuler}
 \end{subfigure}
+\caption{Convergence graph comparing Euler, Euler Cromer and Runge Kutta of 2nd order's methods.}
+\label{fig:app1-conv}
 \end{figure}
 
 In the figure \ref{fig:app1-conv-ALL}, the main information is fact that Euler's method is not appropriate for this simulation.
@@ -126,10 +128,43 @@ In this case, the error decreases, which implies stability.
 For long simulation, Runge-Kutta of second order is a good option for this kind of simulation.
 
 
-
-
 \subsubsection{Analysis of simulations}
-% Faire le 2.3 ii)
+\begin{figure}[h]
+\begin{subfigure}[t]{0.32\textwidth}
+	\includegraphics[width=\textwidth]{graphs/app1_ii_ene.eps}
+	\caption{Graph showing the energy of the proton over time.}
+	\label{fig:app1-ii-ene}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.32\textwidth}
+	\includegraphics[width=\textwidth]{graphs/app1_ii_traj.eps}
+	\caption{Graph showing the trajectory of the proton.}
+	\label{fig:app1-ii-traj}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.32\textwidth}
+	\includegraphics[width=\textwidth]{graphs/app1_ii_vit.eps}
+	\caption{Graph showing the vertical speed in function of horizontal speed of the proto}
+	\label{fig:app1-ii-vit}
+\end{subfigure}
+\caption{Graphs describing the proton in both electric and magnetic fields. The parameter are the one asked, the integration method is Runge-Kutta of 2nd order, and the number of steps is \SI{1000}{}.}
+\label{fig:app1_ii}
+\end{figure}
+
+The figure \ref{fig:app1-ii-ene} show the energy of the proton over time.
+On first glance, this figure may look odd.
+The proton seems to gain energy over time, which is impossible in this problem.
+But taking a look at the scale of the figure is a good idea. %TODO: j'aime pas cette phrase.
+The difference of energy between during the experiment is of order $\SI{d-23}{}$. 
+That's really small compared to the energy of the proton at anytime.
+To get an idea of how small it is, the mean slope is useful.
+In this case, the mean slope is of $\SI{d-16}{}$, which implies an almost horizontal line.
+The problem comes from the computer itself.
+Each time it makes a computation, some results are rounded.
+These rounding implies that the following computations are not exact, and through time, it accumulates and create a small difference.
+Therefore, energy can be considered as conserved.
+
+%TODO: Parler des deux autres graphs. (comme demandé)
 
 \subsubsection{Proton in an accelerated referential}
 
