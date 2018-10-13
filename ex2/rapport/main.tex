@@ -13,6 +13,10 @@
 % a utiliser sur Linux/Windows
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+
+% pour faire des systèmes d'équations
+\usepackage{systeme}
+
 % a utiliser sur le Mac
 %\usepackage[applemac]{inputenc}
 % pour l'inclusion de links dans le document 
@@ -67,8 +71,17 @@
 
 \section{Introduction}
 
+
 \section{Analytic computations}
 \subsection{Establishment of the linear equation system}
+After some computations that can be found in annex \ref{ann:dev-eq-diff}, the system \ref{eq:equa-diff} results.
+
+\begin{equation}
+\systeme*{m\ddot{x} = Bq\dot{y}, m\ddot{y} = qE - Bq\dot{x}}
+\label{eq:equa-diff}
+\end{equation}
+
+The equation on $z$ axis is neglected because no informations can be obtained from it.
 
 \subsection{Analytics solutions with an null electric field}
 
@@ -87,21 +100,21 @@ This section focuses on a convergence study of all three methods used in this ex
 \begin{subfigure}[c]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/app1_conv_ALL.eps}
 	\caption{Convergence graph where three methods are drawn.}
-	\label{fig:app1_conv_ALL}
+	\label{fig:app1-conv-ALL}
 \end{subfigure}
 ~
 \begin{subfigure}[c]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/app1_conv_noEuler.eps}
 	\vfill
 	\caption{Convergence graph where Euler's method isn't drawn for readability reasons.}
-	\label{fig:app1_conv_noEuler}
+	\label{fig:app1-conv-noEuler}
 \end{subfigure}
 \end{figure}
 
-In the figure \ref{fig:app1_conv_ALL}, the main information is fact that Euler's method is not appropriate for this simulation.
+In the figure \ref{fig:app1-conv-ALL}, the main information is fact that Euler's method is not appropriate for this simulation.
 The error explodes really quickly, and just keep increasing.
 The problem with this figure, is that the others methods can not be analysed.
-The figure \ref{fig:app1_conv_noEuler} fixes the problem by focusing on the others methods.
+The figure \ref{fig:app1-conv-noEuler} fixes the problem by focusing on the others methods.
 %TODO: Vérifier que l'analyse est encore à jour.
 This second figures shows the stability of both methods.
 Euler-Cromer clearly is better than Euler's one.
@@ -123,4 +136,31 @@ For long simulation, Runge-Kutta of second order is a good option for this kind 
 \subsubsection{Dérive $\nabla B$} %TODO: Traduire "Dérive"
 
 \section{Further analysis...}
+
+\appendix
+\section*{Annexes}
+\addcontentsline{toc}{section}{Annexes}
+
+\section{Differential equation development} \label{ann:dev-eq-diff}
+The mass of the proton is so small, that the gravitational force is ignored in these experiments.
+Then the only force remaining is Lorentz's force.
+
+\begin{equation}
+	\vec{F}_L = q(\vec{E} + \vec{v}\times\vec{B})
+	\label{eq:lorentz-force}
+\end{equation}
+
+Using Newton's second law, three equations results.
+
+\begin{align*}
+	\Sigma\vec{F}^{ext} &= m\vec{a} \\
+	\vec{F}_L &= m\vec{a}\\	
+	q(\vec{E} + \vec{v}\times\vec{B}) &= m\vec{a} \\
+	q\left( \begin{pmatrix} 0\\ E\\ 0\\ \end{pmatrix} + \begin{pmatrix} \dot{x}\\ \dot{y}\\ 0\\ \end{pmatrix} \times \begin{pmatrix} 0\\ 0\\ B\\ \end{pmatrix}\right) &= m\begin{pmatrix} \ddot{x}\\ \ddot{y}\\ \ddot{z}\\ \end{pmatrix} \\
+	\frac{q}{m}\begin{pmatrix} B\dot{y}\\ E - B\dot{x}\\ 0 \end{pmatrix} &= \begin{pmatrix} \ddot{x}\\ \ddot{y}\\ \ddot{z}\\ \end{pmatrix}
+\end{align*}
+
+The last equation is not useful for what is about to come. 
+The system of differential equation resulting is equation \ref{eq:equa-diff}.
+
 \end{document}
