@@ -115,11 +115,7 @@ The last method is Runge Kutta of second order.
 It is the best of the three methods to approximates the solution.
 The trajectory is close the a perfect circle, and every revolutions are stacked on each others.
 
-\section{Applications}
-\subsection{Dérive $E\times B$} %TODO: Traduire "Dérive"
-In this experiement, the proton is now subjected to an electric field $E=\SI{6d4}{\volt\per\meter}$, as well as a constant magnetic field $B_0 = \SI{3}{\tesla}$.
-The proton starts with an initial velocity of $v_{0x}=\SI{0}{\meter\per\second}$ and $v_{0y}=\SI{4d5}{\meter\per\second}$, and the simulation will last the time it take for the proton to end five revolutions.
-\subsubsection{Convergence study}
+\subsection{Convergence study}
 This section focuses on a convergence study of all three methods used in this experiment, and will compare them.
 \begin{figure}[h]
 \centering
@@ -139,19 +135,28 @@ This section focuses on a convergence study of all three methods used in this ex
 \label{fig:app1-conv}
 \end{figure}
 
-In the figure \ref{fig:app1-conv-ALL}, the main information is fact that Euler's method is not appropriate for this simulation.
-The error explodes really quickly, and just keep increasing.
-The problem with this figure, is that the others methods can not be analysed.
-The figure \ref{fig:app1-conv-noEuler} fixes the problem by focusing on the others methods.
-%TODO: Vérifier que l'analyse est encore à jour.
-This second figures shows the stability of both methods.
-Euler-Cromer clearly is better than Euler's one.
-But the error seems to keep increasing, which is bad for long simulation.
-Aside from that, the method can be used for small simulation of the same kind.
-On the other hand, Runge-Kutta of order 2 is a good option.
-The main difference between this method and the two others is the stability.
-In this case, the error decreases, which implies stability.
-For long simulation, Runge-Kutta of second order is a good option for this kind of simulation.
+% TODO: Faire l'analyse des graphs ci-dessus.
+
+
+%TODO: Je crois que ce qui est commenté, là, est juste faux et c'est du grand n'importe quoi.
+%In the figure \ref{fig:app1-conv-ALL}, the main information is fact that Euler's method is not appropriate for this simulation.
+%The error explodes really quickly, and just keep increasing.
+%The problem with this figure, is that the others methods can not be analysed.
+%The figure \ref{fig:app1-conv-noEuler} fixes the problem by focusing on the others methods.
+%This second figures shows the stability of both methods.
+%Euler-Cromer clearly is better than Euler's one.
+%But the error seems to keep increasing, which is bad for long simulation.
+%Aside from that, the method can be used for small simulation of the same kind.
+%On the other hand, Runge-Kutta of order 2 is a good option.
+%The main difference between this method and the two others is the stability.
+%In this case, the error decreases, which implies stability.
+%For long simulation, Runge-Kutta of second order is a good option for this kind of simulation.
+
+\section{Applications}
+\subsection{Dérive $E\times B$} %TODO: Traduire "Dérive"
+In this experiement, the proton is now subjected to an electric field $E=\SI{6d4}{\volt\per\meter}$, as well as a constant magnetic field $B_0 = \SI{3}{\tesla}$.
+The proton starts with an initial velocity of $v_{0x}=\SI{0}{\meter\per\second}$ and $v_{0y}=\SI{4d5}{\meter\per\second}$, and the simulation will last the time it take for the proton to end five revolutions.
+\subsubsection{Convergence study}%TODO: Changer le titre
 
 
 \subsubsection{Analysis of simulations}
