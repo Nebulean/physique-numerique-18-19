@@ -1,32 +1,12 @@
-% Ce script Matlab automatise la production de resultats
-% lorsqu'on doit faire une serie de simulations en
-% variant un des parametres d'entree.
-%
-% Il utilise les arguments du programme (voir ConfigFile.h)
-% pour remplacer la valeur d'un parametre du fichier d'input
-% par la valeur scannee.
-%
-
-
-%% Parametres %%
-%%%%%%%%%%%%%%%%
-
+%% On commence par dessiner les trajectoires
 repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Windows)
 executable = 'Exercice2'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-nsimul = 100; % Nombre de simulations a faire
-
-nsteps = logspace(0,5,nsimul); % Nombre d'iterations entier de 10^2 a 10^4
-tfin = 1.09321e-7;
-dt = tfin ./ nsteps;
-
-paramstr = 'nsteps'; % Nom du parametre a scanner
-param = nsteps; % Valeurs du parametre a scanner
-
+output='ex2_ii_traj'
+schema = ["Euler", "EulerCromer", "RungeKutta2"];
 
 % Copie direct des valeurs de configuration.in
-tfin   = 1.09321e-7;
 q      = 1.6022e-19;
 m      = 1.6726e-27;
 B0     = 3;
@@ -37,57 +17,40 @@ vy0    = 4e5;
 x0     = -vy0*m/(q*B0);
 y0     = 0;
 
-v0 = vy0;
-omega=q*B0/m;
+for i=1:3
+% Execution du programme en lui envoyant la valeur a scanner en argument
+cmd = sprintf('./Exercice2 configuration.in output=%s-%s.out schema=%s nsteps=1000', output, schema(i), schema(i));
+disp(cmd)
+system(cmd);
+end
 
-f1 = figure;
+f1 = figure
 hold on
-
-output = cell(1, nsimul); % Tableau de cellules contenant le nom des fichiers de sortie
-for i = 1:nsimul
-    output{i} = [paramstr, '=', num2str(param(i)), '.out'];
-    % Execution du programme en lui envoyant la valeur a scanner en argument
-    cmd = sprintf('%s%s %s %s=%.15g output=%s schema=%s E=%s', repertoire, executable, input, paramstr, param(i), output{i}, 'RungeKutta2', num2str(E));
-    disp(cmd)
-    system(cmd);
+for i=1:3
+    filename = sprintf('%s-%s.out', output, schema(i));
+    d = load(filename);
+    x = d(:,2);
+    y = d(:,3);
+    p=plot(x,y);
+    set(p, 'LineWidth', 1.4);
 end
+xlabel('x [m]');
+ylabel('y [m]');
+set(gca, 'fontsize',16);
 
-%% Analyse %%
-%%%%%%%%%%%%%
+legstr = ["Euler", "Euler Cromer", "Runge Kutta 2"];
 
-
-error = zeros(1,nsimul);
-for i = 1:nsimul % Parcours des resultats de toutes les simulations
-    data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
-    t = data(:,1);
-    x = data(:,2);
-    y = data(:,3);
-    x_th = v0*sin(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
-    y_th = -v0*cos(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
-    error(i) = max(sqrt((x-x_th).^2+(y-y_th).^2));
-end
-
-
-p = plot(dt, error)
-set(p, 'LineWidth', 1.5);
-xlabel('\Delta t')
-ylabel('Maximum de l''erreur sur la position')
-grid on
-set(gca,'fontsize',16);
+l = legend(legstr);
+set(l, 'Location', 'northwest');
+set(l, 'FontSize', 14);
 
 hold off
 
+saveas(f1, 'graphs/ex2_ii_traj', 'epsc');
 
 
-
-
-
-%% Parametres %%
-%%%%%%%%%%%%%%%%
-% 
-% repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Windows)
-% executable = 'Exercice2'; % Nom de l'executable (NB: ajouter .exe sous Windows)
-% input = 'configuration.in'; % Nom du fichier d'entree de base
+% %% Parametres %%
+% %%%%%%%%%%%%%%%%
 % 
 % nsimul = 20; % Nombre de simulations a faire
 % 
@@ -112,7 +75,6 @@ hold off
 % 
 % 
 % % Copie direct des valeurs de configuration.in
-% tfin   = 1.09321e-7;
 % q      = 1.6022e-19;
 % m      = 1.6726e-27;
 % B0     = 3;
@@ -157,7 +119,7 @@ hold off
 %     end
 % 
 %     
-%     p = plot(dt, error)
+%     p = plot(x, y)
 %     set(p, 'LineWidth', 1.5);
 %     set(p, 'Color', color{n});
 %     xlabel('\Delta t')
@@ -172,10 +134,10 @@ hold off
 % set(l, 'Location', 'northwest');
 % set(l, 'FontSize', 14);
 % hold off
-% 
-% 
-% 
-% %% Vu que le premier ne donne pas beaucoup d'informations, on dessine un deuxième graph, sans Euler.
+
+
+
+%% Vu que le premier ne donne pas beaucoup d'informations, on dessine un deuxième graph, sans Euler.
 % f2 = figure;
 % hold on
 % for n=2:3

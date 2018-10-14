@@ -19,7 +19,7 @@
 
 % a utiliser sur le Mac
 %\usepackage[applemac]{inputenc}
-% pour l'inclusion de links dans le document 
+% pour l'inclusion de links dans le document
 \usepackage[colorlinks,bookmarks=false,linkcolor=blue,urlcolor=blue]{hyperref}
 \usepackage{subcaption}
 \paperheight=297mm
@@ -59,7 +59,7 @@
 \maketitle
 \tableofcontents % Table des matieres
 
-% Quelques options pour les espacements entre lignes, l'identation 
+% Quelques options pour les espacements entre lignes, l'identation
 % des nouveaux paragraphes, et l'espacement entre paragraphes
 \baselineskip=16pt
 \parindent=15pt
@@ -88,7 +88,33 @@ The equation on $z$ axis is neglected because no informations can be obtained fr
 \subsection{Center of cercle for a particular radius}
 
 \section{Study of three numerical methods}
-% Faire le 2.2 ii) en plusieurs sous parties
+In this section, the electric field $E = 0$.
+\subsection{Trajectory comparaison}
+In this experiment, the initial vertical velocity is equal to $v_0 = \SI{4d5}{\meter\per\second}$ and the constant magnetic field is $B_0 = \SI{3}{\tesla}$.
+The simulation stops after the proton has done five revolutions.\\
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{graphs/ex2_ii_traj.eps}
+	\caption{Comparaison of trajectories from the proton using differents methods, with 1 000 steps.}
+	\label{fig:ex2-ii-traj}
+\end{figure}
+The figure \ref{fig:ex2-ii-traj} shows a comparaison of the trajectories the proton followed with the use if different integration methods.
+The main point to notice is the inusability of Euler method in this experiment.
+With this method, the proton seems to follow a circular trajectory with a non-constant radius, and that is a problem.
+The proton is supposed to follow a circular trajectory with a constant radius.
+This problem comes directly from the idea of Euler's method itself.
+When it evaluates the next iteration, it uses  the tangent.%TODO: Vérifier que ce soit juste
+So after every iteration, a little error evaluated, and it will cumulates.
+So Euler method is easy to implement, but is unusable in this case.\\
+
+The second point to notice is the light difference between Euler-Cromer and Runge Kutta 2 methods.
+Euler-Cromer method approximates pretty well the trajectory.
+It is not a perfect cercle, but is way better that Euler's method.
+%TODO: Parler de la raison mathématique pourquoi Euler-Cromer > Euler.
+The last method is Runge Kutta of second order.
+It is the best of the three methods to approximates the solution.
+The trajectory is close the a perfect circle, and every revolutions are stacked on each others.
+
 \section{Applications}
 \subsection{Dérive $E\times B$} %TODO: Traduire "Dérive"
 In this experiement, the proton is now subjected to an electric field $E=\SI{6d4}{\volt\per\meter}$, as well as a constant magnetic field $B_0 = \SI{3}{\tesla}$.
@@ -155,16 +181,27 @@ The figure \ref{fig:app1-ii-ene} show the energy of the proton over time.
 On first glance, this figure may look odd.
 The proton seems to gain energy over time, which is impossible in this problem.
 But taking a look at the scale of the figure is a good idea. %TODO: j'aime pas cette phrase.
-The difference of energy between during the experiment is of order $\SI{d-23}{}$. 
+The difference of energy between during the experiment is of order $\SI{d-23}{}$.
 That's really small compared to the energy of the proton at anytime.
 To get an idea of how small it is, the mean slope is useful.
 In this case, the mean slope is of $\SI{d-16}{}$, which implies an almost horizontal line.
-The problem comes from the computer itself.
+The problem probably comes from the computer itself.
 Each time it makes a computation, some results are rounded.
 These rounding implies that the following computations are not exact, and through time, it accumulates and create a small difference.
-Therefore, energy can be considered as conserved.
+Therefore, energy can be considered as conserved.\\
 
-%TODO: Parler des deux autres graphs. (comme demandé)
+The figures \ref{fig:app1-ii-traj} and \ref{fig:app1-ii-vit} show the trajectory and the speeds of the proton for the times the proton takes to achieve five revolutions.
+The most interesting point to notice is the fact that the trajectory looks like a circle.
+The figure is misleading, but the scale shows it.
+All revolutions look stacked, which confirms that the energy is conserved in this experiment.
+If it were not, the trajectory would be a spiral.
+The same analysis is performed for the second figure.
+All revolutions are stacked, the curve looks like a circle, so energy must be conserved.\\
+
+%To ensure that the energy is conserved, a much longer simulation should be done.
+%Here, only five revolutions are considered, but what about a much longer simulation ?
+%The experiments has been retried with a much larger simulation time ($tfin=\SI{1.09321e-4}{\second}$), and a much heigher number of steps ($nsteps=\SI{10000000}{}$).
+%TODO: On est d'accord que ce qui est commenté ne sert à rien ? J'ai fait les graphs, et y'a pas grand chose à dire.
 
 \subsubsection{Proton in an accelerated referential}
 
@@ -189,13 +226,13 @@ Using Newton's second law, three equations results.
 
 \begin{align*}
 	\Sigma\vec{F}^{ext} &= m\vec{a} \\
-	\vec{F}_L &= m\vec{a}\\	
+	\vec{F}_L &= m\vec{a}\\
 	q(\vec{E} + \vec{v}\times\vec{B}) &= m\vec{a} \\
 	q\left( \begin{pmatrix} 0\\ E\\ 0\\ \end{pmatrix} + \begin{pmatrix} \dot{x}\\ \dot{y}\\ 0\\ \end{pmatrix} \times \begin{pmatrix} 0\\ 0\\ B\\ \end{pmatrix}\right) &= m\begin{pmatrix} \ddot{x}\\ \ddot{y}\\ \ddot{z}\\ \end{pmatrix} \\
 	\frac{q}{m}\begin{pmatrix} B\dot{y}\\ E - B\dot{x}\\ 0 \end{pmatrix} &= \begin{pmatrix} \ddot{x}\\ \ddot{y}\\ \ddot{z}\\ \end{pmatrix}
 \end{align*}
 
-The last equation is not useful for what is about to come. 
+The last equation is not useful for what is about to come.
 The system of differential equation resulting is equation \ref{eq:equa-diff}.
 
 \end{document}
