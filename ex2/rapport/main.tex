@@ -70,10 +70,12 @@
 %%%% ON COMMENCE A ECRIRE D'ICI
 
 \section{Introduction}
+A charged elementary particle in an electromagnetic field, such as a proton, is subjected to the Lorentz force $\mathbf{F}=q(\mathbf{E} + \mathbf{v} \times \mathbf{B})$.
+This report will focus on studying how such a particle behaves under the influence of that force, with varying electrical and magnetic fields.
 
-\section{Analytic computations}
+\section{Analytical computations}
 \subsection{Establishment of the linear equation system}
-After some computations that can be found in annex \ref{ann:dev-eq-diff}, the system \ref{eq:equa-diff} results.
+After some computations that can be found in annex \ref{ann:dev-eq-diff}, the system \ref{eq:equa-diff} results:
 
 \begin{equation}
 \systeme*{m\ddot{x} = Bq\dot{y}, m\ddot{y} = qE - Bq\dot{x}}
@@ -82,22 +84,22 @@ After some computations that can be found in annex \ref{ann:dev-eq-diff}, the sy
 
 The equation on $z$ axis is neglected because no informations can be obtained from it.
 
-\subsection{Analytics solutions with an null electric field}
+\subsection{Analytical solutions with a null electric field}
 
-\subsection{Center of cercle for a particular radius}
+\subsection{Center of circle for a particular radius}
 
 \section{Study of three numerical methods}
-In this section, the electric field $E = 0$.
-\subsection{Trajectory comparaison}
+In this section, the electric field is $E = 0$.
+\subsection{Trajectory comparison}
 In this experiment, the initial vertical velocity is equal to $v_0 = \SI{4d5}{\meter\per\second}$ and the constant magnetic field is $B_0 = \SI{3}{\tesla}$.
 The simulation stops after the proton has done five revolutions.\\
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{graphs/ex2_ii_traj.eps}
-	\caption{Comparaison of trajectories from the proton using differents methods, with 1 000 steps.}
+	\caption{Comparison of the trajectories of the proton using differents methods, with 1 000 steps.}
 	\label{fig:ex2-ii-traj}
 \end{figure}
-The figure \ref{fig:ex2-ii-traj} shows a comparaison of the trajectories the proton followed with the use if different integration methods.
+The figure \ref{fig:ex2-ii-traj} shows a comparison of the trajectories the proton followed using different integration methods.
 The main point to notice is the inusability of Euler method in this experiment.
 With this method, the proton seems to follow a circular trajectory with a non-constant radius, and that is a problem.
 The proton is supposed to follow a circular trajectory with a constant radius.
