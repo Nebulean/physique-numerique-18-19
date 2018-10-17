@@ -8,6 +8,11 @@ d = load('app1_iii.out');
 x = d(:,2);
 y = d(:,3);
 
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+
 % On plot
 fig = figure;
 p = plot(x,y);

@@ -15,9 +15,9 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice2'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-nsimul = 100; % Nombre de simulations a faire
+nsimul = 60; % Nombre de simulations a faire
 
-nsteps = logspace(0,5,nsimul); % Nombre d'iterations entier de 10^2 a 10^4
+nsteps = logspace(1,5,nsimul); % Nombre d'iterations entier de 10^2 a 10^4
 tfin = 1.09321e-7;
 dt = tfin ./ nsteps;
 
@@ -67,6 +67,13 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     error(i) = max(sqrt((x-x_th).^2+(y-y_th).^2));
 end
 
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+
+set(gca, 'XScale', 'log');
+set(gca,'YScale', 'log');
 
 p = plot(dt, error)
 set(p, 'LineWidth', 1.5);

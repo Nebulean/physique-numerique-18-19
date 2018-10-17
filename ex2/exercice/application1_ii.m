@@ -18,6 +18,11 @@ clear output
 
 % Figures
 
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+
 fig1 = figure;
 p1 = plot(x,y);
 set(gca, 'fontsize',16);
@@ -31,8 +36,8 @@ p2 = plot(vx,vy);
 set(gca, 'fontsize',16);
 set(p2, 'LineWidth',1.5);
 grid on;
-xlabel('v_x [m/s]');
-ylabel('v_y [m/s]');
+xlabel('$v_x$ [m/s]');
+ylabel('$v_y$ [m/s]');
 
 fig3 = figure;
 p3 = plot(t,energy);
@@ -41,6 +46,8 @@ set(p3, 'LineWidth',1.5);
 grid on;
 xlabel('t [s]');
 ylabel('E [J]');
+set(gca, 'XScale', 'log');
+set(gca,'YScale', 'log');
 
 saveas(fig1, 'graphs/app1_ii_traj', 'epsc');
 saveas(fig2, 'graphs/app1_ii_vit', 'epsc');

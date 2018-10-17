@@ -26,19 +26,32 @@ end
 
 f1 = figure
 hold on
+t = [];
 for i=1:3
     filename = sprintf('%s-%s.out', output, schema(i));
     d = load(filename);
+    t = d(:,1); % Le t reste constant
     x = d(:,2);
     y = d(:,3);
-    p=plot(x,y);
-    set(p, 'LineWidth', 1.4);
+
+    plot(x,y, 'LineWidth',1);
 end
+
+% On veut ajouter au plot la trajectoire théorique.
+x_th = [];
+y_th = [];
+for i=1:length(t)
+    x_th(i) = v0*sin(omega*t(i))/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
+    y_th(i) = -v0*cos(omega*t(i))/omega; 
+end
+plot(x_th, y_th, 'LineWidth', 1);
+
+
 xlabel('x [m]');
 ylabel('y [m]');
 set(gca, 'fontsize',16);
 
-legstr = ["Euler", "Euler Cromer", "Runge Kutta 2"];
+legstr = ["Euler", "Euler Cromer", "Runge Kutta 2", "Theory"];
 
 l = legend(legstr);
 set(l, 'Location', 'northwest');
@@ -47,7 +60,6 @@ set(l, 'FontSize', 14);
 hold off
 
 saveas(f1, 'graphs/ex2_ii_traj', 'epsc');
-
 
 % %% Parametres %%
 % %%%%%%%%%%%%%%%%
