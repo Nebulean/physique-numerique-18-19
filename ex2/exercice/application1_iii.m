@@ -1,3 +1,5 @@
+clear
+
 % on fait la simulation
 cmd = './Exercice2 configuration.in nsteps=500 E=6e4 B0=3 vx0=0 vy0=4e5 tfin=1.09321e-7 schema=RK2 output=app1_iii.out';
 disp(cmd);
@@ -30,11 +32,15 @@ set(gca, 'fontsize',20);
 xlabel('x [m]');
 ylabel('y [m]');
 
+grid on;
+
 fig2 = figure;
 p = plot(t, energy, 'LineWidth',1.5);
 set(gca,'fontsize',20);
 xlabel('t [s]');
 ylabel('E [J]');
+
+grid on;
 
 
 saveas(fig1, 'graphs/app1_iii_traj','epsc');
