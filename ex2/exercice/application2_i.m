@@ -61,14 +61,14 @@ xlabel('t [s]');
 ylabel('x,y [m]');
 legend('x','y');
 
-% fig4 = figure;
-% plot(t,vx,t,vy);
-% set(gca, 'fontsize',16);
-% set(p1, 'LineWidth',1.5);
-% grid on;
-% xlabel('t [s]');
-% ylabel('$v_x,v_y [m/s]$');
-% legend('$v_x$','$v_y$');
+fig4 = figure;
+p1 = plot(t,vx,t,vy);
+set(gca, 'fontsize',20);
+set(p1, 'LineWidth',1.5);
+grid on;
+xlabel('t [s]');
+ylabel('$v_x,v_y [m/s]$');
+legend('$v_x$','Proton in magnetic field $B(x)$');
 
 fig5 = figure;
 p1 = plot(t,energy);
@@ -131,14 +131,14 @@ xlabel('t [s]');
 ylabel('x,y [m]');
 legend('x','y');
 
-% fig9 = figure;
-% plot(t,vx,t,vy);
-% set(gca, 'fontsize',16);
-% set(p1, 'LineWidth',1.5);
-% grid on;
-% xlabel('t [s]');
-% ylabel('$v_x,v_y [m/s]$');
-% legend('$v_x$','$v_y$');
+fig9 = figure;
+p1 = plot(t,vx,t,vy);
+set(gca, 'fontsize',20);
+set(p1, 'LineWidth',1.5);
+grid on;
+xlabel('t [s]');
+ylabel('$v_x,v_y [m/s]$');
+legend('$v_x$','Antiproton in magnetic field $B(x)$');
 
 fig10 = figure;
 p1 = plot(t,energy);

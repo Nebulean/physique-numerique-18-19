@@ -58,11 +58,12 @@ ylabel('x,y [m]')
 legend('x','y')
 
 subplot(2,3,4)
-plot(t,vx,t,vy)
+p1 = plot(t,vx,t,vy)
 grid on
+set(p1,'LineWidth',1.5);
 xlabel('t [s]')
 ylabel('v_x,v_y [m/s]')
-legend('v_x','v_y')
+legend('v_x','Proton in constant magnetic field $B_0$')
 
 subplot(2,3,5)
 plot(t,energy)
