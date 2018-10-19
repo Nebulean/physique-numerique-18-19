@@ -243,8 +243,12 @@ All revolutions are stacked, the curve looks like a circle, so energy must be co
 \subsubsection{Proton in an accelerated referential}
 
 \subsection{Drift $\nabla B$}
+In this experiment, the particle is now subjected to a magnetic field $\mathbf{B}=B(x)\hat{z}$, with $B(x)=B_0(1+\kappa x)$, $\kappa=\SI{100}{\metre^{-1}}$, $B_0=3T, E=0, v_{x0}=0$, $v_{y0}=\SI{4d5}{\metre\per\second}$ and over the same period of time as in the first experiment.
+All the results are computed using the Runge-Kutta 2 integrator.
 
 \subsubsection{Effect of the magnetic field on a proton and an antiproton}
+
+Simulations are run in the case of a proton, i.e. $q=e$ and in the case of an antiproton, i.e. $q=-e$. For the antiproton, the sign of the initial position $x_0$ is changed.
 
 \begin{figure}[h]
 \centering
@@ -259,13 +263,17 @@ All revolutions are stacked, the curve looks like a circle, so energy must be co
 	\caption{Antiproton trajectory}
 	\label{fig:app2-ineg-traj}
 \end{subfigure}
-\caption{Trajectories of a proton and an antiproton in the magnetic field B}
+\caption{Trajectories of a proton and an antiproton in the magnetic field $\mathbf{B}$}
+\label{fig:app2_i_traj}
 \end{figure}
+
+Figure \ref{fig:app2_i_traj} show the trajectories of both particles in the magnetic field B.
+In both cases, the particle follows a vertical spiral, in the positive direction of $y$ for the proton and in the negative direction of $y$ for the antiproton.
 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=0.75\textwidth]{graphs/app2_i_ene.eps}	
-	\caption{Comparison of the evolution of the energy for a proton and an antiproton in the magnetic fields B}
+	\caption{Comparison of the evolution of the energy for a proton and an antiproton in the magnetic field $\mathbf{B}$}
 	\label{fig:app2_i_ene}
 \end{figure}
 
