@@ -15,7 +15,7 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice2'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-nsimul = 60; % Nombre de simulations a faire
+nsimul = 5; % Nombre de simulations a faire
 
 nsteps = logspace(1,5,nsimul); % Nombre d'iterations entier de 10^2 a 10^4
 tfin = 1.09321e-7;
