@@ -25,7 +25,7 @@ set(groot, 'defaultAxesFontSize', 18);
 
 fig1 = figure;
 p1 = plot(x,y);
-set(gca, 'fontsize',16);
+set(gca, 'fontsize',20);
 set(p1, 'LineWidth',1.5);
 grid on;
 xlabel('x [m]');
@@ -33,7 +33,7 @@ ylabel('y [m]');
 
 fig2 = figure;
 p2 = plot(vx,vy);
-set(gca, 'fontsize',16);
+set(gca, 'fontsize',20);
 set(p2, 'LineWidth',1.5);
 grid on;
 xlabel('$v_x$ [m/s]');
@@ -41,54 +41,14 @@ ylabel('$v_y$ [m/s]');
 
 fig3 = figure;
 p3 = plot(t,energy);
-set(gca, 'fontsize',16);
+set(gca, 'fontsize',20);
 set(p3, 'LineWidth',1.5);
 grid on;
 xlabel('t [s]');
 ylabel('E [J]');
-set(gca, 'XScale', 'log');
-set(gca,'YScale', 'log');
+%set(gca, 'XScale', 'log');
+%set(gca,'YScale', 'log');
 
 saveas(fig1, 'graphs/app1_ii_traj', 'epsc');
 saveas(fig2, 'graphs/app1_ii_vit', 'epsc');
 saveas(fig3, 'graphs/app1_ii_ene', 'epsc');
-
-% subplot(2,3,1)
-% plot(x,y)
-% axis equal
-% grid on
-% xlabel('x [m]')
-% ylabel('y [m]')
-% 
-% subplot(2,3,2)
-% plot(vx,vy)
-% axis equal
-% grid on
-% xlabel('v_x [m/s]')
-% ylabel('v_y [m/s]')
-% 
-% subplot(2,3,3)
-% plot(t,x,t,y)
-% grid on
-% xlabel('t [s]')
-% ylabel('x,y [m]')
-% legend('x','y')
-% 
-% subplot(2,3,4)
-% plot(t,vx,t,vy)
-% grid on
-% xlabel('t [s]')
-% ylabel('v_x,v_y [m/s]')
-% legend('v_x','v_y')
-% 
-% subplot(2,3,5)
-% plot(t,energy)
-% grid on
-% xlabel('t [s]')
-% ylabel('E [J]')
-% 
-% subplot(2,3,6)
-% plot(t,mu)
-% grid on
-% xlabel('t [s]')
-% ylabel('\mu [J/T]')

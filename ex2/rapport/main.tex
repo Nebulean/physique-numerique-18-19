@@ -95,7 +95,18 @@ In this experiment, the initial vertical velocity is equal to $v_0 = \SI{4d5}{\m
 The simulation stops after the proton has done five revolutions.\\
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.5\linewidth]{graphs/ex2_ii_traj.eps}
+	\begin{subfigure}[t]{0.45\textwidth}
+	\includegraphics[width=\linewidth]{graphs/ex2_ii_traj_ALL.eps}
+		\caption{blabla}
+		\label{fig:ex2-ii-traj-all}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{graphs/ex2_ii_traj_NoEuler}
+		\caption{blabla}
+		\label{fig:ex2-ii-traj-NoEuler}
+	\end{subfigure}
+	
 	\caption{Comparison of the trajectories of the proton using differents methods, with 1 000 steps.}
 	\label{fig:ex2-ii-traj}
 \end{figure}
@@ -128,7 +139,6 @@ This section focuses on a convergence study of all three methods used in this ex
 ~
 \begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/app1_conv_noEuler.eps}
-	\vfill
 	\caption{Convergence graph where Euler's method isn't drawn for readability reasons.}
 	\label{fig:app1-conv-noEuler}
 \end{subfigure}

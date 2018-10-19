@@ -7,6 +7,12 @@
 % par la valeur scannee.
 %
 
+
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+
 %% Parametres %%
 %%%%%%%%%%%%%%%%
 
@@ -14,9 +20,9 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice2'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-nsimul = 40; % Nombre de simulations a faire default=20
+nsimul = 50; % Nombre de simulations a faire default=20
 
-nsteps = round(logspace(0,4,nsimul)); % Nombre d'iterations entier de 10^2 a 10^4
+nsteps = round(logspace(2,4,nsimul)); % Nombre d'iterations entier de 10^2 a 10^4
 tfin = 1.09321e-7;
 dt = tfin ./ nsteps;
 
@@ -41,7 +47,7 @@ tfin   = 1.09321e-7;
 q      = 1.6022e-19;
 m      = 1.6726e-27;
 B0     = 3;
-E      = 6e4;
+E      = 0;
 Kappa  = 0;
 vx0    = 0;
 vy0    = 4e5;
@@ -51,10 +57,7 @@ y0     = 0;
 v0 = vy0;
 omega=q*B0/m;
 
-set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
-set(groot, 'defaultLegendInterpreter', 'latex');
-set(groot, 'defaultTextInterpreter', 'latex');
-set(groot, 'defaultAxesFontSize', 18);
+
 
 f1 = figure;
 hold on
@@ -91,16 +94,16 @@ for n=1:3
     set(p, 'LineWidth', 1.5);
     set(p, 'Color', color{n});
     xlabel('$\Delta$ t')
-    ylabel('Maximum de l''erreur sur la position')
+    ylabel('Maximum error on the position')
     grid on
-    set(gca,'fontsize',16);
+    set(gca,'fontsize',20);
 end
 
 legstr = ["Euler", "Euler Cromer", "Runge Kutta 2"];
 
 l = legend(legstr);
 set(l, 'Location', 'northwest');
-set(l, 'FontSize', 14);
+set(l, 'FontSize', 18);
 
 set(gca, 'YScale', 'log');
 set(gca, 'XScale', 'log');
@@ -140,9 +143,9 @@ for n=2:3
     set(p, 'LineWidth', 1.5);
     set(p, 'Color', color{n});
     xlabel('$\Delta$ t')
-    ylabel('Maximum de l''erreur sur la position')
+    ylabel('Maximum error on the position')
     grid on
-    set(gca,'fontsize',16);
+    set(gca,'fontsize',20);
     set(gca, 'YScale', 'log');
     set(gca, 'XScale', 'log');
 end
@@ -151,7 +154,7 @@ legstr2 = ["Euler Cromer", "Runge Kutta 2"];
 
 l2 = legend(legstr2);
 set(l2, 'Location', 'northwest');
-set(l2, 'FontSize', 14);
+set(l2, 'FontSize', 18);
 hold off
 
 
