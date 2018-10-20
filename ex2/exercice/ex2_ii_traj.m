@@ -70,6 +70,8 @@ l = legend(legstr);
 set(l, 'Location', 'northwest');
 set(l, 'FontSize', 18);
 
+grid on
+
 hold off
 
 saveas(f1, 'graphs/ex2_ii_traj_ALL', 'epsc');
@@ -137,6 +139,8 @@ legstr = ["Euler Cromer", "Runge Kutta 2", "Analytical result"];
 l = legend(legstr);
 set(l, 'Location', 'northwest');
 set(l, 'FontSize', 18);
+
+grid on
 
 hold off
 
