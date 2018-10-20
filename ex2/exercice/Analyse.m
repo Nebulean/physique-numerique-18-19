@@ -72,10 +72,12 @@ xlabel('t [s]')
 ylabel('E [J]')
 
 subplot(2,3,6)
-plot(t,mu)
+p1 = plot(t,mu)
 grid on
+set(p1,'LineWidth',1.5);
 xlabel('t [s]')
 ylabel('\mu [J/T]')
+legend('$B_0$')
 
 %saveas(fig{i}, output{i}, 'epsc');
 

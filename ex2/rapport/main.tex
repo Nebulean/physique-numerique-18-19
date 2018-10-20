@@ -315,10 +315,25 @@ Equation \ref{mag_force} implies that the magnitude of the Lorentz force in a va
 	\label{fig:app2_i_ene}
 \end{figure}
 
-On figure \ref{fig:app2_i_ene} the energy of the particles oscillates and increases on average, but the variation is infinitesimally small (of order $10^22$) and as such can be attributed to numerical errors, as energy should be conserved.
+On figure \ref{fig:app2_i_ene} the energy of the particles oscillates and increases on average, but the variation is infinitesimally small (of order $10^{22}$) and as such can be attributed to numerical error, as energy should be conserved.
 
 
-\subsubsection{Magnetic moment $\mu$}
+\subsubsection{Magnetic moment $\mu$} %TODO Actually explain what the magnetic moment is
+
+The magnetic moment is:
+\begin{equation}
+\mu = \frac{mv^2}{2B} \si{\joule \per \tesla} = \frac{mv_0^2}{2B_0(1+\kappa x)} \si{\joule \per \tesla} = \frac{2.67616 \times 10^{-16}}{6+600x} \si{\joule \per \tesla}
+\end{equation}
+for a proton in the variable magnetic field $\vec{B}$.
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width=0.75\textwidth]{graphs/mu.eps}
+	\caption{Comparison of the magnetic moment $\mu$ for a proton in the variable magnetic field $B(x)\hat{z}$ and a proton in the constant magnetic field $B_0\hat{z}$}
+	\label{fig:mu}
+\end{figure}
+
+The magnetic moment of the proton in the variable magnetic field $\vec{B}$ (Fig. \ref{fig:mu}) oscillates, as opposed to the magnetic moment of the proton in the constant magnetic field, which stays constant. However the oscillation is again very small (of order $10^{-17}$) and $\mu$ is constant on average. It should be noted that this average is slightly higher than the value of $\mu$ for the proton in the constant magnetic field.
 
 \section{Further analysis...}
 
