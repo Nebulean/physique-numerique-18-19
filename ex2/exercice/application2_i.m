@@ -52,6 +52,15 @@ ylabel('y [m]');
 % xlabel('$v_x [m/s]$');
 % ylabel('$v_y [m/s]$');
 
+fig2 = figure;
+p1 = plot(t,mu);
+set(gca, 'fontsize',20);
+set(p1, 'LineWidth',1.5);
+grid on;
+xlabel('$t [s]$');
+ylabel('$\mu [J/T]$');
+legend('$B(x)$')
+
 fig3 = figure;
 p1 = plot(t,x,t,y);
 set(gca, 'fontsize',20);
@@ -150,7 +159,7 @@ ylabel('E [J]');
 legend('Antiproton');
 
 saveas(fig1, 'graphs/app2_ipos_traj', 'epsc');
-saveas(fig2, 'graphs/app2_ipos_vit', 'epsc');
+saveas(fig2, 'graphs/app2_ipos_mu', 'epsc');
 saveas(fig3, 'graphs/app2_ipos_xyt', 'epsc');
 saveas(fig4, 'graphs/app2_ipos_vxvyt', 'epsc');
 saveas(fig5, 'graphs/app2_ipos_ene', 'epsc');
