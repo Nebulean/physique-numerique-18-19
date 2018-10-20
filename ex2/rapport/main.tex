@@ -74,8 +74,9 @@ A charged elementary particle in an electromagnetic field, such as a proton, is 
 This report will focus on studying how such a particle behaves under the influence of that force, with varying electrical and magnetic fields.
 
 \section{Analytical computations}
-\subsection{Establishment of the linear equation system}
-After some computations that can be found in annex \ref{ann:dev-eq-diff}, the system \ref{eq:equa-diff} results:
+\subsection{Establishment of the differential equation system}
+The first important step to simulate this problem, is to establish the differentials equations.
+By considering Newton's second law and Lorentz force, and after some computations that can be found in appendix \ref{ann:dev-eq-diff}, the system of equations \ref{eq:equa-diff} results:
 
 \begin{equation}
 \systeme*{m\ddot{x} = Bq\dot{y}, m\ddot{y} = qE - Bq\dot{x}}
@@ -85,50 +86,73 @@ After some computations that can be found in annex \ref{ann:dev-eq-diff}, the sy
 The equation on $z$ axis is neglected because no informations can be obtained from it.
 
 \subsection{Analytical solutions with a null electric field}
+To compare the numerical results with the analytic result, the solution of the differential system \ref{eq:equa-diff} needs to be found.
+The main issue is the complexity of these equations.
+At first glance, they seem quite easy to solve, but the electric field and a general magnetic field cause a lot of trouble.
+The solve it, two simplifications are made: the norm of the electric field $E=0$, and the norm of the magnetic field $B=B_0$, where $B_0$ is constant, which gives to equations \ref{eq:equa-diff-simple}.
+
+\begin{equation}
+\systeme*{m\ddot{x} = B_0q\dot{y}, m\ddot{y} = - B_0q\dot{x}}
+\label{eq:equa-diff-simple}
+\end{equation}
+
+After some computation available in appendix \ref{ann:dev-sol-ana}, the system of equations \ref{eq:sol-ana} results.
+
+\begin{equation}
+\text{METTRE LE RESULTAT}
+\label{eq:sol-ana}
+\end{equation}%TODO: Mettre les équations.
 
 \subsection{Center of circle for a particular radius}
+%TODO: Remplir avec le cours.
 
 \section{Study of three numerical methods}
 In this section, the electric field is $E = 0$.
 \subsection{Trajectory comparison}
 In this experiment, the initial vertical velocity is equal to $v_0 = \SI{4d5}{\meter\per\second}$ and the constant magnetic field is $B_0 = \SI{3}{\tesla}$.
-The simulation stops after the proton has done five revolutions.\\
+The simulation stops after the proton has done five revolutions.
+
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\linewidth]{graphs/ex2_ii_traj_ALL.eps}
-		\caption{blabla}
+		\caption{Trajectory of the proton from three numerical methods and the analytical result.}
 		\label{fig:ex2-ii-traj-all}
 	\end{subfigure}
 	~
 	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{graphs/ex2_ii_traj_NoEuler}
-		\caption{blabla}
+		\caption{Trajectory of the proton from two numerical methods and the analytical result. Euler's method has being removed to improve clarity of the graph.}
 		\label{fig:ex2-ii-traj-NoEuler}
 	\end{subfigure}
 	
-	\caption{Comparison of the trajectories of the proton using differents methods, with 1 000 steps.}
+	\caption{Comparison of the trajectories of the proton using different numericals methods with 1 000 steps.}
 	\label{fig:ex2-ii-traj}
 \end{figure}
-The figure \ref{fig:ex2-ii-traj} shows a comparison of the trajectories the proton followed using different integration methods.
-The main point to notice is the inusability of Euler method in this experiment.
+
+The main point to notice on figure \ref{fig:ex2-ii-traj-all} is the unsuitability of Euler's method in this experiment.
 With this method, the proton seems to follow a circular trajectory with a non-constant radius, and that is a problem.
 The proton is supposed to follow a circular trajectory with a constant radius.
 This problem comes directly from the idea of Euler's method itself.
-When it evaluates the next iteration, it uses  the tangent.%TODO: Vérifier que ce soit juste
-So after every iteration, a little error evaluated, and it will cumulates.
-So Euler method is easy to implement, but is unusable in this case.\\
+When it evaluates the next iteration, it uses  the tangent. %TODO: Vérifier que ce soit juste
+So after every iteration, a little error is evaluated, and it will cumulates.
+Euler method has the advantage to be easy to implement, but is unsuitable for this problem.\\
 
-The second point to notice is the light difference between Euler-Cromer and Runge Kutta 2 methods.
-Euler-Cromer method approximates pretty well the trajectory.
-It is not a perfect cercle, but is way better that Euler's method.
+Figure \ref{fig:ex2-ii-traj-NoEuler} is better to analyse the two others numerical methods, as Euler's one is removed.
+In this figure, Euler-Cromer method approximates pretty well the trajectory.
+It is not a perfect numerical method as there is still a gap with the analytical solution, but it seems to converges fast enough to be suitable in this problem.
+More informations about convergence of this method is done in section \ref{sec:etude-conv}. \\
+
+Still on figure \ref{fig:ex2-ii-traj-NoEuler}, Runge-Kutta of second order seems most suitable numerical methods that were tried in this experiment.
+The results are even closer to the analytical solution than Euler-Cromer, despite the fact that the difference between these two methods is light.
+% TODO: Y'a pas un truc à dire en plus ? J'ai pas d'idées.^^
+
 %TODO: Parler de la raison mathématique pourquoi Euler-Cromer > Euler.
-The last method is Runge Kutta of second order.
-It is the best of the three methods to approximates the solution.
-The trajectory is close the a perfect circle, and every revolutions are stacked on each others.
 
-\subsection{Convergence study}
-This section focuses on a convergence study of all three methods used in this experiment, and will compare them.
+\subsection{Convergence study}\label{sec:etude-conv}
+One important part of part of any analysis of a simulation is the study of convergence of the used numerical methods.
+A numerical method converges when the computed solution tends to a certain point, with respect to the time step.
+
 \begin{figure}[h]
 \centering
 \begin{subfigure}[t]{0.45\textwidth}
@@ -146,22 +170,16 @@ This section focuses on a convergence study of all three methods used in this ex
 \label{fig:app1-conv}
 \end{figure}
 
+On figure \ref{fig:app1-conv-ALL}, all methods seem to converges, but the main point is the slowness of Euler's method's convergence.
+Compared to the two others, Euler needs a really small time step to get a usable approximation of the solution.
+This is a big problem because it costs a lot to reduce the time step of any simulation.
+The real issue with this is the case where the duration of the simulation increases. 
+This implies a drastic increase of the number of steps evaluated by the methods, as the time step remains constant.
+Adding this to fact that the methods needs a really small time step anyway, it becomes completely pointless to use this method.\\
+
+Figure \ref{fig:app1-conv-noEuler} shows the same convergence study, but focuses on Euler-Cromer and Runge-Kutta's methods.
 % TODO: Faire l'analyse des graphs ci-dessus.
 
-
-%TODO: Je crois que ce qui est commenté, là, est juste faux et c'est du grand n'importe quoi.
-%In the figure \ref{fig:app1-conv-ALL}, the main information is fact that Euler's method is not appropriate for this simulation.
-%The error explodes really quickly, and just keep increasing.
-%The problem with this figure, is that the others methods can not be analysed.
-%The figure \ref{fig:app1-conv-noEuler} fixes the problem by focusing on the others methods.
-%This second figures shows the stability of both methods.
-%Euler-Cromer clearly is better than Euler's one.
-%But the error seems to keep increasing, which is bad for long simulation.
-%Aside from that, the method can be used for small simulation of the same kind.
-%On the other hand, Runge-Kutta of order 2 is a good option.
-%The main difference between this method and the two others is the stability.
-%In this case, the error decreases, which implies stability.
-%For long simulation, Runge-Kutta of second order is a good option for this kind of simulation.
 
 \section{Applications}
 \subsection{Drift $E\times B$}
@@ -318,5 +336,8 @@ Using Newton's second law, three equations results.
 
 The last equation is not useful for what is about to come.
 The system of differential equation resulting is equation \ref{eq:equa-diff}.
+
+\section{Analytical solutions development} \label{ann:dev-sol-ana}
+%TODO: Faire le developpement.
 
 \end{document}
