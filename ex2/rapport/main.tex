@@ -123,16 +123,16 @@ with the initial position \ref{eq:init}.
 \label{eq:init}
 \end{equation}
 
-All the developements are available in appendix \ref{ann:dev-sol-ana}.
+All the developments are available in appendix \ref{ann:dev-sol-ana}.
 
 \section{Study of three numerical methods}\label{sec:etudes-integrateur}
-The goal of this experiment is to study and compare three numerical methods: Euler, Euler-Cromer and Runge-Kutta of 2nd order, by studying there convergence and there stability through multiples analysis.\\
+The goal of this experiment is to study and compare three numerical methods: Euler, Euler-Cromer and Runge-Kutta of 2nd order, by studying there convergence and there stability through multiples analysis.
 In this section, the electric field is considered as $E = 0$. 
 \subsection{Trajectory, speed, energy and stability}
 In this experiment, the initial vertical velocity is equal to $v_0 = \SI{4d5}{\meter\per\second}$ and the constant magnetic field is $B_0 = \SI{3}{\tesla}$.
 The simulation stops after the proton has done five revolutions.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\linewidth]{graphs/ex2_ii_traj_ALL.eps}
@@ -161,15 +161,15 @@ Euler method has the advantage to be easy to implement, but is unsuitable for th
 Figure \ref{fig:ex2-ii-traj-NoEuler} is better to analyse the two others numerical methods, as Euler's one is removed.
 In this figure, Euler-Cromer method approximates pretty well the trajectory.
 It is not a perfect numerical method as there is still a gap with the analytical solution, but it seems to converges fast enough to be suitable in this problem.
-More informations about convergence of this method is done in section \ref{sec:etude-conv}. \\
+More informations about convergence of this method is done in section \ref{sec:etude-conv}.\\
 
 Still on figure \ref{fig:ex2-ii-traj-NoEuler}, Runge-Kutta of second order seems most suitable numerical methods that were tried in this experiment.
-The results are even closer to the analytical solution than Euler-Cromer, despite the fact that the difference between these two methods is light.\\
+The results are even closer to the analytical solution than Euler-Cromer, despite the fact that the difference between these two methods is light.
 % TODO: Y'a pas un truc à dire en plus ? J'ai pas d'idées. ^^
 
 %TODO: Parler de la raison mathématique pourquoi Euler-Cromer > Euler.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\linewidth]{graphs/ex2_iii_speed_ALL.eps}
@@ -193,7 +193,7 @@ The only interesting thing to say here is the nearness between the analytical so
 There needs to zoom several times into the figure \ref{fig:ex2-iii-speed-NoEuler} to distinguish a difference between those curves.
 Then for the speed, Runge-Kutta of second order seems far ahead of the others methods.\\
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=0.6\textwidth]{graphs/ex2_iii_ene.eps}
 	\caption{Comparison of mechanical energy of the proton over time, estimated with three different numerical methods for \num{1000} steps.}
@@ -223,9 +223,9 @@ Energy is conserved over time, which implies the stability of the numerical meth
 
 \subsection{Convergence study}\label{sec:etude-conv}
 One important part of part of any analysis of a simulation is the study of convergence of the used numerical methods.
-A numerical method converges when the computed solution tends to a certain point, with respect to the time step.
+A numerical method converges when the computed solution tends to a certain point, with respect to the time step.\\
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/ex2_ii_conv_ALL.eps}
@@ -252,16 +252,16 @@ Adding this to fact that the methods needs a really small time step anyway, it b
 Figure \ref{fig:app1-conv-noEuler} shows the same convergence study, but focuses on Euler-Cromer and Runge-Kutta's methods.
 The main information that can be extracted from this figure is the fact that Runge Kutta of 2nd order converges faster than Euler Cromer.
 These methods are appropriate for this project.
-A small number of step is enough to get a good approximation of the problem, so regarding the convergence, both methods seem usable. % TODO: Remplacer le "big".
+A small number of step is enough to get a good approximation of the problem, so regarding the convergence, both methods seem usable.\\ % TODO: Remplacer le "big".
 
 %TODO: J'ai pas parlé de la linéarité des schéma, y'a quelque chose à ajouter à ce niveau ?
 
 \subsection{Summary}
 Section \ref{sec:etudes-integrateur} aims to compare three numerical methods: Euler, Euler-Cromer and Runge-Kutta 2.
 In this analysis, two main point are considered: The stability and the convergence of the numerical methods.
-Table \ref{tab:comparaison-integrateur} summaries what was learnt about these numerical methods.
+Table \ref{tab:comparaison-integrateur} summaries what was learnt about these numerical methods.\\
 
-\begin{table}[h]
+\begin{table}[h!]
 \centering
 \begin{tabular}{c | c | c | c}
 	Numerical method & Does converge ? & Is stable ? & Is energy conserved ? \\
@@ -286,7 +286,7 @@ In both figure \ref{fig:app1-i-conv-x} and \ref{fig:app1-i-conv-y}, the final cl
 It also shows that after a certain point, it is not required to use a smaller time step.
 In both case, a time step of \SI{d-10}{\second} is close enough to get a good approximation of the solutions, and using a smaller one would only be a waste of resources.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/app1_i_conv_x.eps}
@@ -305,7 +305,7 @@ In both case, a time step of \SI{d-10}{\second} is close enough to get a good ap
 
 
 \subsubsection{Energy, trajectory and velocity analysis}
-\begin{figure}[h]
+\begin{figure}[h!]
 \begin{subfigure}[t]{0.32\textwidth}
 	\includegraphics[width=\textwidth]{graphs/app1_ii_ene.eps}
 	\caption{Graph showing the energy of the proton over time.}
@@ -378,7 +378,7 @@ All the results are computed using the Runge-Kutta 2 integrator.
 
 Simulations are run in the case of a proton, i.e. $q=e$ and in the case of an antiproton, i.e. $q=-e$. For the antiproton, the sign of the initial position $x_0$ is changed.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/app2_ipos_traj.eps}
@@ -398,7 +398,7 @@ Simulations are run in the case of a proton, i.e. $q=e$ and in the case of an an
 Figure \ref{fig:app2_i_traj} shows the trajectories of both particles in the magnetic field $B$.
 In both cases, the particle follows a vertical spiral, in the positive direction of $y$ for the proton and in the negative direction of $y$ for the antiproton. The antiproton also rotates in the opposite direction of the proton (counter-clockwise).
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/app2_i_vyt.eps}
@@ -420,7 +420,7 @@ Indeed the expression of the Lorentz force in the variable magnetic field with $
 \end{equation}
 Equation \ref{mag_force} implies that the magnitude of the Lorentz force in a variable magnetic field is also variable. It depends on the horizontal position $x$ of the particle. It is minimal when $x$ is minimal, i.e. at the leftmost point of the quasi-circular trajectory, where $v_y$ is maximal in the positive direction, and it is maximal at its rightmost point, when $x$ is maximal, and $v_y$ is maximal in the negative direction. The force is perpendicular to the velocity $\vec{v}$ in the $xy$ plan, towards the interior of the trajectory.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=0.75\textwidth]{graphs/app2_i_ene.eps}	
 	\caption{Comparison of the evolution of the energy for a proton and an antiproton in the magnetic field $\vec{B}$}
@@ -438,7 +438,7 @@ The magnetic moment is:
 \end{equation}
 for a proton in the variable magnetic field $\vec{B}$.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=0.75\textwidth]{graphs/mu.eps}
 	\caption{Comparison of the magnetic moment $\mu$ for a proton in the variable magnetic field $B(x)\hat{z}$ and a proton in the constant magnetic field $B_0\hat{z}$}
