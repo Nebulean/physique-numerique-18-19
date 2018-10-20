@@ -105,10 +105,11 @@ After some computation available in appendix \ref{ann:dev-sol-ana}, the system o
 
 \subsection{Center of circle for a particular radius}
 %TODO: Remplir avec le cours.
+REPONDRE A LA QUESTION 2.1 iii)
 
-\section{Study of three numerical methods}
+\section{Study of three numerical methods}\label{sec:etudes-integrateur}
 In this section, the electric field is $E = 0$.
-\subsection{Trajectory comparison}
+\subsection{Trajectory, speed, energy and stability}
 In this experiment, the initial vertical velocity is equal to $v_0 = \SI{4d5}{\meter\per\second}$ and the constant magnetic field is $B_0 = \SI{3}{\tesla}$.
 The simulation stops after the proton has done five revolutions.
 
@@ -126,7 +127,7 @@ The simulation stops after the proton has done five revolutions.
 		\label{fig:ex2-ii-traj-NoEuler}
 	\end{subfigure}
 	
-	\caption{Comparison of the trajectories of the proton using different numericals methods with 1 000 steps.}
+	\caption{Comparison of the trajectories of the proton using different numericals methods with \num{1000} steps.}
 	\label{fig:ex2-ii-traj}
 \end{figure}
 
@@ -144,10 +145,62 @@ It is not a perfect numerical method as there is still a gap with the analytical
 More informations about convergence of this method is done in section \ref{sec:etude-conv}. \\
 
 Still on figure \ref{fig:ex2-ii-traj-NoEuler}, Runge-Kutta of second order seems most suitable numerical methods that were tried in this experiment.
-The results are even closer to the analytical solution than Euler-Cromer, despite the fact that the difference between these two methods is light.
+The results are even closer to the analytical solution than Euler-Cromer, despite the fact that the difference between these two methods is light.\\
 % TODO: Y'a pas un truc à dire en plus ? J'ai pas d'idées.^^
 
 %TODO: Parler de la raison mathématique pourquoi Euler-Cromer > Euler.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[t]{0.45\textwidth}
+	\includegraphics[width=\linewidth]{graphs/ex2_iii_speed_ALL.eps}
+		\caption{Orbit of the speed of the proton comparing all numerical methods and the analytical result.}
+		\label{fig:ex2-iii-speed-ALL}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{graphs/ex2_iii_speed_NoEuler.eps}
+		\caption{Orbit of the speed of the proton without Euler's method for readability.}
+		\label{fig:ex2-iii-speed-NoEuler}
+	\end{subfigure}
+	
+	\caption{Orbit of the speed of the protons using different numericals methods with \num{1000} steps.} %TODO: Est-ce que le terme 'speed orbit' est bien choisi ?
+	\label{fig:ex2-iii-speed}
+\end{figure}
+
+The same speech as before can be done about figure \ref{fig:ex2-iii-speed}.
+There not much to say about figure \ref{fig:ex2-iii-speed-ALL}, it is the same analysis as before.
+The only interesting thing to say here is the nearness between the analytical solution and Runge-Kutta's method.
+There needs to zoom several times into the figure \ref{fig:ex2-iii-speed-NoEuler} to distinguish a difference between those curves.
+Then for the speed, Runge-Kutta of second order seems far ahead of the others methods.\\
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width=0.6\textwidth]{graphs/ex2_iii_ene.eps}
+	\caption{Comparison of mechanical energy of the proton over time, estimated with three different numerical methods for \num{1000} steps.}
+	\label{fig:ex2_iii_ene}
+\end{figure}
+
+Figure \ref{fig:ex2_iii_ene} is much more interesting than the previous one.
+Once again, Euler's method is shown as unsuitable for this experiment.
+As time advances, the energy keeps increasing when evaluated by Euler's method, which is impossible because the proton can not obtain energy from nowhere.
+This numerical method is then considered as unstable and energy is not conserved.\\
+
+The energy evaluated with Euler-Cromer has an interesting behaviour.
+The energy oscillate between two values, and never exceed it.
+This comes from the fact that Euler-Cromer is a symplectic method. % TODO: Vérifier la traduction de symplectique.
+This means that energy is not conserved, but is bounded.
+Properly speaking, this numerical method is not conserving energy over time but limits the error in a certain range.
+It could seems physically weird, but is not a real problem in this situation.
+Limiting the error in a certain range is enough to get a good approximation of the problem, because the solution will not explode as it will using Euler's method.
+This also means that the mean energy is conserved, which implies the same.
+So with Euler-Cromer's method, energy is not conserved but the method is stable.\\
+
+Finally, there is the energy evaluated by Runge-Kutta of second order.
+There is not so much to say about it. 
+Energy is conserved over time, which implies the stability of the numerical method.\\
+
+
 
 \subsection{Convergence study}\label{sec:etude-conv}
 One important part of part of any analysis of a simulation is the study of convergence of the used numerical methods.
@@ -156,13 +209,13 @@ A numerical method converges when the computed solution tends to a certain point
 \begin{figure}[h]
 \centering
 \begin{subfigure}[t]{0.45\textwidth}
-	\includegraphics[width=\textwidth]{graphs/app1_conv_ALL.eps}
+	\includegraphics[width=\textwidth]{graphs/ex2_ii_conv_ALL.eps}
 	\caption{Convergence graph where three methods are drawn.}
 	\label{fig:app1-conv-ALL}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.45\textwidth}
-	\includegraphics[width=\textwidth]{graphs/app1_conv_noEuler.eps}
+	\includegraphics[width=\textwidth]{graphs/ex2_ii_conv_noEuler.eps}
 	\caption{Convergence graph where Euler's method isn't drawn for readability reasons.}
 	\label{fig:app1-conv-noEuler}
 \end{subfigure}
@@ -175,18 +228,39 @@ Compared to the two others, Euler needs a really small time step to get a usable
 This is a big problem because it costs a lot to reduce the time step of any simulation.
 The real issue with this is the case where the duration of the simulation increases. 
 This implies a drastic increase of the number of steps evaluated by the methods, as the time step remains constant.
-Adding this to fact that the methods needs a really small time step anyway, it becomes completely pointless to use this method.\\
+Adding this to fact that the methods needs a really small time step anyway, it becomes completely pointless to use it.\\
 
 Figure \ref{fig:app1-conv-noEuler} shows the same convergence study, but focuses on Euler-Cromer and Runge-Kutta's methods.
-% TODO: Faire l'analyse des graphs ci-dessus.
+The main information that can be extracted from this figure is the fact that Runge Kutta of 2nd order converges faster than Euler Cromer.
+These methods are appropriate for this project.
+A small number of step is enough to get a good approximation of the problem, so regarding the convergence, both methods seem usable. % TODO: Remplacer le "big".
 
+%TODO: J'ai pas parlé de la linéarité des schéma, y'a quelque chose à ajouter à ce niveau ?
+
+\subsection{Summary}
+Section \ref{sec:etudes-integrateur} aims to compare three numerical methods: Euler, Euler-Cromer and Runge-Kutta 2.
+In this analysis, two main point are considered: The stability and the convergence of the numerical methods.
+Table \ref{tab:comparaison-integrateur} summaries what was learnt about these numerical methods.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c | c | c | c}
+	Numerical method & Does converge ? & Is stable ? & Is energy conserved ? \\
+	\hline
+	Euler & Yes & No & No\\
+	Euler-Cromer & Yes & Yes & No \\
+	Runge-Kutta 2 & Yes & Yes & Yes\\
+\end{tabular}
+\caption{Summary of all three numerical methods}
+\label{tab:comparaison-integrateur}
+\end{table}
 
 \section{Applications}
 \subsection{Drift $E\times B$}
 In this experiement, the proton is now subjected to an electric field $E=\SI{6d4}{\volt\per\meter}$, as well as a constant magnetic field $B_0 = \SI{3}{\tesla}$.
 The proton starts with an initial velocity of $v_{0x}=\SI{0}{\meter\per\second}$ and $v_{0y}=\SI{4d5}{\meter\per\second}$, and the simulation will last the time it take for the proton to end five revolutions.
-\subsubsection{Convergence study}%TODO: Changer le titre
 
+\subsubsection{Convergence study}
 
 \subsubsection{Analysis of simulations}
 \begin{figure}[h]
@@ -253,10 +327,6 @@ The main point of this experiment is to show that changing the frame of referenc
 
 
 
-%To ensure that the energy is conserved, a much longer simulation should be done.
-%Here, only five revolutions are considered, but what about a much longer simulation ?
-%The experiments has been retried with a much larger simulation time ($tfin=\SI{1.09321e-4}{\second}$), and a much heigher number of steps ($nsteps=\SI{10000000}{}$).
-%TODO: On est d'accord que ce qui est commenté ne sert à rien ? J'ai fait les graphs, et y'a pas grand chose à dire.
 
 \subsection{Drift $\nabla B$}
 In this experiment, the particle is now subjected to a magnetic field $\mathbf{B}=B(x)\hat{z}$, with $B(x)=B_0(1+\kappa x)$, $\kappa=\SI{100}{\metre^{-1}}$, $B_0=3T, E=0, v_{x0}=0$, $v_{y0}=\SI{4d5}{\metre\per\second}$ and over the same period of time as in the first experiment.
