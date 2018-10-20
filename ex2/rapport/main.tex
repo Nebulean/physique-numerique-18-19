@@ -70,7 +70,7 @@
 %%%% ON COMMENCE A ECRIRE D'ICI
 
 \section{Introduction}
-A charged elementary particle in an electromagnetic field, such as a proton, is subjected to the Lorentz force $\mathbf{F}=q(\mathbf{E} + \mathbf{v} \times \mathbf{B})$.
+A charged elementary particle in an electromagnetic field, such as a proton, is subjected to the Lorentz force $\vec{F}=q(\vec{E} + \vec{v} \times \vec{B})$.
 This report will focus on studying how such a particle behaves under the influence of that force, with varying electrical and magnetic fields.
 
 \section{Analytical computations}
@@ -220,7 +220,7 @@ Its norm is equal to $E=\SI{6d4}{\newton\per\coulomb}$.
 Also, the frame of reference changes.
 It uses the same axis as the previous one, but has a velocity expressed by equation \ref{eq:vE}.
 \begin{equation}
-	v_E = \frac{1}{B^2}\mathbf{E}\times\mathbf{B}
+	v_E = \frac{1}{B^2}\vec{E}\times\vec{B}
 	\label{eq:vE}
 \end{equation}%TODO: Vérifier l'équation.
 Figure \ref{fig:app1_iii_traj} shows the trajectory of the proton when it enters the magnetic and electric field.
@@ -241,7 +241,7 @@ The main point of this experiment is to show that changing the frame of referenc
 %TODO: On est d'accord que ce qui est commenté ne sert à rien ? J'ai fait les graphs, et y'a pas grand chose à dire.
 
 \subsection{Drift $\nabla B$}
-In this experiment, the particle is now subjected to a magnetic field $\mathbf{B}=B(x)\hat{z}$, with $B(x)=B_0(1+\kappa x)$, $\kappa=\SI{100}{\metre^{-1}}$, $B_0=3T, E=0, v_{x0}=0$, $v_{y0}=\SI{4d5}{\metre\per\second}$ and over the same period of time as in the first experiment.
+In this experiment, the particle is now subjected to a magnetic field $\vec{B}=B(x)\hat{z}$, with $B(x)=B_0(1+\kappa x)$, $\kappa=\SI{100}{\metre^{-1}}$, $B_0=3T, E=0, v_{x0}=0$, $v_{y0}=\SI{4d5}{\metre\per\second}$ and over the same period of time as in the first experiment.
 All the results are computed using the Runge-Kutta 2 integrator.
 
 \subsubsection{Effect of the magnetic field on a proton and an antiproton}
@@ -261,12 +261,12 @@ Simulations are run in the case of a proton, i.e. $q=e$ and in the case of an an
 	\caption{Antiproton trajectory}
 	\label{fig:app2-ineg-traj}
 \end{subfigure}
-\caption{Trajectories of a proton and an antiproton in the magnetic field $\mathbf{B}$}
+\caption{Trajectories of a proton and an antiproton in the magnetic field $\vec{B}$}
 \label{fig:app2_i_traj}
 \end{figure}
 
 Figure \ref{fig:app2_i_traj} shows the trajectories of both particles in the magnetic field $B$.
-In both cases, the particle follows a vertical spiral, in the positive direction of $y$ for the proton and in the negative direction of $y$ for the antiproton.
+In both cases, the particle follows a vertical spiral, in the positive direction of $y$ for the proton and in the negative direction of $y$ for the antiproton. The antiproton also rotates in the opposite direction of the proton (counter-clockwise).
 
 \begin{figure}[h]
 \centering
@@ -277,16 +277,27 @@ In both cases, the particle follows a vertical spiral, in the positive direction
 \begin{subfigure}[t]{0.48\textwidth}
 	\includegraphics[width=\textwidth]{graphs/vyzoom.eps}
 \end{subfigure}
-	\caption{Vertical velocity $v_y$ of a proton and an antiproton in the magnetic field $\mathbf{B}$ and of a proton in the constant magnetic field $B_0$ (zoomed in on the right-hand side graph)}
+	\caption{Vertical velocity $v_y$ of a proton and an antiproton in the magnetic field $\vec{B}$ and of a proton in the constant magnetic field $B_0\hat{z}$ (zoomed in on the right-hand side graph)}
 	\label{fig:app2_i_vyt}
 \end{figure}
+
+On Figure \ref{fig:app2_i_vyt} the comparison of the vertical velocities of each particle shows that the proton in the variable magnetic field $vec{B}$ accelerates faster in the positive direction, and slower in the negative direction, than the proton in the constant magnetic field. The opposite is true for the antiproton.
+
+Indeed the expression of the Lorentz force in the variable magnetic field with $E=0$ is:
+\begin{equation}
+	\vec{F} = q\vec{v} \times \vec{B} = q\vec{v} \times B_0(1+\kappa x)\hat{z}
+	\label{mag_force}
+\end{equation}
+Equation \ref{mag_force} implies that the magnitude of the Lorentz force in a variable magnetic field is also variable. It depends on the horizontal position $x$ of the particle. It is minimal when $x$ is minimal, i.e. at the leftmost point of the quasi-circular trajectory, where $v_y$ is maximal in the positive direction, and it is maximal at its rightmost point, when $x$ is maximal, and $v_y$ is maximal in the negative direction. The force is perpendicular to the velocity $\vec{v}$ in the $xy$ plan, towards the interior of the trajectory.
 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=0.75\textwidth]{graphs/app2_i_ene.eps}	
-	\caption{Comparison of the evolution of the energy for a proton and an antiproton in the magnetic field $\mathbf{B}$}
+	\caption{Comparison of the evolution of the energy for a proton and an antiproton in the magnetic field $\vec{B}$}
 	\label{fig:app2_i_ene}
 \end{figure}
+
+On figure \ref{fig:app2_i_ene} the energy of the particles oscillates and increases on average, but the variation is infinitesimally small (of order $10^22$) and as such can be attributed to numerical errors, as energy should be conserved.
 
 
 \subsubsection{Magnetic moment $\mu$}
