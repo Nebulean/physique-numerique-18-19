@@ -257,13 +257,36 @@ Table \ref{tab:comparaison-integrateur} summaries what was learnt about these nu
 \end{table}
 
 \section{Applications}
-\subsection{Drift $E\times B$}
+\subsection{Drift $\mathbf{E}\times \mathbf{B}$}
 In this experiement, the proton is now subjected to an electric field $E=\SI{6d4}{\volt\per\meter}$, as well as a constant magnetic field $B_0 = \SI{3}{\tesla}$.
 The proton starts with an initial velocity of $v_{0x}=\SI{0}{\meter\per\second}$ and $v_{0y}=\SI{4d5}{\meter\per\second}$, and the simulation will last the time it take for the proton to end five revolutions.
 
 \subsubsection{Convergence study}
+The first point to study is to check if the Runge-Kutta of 2nd order converges for this experiment.
+Figure \ref{fig:app1-i-conv} show a study on the convergence of the position.
+In both figure \ref{fig:app1-i-conv-x} and \ref{fig:app1-i-conv-y}, the final clearly tends to a certain point, which implies the convergence of the method.
+It also shows that after a certain point, it is not required to use a smaller time step.
+In both case, a time step of \SI{d-10}{\second} is close enough to get a good approximation of the solutions, and using a smaller one would only be a waste of resources.
 
-\subsubsection{Analysis of simulations}
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{graphs/app1_i_conv_x.eps}
+	\caption{Final horizontal position with respect to the time step.}
+	\label{fig:app1-i-conv-x}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{graphs/app1_i_conv_y.eps}
+	\caption{Final vertical position with respect to the time step.}
+	\label{fig:app1-i-conv-y}
+\end{subfigure}
+\caption{Convergence study of the position with respect to the time step using Runge-Kutta of 2nd order.}
+\label{fig:app1-i-conv}
+\end{figure}
+
+
+\subsubsection{Energy, trajectory and velocity analysis}
 \begin{figure}[h]
 \begin{subfigure}[t]{0.32\textwidth}
 	\includegraphics[width=\textwidth]{graphs/app1_ii_ene.eps}
