@@ -20,7 +20,7 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice2'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-nsimul = 50; % Nombre de simulations a faire default=20
+nsimul = 100; % Nombre de simulations a faire default=20
 
 nsteps = round(logspace(2,4,nsimul)); % Nombre d'iterations entier de 10^2 a 10^4
 tfin = 1.09321e-7;
@@ -84,8 +84,8 @@ for n=1:3
         t = data(:,1);
         x = data(:,2);
         y = data(:,3);
-        x_th = v0*sin(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
-        y_th = -v0*cos(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
+        x_th = -v0*cos(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
+        y_th = -v0*sin(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
         error(i) = max(sqrt((x-x_th).^2+(y-y_th).^2));
     end
 
@@ -133,8 +133,8 @@ for n=2:3
         t = data(:,1);
         x = data(:,2);
         y = data(:,3);
-        x_th = v0*sin(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
-        y_th = -v0*cos(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
+        x_th = -v0*cos(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
+        y_th = -v0*sin(omega*t)/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
         error(i) = max(sqrt((x-x_th).^2+(y-y_th).^2)); % 
     end
 
@@ -158,5 +158,5 @@ set(l2, 'FontSize', 18);
 hold off
 
 
-saveas(f1, 'graphs/app1_conv_ALL', 'epsc');
-saveas(f2, 'graphs/app1_conv_noEuler', 'epsc');
+saveas(f1, 'graphs/ex2_ii_conv_ALL', 'epsc');
+saveas(f2, 'graphs/ex2_ii_conv_NoEuler', 'epsc');

@@ -3,7 +3,7 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice2'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-output='ex2_ii_traj'
+output='ex2_iii_speed_ALL'
 schema = ["Euler", "EulerCromer", "RungeKutta2"];
 
 set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
@@ -44,25 +44,30 @@ for i=1:3
     filename = sprintf('%s-%s.out', output, schema(i));
     d = load(filename);
     t = d(:,1); % Le t reste constant
-    x = d(:,2);
-    y = d(:,3);
+    vx = d(:,4);
+    vy = d(:,5);
 
-    plot(x,y, 'LineWidth',1, 'Color', color(i,:));
+    plot(vx,vy, 'LineWidth',1, 'Color', color(i,:));
 end
 
 % On veut ajouter au plot la trajectoire théorique.
-x_th = [];
-y_th = [];
+vx_th = [];
+vy_th = [];
 for i=1:length(t)
-    x_th(i) = -v0*cos(omega*t(i))/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
-    y_th(i) = -v0*sin(omega*t(i))/omega; 
+    vx_th(i) = v0*sin(omega*t(i)); % TODO: Entrer la vraie solution analytique en fonction du temps
+    vy_th(i) = -v0*cos(omega*t(i)); 
 end
-plot(x_th, y_th, 'LineWidth', 1, 'Color', darkyellow);
+plot(vx_th, vy_th, 'LineWidth', 1, 'Color', darkyellow);
 
 
-xlabel('x [m]');
-ylabel('y [m]');
+xlabel('$v_x$ [m/s]');
+ylabel('$v_y$ [m/s]');
 set(gca, 'fontsize',20);
+
+xmin=-8e5;xmax=8e5;
+ymin=xmin;ymax=xmax;
+
+axis([xmin,xmax,ymin,ymax]);
 
 legstr = ["Euler", "Euler Cromer", "Runge Kutta 2", "Analytical result"];
 
@@ -74,7 +79,9 @@ grid on
 
 hold off
 
-saveas(f1, 'graphs/ex2_ii_traj_ALL', 'epsc');
+saveas(f1, 'graphs/ex2_iii_speed_ALL','epsc')
+
+
 
 
 
@@ -83,7 +90,7 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice2'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-output='ex2_ii_traj'
+output='ex2_iii_speed_NoEuler'
 schema = ["EulerCromer", "RungeKutta2"];
 
 % Copie direct des valeurs de configuration.in
@@ -114,24 +121,24 @@ for i=1:2
     filename = sprintf('%s-%s.out', output, schema(i));
     d = load(filename);
     t = d(:,1); % Le t reste constant
-    x = d(:,2);
-    y = d(:,3);
+    vx = d(:,4);
+    vy = d(:,5);
 
-    plot(x,y, 'LineWidth',1.1, 'Color', color(i,:));
+    plot(vx,vy, 'LineWidth',1.1, 'Color', color(i,:));
 end
 
 % On veut ajouter au plot la trajectoire théorique.
-x_th = [];
-y_th = [];
+vx_th = [];
+vy_th = [];
 for i=1:length(t)
-    x_th(i) = -v0*cos(omega*t(i))/omega; % TODO: Entrer la vraie solution analytique en fonction du temps
-    y_th(i) = -v0*sin(omega*t(i))/omega; 
+    vx_th(i) = v0*sin(omega*t(i)); % TODO: Entrer la vraie solution analytique en fonction du temps
+    vy_th(i) = -v0*cos(omega*t(i)); 
 end
-plot(x_th, y_th, 'LineWidth', 1, 'Color', darkyellow);
+plot(vx_th, vy_th, 'LineWidth', 1, 'Color', darkyellow);
 
 
-xlabel('x [m]');
-ylabel('y [m]');
+xlabel('$v_x$ [m/s]');
+ylabel('$v_y$ [m/s]');
 set(gca, 'fontsize',20);
 
 legstr = ["Euler Cromer", "Runge Kutta 2", "Analytical result"];
@@ -144,4 +151,4 @@ grid on
 
 hold off
 
-saveas(f2, 'graphs/ex2_ii_traj_NoEuler', 'epsc');
+saveas(f2, 'graphs/ex2_iii_speed_NoEuler', 'epsc');
