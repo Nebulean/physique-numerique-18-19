@@ -99,12 +99,31 @@ The solve it, two simplifications are made: the norm of the electric field $E=0$
 After some computation available in appendix \ref{ann:dev-sol-ana}, the system of equations \ref{eq:sol-ana} results.
 
 \begin{equation}
-\text{METTRE LE RESULTAT}
+	\begin{pmatrix} v_x\\ v_y\\ 0\\ \end{pmatrix} = \begin{pmatrix} Acos(\frac{qB_0}{m} t + \phi_x)\\ -Asin(\frac{qB_0}{m} t + \phi_x)\\ 0\\ \end{pmatrix}
 \label{eq:sol-ana}
-\end{equation}%TODO: Mettre les équations.
+\end{equation}
 
-\subsection{Center of circle for a particular radius}
-%TODO: Remplir avec le cours.
+\subsection{Solution with set initial conditions}
+
+For $v_x=0$ and $v_{y0} = v_0$, equation \ref{eq:sol-v} results.
+
+\begin{equation}
+	\begin{pmatrix} v_x\\ v_y\\ 0\\ \end{pmatrix} = \begin{pmatrix} v_0 sin(\omega t)\\ -v_0 cos(\omega t)\\ 0\\ \end{pmatrix}
+\label{eq:sol-v}
+\end{equation}
+
+And for a trajectory centered on $(0,0)$, we get equation \ref{eq:sol-r}.
+\begin{equation}	
+	\begin{pmatrix} x\\ y\\ 0\\ \end{pmatrix} = \begin{pmatrix} -\frac{v_0}{\omega} cos(\omega t)\\ -\frac{v_0}{\omega} sin(\omega t)\\ 0\\ \end{pmatrix}
+\label{eq:sol-r}
+\end{equation}
+with the initial position \ref{eq:init}.
+\begin{equation}
+	\begin{pmatrix} x_0\\ y_0\\ 0\\ \end{pmatrix} = \begin{pmatrix} -\frac{v_0}{\omega}\\ 0\\ 0\\ \end{pmatrix}
+\label{eq:init}
+\end{equation}
+
+All the developements are available in appendix \ref{ann:dev-sol-ana}.
 
 \section{Study of three numerical methods}
 In this section, the electric field is $E = 0$.
@@ -345,10 +364,10 @@ The magnetic moment of the proton in the variable magnetic field $\vec{B}$ (Fig.
 The mass of the proton is so small, that the gravitational force is ignored in these experiments.
 Then the only force remaining is Lorentz's force.
 
-\begin{equation}
+\begin{equation*}
 	\vec{F}_L = q(\vec{E} + \vec{v}\times\vec{B})
 	\label{eq:lorentz-force}
-\end{equation}
+\end{equation*}
 
 Using Newton's second law, three equations results.
 
@@ -364,6 +383,59 @@ The last equation is not useful for what is about to come.
 The system of differential equation resulting is equation \ref{eq:equa-diff}.
 
 \section{Analytical solutions development} \label{ann:dev-sol-ana}
-%TODO: Faire le developpement.
+We solve the differential equation system \ref{eq:equa-diff-simple} for $v_x = \dot{x}$ and $v_y = \dot{y}$.
+
+First, we set $\omega = \frac{qB_0}{m}$.
+
+\begin{equation*}
+	\begin{pmatrix} \dot{v_x}\\ \dot{v_y}\\ 0\\ \end{pmatrix} = \omega \begin{pmatrix} v_y\\ -v_x\\ 0\\ \end{pmatrix}
+\end{equation*}
+
+Then we derive the system with respect to time:
+
+\begin{equation*}
+	\begin{pmatrix} \ddot{v_x}\\ \ddot{v_y}\\ 0\\ \end{pmatrix} = \omega \begin{pmatrix} \dot{v_y}\\ -\dot{v_x}\\ 0\\ \end{pmatrix} = -\omega ^2 \begin{pmatrix} v_x\\ v_y\\ 0\\ \end{pmatrix}
+\end{equation*}
+
+Which gives us the differential equation for a harmonic oscillator. Thus we use the ansatz:
+
+\begin{equation*}
+	\begin{pmatrix} v_x\\ v_y\\ 0\\ \end{pmatrix} = \begin{pmatrix} Acos(\omega t + \phi_x)\\ Bcos(\omega t + \phi_y)\\ 0\\ \end{pmatrix}
+\end{equation*}
+with $A$, $B$ the amplitudes and $\phi_x$, $\phi_y$ the phases.
+
+Thus we have: $\dot{vy} = -\omega v_x = -A \omega cos (\omega t + \phi_x)$. By integrating this result we get the solution shown in equation \ref{eq:sol-ana}:
+
+\begin{equation*}
+	\begin{pmatrix} v_x\\ v_y\\ 0\\ \end{pmatrix} = \begin{pmatrix} Acos(\omega t + \phi_x)\\ -Asin(\omega t + \phi_x)\\ 0\\ \end{pmatrix}
+\end{equation*}
+
+And with the initial conditions $v_{x0}=0$, $v_{y0}=v_0$:
+
+\begin{equation*}
+	\begin{pmatrix} 0\\ v_0\\ 0\\ \end{pmatrix} = \begin{pmatrix} Acos(\phi_x)\\ -Asin(\phi_x)\\ 0\\ \end{pmatrix}
+\end{equation*}
+
+Therefore $\phi_x = -\pi /2$ and $A=v_0$, and we get:
+
+\begin{equation*}
+	\begin{pmatrix} v_x\\ v_y\\ 0\\ \end{pmatrix} = \begin{pmatrix} v_0 sin(\omega t)\\ -v_0 cos(\omega t)\\ 0\\ \end{pmatrix}
+\end{equation*}
+which, by integrating and derivating, respectively, gives us the acceleration and trajectory vectors for a trajectory centered on $(0,0)$:
+
+\begin{equation*}
+	\begin{pmatrix} a_x\\ a_y\\ 0\\ \end{pmatrix} = \begin{pmatrix} v_0 \omega cos(\omega t)\\ v_0 \omega sin(\omega t)\\ 0\\ \end{pmatrix}
+\end{equation*}
+	
+\begin{equation*}	
+	\begin{pmatrix} x\\ y\\ 0\\ \end{pmatrix} = \begin{pmatrix} -\frac{v_0}{\omega} cos(\omega t)\\ -\frac{v_0}{\omega} sin(\omega t)\\ 0\\ \end{pmatrix}
+\end{equation*}
+
+	Thus we get:
+
+\begin{equation*}
+	\begin{pmatrix} x_0\\ y_0\\ 0\\ \end{pmatrix} = \begin{pmatrix} -\frac{v_0}{\omega}\\ 0\\ 0\\ \end{pmatrix}
+\end{equation*}
+as the particle's initial position.
 
 \end{document}
