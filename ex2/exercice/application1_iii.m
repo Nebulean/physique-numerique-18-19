@@ -1,7 +1,7 @@
 clear
 
 % on fait la simulation
-cmd = './Exercice2 configuration.in nsteps=500 E=6e4 B0=3 vx0=0 vy0=4e5 tfin=1.09321e-7 schema=RK2 output=app1_iii.out';
+cmd = './Exercice2 configuration.in nsteps=1000 E=6e4 B0=3 vx0=0 vy0=4e5 tfin=1.09321e-7 schema=RK2 output=app1_iii.out';
 disp(cmd);
 system(cmd);
 
