@@ -22,8 +22,8 @@ private:
   {
     if((!force && last>=sampling) || (force && last!=1))
     {
-      double emec = 0.; // TODO: Evaluer l'energie mecanique
-      double pnc = 0.; // TODO: Evaluer la puissance des forces non conservatives
+      double emec = m*L*(L/2. * thetadot*thetadot - g*cos(theta));
+      double pnc = -kappa * L*L * thetadot*thetadot;
 
       *outputFile << t << " " << theta << " " << thetadot << " " << emec << " " << pnc << endl;
       last = 1;
@@ -34,9 +34,17 @@ private:
     }
   }
 
+  double a(double p, double v)
+  {
+    return -kappa/m * v - g/L * sin(p);
+  }
+
   void step()
   {
-    // TODO: Mettre a jour theta et thetadot avec le schema de Verlet
+    double oldTheta = theta;
+    theta = theta + thetadot * dt + 1./2. * a(theta, thetadot) * dt * dt;
+    double midThetaDot = thetadot + 1./2. * a(oldTheta, thetadot) * dt;
+    thetadot = thetadot + (a(oldTheta, midThetaDot) + a(theta, midThetaDot)) * dt/2.;
   }
 
 
