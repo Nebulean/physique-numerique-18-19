@@ -1,21 +1,28 @@
 % debut d'un fichier latex standard
 \documentclass[a4paper,12pt,twoside]{article}
 
+% Pour les unités SI
+\usepackage{siunitx}
 % pour l'inclusion de figures en eps,pdf,jpg
 \usepackage{graphicx}
 % quelques symboles mathematiques en plus
 \usepackage{amsmath}
 % le tout en langue francaise
-\usepackage[french]{babel}
+%\usepackage[english]{babel}
 % on peut ecrire directement les caracteres avec l'accent
 % a utiliser sur Linux/Windows
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+
+% pour faire des systèmes d'équations
+\usepackage{systeme}
+\setcounter{tocdepth}{3} % Augmente le niveau affiché dans la table des matières
+
 % a utiliser sur le Mac
 %\usepackage[applemac]{inputenc}
 % pour l'inclusion de links dans le document
 \usepackage[colorlinks,bookmarks=false,linkcolor=blue,urlcolor=blue]{hyperref}
-
+\usepackage{subcaption}
 \paperheight=297mm
 \paperwidth=210mm
 
@@ -43,16 +50,17 @@
 
 % pdflatex SqueletteRapport.pdf    % compile et produit un pdf
 
+
 % ======= Le document commence ici ======
 
 \begin{document}
 % Le titre, l'auteur et la date
-\title{Titre du template}
+\title{Exercise 3: Pendulum with a vertical excitation\\{\small Physique Numérique I}}
 \date{\today}
 \author{Delphine Martres et Damien Korber\\{\small \mail{delphine.martres@epfl.ch} et \mail{damien.korber@epfl.ch}}}
 \maketitle
 \tableofcontents % Table des matieres
-
+\newpage % Si la toc est trop grande, voir ligne 19.
 % Quelques options pour les espacements entre lignes, l'identation
 % des nouveaux paragraphes, et l'espacement entre paragraphes
 \baselineskip=16pt
@@ -65,7 +73,44 @@
 
 \section{Introduction}
 
+\section{Analytical computations}
 
+\section{Numerical computations}
 
+\subsection{Little movements without excitation or air resistance}
+In this section, no excitation or air resistance will be considered: $\kappa = 0$, $d = 0$.
+The movements are small, and approximations are made: $\theta_0 = \num{d-6}$, $\dot{\theta}_0 = 0$.
+The computations run for \SI{20}{\second}.
+
+\subsubsection{Comparison between the analytical solution and the approximation of Stormer-Verlet method}
+\begin{figure}[h]
+\begin{subfigure}[t]{0.48\textwidth}
+	\includegraphics[width=\textwidth]{graphs/a_traj_full.eps}
+	\caption{Angle of the pendulum with respect to time, with a comparison between the Stormer-Verlet numerical method and the analytical solution.}
+	\label{fig:a-traj-full}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.48\textwidth}
+	\includegraphics[width=\textwidth]{graphs/a_traj_zoomed.eps}
+	\caption{Same plot as \ref{fig:a-traj-full}, with the beginning cropped out to get a better view of the small difference between the numerical and analytical solutions.}
+	\label{fig:a-traj-zoomed}
+\end{subfigure}
+\caption{Angle of the pendulum with respect to time.}
+\label{fig:a-traj}
+\end{figure}
+
+\subsubsection{Convergence study}
+
+\subsubsection{Conservation of energy}
+
+\subsection{Great movements}
+
+\subsection{Resonant excitation}
+
+\subsection{Parametric excitation}
+
+\subsection{Poincaré section: chaos without air resistance}
+
+\subsection{Pointcaré section: chaos with air resistance}
 
 \end{document}
