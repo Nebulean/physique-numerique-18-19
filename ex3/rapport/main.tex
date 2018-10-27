@@ -177,12 +177,18 @@ The computations run for \SI{20}{\second}.
 	\caption{Same plot as \ref{fig:a-traj-full}, with the beginning cropped out to get a better view of the small difference between the numerical and analytical solutions.}
 	\label{fig:a-traj-zoomed}
 \end{subfigure}
-\caption{Angle of the pendulum with respect to time.}
+\caption{Angle of the pendulum with respect to time, using Stormer-Verlet numerical method at \num{1000} steps and the analytical solution.}
 \label{fig:a-traj}
 \end{figure}
 
 \subsubsection{Convergence study}
 
+\begin{figure}[h]
+\centering
+	\includegraphics[width=0.6\textwidth]{graphs/a_conv.eps}
+	\caption{Error on the final angle of the pendulum with respect to the time step.}
+	\label{fig:a-conv}
+\end{figure}
 \subsubsection{Conservation of energy}
 
 \subsection{Great movements}

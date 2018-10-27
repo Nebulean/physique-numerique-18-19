@@ -3,7 +3,7 @@ set(groot, 'defaultLegendInterpreter', 'latex');
 set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 
-d = load("a.out");
+d = load("a_traj.out");
 
 t = d(:,1);
 theta = d(:,2);
