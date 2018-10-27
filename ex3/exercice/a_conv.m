@@ -22,7 +22,7 @@ for i = 1:nsimul
     % Execution du programme en lui envoyant la valeur a scanner en argument
     cmd = sprintf('%s%s %s %s=%.15g output=%s kappa=0. d=0. theta0=1e-6 thetadot0=0. tfin=20', repertoire, executable, input, paramstr, dt(i), output{i});
     disp(cmd)
-%     system(cmd); % À commenter quand les simulations sont faites.
+    system(cmd); % À commenter quand les simulations sont faites.
 end
 
 
@@ -38,11 +38,11 @@ theta_th = A*cos(omega0*20);
 %error = ones(1,nsimul);
 for i=1:nsimul
     output = sprintf('dt=%s.out', num2str(dt(i)));
-%     d = load(output);
-% 
-%     theta = d(end,2);
-%     
-%     error(i) = abs(theta - theta_th)
+    d = load(output);
+
+    theta = d(end,2);
+    
+    error(i) = abs(theta - theta_th)
 end
 
 
@@ -56,6 +56,7 @@ ylabel('Error on the final angle $\theta$')
 
 set(gca, 'XScale','log');
 set(gca, 'YScale','log');
+set(gca, 'fontsize', 20);
 grid on;
 
 hold off;
