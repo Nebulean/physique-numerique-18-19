@@ -30,8 +30,13 @@ end
 %Copie des paramètres de configuration.in
 tfin = 20;
 dt = 0.02;
+g = 9.81;
+L = 0.1;
+
+omega0 = sqrt(g/L);
 
 period = zeros(nsimul,1); % vecteur qui rassemblera les périodes de chaque simulation
+periodth = zeros(nsimul,1); % valeurs théoriques
 
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
@@ -56,6 +61,7 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     %disp(times);
     
     period(i,1) = sum(times)/length(times); % on rassemble la moyenne des périodes de chaque simulation
+    periodth(i,1) = 4/omega0 * ellipticK(sin(theta0(i)/2)*sin(theta0(i)/2)); % valeur théorique de chaque simulation
 end
 
 %disp(period);
@@ -69,9 +75,10 @@ set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 
 figure
-p1 = plot(theta0,period);
+p1 = plot(theta0, period, theta0, periodth);
 set(p1, 'LineWidth', 1.5);
-xlabel('$\theta_0$ [rad]')
-ylabel('T[s]')
-grid on
 set(gca,'fontsize',20);
+xlabel('$\theta_0$ [rad]')
+ylabel('Period T [s]')
+grid on
+legend('Verlet','Theoretical')
