@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+echo "Simulation de l'exercice a."
 #a
-./Exercice3 configuration.in kappa=0 d=0 theta0=10e-6 thetadot0=0 tfin=20 output=a.out
+./Exercice3 configuration.in kappa=0. d=0. theta0=1e-6 thetadot0=0. tfin=20 output=a_traj.out
+./Exercice3 configuration.in kappa=0. d=0. theta0=1e-6 thetadot0=0. tfin=20 output=a_ener.out
+
+echo "Simulation de l'exercice B."
 
 #b
-./Exercice3 configuration.in kappa=0. d=0. thetadot0=0 tFin=20
+./Exercice3 configuration.in kappa=0. d=0. thetadot0=0 tFin=20 output=b.out
