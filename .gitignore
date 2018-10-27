@@ -9,6 +9,7 @@
 *.dvi
 ex1/exercice/Exercice1
 ex2/exercice/Exercice2
+ex3/exercice/Exercice3
 *m~
 */exercice/graphs/*
 */rapport/graphs/*.pdf

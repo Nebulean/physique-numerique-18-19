@@ -1,7 +1,7 @@
 % Parametres physiques :
 tFin     = 20
 d        = 0
-Omega    = 0
+Omega    = 9.9
 kappa    = 0
 m        = 0.1
 g        = 9.81
