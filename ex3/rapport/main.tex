@@ -74,7 +74,89 @@
 \section{Introduction}
 
 \section{Analytical computations}
+\subsection{Differential equation of the problem}
+After some computations described in appendix \ref{ann:eq-diff}, equation \ref{eq:equa-diff} results.%TODO: Faire l'annexe en question.
 
+\begin{equation}
+	\ddot{\theta} = -\frac{\kappa}{m}\dot{\theta} - \frac{g}{L}\sin\theta
+	\label{eq:equa-diff}
+\end{equation}
+where $\kappa$ is an air resistance coefficient, $m$ is the mass, $\theta$ is the angle of the pendulum, $g$ the mean gravity on earth and $L$ the length of the rod.
+
+Equation \ref{eq:equa-diff} can also be written as equation \ref{eq:equa-diff-sys}, which is better for numerical computations.
+
+\begin{equation}
+	\frac{d}{dt}
+	\begin{pmatrix}
+		\theta \\ \dot{\theta}
+	\end{pmatrix}
+	= \begin{pmatrix}
+	\dot{\theta} \\
+		-\frac{\kappa}{m}\dot{\theta} - \frac{g}{L}\sin\theta
+	\end{pmatrix}
+	\label{eq:equa-diff-sys}
+\end{equation}
+
+\subsection{Mechanical energy and power of non-conservative forces in the frame of reference $R'$}
+The only energy to consider is the kinetic energy of rotation, and the potential energy, as there is no translation.
+The kinetic energy of rotation is given by $E_{c,r} = \frac{1}{2}I\omega^2$, where $I$ is the moment of inertia and $\omega$ the angular velocity.
+The moment of inertia of a solid can be tough to compute for generic objects, but for a discrete number of masses, the moment of inertia is given by equation \ref{eq:moment-inertie}. \cite{ans:moment-inertie} %TODO: Ajouter à la bibliographie le livre de meca pour la formule de I.
+
+\begin{equation}
+	I = \sum_\alpha m_\alpha r_\alpha^2
+	\label{eq:moment-inertie}
+\end{equation}
+where $m_\alpha$ is the mass and $r_\alpha$ is the distance between the origin considered and the mass.
+
+In the case of the pendulum, it is quite trivial to compute.
+The mass of rod of the pendulum is ignored, and the mass $m$ of the pendulum is condensed in a single point at a distance $L$ of the origin of $R'$.
+The moment of inertie is the given by $I=mL^2$.\\ %TODO: J'ai pas trouvé de traduction de "point matériel".
+
+The mechanical is then expressed as equation \ref{eq:emec}.
+
+\begin{equation}
+	E_m = \frac{1}{2}I\omega^2 - mgL\cos\theta =  \frac{mL^2}{2}\dot{\theta}^2 - mgL\cos\theta
+	\label{eq:emec}
+\end{equation}
+
+Regarding the power, there is only one force to consider, the air resistance (or drag), because it is the only non-conservative one.
+The power is expressed as $P = \mathbf{F}\cdot\mathbf{v}$, and the drag is defined as $\mathbf{f} = -\kappa\mathbf{v'}$ in this report, where $\mathbf{v'}$ is the speed in the frame of reference $R'$.
+These vectors are given by:
+
+\begin{align*}
+	\mathbf{f} = 
+	\begin{pmatrix}
+		f\cos\theta \\
+		f\sin\theta \\
+		0
+	\end{pmatrix}
+	= \begin{pmatrix}
+		f\cos\theta \\
+		f\sin\theta \\
+		0
+	\end{pmatrix}
+	\text{ and }
+	\mathbf{v} =
+	\begin{pmatrix}
+		-v'\cos\theta \\
+		-v'\sin\theta \\
+		0
+	\end{pmatrix}
+	= \begin{pmatrix}
+		-\dot{\theta}L\cos\theta \\
+		-\dot{\theta}L\sin\theta \\
+		0
+	\end{pmatrix}
+\end{align*}
+
+The power of the drag is then given by equation \ref{eq:power}.
+\begin{equation}
+	P = \kappa\dot{\theta}^2 L^2
+	\label{eq:power}
+\end{equation}
+
+\subsection{Solutions for little movements around equilibrium}
+%TODO: à remplir
 \section{Numerical computations}
 
 \subsection{Little movements without excitation or air resistance}
