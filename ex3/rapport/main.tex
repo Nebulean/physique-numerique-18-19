@@ -155,8 +155,9 @@ The power of the drag is then given by equation \ref{eq:power}.
 	\label{eq:power}
 \end{equation}
 
-\subsection{Solutions for little movements around equilibrium}
+\subsection{Solutions for little movements around equilibrium}\label{sec:sol-analytique}
 %TODO: à remplir
+%TODO: Mettre la solution analytique finale avec eq:sol-analytique-gen comme label.
 \section{Numerical computations}
 
 \subsection{Little movements without excitation or air resistance}
@@ -165,6 +166,17 @@ The movements are small, and approximations are made: $\theta_0 = \num{d-6}$, $\
 The computations run for \SI{20}{\second}.
 
 \subsubsection{Comparison between the analytical solution and the approximation of Stormer-Verlet method}
+The problem is easy enough to be able to compute the analytical solution.
+The general solution was given in section \ref{sec:sol-analytique} by equation \ref{eq:sol-analytique-gen}.
+Using the defined initial conditions, the constants can be computed, and the analytical solution for this problem is given by equation \ref{eq:a-sol-ana}.
+
+\begin{equation}
+	\theta = 10^{-6}\cos(\omega_0t)
+	\label{eq:a-sol-ana}
+\end{equation}
+
+It is then possible to compare the analytical solution with the solution found using the numerical method of Stormer-Verlet, which is done in figure \ref{fig:a-traj}.
+
 \begin{figure}[h]
 \begin{subfigure}[t]{0.48\textwidth}
 	\includegraphics[width=\textwidth]{graphs/a_traj_full.eps}
@@ -174,14 +186,25 @@ The computations run for \SI{20}{\second}.
 ~
 \begin{subfigure}[t]{0.48\textwidth}
 	\includegraphics[width=\textwidth]{graphs/a_traj_zoomed.eps}
-	\caption{Same plot as \ref{fig:a-traj-full}, with the beginning cropped out to get a better view of the small difference between the numerical and analytical solutions.}
+	\caption{Same plot as \ref{fig:a-traj-full}, with the beginning cropped out to get a better view of the small difference between the numerical and analytical solutions at the end of the simulation.}
 	\label{fig:a-traj-zoomed}
 \end{subfigure}
 \caption{Angle of the pendulum with respect to time, using Stormer-Verlet numerical method at \num{1000} steps and the analytical solution.}
 \label{fig:a-traj}
 \end{figure}
 
+Figure \ref{fig:a-traj-full} shows a comparison of Stromer-Verlet's numerical method and the analytical solution.
+Those plots almost overlap, and the numerical method seems quite accurate knowing the small number of steps considered.
+The numerical method seems to be stable over time.
+Figure \ref{fig:a-traj-zoomed} shows the same comparison, but focuses on the end of the simulation, where the peak difference occurs.
+This slight difference does not seem to affect the amplitude of the sinus, but only its period.
+The numerical method has a slightly decreasing period over time.
+This comes from computational errors and not from the numerical method, as Stormer-Verlet seems to be stable in this problem.
+These errors are probably generated when numbers are rounded.%TODO: Les 2-3 dernières phrases me semblent assez moche, faudrait les modifier.
+
+
 \subsubsection{Convergence study}
+In this section, the convergence of the numerical method of Stormer-Verlet will be studied.
 
 \begin{figure}[h]
 \centering
@@ -189,8 +212,31 @@ The computations run for \SI{20}{\second}.
 	\caption{Error on the final angle of the pendulum with respect to the time step.}
 	\label{fig:a-conv}
 \end{figure}
+
+% Ce que je veux dire: L'erreur est divisée par 100 quand le time step est divisé par 10, le fait que le résultat converge parce que ça descend linéairement sur le graph (log), et parler de l'ordre de grandeur de l'erreur.
+Figure \ref{fig:a-conv} shows the convergence study of this problem.
+The first point to verify is the convergence order of the numerical method.
+In this figure, the curve follows an almost constant linear decrease (with a log scale).
+On this plot, dividing the time step by \num{10} almost divides the error by \num{100}.
+This implies a second order numerical method: when the time step is divided by any number $h$, the error is divided by $h^2$.
+For example, at $\Delta t = \SI{d-2}{\second}$ the error is estimated by $err = \num{d-8}$.
+By dividing by \num{10} the time step ($\Delta t = \SI{d-3}{\second}$), the error is now estimated by $err \approx \num{d-10}$, which is \num{100} times smaller.\par
+The second point how small the error gets.
+Consider that the final angle is of order \num{d-6}.
+When the time step is big, $\Delta t = \SI{d-2}{\second}$ for example, the error reaches \SI{10}{\percent}.
+Computations are quite fast and easy to do at this time step.
+Just by lowering a little the time step, the error easily gets smaller that \SI{1}{\percent} or even less, which is gives a good approximation of the problem.
+In summary, Stormer-Verlet's numerical method converges fast, and is fits well the problem.
+
+
 \subsubsection{Conservation of energy}
 
+\begin{figure}[h]
+\centering
+	\includegraphics[width=0.6\textwidth]{graphs/a_ener.eps}
+	\caption{Study of the mechanical energy of the pendulum with respect to time.}
+	\label{fig:a-ener}
+\end{figure}
 \subsection{Great movements}
 
 \subsection{Resonant excitation}
