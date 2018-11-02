@@ -14,6 +14,7 @@ private:
   double m, g, L;
   double d, Omega, kappa;
   double theta, thetadot;
+  double emecdot; // added by us
   int sampling;
   int last;
   ofstream *outputFile;
@@ -23,9 +24,10 @@ private:
     if((!force && last>=sampling) || (force && last!=1))
     {
       double emec = m*L*(L/2. * thetadot*thetadot - g*cos(theta));
-      double pnc = -kappa * L*L * thetadot*thetadot;
+      double pnc = -kappa * L*L * thetadot*thetadot + m*L*thetadot*Omega*Omega*d*sin(Omega*t)*sin(theta);
+      emecdot = m*L*L*thetadot*a(theta, thetadot) + m*g*L*thetadot*sin(theta); // added by us
 
-      *outputFile << t << " " << theta << " " << thetadot << " " << emec << " " << pnc << endl;
+      *outputFile << t << " " << theta << " " << thetadot << " " << emec << " " << pnc << " " << emecdot << endl; // emecdot is added by us
       last = 1;
     }
     else
@@ -36,7 +38,7 @@ private:
 
   double a(double p, double v)
   {
-    return -kappa/m * v - g/L * sin(p) + Omega*Omega * d*sin(Omega*t)*cos(p);
+    return -kappa/m * v - g/L * sin(p) + Omega*Omega * d*sin(Omega*t)*sin(p)/L;
   }
 
   void step()

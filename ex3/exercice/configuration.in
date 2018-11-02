@@ -13,3 +13,5 @@ thetadot0 = 0
 dt       = 0.02
 output   = a.out
 sampling = 1
+
+% omega0 = 9.9045444115 = sqrt(g/L)
