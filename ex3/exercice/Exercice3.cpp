@@ -36,7 +36,7 @@ private:
 
   double a(double p, double v)
   {
-    return -kappa/m * v - g/L * sin(p);
+    return -kappa/m * v - g/L * sin(p) + Omega*Omega * d*sin(Omega*t)*cos(p);
   }
 
   void step()
