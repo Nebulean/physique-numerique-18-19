@@ -264,13 +264,25 @@ The mean mechanical energy is then conserved over time, which implies that, even
 \label{fig:b-period}
 \end{figure}
 
-The period of the pendulum was measured over $1000$ simulations with $\theta_0 \in ]0,\pi[$, using the Verlet method, and the resulting plot is shown on figure \ref{fig:b-period}, compared to the theoretical solution. As expected, the period grows exponentially with respect to the amplitude.
+The period of the pendulum was measured over $1000$ simulations with $\theta_0 \in ]0,\pi[$, using the Verlet method, and the resulting plot is shown on figure \ref{fig:b-period}, compared to the analytical solution. As expected, the period grows exponentially with respect to the amplitude.
 
 The difference between the simulation and the theoretical solution is only visible on the zoomed graph, wherein we see that it is of order $10^{-4}$ at this point of the graph. Only part of the graph is shown on the zoomed-in figure, but the two lines stay no less close all throughout and sometimes cross over each other. It is apparent however that the plot showing the Verlet simulations' periods is not as smooth as the theoretical line, as it has a stair-like shape. Overall this comparison shows that the Verlet method has a good precision.
 
 \subsection{Resonant excitation}
 
 \subsection{Parametric excitation}
+
+\begin{figure}[h]
+\begin{subfigure}[t]{0.52\textwidth}
+	\includegraphics[width=\textwidth]{graphs/d_thm.eps}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.52\textwidth}
+	\includegraphics[width=\textwidth]{graphs/d_theta.eps}
+\end{subfigure}
+\caption{blabla}
+\label{fig:d-thm}
+\end{figure}
 
 \subsection{Poincaré section: chaos without air resistance}
 
