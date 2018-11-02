@@ -12,4 +12,3 @@ echo "Simulation de l'exercice B."
 
 #d
 ./Exercice3 configuration.in theta0=0. thetadot0=1e-2 Omega=19.809 d=0.005 kappa=0.05 tFin=100 output=d_thm.out
-#19.809088823

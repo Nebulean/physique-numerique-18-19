@@ -39,6 +39,7 @@ plot(t,theta);
 
 xlabel("t [s]");
 ylabel("$\theta$ [rad]")
+grid on;
 
 hold off;
 
