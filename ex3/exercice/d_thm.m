@@ -1,5 +1,6 @@
 d = load("d_thm.out");
 
+% t theta thetadot emec pnc emecdot
 t = d(:,1);
 theta = d(:,2);
 thetadot = d(:,3);
@@ -15,7 +16,12 @@ set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 set(gca, 'fontsize', 22);
 
-plot(t, emecdot-pnc);
+
+emecdot2 = diff(emec)./diff(t);
+pnc(end) = [];
+t(end) = [];
+
+plot(t, emecdot2-pnc);
 
 ymin=-2e-16;
 ymax=2e-16;
@@ -39,6 +45,25 @@ plot(t,theta);
 
 xlabel("t [s]");
 ylabel("$\theta$ [rad]")
+grid on;
+
+hold off;
+
+%% graph emecdot
+f3 = figure;
+hold on;
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+set(gca, 'fontsize', 22);
+
+%emecdot2 = diff(emec)./diff(t);
+%t(end) = [];
+plot(t,emecdot);
+
+xlabel("t [s]");
+ylabel("derivative of mecanical energy [J]")
 grid on;
 
 hold off;

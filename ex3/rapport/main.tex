@@ -74,6 +74,7 @@
 \section{Introduction}
 
 \section{Analytical computations}
+%TODO Revoir en détail cette partie
 \subsection{Differential equation of the problem}
 After some computations described in appendix \ref{ann:eq-diff}, equation \ref{eq:equa-diff} results.%TODO: Faire l'annexe en question.
 
@@ -212,21 +213,22 @@ In this section, the convergence of the numerical method of Stormer-Verlet will 
 	\caption{Error on the final angle of the pendulum with respect to the time step.}
 	\label{fig:a-conv}
 \end{figure}
-
+%TODO Il faut refaire cette section
 % Ce que je veux dire: L'erreur est divisée par 100 quand le time step est divisé par 10, le fait que le résultat converge parce que ça descend linéairement sur le graph (log), et parler de l'ordre de grandeur de l'erreur.
-Figure \ref{fig:a-conv} shows the convergence study of this problem.
-The first point to verify is the convergence order of the numerical method.
-In this figure, the curve follows an almost constant linear decrease (with a log scale).
-On this plot, dividing the time step by \num{10} almost divides the error by \num{100}.
-This implies a second order numerical method: when the time step is divided by any number $h$, the error is divided by $h^2$.
-For example, at $\Delta t = \SI{d-2}{\second}$ the error is estimated by $err = \num{d-8}$.
-By dividing by \num{10} the time step ($\Delta t = \SI{d-3}{\second}$), the error is now estimated by $err \approx \num{d-10}$, which is \num{100} times smaller.\par
-The second point how small the error gets.
-Consider that the final angle is of order \num{d-6} (fig. \ref{fig:a-traj-full}).
-When the time step is big, $\Delta t = \SI{d-2}{\second}$ for example, the error reaches \SI{10}{\percent}.
-Computations are quite fast and easy to do at this time step.
-Just by lowering a little the time step, the error easily gets smaller that \SI{1}{\percent} or even less, which is gives a good approximation of the problem.
-In summary, Stormer-Verlet's numerical method converges fast, and is fits well the problem in term of convergence.
+
+%Figure \ref{fig:a-conv} shows the convergence study of this problem.
+%The first point to verify is the convergence order of the numerical method.
+%In this figure, the curve follows an almost constant linear decrease (with a log scale).
+%On this plot, dividing the time step by \num{10} almost divides the error by \num{100}.
+%This implies a second order numerical method: when the time step is divided by any number $h$, the error is divided by $h^2$.
+%For example, at $\Delta t = \SI{d-2}{\second}$ the error is estimated by $err = \num{d-8}$.
+%By dividing by \num{10} the time step ($\Delta t = \SI{d-3}{\second}$), the error is now estimated by $err \approx \num{d-10}$, which is \num{100} times smaller.\par
+%The second point how small the error gets.
+%Consider that the final angle is of order \num{d-6} (fig. \ref{fig:a-traj-full}).
+%When the time step is big, $\Delta t = \SI{d-2}{\second}$ for example, the error reaches \SI{10}{\percent}.
+%Computations are quite fast and easy to do at this time step.
+%Just by lowering a little the time step, the error easily gets smaller that \SI{1}{\percent} or even less, which is gives a good approximation of the problem.
+%In summary, Stormer-Verlet's numerical method converges fast, and is fits well the problem in term of convergence.
 
 
 \subsubsection{Conservation of energy}
