@@ -19,7 +19,15 @@ set(groot, 'defaultLegendInterpreter', 'latex');
 set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 set(gca, 'fontsize', 22);
-plot(t, emecdot-pnc);
+
+emecdot2 = diff(emec)./diff(t);
+newpnc = pnc;
+newpnc(end) = [];
+newt = t;
+newt(end) = [];
+
+plot(newt, abs(emecdot2-newpnc));
+
 xlabel("t [s]");
 ylabel("$\frac{dP}{dt} - P_{nc}$ [W]")
 grid on;

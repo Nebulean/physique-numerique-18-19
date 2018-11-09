@@ -18,17 +18,19 @@ set(gca, 'fontsize', 22);
 
 
 emecdot2 = diff(emec)./diff(t);
-pnc(end) = [];
-t(end) = [];
+newpnc = pnc;
+newpnc(end) = [];
+newt = t;
+newt(end) = [];
 
-plot(t, emecdot2-pnc);
+plot(newt, abs(emecdot2-newpnc));
 
-ymin=-2e-16;
-ymax=2e-16;
-ylim([ymin, ymax]);
+%ymin=-2e-16;
+%ymax=2e-16;
+%ylim([ymin, ymax]);
 
 xlabel("t [s]");
-ylabel("$\frac{d(E_m)}{dt} - P_{nc}$ [W]")
+ylabel("$\left|\frac{d(E_m)}{dt} - P_{nc}\right|$ [W]")
 
 grid on;
 hold off;
