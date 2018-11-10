@@ -62,7 +62,7 @@
 \tableofcontents % Table des matieres
 \newpage % Si la toc est trop grande, voir ligne 19.
 % Quelques options pour les espacements entre lignes, l'identation
-% des nouveaux paragraphes, et l'espacement entre paragraphes
+% des nouveaux paragraphes, et l'espa	cement entre paragraphes
 \baselineskip=16pt
 \parindent=15pt
 \parskip=5pt
@@ -74,9 +74,9 @@
 \section{Introduction}
 
 \section{Analytical computations}
-%TODO Revoir en détail cette partie
+%TODO : Revoir en détail cette partie: Y'a eu l'ajout de la boîte entre deux, donc il faut vérifier que tout soit encore d'actualité.
 \subsection{Differential equation of the problem}
-After some computations described in appendix \ref{ann:eq-diff}, equation \ref{eq:equa-diff} results.%TODO: Faire l'annexe en question.
+After some computations described in appendix \ref{ann:eq-diff}, equation \ref{eq:equa-diff} results.%TODO : Faire l'annexe en question.
 
 \begin{equation}
 	\ddot{\theta} = -\frac{\kappa}{m}\dot{\theta} - \frac{g}{L}\sin\theta
@@ -101,7 +101,7 @@ Equation \ref{eq:equa-diff} can also be written as equation \ref{eq:equa-diff-sy
 \subsection{Mechanical energy and power of non-conservative forces in the frame of reference $R'$}
 The only energy to consider is the kinetic energy of rotation, and the potential energy, as there is no translation.
 The kinetic energy of rotation is given by $E_{c,r} = \frac{1}{2}I\omega^2$, where $I$ is the moment of inertia and $\omega$ the angular velocity.
-The moment of inertia of a solid can be tough to compute for generic objects, but for a discrete number of masses, the moment of inertia is given by equation \ref{eq:moment-inertie}. \cite{ans:moment-inertie} %TODO: Ajouter à la bibliographie le livre de meca pour la formule de I.
+The moment of inertia of a solid can be tough to compute for generic objects, but for a discrete number of masses, the moment of inertia is given by equation \ref{eq:moment-inertie}. \cite{ans:moment-inertie} %TODO : Ajouter à la bibliographie le livre de meca pour la formule de I.
 
 \begin{equation}
 	I = \sum_\alpha m_\alpha r_\alpha^2
@@ -111,7 +111,7 @@ where $m_\alpha$ is the mass and $r_\alpha$ is the distance between the origin c
 
 In the case of the pendulum, it is quite trivial to compute.
 The mass of rod of the pendulum is ignored, and the mass $m$ of the pendulum is condensed in a single point at a distance $L$ of the origin of $R'$.
-The moment of inertie is the given by $I=mL^2$.\\ %TODO: J'ai pas trouvé de traduction de "point matériel".
+The moment of inertie is the given by $I=mL^2$.\\ %TODO : J'ai pas trouvé de traduction de "point matériel".
 
 The mechanical is then expressed as equation \ref{eq:emec}.
 
@@ -156,9 +156,10 @@ The power of the drag is then given by equation \ref{eq:power}.
 	\label{eq:power}
 \end{equation}
 
+
 \subsection{Solutions for little movements around equilibrium}\label{sec:sol-analytique}
-%TODO: à remplir
-%TODO: Mettre la solution analytique finale avec eq:sol-analytique-gen comme label.
+%TODO : à remplir
+%TODO : Mettre la solution analytique finale avec eq:sol-analytique-gen comme label.
 \section{Numerical computations}
 
 \subsection{Little movements without excitation or air resistance}
@@ -201,7 +202,7 @@ Figure \ref{fig:a-traj-zoomed} shows the same comparison, but focuses on the end
 This slight difference does not seem to affect the amplitude of the sinus, but only its period.
 The numerical method has a slightly decreasing period over time.
 This comes from computational errors and not from the numerical method, as Stormer-Verlet seems to be stable in this problem.
-These errors are probably generated when numbers are rounded.%TODO: Les 2-3 dernières phrases me semblent assez moche, faudrait les modifier.
+These errors are probably generated when numbers are rounded.%TODO : Les 2-3 dernières phrases me semblent assez moche, faudrait les modifier.
 
 
 \subsubsection{Convergence study}
@@ -213,7 +214,7 @@ In this section, the convergence of the numerical method of Stormer-Verlet will 
 	\caption{Error on the final angle of the pendulum with respect to the time step.}
 	\label{fig:a-conv}
 \end{figure}
-%TODO Il faut refaire cette section
+%TODO : Il faut refaire cette section
 % Ce que je veux dire: L'erreur est divisée par 100 quand le time step est divisé par 10, le fait que le résultat converge parce que ça descend linéairement sur le graph (log), et parler de l'ordre de grandeur de l'erreur.
 
 %Figure \ref{fig:a-conv} shows the convergence study of this problem.
@@ -245,11 +246,11 @@ Figure \ref{fig:a-ener} shows a study of the mechanical energy over time.
 The first information to notice is that mechanical energy does not seem to be conserved even though it should be.
 Energy does little oscillation around a point, but does not follow a linear curve.
 However, these variations are really small compared to the energy.
-The order of magnitude of the energy is \SI{100}{\milli\joule}, where the order of magnitude of the variation of energy is \SI{100}{\pico\joule}. %TODO: Vérifier que ce soit juste. (c'est assez difficile à voir à l'oeil nu)
+The order of magnitude of the energy is \SI{100}{\milli\joule}, where the order of magnitude of the variation of energy is \SI{100}{\pico\joule}. %TODO : Vérifier que ce soit juste. (c'est assez difficile à voir à l'oeil nu)
 The variation is so small that it could be easily ignored, and the energy is considered as conserved.
 Furthermore, Stormer-Verlet is a symplectic numerical method, which is shown in this figure.
 The energy does not grow over time, it is bounded.
-The mean mechanical energy is then conserved over time, which implies that, even if the energy is not fully conserved, the numerical method could still be used, as the error would not explode. %TODO: Remplacer 'explode'
+The mean mechanical energy is then conserved over time, which implies that, even if the energy is not fully conserved, the numerical method could still be used, as the error would not explode. %TODO : Remplacer 'explode'
 
 
 \subsection{Great movements: period with respect to amplitude}
@@ -270,9 +271,23 @@ The period of the pendulum was measured over $1000$ simulations with $\theta_0 \
 
 The difference between the simulation and the theoretical solution is only visible on the zoomed graph, wherein we see that it is of order $10^{-4}$ at this point of the graph. Only part of the graph is shown on the zoomed-in figure, but the two lines stay no less close all throughout and sometimes cross over each other. It is apparent however that the plot showing the Verlet simulations' periods is not as smooth as the theoretical line, as it has a stair-like shape. Overall this comparison shows that the Verlet method has a good precision.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Resonant excitation}
+\subsubsection{Verification of conservation energy theorem}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{graphs/c_thm.eps}
+	\caption{blabla}
+	\label{fig:c-thm}
+\end{figure}
+
+\subsubsection{Varying $\Omega$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Parametric excitation}
+\subsubsection{Verification of conservation energy theorem}
 
 \begin{figure}[h]
 \begin{subfigure}[t]{0.52\textwidth}
@@ -286,7 +301,49 @@ The difference between the simulation and the theoretical solution is only visib
 \label{fig:d-thm}
 \end{figure}
 
+\subsubsection{Varying $\Omega$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Poincaré section: chaos without air resistance}
+\subsubsection{Convergence study on the final angle $\theta$}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{graphs/e_conv.eps}
+	\caption{blabla}
+	\label{fig:c-thm}
+\end{figure}
+
+\subsubsection{Poincaré sections}
+\begin{figure}[h]
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_poincare_bigbrother.eps}
+		\caption{blabla}
+		\label{fig:e-pc-bigbrother}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_poincare_chaos.eps}
+		\caption{blabla}
+		\label{fig:e-pc-chaos}
+	\end{subfigure}
+	\newline
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_poincare_fatdonut.eps}
+		\caption{blabla}
+		\label{fig:e-pc-fatdonut}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_poincare_littlemoves.eps}
+		\caption{blabla}
+		\label{fig:e-pc-littlemoves}
+	\end{subfigure}
+	\caption{blabla}
+	\label{fig:e-pc}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Pointcaré section: chaos with air resistance}
 
