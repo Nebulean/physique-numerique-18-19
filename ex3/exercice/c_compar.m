@@ -71,6 +71,7 @@ for i=1:nsimul
     plot(t, thetavar{i});
     leg(1,i) = paramstr + "=" + num2str(param(i));
 end
+set(gca, 'fontsize', 22);
 grid on;
 xlabel('$t [s]$')
 ylabel('$\theta [rad]$')
@@ -82,6 +83,7 @@ hold on
 for i=1:nsimul
     plot(t,thetadotvar{i});
 end
+set(gca, 'fontsize', 22);
 grid on;
 xlabel('$t [s]$')
 ylabel('$\dot{\theta} [rad/s]$')
@@ -93,6 +95,7 @@ hold on
 for i=1:nsimul
     plot(t,emecvar{i});
 end
+set(gca, 'fontsize', 22);
 grid on;
 xlabel('$t [s]$')
 ylabel('$E_{mec} [J]$')

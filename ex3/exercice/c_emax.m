@@ -5,7 +5,7 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice3'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-nsimul = 200; % Nombre de simulations a faire
+nsimul = 50; % Nombre de simulations a faire
 
 %Copie des paramètres de configuration.in
 g = 9.81;
@@ -13,7 +13,7 @@ L = 0.1;
 dt = 0.02;
 
 omega0 = sqrt(g/L);
-epsilon = 10^(0);
+epsilon = 10^(-1);
 
 Omega = linspace(omega0-epsilon,omega0+epsilon,nsimul);
 
@@ -56,5 +56,8 @@ f1=figure;
 hold on
 grid on
 plot(Omega,Emax)
+set(gca, 'fontsize', 22);
 xlabel('$\Omega [rad/s]$')
 ylabel('$\max_t E_{mec}(t) [J]$')
+
+saveas(f1, 'graphs/c_emax', 'epsc')
