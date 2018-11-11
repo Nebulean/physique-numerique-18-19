@@ -70,5 +70,14 @@ grid on;
 
 hold off;
 
+%% graph emec
+f4=figure;
+plot(t,emec)
+grid on
+set(gca, 'fontsize', 22)
+xlabel("t [s]")
+ylabel("$E_{mec}$")
+
+
 saveas(f1, 'graphs/d_thm','epsc');
 saveas(f2, 'graphs/d_theta','epsc');

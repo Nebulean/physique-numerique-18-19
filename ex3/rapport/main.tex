@@ -111,9 +111,9 @@ where $m_\alpha$ is the mass and $r_\alpha$ is the distance between the origin c
 
 In the case of the pendulum, it is quite trivial to compute.
 The mass of rod of the pendulum is ignored, and the mass $m$ of the pendulum is condensed in a single point at a distance $L$ of the origin of $R'$.
-The moment of inertie is the given by $I=mL^2$.\\ %TODO : J'ai pas trouvé de traduction de "point matériel".
+The moment of inertia is given by $I=mL^2$.\\ %TODO : J'ai pas trouvé de traduction de "point matériel".
 
-The mechanical is then expressed as equation \ref{eq:emec}.
+The mechanical energy is then expressed as equation \ref{eq:emec}.
 
 \begin{equation}
 	E_m = \frac{1}{2}I\omega^2 - mgL\cos\theta =  \frac{mL^2}{2}\dot{\theta}^2 - mgL\cos\theta
@@ -274,7 +274,23 @@ The difference between the simulation and the theoretical solution is only visib
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Resonant excitation}
-\subsubsection{Verification of conservation energy theorem}
+\subsubsection{Verification of the mechanical energy theorem}
+
+The mechanical energy theorem can be written as:
+\begin{equation}
+	\frac{dE_{mec}}{dt} = P_{nc}
+\end{equation}
+where $P_{nc}$ is the power of non-conservative forces.
+
+The mechanical energy of the system is:
+\begin{equation}
+	E_{mec} = \frac{m L^2}{2} \dot{\theta}^2 - mLg \cos \theta
+\end{equation}
+which gives us its derivative:
+\begin{equation}
+	\frac{dE_{mec}}{dt} = \frac{m L^2}{2} \dot{\theta} \ddot{\theta} + mLg \dot{\theta} \sin \theta
+\end{equation}
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{graphs/c_thm.eps}
@@ -287,7 +303,7 @@ The difference between the simulation and the theoretical solution is only visib
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Parametric excitation}
-\subsubsection{Verification of conservation energy theorem}
+\subsubsection{Verification of the mechanical energy theorem}
 
 \begin{figure}[h]
 \begin{subfigure}[t]{0.52\textwidth}
