@@ -164,12 +164,12 @@ The power of the drag is then given by equation \ref{eq:power}.
 
 \subsection{Little movements without excitation or air resistance}
 In this section, no excitation or air resistance will be considered: $\kappa = 0$, $d = 0$.
-The movements are small, and approximations are made: $\theta_0 = \num{d-6}$, $\dot{\theta}_0 = 0$.
-The computations run for \SI{20}{\second}.
+The movements are small, such that approximations are made: $\theta_0 = \num{d-6}$, $\dot{\theta}_0 = 0$.
+The simulation runs for \SI{20}{\second}.
 
 \subsubsection{Comparison between the analytical solution and the approximation of Stormer-Verlet method}
 The problem is easy enough to be able to compute the analytical solution.
-The general solution was given in section \ref{sec:sol-analytique} by equation \ref{eq:sol-analytique-gen}.
+The general solution is given in section \ref{sec:sol-analytique} by equation \ref{eq:sol-analytique-gen}.
 Using the defined initial conditions, the constants can be computed, and the analytical solution for this problem is given by equation \ref{eq:a-sol-ana}.
 
 \begin{equation}
@@ -177,7 +177,7 @@ Using the defined initial conditions, the constants can be computed, and the ana
 	\label{eq:a-sol-ana}
 \end{equation}
 
-It is then possible to compare the analytical solution with the solution found using the numerical method of Stormer-Verlet, which is done in figure \ref{fig:a-traj}.
+It is then possible to compare the analytical solution with the results found using the numerical method of Stormer-Verlet, which is done in figure \ref{fig:a-traj}.
 
 \begin{figure}[h]
 \begin{subfigure}[t]{0.48\textwidth}
@@ -201,8 +201,10 @@ The numerical method seems to be stable over time.
 Figure \ref{fig:a-traj-zoomed} shows the same comparison, but focuses on the end of the simulation, where the peak difference occurs.
 This slight difference does not seem to affect the amplitude of the sinus, but only its period.
 The numerical method has a slightly decreasing period over time.
-This comes from computational errors and not from the numerical method, as Stormer-Verlet seems to be stable in this problem.
-These errors are probably generated when numbers are rounded.%TODO : Les 2-3 dernières phrases me semblent assez moche, faudrait les modifier.
+This comes from computational errors and not from the numerical method, as Stormer-Verlet seems to be stable in this problem. 
+These errors are probably generated when numbers are rounded.
+%TODO : Vraiment (pour les 2 dernières lignes) ? Vérifier avec le rapport de la dernière fois, parce qu'il me semble qu'on a déjà dit un truc similaire (et faux).
+%TODO : Les 2-3 dernières phrases me semblent assez moche, faudrait les modifier.
 
 
 \subsubsection{Convergence study}
@@ -211,12 +213,23 @@ In this section, the convergence of the numerical method of Stormer-Verlet will 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=0.6\textwidth]{graphs/a_conv.eps}
-	\caption{Error on the final angle of the pendulum with respect to the time step.}
+	\caption{Error on the final angle of the pendulum with respect to the time step. The final time is not exactly \SI{20}{\s} for every case, but is often a close value, which is the final time, but of the sum of some $\Delta t$ do not end on \num{20}.} %TODO : Je trouve la dernière phrase pas très belle. Si t'as une amélioration, je suis preneur.
 	\label{fig:a-conv}
 \end{figure}
-%TODO : Il faut refaire cette section
-% Ce que je veux dire: L'erreur est divisée par 100 quand le time step est divisé par 10, le fait que le résultat converge parce que ça descend linéairement sur le graph (log), et parler de l'ordre de grandeur de l'erreur.
 
+Figure \ref{fig:a-conv} show the study of the error the final angle with respect to the time step.
+The main aspect of this study is the order of convergence of Stormer-Verlet's method.
+On a log-log graph, the error decreases linearly with smaller time steps.
+By finding the slope of the drawn line, the order of Stormer-Verlet's method can be deduced.
+The numerical scheme of Stormer-Verlet is defined as an order-2 numerical method, which is verified on this figure.
+The slope of the line is 2, which implies a second order numerical method.
+This implies that, when the time step $\Delta t$ is divided by \num{10}, the error is divided by \num{100}.
+For example, in this simulation, when $\Delta t = \num{d-2}$, the error is of order \num{d-8} and when $\Delta t = \num{d-3}$, the error is of order \num{d-10}, which is a division by \num{100}.
+%TODO : Idée: Parler de la taille des erreurs. Grand ? Petit ?
+
+In summary, the numerical method of Stormet-Verlet converges.
+%TODO : Il faut refaire cette section (c'est la version sur l'ancien graph, donc plus actuel.) -> DONE. TO BE ERASED.
+% Ce que je veux dire: L'erreur est divisée par 100 quand le time step est divisé par 10, le fait que le résultat converge parce que ça descend linéairement sur le graph (log), et parler de l'ordre de grandeur de l'erreur.
 %Figure \ref{fig:a-conv} shows the convergence study of this problem.
 %The first point to verify is the convergence order of the numerical method.
 %In this figure, the curve follows an almost constant linear decrease (with a log scale).
@@ -335,7 +348,7 @@ The difference between the simulation and the theoretical solution is only visib
 	\end{subfigure}
 	~
 	\begin{subfigure}[t]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{graphs/e_poincare_littlemoves.eps}
+		\includegraphics[width=\textwidth]{graphs/e_poincare_littlemoves.pdf}
 		\caption{blabla}
 		\label{fig:e-pc-littlemoves}
 	\end{subfigure}
