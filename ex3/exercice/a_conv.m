@@ -16,7 +16,7 @@ dt = tfin ./ nsteps;
 paramstr = 'dt';
 param=dt;
 
-% SIMULATIONS
+%% SIMULATIONS
 output = cell(1, nsimul); % Tableau de cellules contenant le nom des fichiers de sortie
 for i = 1:nsimul
     output{i} = [paramstr, '=', num2str(dt(i)), '.out'];

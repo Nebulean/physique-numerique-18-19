@@ -3,6 +3,10 @@
 
 % Pour les unités SI
 \usepackage{siunitx}
+
+% Déclaration de l'unité "radian"
+%\DeclareSIUnit{\rad}{\milli\meter\textrm{-}\milli\radian}
+
 % pour l'inclusion de figures en eps,pdf,jpg
 \usepackage{graphicx}
 % quelques symboles mathematiques en plus
@@ -72,6 +76,9 @@
 %%%% ON COMMENCE A ECRIRE D'ICI
 
 \section{Introduction}
+%TODO : Améliorer cette impro.
+This experiment will focus on the study of a simple pendulum in a box moving with a certain frequency.
+This allows a study of different situation, one of whom is the study of chaotic movements.
 
 \section{Analytical computations}
 %TODO : Revoir en détail cette partie: Y'a eu l'ajout de la boîte entre deux, donc il faut vérifier que tout soit encore d'actualité.
@@ -111,6 +118,7 @@ where $m_\alpha$ is the mass and $r_\alpha$ is the distance between the origin c
 
 In the case of the pendulum, it is quite trivial to compute.
 The mass of rod of the pendulum is ignored, and the mass $m$ of the pendulum is condensed in a single point at a distance $L$ of the origin of $R'$.
+
 The moment of inertia is given by $I=mL^2$.\\ %TODO : J'ai pas trouvé de traduction de "point matériel".
 
 The mechanical energy is then expressed as equation \ref{eq:emec}.
@@ -164,12 +172,12 @@ The power of the drag is then given by equation \ref{eq:power}.
 
 \subsection{Little movements without excitation or air resistance}
 In this section, no excitation or air resistance will be considered: $\kappa = 0$, $d = 0$.
-The movements are small, and approximations are made: $\theta_0 = \num{d-6}$, $\dot{\theta}_0 = 0$.
-The computations run for \SI{20}{\second}.
+The movements are small, such that approximations are made: $\theta_0 = \num{d-6}$, $\dot{\theta}_0 = 0$.
+The simulation runs for \SI{20}{\second}.
 
 \subsubsection{Comparison between the analytical solution and the approximation of Stormer-Verlet method}
 The problem is easy enough to be able to compute the analytical solution.
-The general solution was given in section \ref{sec:sol-analytique} by equation \ref{eq:sol-analytique-gen}.
+The general solution is given in section \ref{sec:sol-analytique} by equation \ref{eq:sol-analytique-gen}.
 Using the defined initial conditions, the constants can be computed, and the analytical solution for this problem is given by equation \ref{eq:a-sol-ana}.
 
 \begin{equation}
@@ -177,7 +185,7 @@ Using the defined initial conditions, the constants can be computed, and the ana
 	\label{eq:a-sol-ana}
 \end{equation}
 
-It is then possible to compare the analytical solution with the solution found using the numerical method of Stormer-Verlet, which is done in figure \ref{fig:a-traj}.
+It is then possible to compare the analytical solution with the results found using the numerical method of Stormer-Verlet, which is done in figure \ref{fig:a-traj}.
 
 \begin{figure}[h]
 \begin{subfigure}[t]{0.48\textwidth}
@@ -201,8 +209,10 @@ The numerical method seems to be stable over time.
 Figure \ref{fig:a-traj-zoomed} shows the same comparison, but focuses on the end of the simulation, where the peak difference occurs.
 This slight difference does not seem to affect the amplitude of the sinus, but only its period.
 The numerical method has a slightly decreasing period over time.
-This comes from computational errors and not from the numerical method, as Stormer-Verlet seems to be stable in this problem.
-These errors are probably generated when numbers are rounded.%TODO : Les 2-3 dernières phrases me semblent assez moche, faudrait les modifier.
+This comes from computational errors and not from the numerical method, as Stormer-Verlet seems to be stable in this problem. 
+These errors are probably generated when numbers are rounded.
+%TODO : Vraiment (pour les 2 dernières lignes) ? Vérifier avec le rapport de la dernière fois, parce qu'il me semble qu'on a déjà dit un truc similaire (et faux).
+%TODO : Les 2-3 dernières phrases me semblent assez moche, faudrait les modifier.
 
 
 \subsubsection{Convergence study}
@@ -211,12 +221,23 @@ In this section, the convergence of the numerical method of Stormer-Verlet will 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=0.6\textwidth]{graphs/a_conv.eps}
-	\caption{Error on the final angle of the pendulum with respect to the time step.}
+	\caption{Error on the final angle of the pendulum with respect to the time step. The final time is not exactly \SI{20}{\s} for every case, but is often a close value, which is the final time, but of the sum of some $\Delta t$ do not end on \num{20}. \num{20} simulations are considered in this study.} %TODO : Je trouve la dernière phrase pas très belle. Si t'as une amélioration, je suis preneur.
 	\label{fig:a-conv}
 \end{figure}
-%TODO : Il faut refaire cette section
-% Ce que je veux dire: L'erreur est divisée par 100 quand le time step est divisé par 10, le fait que le résultat converge parce que ça descend linéairement sur le graph (log), et parler de l'ordre de grandeur de l'erreur.
 
+Figure \ref{fig:a-conv} show the study of the error the final angle with respect to the time step.
+The main aspect of this study is the order of convergence of Stormer-Verlet's method.
+On a log-log graph, the error decreases linearly with smaller time steps.
+By finding the slope of the drawn line, the order of Stormer-Verlet's method can be deduced.
+The numerical scheme of Stormer-Verlet is defined as an order-2 numerical method, which is verified on this figure.
+The slope of the line is 2, which implies a second order numerical method.
+This implies that, when the time step $\Delta t$ is divided by \num{10}, the error is divided by \num{100}.
+For example, in this simulation, when $\Delta t = \num{d-2}$, the error is of order \num{d-8} and when $\Delta t = \num{d-3}$, the error is of order \num{d-10}, which is a division by \num{100}.
+%TODO : Idée: Parler de la taille des erreurs. Grand ? Petit ?
+
+In summary, the numerical method of Stormet-Verlet converges.
+%TODO : Il faut refaire cette section (c'est la version sur l'ancien graph, donc plus actuel.) -> DONE. TO BE ERASED.
+% Ce que je veux dire: L'erreur est divisée par 100 quand le time step est divisé par 10, le fait que le résultat converge parce que ça descend linéairement sur le graph (log), et parler de l'ordre de grandeur de l'erreur.
 %Figure \ref{fig:a-conv} shows the convergence study of this problem.
 %The first point to verify is the convergence order of the numerical method.
 %In this figure, the curve follows an almost constant linear decrease (with a log scale).
@@ -237,7 +258,7 @@ In this section, the convergence of the numerical method of Stormer-Verlet will 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=0.6\textwidth]{graphs/a_ener.eps}
-	\caption{Study of the mechanical energy of the pendulum with respect to time.}
+	\caption{Study of the mechanical energy of the pendulum with respect to time. The time step used is $\Delta t = \SI{2d-2}{\s}$.}
 	\label{fig:a-ener}
 \end{figure}
 
@@ -263,48 +284,74 @@ The mean mechanical energy is then conserved over time, which implies that, even
 \begin{subfigure}[t]{0.52\textwidth}
 	\includegraphics[width=\textwidth]{graphs/b_period_zoom.eps}
 \end{subfigure}
-\caption{Period of the pendulum with the amplitude $\theta_0 \in ]0,\pi[$ (zoomed in on the right-hand side graph)}
+\caption{Period of the pendulum with the amplitude $\theta_0 \in ]0,\pi[$ (zoomed in on the right-hand side graph), computed over \num{1000} simulations.}
 \label{fig:b-period}
 \end{figure}
 
 The period of the pendulum was measured over $1000$ simulations with $\theta_0 \in ]0,\pi[$, using the Verlet method, and the resulting plot is shown on figure \ref{fig:b-period}, compared to the analytical solution. As expected, the period grows exponentially with respect to the amplitude.
 
-The difference between the simulation and the theoretical solution is only visible on the zoomed graph, wherein we see that it is of order $10^{-4}$ at this point of the graph. Only part of the graph is shown on the zoomed-in figure, but the two lines stay no less close all throughout and sometimes cross over each other. It is apparent however that the plot showing the Verlet simulations' periods is not as smooth as the theoretical line, as it has a stair-like shape. Overall this comparison shows that the Verlet method has a good precision.
+The difference between the simulation and the theoretical solution is only visible on the zoomed graph, wherein we see that it is of order $10^{-4}$ at this point of the graph. Only part of the graph is shown on the zoomed-in figure, but the two lines stay no less close all throughout and sometimes cross over each other. It is apparent however that the plot showing the Verlet simulations' periods is not as smooth as the theoretical line, as it has a stair-like shape. Overall this comparison shows that the Verlet method has a good precision. %TODO : Faut peut-être parler de l'ordre de grandeur de la différence.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Resonant excitation}
-\subsubsection{Verification of the mechanical energy theorem}
 
-The mechanical energy theorem can be written as:
-\begin{equation}
-	\frac{dE_{mec}}{dt} = P_{nc}
-\end{equation}
-where $P_{nc}$ is the power of non-conservative forces.
+In this section, the box does move, which implies an external excitation on the pendulum.
+The initial conditions are given by $\theta_0 = \SI{0}{\radian}$ and $\dot{\theta} = \SI{d-2}{\radian\per\second}$.
+The constants are given by $\Omega = \omega_0$, $d = \SI{3d-2}{\m}$, $\kappa = \SI{0}{\kg\per\s}$ and $t_{end} = \SI{250}{\s}$.
 
-The mechanical energy of the system is:
+\subsubsection{Verification of the mechanical energy theorem}\label{sec:c-thm}
+The theorem of conservation energy is given by equation \ref{eq:thm-ene}. \cite{wiki:en-cin}
+
 \begin{equation}
-	E_{mec} = \frac{m L^2}{2} \dot{\theta}^2 - mLg \cos \theta
+	\frac{dE_m}{dt} = P_{nc}
+	\label{eq:thm-ene}
 \end{equation}
-which gives us its derivative:
+
+where $P_{nc}$ is the power of non-conservative forces.\\
+
+This can be verified using two methods.
+The first one is the analytical way.
+The mechanical energy in these simulations is given by equation \ref{eq:emec} and the power is given by equation \ref{eq:power}.
+By taking the derivation of the mechanical energy, the power of non-conservative forces results.
+The issue is that this method is not interesting for the numerical methods, it is only a math problem. %TODO : Rendre cette phrase plus formelle.
+The second method is the numerical way.
+Using the mechanical energy obtained with a simulation, it is possible to obtain an approximation of the derivative of the mechanical energy. %TODO : C'est pas très clair mais je sais pas comment le formuler autrement.
+This derivative is obtained using equation \ref{eq:almost-derivative}.
+
 \begin{equation}
-	\frac{dE_{mec}}{dt} = \frac{m L^2}{2} \dot{\theta} \ddot{\theta} + mLg \dot{\theta} \sin \theta
+	\frac{d(E_m)}{dt} \approx \frac{\Delta(E_m)}{\Delta t}
+	\label{eq:almost-derivative}
 \end{equation}
+
+This equation is not perfect, as $d$ expresses a infinitesimal magnitude and $\Delta$ expresses a quantifiable magnitude, but by using a small enough $\Delta t$, the derivative should be close enough to the real value.
+Thus, by using this method, figure \ref{fig:c-thm} results.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{graphs/c_thm.eps}
-	\caption{blabla}
+	\caption{Verification of the theorem of mechanical energy by drawing the difference over time. The computations are done using a time step of $\Delta t = \SI{2d-2}{\s}$.}
 	\label{fig:c-thm}
 \end{figure}
 
+%TODO : Faire une discussion sur cette figure quand le graph sera final.
+
 \subsubsection{Varying $\Omega$}
+
+%TODO : A FAIRE
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Parametric excitation}
+
+In this section, the box also moves, but this time, air resistance is considered.
+The initial conditions are given by $\theta_0 = \SI{0}{\radian}$ and $\dot{\theta} = \SI{d-2}{\radian\per\second}$.
+The constants are given by $\Omega = 2\omega_0$, $d = \SI{5d-3}{\m}$, $\kappa = \SI{5d-2}{\kg\per\s}$ and $t_{end} = \SI{100}{\s}$.
+
 \subsubsection{Verification of the mechanical energy theorem}
 
+The method here is the same described in section \ref{sec:c-thm}.
+Thus, the resulting can be seen on figure \ref{fig:d-thm}.
 \begin{figure}[h]
 \begin{subfigure}[t]{0.52\textwidth}
 	\includegraphics[width=\textwidth]{graphs/d_thm.eps}
@@ -322,13 +369,22 @@ which gives us its derivative:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Poincaré section: chaos without air resistance}
+This section will focus on chaotic movements of the pendulum, by neglecting air resistance.
+The constants are given by $\Omega = \omega_0$, $d=\SI{4d-2}{\m}$ and $\kappa=\SI{0}{\kg\per\s}$.
+
 \subsubsection{Convergence study on the final angle $\theta$}
+First, a convergence study of the final angle is done.
+The initial conditions are given by $\theta_0=\SI{0}{\radian}$ and $\dot{\theta_0}=\SI{d-2}{\radian\per\second}$.
+The duration of the simulation is given by $t_\text{end} = 20\times\frac{2\pi}{\Omega} \approx \SI{12.69}{\s}$.
+The resulting convergence study is given by figure \ref{fig:e-conv}.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{graphs/e_conv.eps}
-	\caption{blabla}
-	\label{fig:c-thm}
+	\caption{Convergence study on the final angle. \num{100} simulations are considered in this study.}
+	\label{fig:e-conv}
 \end{figure}
+
+%TODO : Analyser ce graph.
 
 \subsubsection{Poincaré sections}
 \begin{figure}[h]
@@ -361,6 +417,12 @@ which gives us its derivative:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Pointcaré section: chaos with air resistance}
+\subsection{Poincaré section: chaos with air resistance}
+
+
+\begin{thebibliography}{99}
+	\bibitem{wiki:en-cin} Énergie mécanique. (2018, septembre 14). Wikipédia, l'encyclopédie libre. Page consultée le 16:51, septembre 14, 2018 à partir de \url{http://fr.wikipedia.org/w/index.php?title=%C3%89nergie_m%C3%A9canique&oldid=152194224}.
+
+\end{thebibliography}
 
 \end{document}
