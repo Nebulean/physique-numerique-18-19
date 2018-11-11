@@ -3,6 +3,10 @@
 
 % Pour les unités SI
 \usepackage{siunitx}
+
+% Déclaration de l'unité "radian"
+%\DeclareSIUnit{\rad}{\milli\meter\textrm{-}\milli\radian}
+
 % pour l'inclusion de figures en eps,pdf,jpg
 \usepackage{graphicx}
 % quelques symboles mathematiques en plus
@@ -250,7 +254,7 @@ In summary, the numerical method of Stormet-Verlet converges.
 \begin{figure}[h]
 \centering
 	\includegraphics[width=0.6\textwidth]{graphs/a_ener.eps}
-	\caption{Study of the mechanical energy of the pendulum with respect to time.}
+	\caption{Study of the mechanical energy of the pendulum with respect to time. The time step used is $\Delta t = \SI{2d-2}{\s}$.}
 	\label{fig:a-ener}
 \end{figure}
 
@@ -276,32 +280,71 @@ The mean mechanical energy is then conserved over time, which implies that, even
 \begin{subfigure}[t]{0.52\textwidth}
 	\includegraphics[width=\textwidth]{graphs/b_period_zoom.eps}
 \end{subfigure}
-\caption{Period of the pendulum with the amplitude $\theta_0 \in ]0,\pi[$ (zoomed in on the right-hand side graph)}
+\caption{Period of the pendulum with the amplitude $\theta_0 \in ]0,\pi[$ (zoomed in on the right-hand side graph), computed over \num{1000} simulations.}
 \label{fig:b-period}
 \end{figure}
 
 The period of the pendulum was measured over $1000$ simulations with $\theta_0 \in ]0,\pi[$, using the Verlet method, and the resulting plot is shown on figure \ref{fig:b-period}, compared to the analytical solution. As expected, the period grows exponentially with respect to the amplitude.
 
-The difference between the simulation and the theoretical solution is only visible on the zoomed graph, wherein we see that it is of order $10^{-4}$ at this point of the graph. Only part of the graph is shown on the zoomed-in figure, but the two lines stay no less close all throughout and sometimes cross over each other. It is apparent however that the plot showing the Verlet simulations' periods is not as smooth as the theoretical line, as it has a stair-like shape. Overall this comparison shows that the Verlet method has a good precision.
+The difference between the simulation and the theoretical solution is only visible on the zoomed graph, wherein we see that it is of order $10^{-4}$ at this point of the graph. Only part of the graph is shown on the zoomed-in figure, but the two lines stay no less close all throughout and sometimes cross over each other. It is apparent however that the plot showing the Verlet simulations' periods is not as smooth as the theoretical line, as it has a stair-like shape. Overall this comparison shows that the Verlet method has a good precision. %TODO : Faut peut-être parler de l'ordre de grandeur de la différence.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Resonant excitation}
-\subsubsection{Verification of conservation energy theorem}
+In this section, the box does move, which implies an external excitation on the pendulum.
+The initial conditions are given by $\theta_0 = \SI{0}{\radian}$ and $\dot{\theta} = \SI{d-2}{\radian\per\second}$.
+The constants are given by $\Omega = \omega_0$, $d = \SI{3d-2}{\m}$, $\kappa = \SI{0}{\kg\per\s}$ and $t_{end} = \SI{250}{\s}$.
+
+\subsubsection{Verification of conservation energy theorem}\label{sec:c-thm}
+The theorem of conservation energy is given by equation \ref{eq:thm-ene}. \cite{wiki:en-cin}
+
+\begin{equation}
+	\frac{dE_m}{dt} = P_{nc}
+	\label{eq:thm-ene}
+\end{equation}
+
+where $P_{nc}$ is the power of non-conservative forces.\\
+
+This can be verified using two methods.
+The first one is the analytical way.
+The mechanical energy in these simulations is given by equation \ref{eq:emec} and the power is given by equation \ref{eq:power}.
+By taking the derivation of the mechanical energy, the power of non-conservative forces results.
+The issue is that this method is not interesting for the numerical methods, it is only a math problem. %TODO : Rendre cette phrase plus formelle.
+The second method is the numerical way.
+Using the mechanical energy obtained with a simulation, it is possible to obtain an approximation of the derivative of the mechanical energy. %TODO : C'est pas très clair mais je sais pas comment le formuler autrement.
+This derivative is obtained using equation \ref{eq:almost-derivative}.
+
+\begin{equation}
+	\frac{d(E_m)}{dt} \approx \frac{\Delta(E_m)}{\Delta t}
+	\label{eq:almost-derivative}
+\end{equation}
+
+This equation is not perfect, as $d$ expresses a infinitesimal magnitude and $\Delta$ expresses a quantifiable magnitude, but by using a small enough $\Delta t$, the derivative should be close enough to the real value.
+Thus, by using this method, figure \ref{fig:c-thm} results.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{graphs/c_thm.eps}
-	\caption{blabla}
+	\caption{Verification of the theorem of mechanical energy by drawing the difference over time. The computations are done using a time step of $\Delta t = \SI{2d-2}{\s}$.}
 	\label{fig:c-thm}
 \end{figure}
 
+%TODO : Faire une discussion sur cette figure quand le graph sera final.
+
 \subsubsection{Varying $\Omega$}
+
+%TODO : A FAIRE
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Parametric excitation}
-\subsubsection{Verification of conservation energy theorem}
+In this section, the box also moves, but this time, air resistance is considered.
+The initial conditions are given by $\theta_0 = \SI{0}{\radian}$ and $\dot{\theta} = \SI{d-2}{\radian\per\second}$.
+The constants are given by $\Omega = 2\omega_0$, $d = \SI{5d-3}{\m}$, $\kappa = \SI{5d-2}{\kg\per\s}$ and $t_{end} = \SI{100}{\s}$.
 
+\subsubsection{Verification of conservation energy theorem}
+The method here is the same described in section \ref{sec:c-thm}.
+Thus, the resulting can be seen on figure \ref{fig:d-thm}.
 \begin{figure}[h]
 \begin{subfigure}[t]{0.52\textwidth}
 	\includegraphics[width=\textwidth]{graphs/d_thm.eps}
@@ -324,7 +367,7 @@ The difference between the simulation and the theoretical solution is only visib
 	\centering
 	\includegraphics[width=0.6\textwidth]{graphs/e_conv.eps}
 	\caption{blabla}
-	\label{fig:c-thm}
+	\label{fig:e-conv}
 \end{figure}
 
 \subsubsection{Poincaré sections}
@@ -348,7 +391,7 @@ The difference between the simulation and the theoretical solution is only visib
 	\end{subfigure}
 	~
 	\begin{subfigure}[t]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{graphs/e_poincare_littlemoves.pdf}
+		\includegraphics[width=\textwidth]{graphs/e_poincare_littlemoves.eps}
 		\caption{blabla}
 		\label{fig:e-pc-littlemoves}
 	\end{subfigure}
@@ -359,5 +402,11 @@ The difference between the simulation and the theoretical solution is only visib
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Pointcaré section: chaos with air resistance}
+
+
+\begin{thebibliography}{9}
+	\bibitem{wiki:en-cin} Énergie mécanique. (2018, septembre 14). Wikipédia, l'encyclopédie libre. Page consultée le 16:51, septembre 14, 2018 à partir de \url{http://fr.wikipedia.org/w/index.php?title=%C3%89nergie_m%C3%A9canique&oldid=152194224}.
+
+\end{thebibliography}
 
 \end{document}
