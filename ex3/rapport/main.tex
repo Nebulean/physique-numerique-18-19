@@ -217,7 +217,7 @@ In this section, the convergence of the numerical method of Stormer-Verlet will 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=0.6\textwidth]{graphs/a_conv.eps}
-	\caption{Error on the final angle of the pendulum with respect to the time step. The final time is not exactly \SI{20}{\s} for every case, but is often a close value, which is the final time, but of the sum of some $\Delta t$ do not end on \num{20}.} %TODO : Je trouve la dernière phrase pas très belle. Si t'as une amélioration, je suis preneur.
+	\caption{Error on the final angle of the pendulum with respect to the time step. The final time is not exactly \SI{20}{\s} for every case, but is often a close value, which is the final time, but of the sum of some $\Delta t$ do not end on \num{20}. \num{20} simulations are considered in this study.} %TODO : Je trouve la dernière phrase pas très belle. Si t'as une amélioration, je suis preneur.
 	\label{fig:a-conv}
 \end{figure}
 
@@ -362,13 +362,22 @@ Thus, the resulting can be seen on figure \ref{fig:d-thm}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Poincaré section: chaos without air resistance}
+This section will focus on chaotic movements of the pendulum, by neglecting air resistance.
+The constants are given by $\Omega = \omega_0$, $d=\SI{4d-2}{\m}$ and $\kappa=\SI{0}{\kg\per\s}$.
+
 \subsubsection{Convergence study on the final angle $\theta$}
+First, a convergence study of the final angle is done.
+The initial conditions are given by $\theta_0=\SI{0}{\radian}$ and $\dot{\theta_0}=\SI{d-2}{\radian\per\second}$.
+The duration of the simulation is given by $t_\text{end} = 20\times\frac{2\pi}{\Omega} \approx \SI{12.69}{\s}$.
+The resulting convergence study is given by figure \ref{fig:e-conv}.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{graphs/e_conv.eps}
-	\caption{blabla}
+	\caption{Convergence study on the final angle. \num{100} simulations are considered in this study.}
 	\label{fig:e-conv}
 \end{figure}
+
+%TODO : Analyser ce graph.
 
 \subsubsection{Poincaré sections}
 \begin{figure}[h]
