@@ -15,7 +15,7 @@ dt = 0.02;
 omega0 = sqrt(g/L);
 epsilon = 1.7*10^(-1);
 
-Omega = linspace(9.749,9.75,nsimul);
+Omega = linspace(omega0-epsilon,omega0+epsilon,nsimul);
 
 paramstr = 'Omega';
 param = Omega;
@@ -55,7 +55,7 @@ set(groot, 'defaultAxesFontSize', 18);
 f1=figure;
 hold on
 grid on
-scatter(Omega,Emax)
+plot(Omega,Emax,'x')
 set(gca, 'fontsize', 22);
 xlabel('$\Omega [rad/s]$')
 ylabel('$\max_t E_{mec}(t) [J]$')
