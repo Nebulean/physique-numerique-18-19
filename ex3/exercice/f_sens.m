@@ -4,7 +4,7 @@ g = 9.81;
 L = 0.1;
 omega0 = sqrt(g/L);
 
-Omega = omega0;
+Omega = 2*omega0;
 
 n = 500; % On choisit le nombre de de pas de temps que l'on veut avoir dans chaque période.
 
@@ -29,22 +29,22 @@ theta02 = theta01+1e-8;
 
 %% SIMULATIOOOOONS
 
-cmd = sprintf("./Exercice3 configuration.in Omega=%0.15f d=0.04 kappa=0. theta0=%0.15f thetadot0=%0.15f dt=%0.15f tFin=%f sampling=%d output=e_first.out", Omega, theta01, thetadot0, dt, tfin, n)
+cmd = sprintf("./Exercice3 configuration.in Omega=%0.15f d=0.05 kappa=0.1 theta0=%0.15f thetadot0=%0.15f dt=%0.15f tFin=%f sampling=%d output=f_first.out", Omega, theta01, thetadot0, dt, tfin, n)
 system(cmd);
 disp(cmd);
 
-cmd = sprintf("./Exercice3 configuration.in Omega=%0.15f d=0.04 kappa=0. theta0=%0.15f thetadot0=%0.15f dt=%0.15f tFin=%f sampling=%d output=e_second.out", Omega, theta02, thetadot0, dt, tfin, n)
+cmd = sprintf("./Exercice3 configuration.in Omega=%0.15f d=0.05 kappa=0.1 theta0=%0.15f thetadot0=%0.15f dt=%0.15f tFin=%f sampling=%d output=f_second.out", Omega, theta02, thetadot0, dt, tfin, n)
 system(cmd);
 disp(cmd);
 
 %% ANALYSE
 
-d1 = load("e_first.out");
+d1 = load("f_first.out");
 t = d1(:,1);
 theta1 = d1(:,2);
 thetadot1 = d1(:,3);
 
-d2 = load("e_second.out");
+d2 = load("f_second.out");
 theta2 = d2(:,2);
 thetadot2 = d2(:,3);
 
@@ -77,8 +77,8 @@ set(gca, 'fontsize', 22);
 grid on
 hold off;
 
-wheretosave = sprintf("graphs/e_sens_%s", figname);
+wheretosave = sprintf("graphs/f_sens_%s", figname);
 saveas(f1, wheretosave, 'epsc');
 
-wheretosave = sprintf("graphs/e_lyap_%s", figname);
+wheretosave = sprintf("graphs/f_lyap_%s", figname);
 saveas(f2, wheretosave, 'epsc');
