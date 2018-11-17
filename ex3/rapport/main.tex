@@ -188,13 +188,13 @@ Using the defined initial conditions, the constants can be computed, and the ana
 It is then possible to compare the analytical solution with the results found using the numerical method of Stormer-Verlet, which is done in figure \ref{fig:a-traj}.
 
 \begin{figure}[h]
-\begin{subfigure}[t]{0.48\textwidth}
+\begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/a_traj_full.eps}
 	\caption{Angle of the pendulum with respect to time, with a comparison between the Stormer-Verlet numerical method and the analytical solution.}
 	\label{fig:a-traj-full}
 \end{subfigure}
 ~
-\begin{subfigure}[t]{0.48\textwidth}
+\begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/a_traj_zoomed.eps}
 	\caption{Same plot as \ref{fig:a-traj-full}, with the beginning cropped out to get a better view of the small difference between the numerical and analytical solutions at the end of the simulation.}
 	\label{fig:a-traj-zoomed}
@@ -265,23 +265,23 @@ In summary, the numerical method of Stormet-Verlet converges.
 %Ce que je veux dire: L'énergie n'est pas conservée à cause des oscillations, le fait que la variation est très petite sur un nombre pas si petit,  que l'énergie est conservée en moyenne car c'est un schéma symplectique.
 Figure \ref{fig:a-ener} shows a study of the mechanical energy over time.
 The first information to notice is that mechanical energy does not seem to be conserved even though it should be.
-Energy does little oscillation around a point, but does not follow a linear curve.
+Energy does little oscillations around a line, but does not follow a linear curve. 
 However, these variations are really small compared to the energy.
 The order of magnitude of the energy is \SI{100}{\milli\joule}, where the order of magnitude of the variation of energy is \SI{100}{\pico\joule}. %TODO : Vérifier que ce soit juste. (c'est assez difficile à voir à l'oeil nu)
 The variation is so small that it could be easily ignored, and the energy is considered as conserved.
 Furthermore, Stormer-Verlet is a symplectic numerical method, which is shown in this figure.
 The energy does not grow over time, it is bounded.
-The mean mechanical energy is then conserved over time, which implies that, even if the energy is not fully conserved, the numerical method could still be used, as the error would not explode. %TODO : Remplacer 'explode'
+The mean mechanical energy is then conserved over time, which implies that, even if the energy is not fully conserved, the numerical method could still be used, as the error would not explode. %TODO : Remplacer 'explode' %TODO : Est-ce qu'on fait une régression linéaire dans ce graph ? Pour montrer que c'est conservé en moyenne.
 
 
 \subsection{Great movements: period with respect to amplitude}
 
 \begin{figure}[h]
-\begin{subfigure}[t]{0.52\textwidth}
+\begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/b_period.eps}
 \end{subfigure}
 ~
-\begin{subfigure}[t]{0.52\textwidth}
+\begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/b_period_zoom.eps}
 \end{subfigure}
 \caption{Period of the pendulum with the amplitude $\theta_0 \in ]0,\pi[$ (zoomed in on the right-hand side graph), computed over \num{1000} simulations.}
@@ -350,21 +350,60 @@ The constants are given by $\Omega = 2\omega_0$, $d = \SI{5d-3}{\m}$, $\kappa = 
 
 \subsubsection{Verification of the mechanical energy theorem}
 
-The method here is the same described in section \ref{sec:c-thm}.
-Thus, the resulting can be seen on figure \ref{fig:d-thm}.
+The method here is the same described in section \ref{sec:c-thm}, and the result can be seen on figure \ref{fig:d-thm}.
+
 \begin{figure}[h]
-\begin{subfigure}[t]{0.52\textwidth}
+\begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/d_thm.eps}
+	\caption{Difference of the derivative of mechanical energy with the power of non-conservative forces.}	
+	\label{fig:d-thm-energie}
 \end{subfigure}
 ~
-\begin{subfigure}[t]{0.52\textwidth}
+\begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/d_theta.eps}
+	\caption{Angle $\theta$ of the pendulum over time.}
+	\label{fig:d-thm-theta}
 \end{subfigure}
-\caption{blabla}
+\caption{Simulation describing the conservation of energy. The time step is $\Delta t=\SI{2d-2}{\s}$, which implies that the simulation was done over \num{5000} steps.}
 \label{fig:d-thm}
 \end{figure}
 
+On figure \ref{fig:d-thm}, the mechanical energy is more or less conserved in the \num{20} first seconds of the simulation.
+This can be observed on figure \ref{fig:d-thm-energie} where the curve is close to 0.
+After that, the mechanical energy changes drastically and oscillates with a great amplitude, which implies that energy is not conserved after \SI{20}{\s}.
+Figure \ref{fig:d-thm-theta} shows the evolution of $\theta$ over time.
+Before \SI{20}{\s}, the oscillations are considered as small, which is the reason why energy is almost conserved. 
+But after that, the oscillation's amplitude grows exponentially with much bigger oscillations, until ~\SI{30}{\s}.
+At this time, its maximum is reached and it stabilizes its oscillation.\\
+This behaviour of the pendulum over time can be explained by two factors.
+First, it the oscillation of the box.
+At the beginning, the box and the pendulum are not synced, because the initial conditions are different.
+But progressively, the pendulum gains amplitude until ~\SI{30}{\s}, where the pendulum and the box are synced together, and after that point, both remains synced which is the reason why the pendulum is so stable.
+The second factor is the air resistance.
+This force depends on the speed and a coefficient.
+The drastic increase of the amplitude of $\theta$ also increases the angular speed of the pendulum.
+Thus, the air resistance follows and greatly increases too.
+It impacts the stabilization of oscillation of the pendulum and is the reason why it does not keep the amplitude measured at \SI{30}{\s}.
+Why exceeding the stable amplitude, air resistance is too big compared to the other force, and restrains the pendulum's amplitude.\\
+
+%TODO : Pourquoi l'énergie n'est plus conservée, c'est à cause de la résonnance.
+
 \subsubsection{Varying $\Omega$}
+In this section, $\Omega$ varies around a $2\omega_0$, and the maximum of mechanical energy is observed.
+\begin{figure}[h]
+	\begin{subfigure}[t]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{graphs/d_emax_full.eps}
+		\caption{Maximum of mechanical energy for \num{101} simulations, using a varying $\Omega$.}
+		\label{fig:d-emax-full}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{graphs/d_emax_close.eps}
+		\caption{Zoom on the "jumping" part of \ref{fig:d-emax-full}. \num{101} simulations were done, again, by varying $\Omega$.}
+		\label{fig:d-emax-close}
+	\end{subfigure}
+	\caption{Maximum of mechanical energy for a varying $\Omega$.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -387,33 +426,33 @@ The resulting convergence study is given by figure \ref{fig:e-conv}.
 %TODO : Analyser ce graph.
 
 \subsubsection{Poincaré sections}
-\begin{figure}[h]
-	\begin{subfigure}[t]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{graphs/e_poincare_bigbrother.eps}
-		\caption{blabla}
-		\label{fig:e-pc-bigbrother}
-	\end{subfigure}
-	~
-	\begin{subfigure}[t]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{graphs/e_poincare_chaos.eps}
-		\caption{blabla}
-		\label{fig:e-pc-chaos}
-	\end{subfigure}
-	\newline
-	\begin{subfigure}[t]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{graphs/e_poincare_fatdonut.eps}
-		\caption{blabla}
-		\label{fig:e-pc-fatdonut}
-	\end{subfigure}
-	~
-	\begin{subfigure}[t]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{graphs/e_poincare_littlemoves.eps}
-		\caption{blabla}
-		\label{fig:e-pc-littlemoves}
-	\end{subfigure}
-	\caption{blabla}
-	\label{fig:e-pc}
-\end{figure}
+%\begin{figure}[h]
+%	\begin{subfigure}[t]{0.45\textwidth}
+%		\includegraphics[width=\textwidth]{graphs/e_poincare_bigbrother.eps}
+%		\caption{blabla}
+%		\label{fig:e-pc-bigbrother}
+%	\end{subfigure}
+%	~
+%	\begin{subfigure}[t]{0.45\textwidth}
+%		\includegraphics[width=\textwidth]{graphs/e_poincare_chaos.eps}
+%		\caption{blabla}
+%		\label{fig:e-pc-chaos}
+%	\end{subfigure}
+%	\newline
+%	\begin{subfigure}[t]{0.45\textwidth}
+%		\includegraphics[width=\textwidth]{graphs/e_poincare_fatdonut.eps}
+%		\caption{blabla}
+%		\label{fig:e-pc-fatdonut}
+%	\end{subfigure}
+%	~
+%	\begin{subfigure}[t]{0.45\textwidth}
+%		\includegraphics[width=\textwidth]{graphs/e_poincare_littlemoves.eps}
+%		\caption{blabla}
+%		\label{fig:e-pc-littlemoves}
+%	\end{subfigure}
+%	\caption{blabla}
+%	\label{fig:e-pc}
+%\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
