@@ -494,43 +494,55 @@ First, a convergence study of the final angle is done.
 The initial conditions are given by $\theta_0=\SI{0}{\radian}$ and $\dot{\theta_0}=\SI{d-2}{\radian\per\second}$.
 The duration of the simulation is given by $t_\text{end} = 20\times\frac{2\pi}{\Omega} \approx \SI{12.69}{\s}$.
 The resulting convergence study is given by figure \ref{fig:e-conv}.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{graphs/e_conv.eps}
-	\caption{Convergence study on the final angle over \num{100} simulations}
+	\caption{Convergence study on the final angle over \num{100} simulations} %TODO : C'est censé être une droite ! Je fais quoi avec ça ?
 	\label{fig:e-conv}
 \end{figure}
 
 %TODO : Analyser ce graph.
 
 \subsubsection{Poincaré sections}
-%\begin{figure}[h]
-%	\begin{subfigure}[t]{0.45\textwidth}
-%		\includegraphics[width=\textwidth]{graphs/e_poincare_bigbrother.eps}
-%		\caption{blabla}
-%		\label{fig:e-pc-bigbrother}
-%	\end{subfigure}
-%	~
-%	\begin{subfigure}[t]{0.45\textwidth}
-%		\includegraphics[width=\textwidth]{graphs/e_poincare_chaos.eps}
-%		\caption{blabla}
-%		\label{fig:e-pc-chaos}
-%	\end{subfigure}
-%	\newline
-%	\begin{subfigure}[t]{0.45\textwidth}
-%		\includegraphics[width=\textwidth]{graphs/e_poincare_fatdonut.eps}
-%		\caption{blabla}
-%		\label{fig:e-pc-fatdonut}
-%	\end{subfigure}
-%	~
-%	\begin{subfigure}[t]{0.45\textwidth}
-%		\includegraphics[width=\textwidth]{graphs/e_poincare_littlemoves.eps}
-%		\caption{blabla}
-%		\label{fig:e-pc-littlemoves}
-%	\end{subfigure}
-%	\caption{blabla}
-%	\label{fig:e-pc}
-%\end{figure}
+This section focuses on the drawing of some poincaré section, using different initial conditions.
+All of them results in figure \ref{fig:e-pc}.
+
+\begin{figure}[h]
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_poincare_MK8.png}
+		\caption{Non-chaotic simulation of initial conditions: $\theta_0 = \SI{0}{\radian}$ and $\dot{\theta_0}=\SI{1d-2}{\radian\per\s}$.}
+		\label{fig:e-pc-MK8}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_poincare_chaos1.png}
+		\caption{Chaotic simulation of initial conditions: $\theta_0 = \SI{\pi}{\radian}$ and $\dot{\theta_0}=\SI{1d-2}{\radian\per\s}$.}
+		\label{fig:e-pc-chaos1}
+	\end{subfigure}
+	\newline
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_poincare_peanut.png}
+		\caption{Non-chaotic simulation of initial conditions: $\theta_0 = \SI{1e-6}{\radian}$ and $\dot{\theta_0}=\SI{1}{\radian\per\s}$.}
+		\label{fig:e-pc-peanut}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_poincare_drop.png}
+		\caption{Non-chaotic simulation of initial conditions: $\theta_0 = \SI{1e-6}{\radian}$ and $\dot{\theta_0}=\SI{0}{\radian\per\s}$.}
+		\label{fig:e-pc-drop}
+	\end{subfigure}
+	\caption{Set of sections of poincaré, all with the number of steps for each period taken at $n=100$, an simulation time given by $t_{end} \approx \SI{6344}{\s}$ and $dt \approx \num{6.3d-3}$.}
+	\label{fig:e-pc}
+\end{figure}
+
+Figures \ref{fig:e-pc-MK8}, \ref{fig:e-pc-peanut} and \ref{fig:e-pc-drop} are non-chaotic simulation of the pendulum.
+It is non-chaotic, because the trajectory in the phase space remains the same over time, which means that it is possible to predict the position of the pendulum at any time.
+On the other hand, \ref{fig:e-pc-chaos1} is a chaotic simulation of the pendulum.
+This time, the trajectory in the phase space is a set of points vaguely following a thick path, which means that after a moment, the position of the pendulum can not be predicted.
+
+\subsubsection{Sensitivity on initial condition in chaos}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

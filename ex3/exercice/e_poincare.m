@@ -35,13 +35,13 @@ dt = 2*pi/(n*Omega);
 % figname = "peanut";
 
 % Petits mouvements -> A GARDER: CAS NON-CHAOTIQUE
-% theta0 = 1e-6;
-% thetadot0 = 0.;
-% figname = "lemon";
-
-theta0 = 5*pi/6;
+theta0 = 1e-6;
 thetadot0 = 0.;
-figname = "chaos2";
+figname = "drop";
+
+% theta0 = 5*pi/6;
+% thetadot0 = 0.;
+% figname = "chaos2";
 
 %% On lance la simulation
 cmd = sprintf("./Exercice3 configuration.in Omega=%0.15f d=0.04 kappa=0. theta0=%0.15f thetadot0=%f dt=%0.15f tFin=%f sampling=%d output=e_poincare.out", Omega, theta0, thetadot0, dt, tfin, n)
@@ -70,4 +70,5 @@ grid on;
 hold off;
 
 wheretosave = sprintf("graphs/e_poincare_%s", figname);
-saveas(fig, wheretosave, 'epsc');
+%saveas(fig, wheretosave, 'epsc2'); %eps c'est trop lourd, donc png.
+print(fig, wheretosave,'-dpng','-r600');
