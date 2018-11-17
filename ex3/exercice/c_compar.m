@@ -5,7 +5,7 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice3'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-nsimul = 5; % Nombre de simulations a faire
+nsimul = 9; % Nombre de simulations a faire
 
 %Copie des paramètres de configuration.in
 g = 9.81;
@@ -13,7 +13,7 @@ L = 0.1;
 dt = 0.02;
 
 omega0 = sqrt(g/L);
-epsilon = 10^(-1); %variation de Omega
+epsilon = 2*10^(-1); %variation de Omega
 
 Omega = linspace(omega0-epsilon,omega0+epsilon,nsimul);
 
