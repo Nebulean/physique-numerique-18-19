@@ -5,7 +5,7 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice3'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-nsimul = 5; % Nombre de simulations a faire
+nsimul = 9; % Nombre de simulations a faire
 
 %Copie des paramètres de configuration.in
 g = 9.81;
@@ -13,7 +13,7 @@ L = 0.1;
 dt = 0.02;
 
 omega0 = sqrt(g/L);
-epsilon = 10^(-1); %variation de Omega
+epsilon = 2*10^(-1); %variation de Omega
 
 Omega = linspace(omega0-epsilon,omega0+epsilon,nsimul);
 
@@ -69,7 +69,7 @@ f1=figure;
 hold on;
 for i=1:nsimul
     plot(t, thetavar{i});
-    leg(1,i) = paramstr + "=" + num2str(param(i));
+    leg(1,i) = "$\Omega$=" + num2str(param(i));
 end
 set(gca, 'fontsize', 22);
 grid on;
@@ -102,6 +102,6 @@ ylabel('$E_{mec} [J]$')
 legend(leg);
 hold off
 
-saveas(f1, 'graphs/c_theta', 'epsc')
-saveas(f2, 'graphs/c_thetadot', 'epsc')
-saveas(f3, 'graphs/c_emec', 'epsc')
+saveas(f1, 'graphs/c_comptheta', 'epsc')
+saveas(f2, 'graphs/c_compthetadot', 'epsc')
+saveas(f3, 'graphs/c_compemec', 'epsc')

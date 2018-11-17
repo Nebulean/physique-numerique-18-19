@@ -170,6 +170,8 @@ The power of the drag is then given by equation \ref{eq:power}.
 %TODO : Mettre la solution analytique finale avec eq:sol-analytique-gen comme label.
 \section{Numerical computations}
 
+Unless specified otherwise, all simulations are done using a time step of $\Delta t = \SI{2d-2}{\s}$.
+
 \subsection{Little movements without excitation or air resistance}
 In this section, no excitation or air resistance will be considered: $\kappa = 0$, $d = 0$.
 The movements are small, such that approximations are made: $\theta_0 = \num{d-6}$, $\dot{\theta}_0 = 0$.
@@ -209,7 +211,7 @@ The numerical method seems to be stable over time.
 Figure \ref{fig:a-traj-zoomed} shows the same comparison, but focuses on the end of the simulation, where the peak difference occurs.
 This slight difference does not seem to affect the amplitude of the sinus, but only its period.
 The numerical method has a slightly decreasing period over time.
-This comes from computational errors and not from the numerical method, as Stormer-Verlet seems to be stable in this problem. 
+This comes from computational errors and not from the numerical method, as Stormer-Verlet seems to be stable in this problem.
 These errors are probably generated when numbers are rounded.
 %TODO : Vraiment (pour les 2 dernières lignes) ? Vérifier avec le rapport de la dernière fois, parce qu'il me semble qu'on a déjà dit un truc similaire (et faux).
 %TODO : Les 2-3 dernières phrases me semblent assez moche, faudrait les modifier.
@@ -265,7 +267,7 @@ In summary, the numerical method of Stormet-Verlet converges.
 %Ce que je veux dire: L'énergie n'est pas conservée à cause des oscillations, le fait que la variation est très petite sur un nombre pas si petit,  que l'énergie est conservée en moyenne car c'est un schéma symplectique.
 Figure \ref{fig:a-ener} shows a study of the mechanical energy over time.
 The first information to notice is that mechanical energy does not seem to be conserved even though it should be.
-Energy does little oscillations around a line, but does not follow a linear curve. 
+Energy does little oscillations around a line, but does not follow a linear curve.
 However, these variations are really small compared to the energy.
 The order of magnitude of the energy is \SI{100}{\milli\joule}, where the order of magnitude of the variation of energy is \SI{100}{\pico\joule}. %TODO : Vérifier que ce soit juste. (c'est assez difficile à voir à l'oeil nu)
 The variation is so small that it could be easily ignored, and the energy is considered as conserved.
@@ -327,9 +329,9 @@ This derivative is obtained using equation \ref{eq:almost-derivative}.
 This equation is not perfect, as $d$ expresses a infinitesimal magnitude and $\Delta$ expresses a quantifiable magnitude, but by using a small enough $\Delta t$, the derivative should be close enough to the real value.
 Thus, by using this method, figure \ref{fig:c-thm} results.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.6\textwidth]{graphs/c_thm.eps}
+	\includegraphics[width=0.55\textwidth]{graphs/c_thm.eps}
 	\caption{Verification of the mechanical energy theorem by drawing the difference over time. The computations are done using a time step of $\Delta t = \SI{2d-2}{\s}$.}
 	\label{fig:c-thm}
 \end{figure}
@@ -338,7 +340,41 @@ Thus, by using this method, figure \ref{fig:c-thm} results.
 
 \subsubsection{Varying $\Omega$}
 
-%TODO : A FAIRE
+\begin{figure}[h!]
+	\begin{subfigure}[t]{0.6\textwidth}
+		\includegraphics[width=\textwidth]{graphs/c_comptheta.eps}
+		\caption{Evolution of the angle $\theta$ for 5 different $\Omega$}
+		\label{fig:c-comptheta}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.52\textwidth}
+		\includegraphics[width=\textwidth]{graphs/c_compemec.eps}
+		\caption{Evolution of $E_m$ for 5 different $\Omega$}
+		\label{fig:c-compemec}
+	\end{subfigure}
+	\caption{Comparison of different parameters over time for systems with different $\Omega$ around $\omega_0$}
+\label{fig:c-comp}
+\end{figure}
+
+Figure \ref{fig:c-comp} was made using a time step of $\Delta t = \SI{2d-2}{\s}$, for 5 different $\Omega$ in the interval $[\omega_0-10^{-1}, \omega_0+10^{-1}]$, with the yellow plot representing the case of $\Omega = \omega_0$. A resonance phenomenon can still be observed for an excitation frequency slightly lower than $\omega_0$, as movement and energy spikes higher than that of the case of $\Omega=\omega_0$ are displayed. However, for $\Omega$ slightly higher than $\omega_0$, resonance does not occur and, for $\Omega=9.9545$ we instead observe a much weaker response, consisting of only one drawn-out spur of energy over the course of the simulation, while the system with $\Omega=10.0045$ has no visible response at this scale.
+
+\begin{figure}[h]
+	\begin{subfigure}[t]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{graphs/c_emax.eps}
+		\caption{Maximum of mechanical energy for \num{101} simulations, using a varying $\Omega\in\left[\omega_0 - \epsilon, 2\omega_0 + \epsilon\right]$, where $\epsilon = \num{1.7d-1}$}
+		\label{fig:c-emax-full}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{graphs/c_emaxzoom.eps}
+		\caption{Zoom on the "jumping" part of \ref{fig:c-emax}. \num{101} simulations were done by varying $\Omega\in\left[9.749, 9.750 \right]$}
+		\label{fig:c-emax-zoom}
+	\end{subfigure}
+	\caption{Maximum of mechanical energy for a varying $\Omega$ over 101 simulations}
+	\label{fig:c-emax}
+\end{figure}
+
+Figure \ref{fig:c-emax} shows that the system has very little response to the excitation for $\Omega<9.749$. However the maximum of the response in energy increases exponentially until it peaks around $\Omega= 9.74985$, an excitation frequency lower than the natural frequency of the system, $\omega_0$. The maximum of the energy then decreases linearly until no response is observable from $\Omega=9.96$ onwards.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -355,16 +391,16 @@ The method here is the same described in section \ref{sec:c-thm}, and the result
 \begin{figure}[h]
 \begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/d_thm.eps}
-	\caption{Difference of the derivative of mechanical energy with the power of non-conservative forces.}	
+	\caption{Difference of the derivative of mechanical energy with the power of non-conservative forces}
 	\label{fig:d-thm-energie}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/d_theta.eps}
-	\caption{Angle $\theta$ of the pendulum over time.}
+	\caption{Angle $\theta$ of the pendulum over time}
 	\label{fig:d-thm-theta}
 \end{subfigure}
-\caption{Simulation describing the conservation of energy. The time step is $\Delta t=\SI{2d-2}{\s}$, which implies that the simulation was done over \num{5000} steps.}
+\caption{Simulation describing the conservation of energy. The time step is $\Delta t=\SI{2d-2}{\s}$, which implies that the simulation was done over \num{5000} steps}
 \label{fig:d-thm}
 \end{figure}
 
@@ -373,7 +409,7 @@ The theorem is more or less verified in the \num{20} first seconds of the simula
 This can be observed on figure \ref{fig:d-thm-energie} where the curve is close to 0.
 After that, the difference changes drastically and oscillates with a great amplitude, which seems to implies that the theorem is not verified after \SI{20}{\s}.
 Figure \ref{fig:d-thm-theta} shows the evolution of $\theta$ over time.
-Before \SI{20}{\s}, the oscillations are considered as small. 
+Before \SI{20}{\s}, the oscillations are considered as small.
 But after that, the oscillation's amplitude grows exponentially with much bigger oscillations, until ~\SI{30}{\s}.
 At this time, its maximum is reached and it stabilizes its oscillation.\\
 
@@ -414,7 +450,7 @@ In this section, $\Omega$ varies around a $2\omega_0$, and the maximum of mechan
 		\caption{Zoom on the "jumping" part of \ref{fig:d-emax-full}. $\Omega$ varies on a smaller range: $\Omega\in\left[\num{19.15} - \epsilon, \num{19.15} + \epsilon\right]$, where $\epsilon = \num{1d-2}$.}
 		\label{fig:d-emax-close}
 	\end{subfigure}
-	\caption{Maximum of mechanical energy for a varying $\Omega$. 101 simulations were taken in both cases.}
+	\caption{Maximum of mechanical energy for a varying $\Omega$ over 101 simulations}
 \end{figure}
 
 
@@ -433,7 +469,7 @@ The resulting convergence study is given by figure \ref{fig:e-conv}.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{graphs/e_conv.eps}
-	\caption{Convergence study on the final angle. \num{100} simulations are considered in this study.}
+	\caption{Convergence study on the final angle over \num{100} simulations}
 	\label{fig:e-conv}
 \end{figure}
 
