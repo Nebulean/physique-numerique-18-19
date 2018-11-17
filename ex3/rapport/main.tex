@@ -540,7 +540,7 @@ All of them results in figure \ref{fig:e-pc}.
 		\caption{Non-chaotic simulation of initial conditions: $\theta_0 = \SI{1e-6}{\radian}$ and $\dot{\theta_0}=\SI{0}{\radian\per\s}$.}
 		\label{fig:e-pc-drop}
 	\end{subfigure}
-	\caption{Set of sections of poincaré, all with the number of steps for each period taken at $n=100$, an simulation time given by $t_{end} \approx \SI{6344}{\s}$ and $dt \approx \num{6.3d-3}$.}
+	\caption{Set of sections of poincaré, all with the number of steps for each period taken at $n=100$, an simulation time given by $t_{end} \approx \SI{6344}{\s}$ and $dt \approx \num{6.3d-3} s$.}
 	\label{fig:e-pc}
 \end{figure}
 
@@ -549,8 +549,53 @@ It is non-chaotic, because the trajectory in the phase space remains the same ov
 On the other hand, \ref{fig:e-pc-chaos1} is a chaotic simulation of the pendulum.
 This time, the trajectory in the phase space is a set of points vaguely following a thick path, which means that after a moment, the position of the pendulum can not be predicted.
 
-\subsubsection{Sensitivity on initial condition in chaos}
+\subsubsection{Sensitivity on initial condition}
 
+\begin{figure}[h]
+\centering
+	\begin{subfigure}[t]{0.47\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_sens_chaos.png}
+		\caption{Poincaré section of two chaotic simulations}
+		\label{fig:e-sens-chaos}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_lyap_chaos.eps}
+		\caption{Difference of two chaotic simulations over time}
+		\label{fig:e-lyap-chaos}
+	\end{subfigure}
+	\caption{Comparison of two chaotic simulations with an initial angle difference of \num{1d-8} and initial velocity $\theta_0 = 0$}
+	\label{fig:e-chaos}
+\end{figure}
+
+Figure \ref{fig:e-chaos} was made with the number of steps for each period $n=500$, the final time $t_{end} \approx 127 s$ and a time step of $dt \approx \num{1.3d-2} s$. As expected of chaos, we get two different distributions of points for the Poincaré section, although they are both distributed over the same general area. Figure \ref{fig:e-lyap-chaos} shows the difference between the two simulations over time, calculated as $d=\sqrt{(\dot{\theta_1}-\dot{\theta_2})^2 + \Omega^2 (\theta_1-\theta_2)^2}$. From this graph we can calculate the Lyapunov exponent $\lambda$, which is the slope of $log(d(t))$ in the initial phase of the simulation. With $t_0 = 0$ initially and $t_1=14.59$ at the top of the slope, we get:
+\begin{equation*}
+\lambda = \frac{d(t_1)-d(t_0)}{t_1-t_0} \approx 7.14
+\end{equation*}
+The Lyapunov exponent characterizes the rate of separation in the phase space between infinitesimally close dynamical systems.\cite{Lyap} In this case, as $\lambda > 0$, it indicates a chaotic system.\cite{Lyap2}
+
+\begin{figure}[h]
+\centering
+	\begin{subfigure}[t]{0.47\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_sens_notchaos.png}
+		\caption{Poincaré section of two stable simulations}
+		\label{fig:e-sens-notchaos}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_lyap_notchaos.eps}
+		\caption{Difference of two stable simulations over time}
+		\label{fig:e-lyap-notchaos}
+	\end{subfigure}
+	\caption{Comparison of two stable simulations with an initial angle difference of \num{1d-8} and initial velocity $\theta_0 = 1$}
+	\label{fig:e-notchaos}
+\end{figure}
+
+Figure \ref{fig:e-notchaos} was made with the same numerical conditions as figure \ref{fig:e-chaos}, for a stable system. In this case, an infinitesimally small difference on the initial position does not cause any significant divergence between the two systems over the course of the simulation, as their Poincaré sections are superimposed. We can once again calculate the Lyapunov exponent from the initial slope of figure \ref{fig:e-lyap-notchaos}, with $t_0 = 0$ and $t_1=29.18$:
+\begin{equation*}
+\lambda \approx \num{-2.91d-9}
+\end{equation*}
+As $\lambda < 0$, it indicates a stable system.\cite{Lyap2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -559,6 +604,8 @@ This time, the trajectory in the phase space is a set of points vaguely followin
 
 \begin{thebibliography}{99}
 	\bibitem{wiki:en-cin} Énergie mécanique. (2018, September 14). Wikipédia, l'encyclopédie libre. Retrieved 16:51, September 14, 2018 from \url{http://fr.wikipedia.org/w/index.php?title=%C3%89nergie_m%C3%A9canique&oldid=152194224}.
+	\bibitem{Lyap} \url{https://en.wikipedia.org/wiki/Lyapunov_exponent}
+	\bibitem{Lyap2} \url{https://hypertextbook.com/chaos/lyapunov-1/}
 
 \end{thebibliography}
 
