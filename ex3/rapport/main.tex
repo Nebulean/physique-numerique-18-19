@@ -384,7 +384,7 @@ In this section, the box also moves, but this time, air resistance is considered
 The initial conditions are given by $\theta_0 = \SI{0}{\radian}$ and $\dot{\theta} = \SI{d-2}{\radian\per\second}$.
 The constants are given by $\Omega = 2\omega_0$, $d = \SI{5d-3}{\m}$, $\kappa = \SI{5d-2}{\kg\per\s}$ and $t_{end} = \SI{100}{\s}$.
 
-\subsubsection{Verification of the mechanical energy theorem}
+\subsubsection{Verification of the mechanical energy theorem}\label{sec:d-thm}
 
 The method here is the same described in section \ref{sec:c-thm}, and the result can be seen on figure \ref{fig:d-thm}.
 
@@ -438,6 +438,11 @@ Thus, it stabilizes.\\
 \subsubsection{Varying $\Omega$}
 In this section, $\Omega$ varies around a $2\omega_0$, and the maximum of mechanical energy is observed with respect to $\Omega$.
 
+Figure \ref{fig:d-emax} shows the maximum mechanical energy for a range of $\Omega$.
+A resonance phenomenon can be observed on figures \ref{fig:d-emax-full}, around $\Omega=\SI{19.15}{\radian\per\s}$.
+Figure \ref{fig:d-emax-close} shows a closer look on the curve around this condition.
+It can be seen that the maximum reached by the mechanical energy increases drastically, until a point where it just slowly decreases.
+
 \begin{figure}[h]
 	\begin{subfigure}[t]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{graphs/d_emax_full.eps}
@@ -451,9 +456,32 @@ In this section, $\Omega$ varies around a $2\omega_0$, and the maximum of mechan
 		\label{fig:d-emax-close}
 	\end{subfigure}
 	\caption{Maximum of mechanical energy for a varying $\Omega$ over 101 simulations}
+	\label{fig:d-emax}
 \end{figure}
 
+This can be observed in figure \ref{fig:d-comp}.
+On figure \ref{fig:d-comp-theta}, for $\Omega=\SI{18.9091}{\radian\per\s}$ and $\Omega=\SI{20.7091}{\radian\per\s}$, it can be observed a very little respond of the pendulum to the box's excitation, which also means a low maximum mechanical energy for both of them, as seen on figure \ref{fig:d-comp-emec}.
+However, between these values, the others reacts to the excitation.
+All of the remaining points are located in the decreasing line of figure \ref{fig:d-emax-full}, and it can be seen the reason why the mechanical decreases with $\Omega$ increasing after the resonance: the maximum amplitude of $\theta$ decreases.
+This comes from the resonance phenomenon, which changes the maximum amplitude of the pendulum with respect to $\Omega$.\\
 
+\begin{figure}[h]
+	\begin{subfigure}[t]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{graphs/d_comptheta.eps}
+		\caption{Evolution of the angle $\theta$ for 5 different $\Omega$}
+		\label{fig:d-comp-theta}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{graphs/d_compemec.eps}
+		\caption{Evolution of the mechanical energy $E_{mec}$ for 5 different $\Omega$}
+		\label{fig:d-comp-emec}
+	\end{subfigure}
+	\caption{Comparison of different parameters over time for systems with different $\Omega$ around $\omega_0$}
+	\label{fig:d-comp}
+\end{figure}
+
+The evolution of the pendulum over time with respect to $\Omega=2\omega_0$, as discussed in section \ref{sec:d-thm}, also applies here.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -510,7 +538,7 @@ The resulting convergence study is given by figure \ref{fig:e-conv}.
 
 
 \begin{thebibliography}{99}
-	\bibitem{wiki:en-cin} Énergie mécanique. (2018, septembre 14). Wikipédia, l'encyclopédie libre. Page consultée le 16:51, septembre 14, 2018 à partir de \url{http://fr.wikipedia.org/w/index.php?title=%C3%89nergie_m%C3%A9canique&oldid=152194224}.
+	\bibitem{wiki:en-cin} Énergie mécanique. (2018, September 14). Wikipédia, l'encyclopédie libre. Retrieved 16:51, September 14, 2018 from \url{http://fr.wikipedia.org/w/index.php?title=%C3%89nergie_m%C3%A9canique&oldid=152194224}.
 
 \end{thebibliography}
 
