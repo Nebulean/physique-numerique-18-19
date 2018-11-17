@@ -301,7 +301,7 @@ The initial conditions are given by $\theta_0 = \SI{0}{\radian}$ and $\dot{\thet
 The constants are given by $\Omega = \omega_0$, $d = \SI{3d-2}{\m}$, $\kappa = \SI{0}{\kg\per\s}$ and $t_{end} = \SI{250}{\s}$.
 
 \subsubsection{Verification of the mechanical energy theorem}\label{sec:c-thm}
-The theorem of conservation energy is given by equation \ref{eq:thm-ene}. \cite{wiki:en-cin}
+The mechanical energy theorem is given by equation \ref{eq:thm-ene}. \cite{wiki:en-cin}
 
 \begin{equation}
 	\frac{dE_m}{dt} = P_{nc}
@@ -330,7 +330,7 @@ Thus, by using this method, figure \ref{fig:c-thm} results.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{graphs/c_thm.eps}
-	\caption{Verification of the theorem of mechanical energy by drawing the difference over time. The computations are done using a time step of $\Delta t = \SI{2d-2}{\s}$.}
+	\caption{Verification of the mechanical energy theorem by drawing the difference over time. The computations are done using a time step of $\Delta t = \SI{2d-2}{\s}$.}
 	\label{fig:c-thm}
 \end{figure}
 
@@ -381,42 +381,56 @@ The method here is the same described in section \ref{sec:c-thm}, and the result
 \label{fig:d-thm}
 \end{figure}
 
-On figure \ref{fig:d-thm}, the mechanical energy is more or less conserved in the \num{20} first seconds of the simulation.
+Figure \ref{fig:d-thm} is the verification of the mechanical energy theorem, where the derivative of $E_{mec}$ has been computed numerically.
+The theorem is more or less verified in the \num{20} first seconds of the simulation.
 This can be observed on figure \ref{fig:d-thm-energie} where the curve is close to 0.
-After that, the mechanical energy changes drastically and oscillates with a great amplitude, which implies that energy is not conserved after \SI{20}{\s}.
+After that, the difference changes drastically and oscillates with a great amplitude, which seems to implies that the theorem is not verified after \SI{20}{\s}.
 Figure \ref{fig:d-thm-theta} shows the evolution of $\theta$ over time.
-Before \SI{20}{\s}, the oscillations are considered as small, which is the reason why energy is almost conserved. 
+Before \SI{20}{\s}, the oscillations are considered as small. 
 But after that, the oscillation's amplitude grows exponentially with much bigger oscillations, until ~\SI{30}{\s}.
 At this time, its maximum is reached and it stabilizes its oscillation.\\
-This behaviour of the pendulum over time can be explained by two factors.
+
+Numerical methods are not as perfect as an analytical solution, and it is the reason why the theorem is not verified numerically after \SI{20}{\s}.
+When the pendulum does small oscillations (before \SI{20}{\s}), the mechanical energy does not vary a lot.
+Thus, the derivative, which measures the changes in the mechanical energy, is close to the analytical solution, and it is the reason why the curve is so close to 0.
+After that, the pendulum oscillates with a great amplitude, which implies a big variation of the mechanical energy, and this is the reason why the difference as great as it is.
+The error becomes great because the numerical method is not good enough with big variations.
+To decrease this error, it is possible to reduce $\Delta t$ for the same simulation.
+It will reduce the amplitude of the variation between two computations, thus increasing the precision of the derivative of the mechanical energy.
+This is the reason why, on figure \ref{fig:d-thm-energie}, the theorem does not seem to be verified although the theorem is proven analytically.\\
+
+The behaviour of the pendulum over time can be explained by two factors.
 First, it the oscillation of the box.
 At the beginning, the box and the pendulum are not synced, because the initial conditions are different.
-But progressively, the pendulum gains amplitude until ~\SI{30}{\s}, where the pendulum and the box are synced together, and after that point, both remains synced which is the reason why the pendulum is so stable.
+But progressively, the pendulum gains amplitude until ~\SI{30}{\s}, where the pendulum and the box are synced together, and after that point, both remains synced which is the reason why the pendulum is so stable after a moment.
 The second factor is the air resistance.
 This force depends on the speed and a coefficient.
 The drastic increase of the amplitude of $\theta$ also increases the angular speed of the pendulum.
 Thus, the air resistance follows and greatly increases too.
 It impacts the stabilization of oscillation of the pendulum and is the reason why it does not keep the amplitude measured at \SI{30}{\s}.
-Why exceeding the stable amplitude, air resistance is too big compared to the other force, and restrains the pendulum's amplitude.\\
-
-%TODO : Pourquoi l'énergie n'est plus conservée, c'est à cause de la résonnance.
+When exceeding the stable amplitude, air resistance is too big compared to the other force, and restrains the pendulum's amplitude.
+Thus, it stabilizes.\\
+%TODO : Est-ce que ce dernier paragraphe est pertinent ?
 
 \subsubsection{Varying $\Omega$}
-In this section, $\Omega$ varies around a $2\omega_0$, and the maximum of mechanical energy is observed.
+In this section, $\Omega$ varies around a $2\omega_0$, and the maximum of mechanical energy is observed with respect to $\Omega$.
+
 \begin{figure}[h]
 	\begin{subfigure}[t]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{graphs/d_emax_full.eps}
-		\caption{Maximum of mechanical energy for \num{101} simulations, using a varying $\Omega$.}
+		\caption{Maximum of mechanical energy for \num{101} simulations, using a varying $\Omega\in\left[2\omega_0 - \epsilon, 2\omega_0 + \epsilon\right]$, where $\epsilon = \num{9d-1}$.}
 		\label{fig:d-emax-full}
 	\end{subfigure}
 	~
 	\begin{subfigure}[t]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{graphs/d_emax_close.eps}
-		\caption{Zoom on the "jumping" part of \ref{fig:d-emax-full}. \num{101} simulations were done, again, by varying $\Omega$.}
+		\caption{Zoom on the "jumping" part of \ref{fig:d-emax-full}. \num{101} simulations were done, again, by varying $\Omega\in\left[\num{19.15} - \epsilon, \num{19.15} + \epsilon\right]$, where $\epsilon = \num{1d-2}$.}
 		\label{fig:d-emax-close}
 	\end{subfigure}
-	\caption{Maximum of mechanical energy for a varying $\Omega$.}
+	\caption{Maximum of mechanical energy for a varying $\Omega$. 101 simulations were taken in both cases.}
 \end{figure}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
