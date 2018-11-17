@@ -190,13 +190,14 @@ Using the defined initial conditions, the constants can be computed, and the ana
 It is then possible to compare the analytical solution with the results found using the numerical method of Stormer-Verlet, which is done in figure \ref{fig:a-traj}.
 
 \begin{figure}[h]
-\begin{subfigure}[t]{0.49\textwidth}
+\centering
+\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/a_traj_full.eps}
 	\caption{Angle of the pendulum with respect to time, with a comparison between the Stormer-Verlet numerical method and the analytical solution.}
 	\label{fig:a-traj-full}
 \end{subfigure}
 ~
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/a_traj_zoomed.eps}
 	\caption{Same plot as \ref{fig:a-traj-full}, with the beginning cropped out to get a better view of the small difference between the numerical and analytical solutions at the end of the simulation.}
 	\label{fig:a-traj-zoomed}
@@ -279,11 +280,12 @@ The mean mechanical energy is then conserved over time, which implies that, even
 \subsection{Great movements: period with respect to amplitude}
 
 \begin{figure}[h]
-\begin{subfigure}[t]{0.49\textwidth}
+\centering
+\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/b_period.eps}
 \end{subfigure}
 ~
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/b_period_zoom.eps}
 \end{subfigure}
 \caption{Period of the pendulum with the amplitude $\theta_0 \in ]0,\pi[$ (zoomed in on the right-hand side graph), computed over \num{1000} simulations.}
@@ -341,13 +343,14 @@ Thus, by using this method, figure \ref{fig:c-thm} results.
 \subsubsection{Varying $\Omega$}
 
 \begin{figure}[h!]
-	\begin{subfigure}[t]{0.6\textwidth}
+\centering
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/c_comptheta.eps}
 		\caption{Evolution of the angle $\theta$ for 5 different $\Omega$}
 		\label{fig:c-comptheta}
 	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.52\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/c_compemec.eps}
 		\caption{Evolution of $E_m$ for 5 different $\Omega$}
 		\label{fig:c-compemec}
@@ -359,13 +362,14 @@ Thus, by using this method, figure \ref{fig:c-thm} results.
 Figure \ref{fig:c-comp} was made using a time step of $\Delta t = \SI{2d-2}{\s}$, for 5 different $\Omega$ in the interval $[\omega_0-10^{-1}, \omega_0+10^{-1}]$, with the yellow plot representing the case of $\Omega = \omega_0$. A resonance phenomenon can still be observed for an excitation frequency slightly lower than $\omega_0$, as movement and energy spikes higher than that of the case of $\Omega=\omega_0$ are displayed. However, for $\Omega$ slightly higher than $\omega_0$, resonance does not occur and, for $\Omega=9.9545$ we instead observe a much weaker response, consisting of only one drawn-out spur of energy over the course of the simulation, while the system with $\Omega=10.0045$ has no visible response at this scale.
 
 \begin{figure}[h]
-	\begin{subfigure}[t]{0.49\textwidth}
+\centering
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/c_emax.eps}
 		\caption{Maximum of mechanical energy for \num{101} simulations, using a varying $\Omega\in\left[\omega_0 - \epsilon, 2\omega_0 + \epsilon\right]$, where $\epsilon = \num{1.7d-1}$}
 		\label{fig:c-emax-full}
 	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.49\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/c_emaxzoom.eps}
 		\caption{Zoom on the "jumping" part of \ref{fig:c-emax}. \num{101} simulations were done by varying $\Omega\in\left[9.749, 9.750 \right]$}
 		\label{fig:c-emax-zoom}
@@ -389,13 +393,14 @@ The constants are given by $\Omega = 2\omega_0$, $d = \SI{5d-3}{\m}$, $\kappa = 
 The method here is the same described in section \ref{sec:c-thm}, and the result can be seen on figure \ref{fig:d-thm}.
 
 \begin{figure}[h]
-\begin{subfigure}[t]{0.49\textwidth}
+\centering
+\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/d_thm.eps}
 	\caption{Difference of the derivative of mechanical energy with the power of non-conservative forces}
 	\label{fig:d-thm-energie}
 \end{subfigure}
 ~
-\begin{subfigure}[t]{0.49\textwidth}
+\begin{subfigure}[t]{0.45\textwidth}
 	\includegraphics[width=\textwidth]{graphs/d_theta.eps}
 	\caption{Angle $\theta$ of the pendulum over time}
 	\label{fig:d-thm-theta}
@@ -444,13 +449,14 @@ Figure \ref{fig:d-emax-close} shows a closer look on the curve around this condi
 It can be seen that the maximum reached by the mechanical energy increases drastically, until a point where it just slowly decreases.
 
 \begin{figure}[h]
-	\begin{subfigure}[t]{0.49\textwidth}
+\centering
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/d_emax_full.eps}
 		\caption{Maximum of mechanical energy, using a varying $\Omega\in\left[2\omega_0 - \epsilon, 2\omega_0 + \epsilon\right]$, where $\epsilon = \num{1}$.}
 		\label{fig:d-emax-full}
 	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.49\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/d_emax_close.eps}
 		\caption{Zoom on the "jumping" part of \ref{fig:d-emax-full}. $\Omega$ varies on a smaller range: $\Omega\in\left[\num{19.15} - \epsilon, \num{19.15} + \epsilon\right]$, where $\epsilon = \num{1d-2}$.}
 		\label{fig:d-emax-close}
@@ -466,13 +472,14 @@ All of the remaining points are located in the decreasing line of figure \ref{fi
 This comes from the resonance phenomenon, which changes the maximum amplitude of the pendulum with respect to $\Omega$.\\
 
 \begin{figure}[h]
-	\begin{subfigure}[t]{0.49\textwidth}
+\centering
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/d_comptheta.eps}
 		\caption{Evolution of the angle $\theta$ for 5 different $\Omega$}
 		\label{fig:d-comp-theta}
 	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.49\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/d_compemec.eps}
 		\caption{Evolution of the mechanical energy $E_{mec}$ for 5 different $\Omega$}
 		\label{fig:d-comp-emec}
@@ -509,6 +516,7 @@ This section focuses on the drawing of some poincaré section, using different i
 All of them results in figure \ref{fig:e-pc}.
 
 \begin{figure}[h]
+\centering
 	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/e_poincare_MK8.png}
 		\caption{Non-chaotic simulation of initial conditions: $\theta_0 = \SI{0}{\radian}$ and $\dot{\theta_0}=\SI{1d-2}{\radian\per\s}$.}
