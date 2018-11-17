@@ -69,7 +69,7 @@ f1=figure;
 hold on;
 for i=1:nsimul
     plot(t, thetavar{i});
-    leg(1,i) = paramstr + "=" + num2str(param(i));
+    leg(1,i) = "$\Omega$=" + num2str(param(i));
 end
 set(gca, 'fontsize', 22);
 grid on;
@@ -102,6 +102,6 @@ ylabel('$E_{mec} [J]$')
 legend(leg);
 hold off
 
-saveas(f1, 'graphs/c_theta', 'epsc')
-saveas(f2, 'graphs/c_thetadot', 'epsc')
-saveas(f3, 'graphs/c_emec', 'epsc')
+saveas(f1, 'graphs/c_comptheta', 'epsc')
+saveas(f2, 'graphs/c_compthetadot', 'epsc')
+saveas(f3, 'graphs/c_compemec', 'epsc')
