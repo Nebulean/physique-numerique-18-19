@@ -14,7 +14,7 @@ dt = 0.02;
 
 % Extended plot
 omega0 = sqrt(g/L);
-epsilon = 9*10^(-1);
+epsilon = 1; % 9*10^(-1);
 Omega = linspace(2*omega0-epsilon,2*omega0+epsilon,nsimul);
 
 % close to explosion
@@ -34,7 +34,7 @@ for i = 1:nsimul
     % Execution du programme en lui envoyant la valeur a scanner en argument
     cmd = sprintf('%s%s %s %s=%.15g output=%s dt=%s theta0=0. thetadot0=1e-2 d=0.005 kappa=0.05 tFin=100', repertoire, executable, input, paramstr, param(i), output{i}, dt);
     disp(cmd)
-    %system(cmd);
+    system(cmd);
 end
 
 

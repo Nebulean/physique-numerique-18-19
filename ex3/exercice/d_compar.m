@@ -13,7 +13,7 @@ L = 0.1;
 dt = 0.02;
 
 omega0 = sqrt(g/L);
-epsilon = 9*10^(-1); %variation de Omega
+epsilon = 1;%9*10^(-1); %variation de Omega
 
 Omega = linspace(2*omega0-epsilon,2*omega0+epsilon,nsimul);
 
