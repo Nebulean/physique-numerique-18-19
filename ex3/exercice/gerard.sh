@@ -18,3 +18,8 @@ echo "Simulation de l'exercice B."
 
 #merde
 ./Exercice3 configuration.in theta0=3.14 thetadot0=1e-2 Omega=9.9045 d=0.04 kappa=0. tFin=100 output=merde.out
+
+#g
+./Exercice3 configuration.in theta0=1.0471975512 thetadot0=1e-2 Omega=9.9045 d=0.05 kappa=0.03 tFin=100 output=g_fourier.out
+# pi/3  = 1.0471975512
+# pi    = 3.1415926536
