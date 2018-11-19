@@ -8,21 +8,21 @@ Omega = 2*omega0;
 
 n = 500; % On choisit le nombre de de pas de temps que l'on veut avoir dans chaque période.
 
-tfin = 200*2*pi/Omega; % Le cas où i = 10000 est celui de base, mais j'ai pris un peu plus.
+tfin = 1000*2*pi/Omega; % Le cas où i = 10000 est celui de base, mais j'ai pris un peu plus.
 
 dt = 2*pi/(n*Omega);
 
 %% CHOIX DE DIFFERENTES CONDITIONS INITIALES
 
 % CHAOS, CHAOS
-theta01 = 5*pi/6;
-thetadot0 = 0.;
-figname = "chaos";
+% theta01 = 5*pi/6;
+% thetadot0 = 0.;
+% figname = "chaos";
 
 % NOT CHAOS, BORING
-% theta01 = 1e-6;
-% thetadot0 = 1.;
-% figname = "notchaos";
+theta01 = pi/2;
+thetadot0 = 0.;
+figname = "notchaos";
 
 % deuxième graph
 theta02 = theta01+1e-8;
@@ -65,7 +65,8 @@ plot(theta1, thetadot1, '.', theta2, thetadot2, '.');
 set(gca, 'fontsize', 22);
 xlabel("$\theta$ [rad]");
 ylabel("$\dot{\theta}$ [rad/s]");
-legend("$\theta_0=\pi$","$\theta_0=\pi+1 \cdot 10^{-8}$");
+lgd=legend("$\theta_0=\pi/2$","$\theta_0=\pi/2+1 \cdot 10^{-8}$");
+lgd.Location='northwest';
 grid on;
 hold off;
 
@@ -73,12 +74,15 @@ f2=figure;
 hold on;
 set(gca, 'YScale', 'log');
 plot(t,d);
+xlabel("$t [s]$");
+ylabel("difference $d$");
 set(gca, 'fontsize', 22);
 grid on
 hold off;
 
-wheretosave = sprintf("graphs/f_sens_%s", figname);
-saveas(f1, wheretosave, 'epsc');
+wheretosave = sprintf("graphs/f_sens", figname);
+% saveas(f1, wheretosave, 'epsc');
+print(f1, wheretosave,'-dpng','-r600');
 
-wheretosave = sprintf("graphs/f_lyap_%s", figname);
+wheretosave = sprintf("graphs/f_lyap", figname);
 saveas(f2, wheretosave, 'epsc');

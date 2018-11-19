@@ -555,22 +555,22 @@ This time, the trajectory in the phase space is a set of points vaguely followin
 \centering
 	\begin{subfigure}[t]{0.47\textwidth}
 		\includegraphics[width=\textwidth]{graphs/e_sens_chaos.png}
-		\caption{Poincaré section of two chaotic simulations}
+		\caption{Poincaré section of the two chaotic simulations}
 		\label{fig:e-sens-chaos}
 	\end{subfigure}
 	~
 	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/e_lyap_chaos.eps}
-		\caption{Difference of two chaotic simulations over time}
+		\caption{Difference in the phase space of the two chaotic simulations over time}
 		\label{fig:e-lyap-chaos}
 	\end{subfigure}
 	\caption{Comparison of two chaotic simulations with an initial angle difference of \num{1d-8} and initial velocity $\theta_0 = 0$}
 	\label{fig:e-chaos}
 \end{figure}
 
-Figure \ref{fig:e-chaos} was made with the number of steps for each period $n=500$, the final time $t_{end} \approx 127 s$ and a time step of $dt \approx \num{1.3d-2} s$. As expected of chaos, we get two different distributions of points for the Poincaré section, although they are both distributed over the same general area. Figure \ref{fig:e-lyap-chaos} shows the difference between the two simulations over time, calculated as $d=\sqrt{(\dot{\theta_1}-\dot{\theta_2})^2 + \Omega^2 (\theta_1-\theta_2)^2}$. From this graph we can calculate the Lyapunov exponent $\lambda$, which is the slope of $log(d(t))$ in the initial phase of the simulation. With $t_0 = 0$ initially and $t_1=14.59$ at the top of the slope, we get:
+Figure \ref{fig:e-chaos} was made with the number of steps for each period $n=500$, the final time $t_{end} \approx 6344 s$ and a time step of $dt \approx \num{6.3d-3} s$. As expected of chaos, we get two different distributions of points for the Poincaré section, although they are both distributed over the same general area. Figure \ref{fig:e-lyap-chaos} shows the difference in the phase space between the two simulations over time, calculated as $d=\sqrt{(\dot{\theta_1}-\dot{\theta_2})^2 + \Omega^2 (\theta_1-\theta_2)^2}$. This difference grows sharply in the initial phase of the simulation, then stays relatively constant for the rest of the simulation. From this graph we can calculate the Lyapunov exponent $\lambda$, which is the slope of $log(d(t))$ in the initial phase of the simulation. With $t_0 = 0$ initially and $t_1=14.59$ at the top of the slope, we get:
 \begin{equation*}
-\lambda = \frac{d(t_1)-d(t_0)}{t_1-t_0} \approx 7.14
+\lambda = \frac{log(d(t_1))-log(d(t_0))}{t_1-t_0} \approx 2.5
 \end{equation*}
 The Lyapunov exponent characterizes the rate of separation in the phase space between infinitesimally close dynamical systems.\cite{Lyap} In this case, as $\lambda > 0$, it indicates a chaotic system.\cite{Lyap2}
 
@@ -578,13 +578,13 @@ The Lyapunov exponent characterizes the rate of separation in the phase space be
 \centering
 	\begin{subfigure}[t]{0.47\textwidth}
 		\includegraphics[width=\textwidth]{graphs/e_sens_notchaos.png}
-		\caption{Poincaré section of two stable simulations}
+		\caption{Poincaré section of the two stable simulations}
 		\label{fig:e-sens-notchaos}
 	\end{subfigure}
 	~
 	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/e_lyap_notchaos.eps}
-		\caption{Difference of two stable simulations over time}
+		\caption{Difference in the phase space of the two stable simulations over time}
 		\label{fig:e-lyap-notchaos}
 	\end{subfigure}
 	\caption{Comparison of two stable simulations with an initial angle difference of \num{1d-8} and initial velocity $\theta_0 = 1$}
@@ -593,7 +593,7 @@ The Lyapunov exponent characterizes the rate of separation in the phase space be
 
 Figure \ref{fig:e-notchaos} was made with the same numerical conditions as figure \ref{fig:e-chaos}, for a stable system. In this case, an infinitesimally small difference on the initial position does not cause any significant divergence between the two systems over the course of the simulation, as their Poincaré sections are superimposed. We can once again calculate the Lyapunov exponent from the initial slope of figure \ref{fig:e-lyap-notchaos}, with $t_0 = 0$ and $t_1=29.18$:
 \begin{equation*}
-\lambda \approx \num{-2.91d-9}
+\lambda \approx -7.61
 \end{equation*}
 As $\lambda < 0$, it indicates a stable system.\cite{Lyap2}
 
@@ -601,6 +601,38 @@ As $\lambda < 0$, it indicates a stable system.\cite{Lyap2}
 
 \subsection{Poincaré section: chaos with air resistance}
 
+In this section, air resistance is added to the system. We set the damping coefficient $\kappa = 0.1 ~ \si{\kg \per \s^2}$, the amplitude of the excitation $d=0.05m$ and the frequency of the excitation $\Omega=2\omega_0$.
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width=0.75\textwidth]{graphs/f_poincare.png}
+	\caption{Comparison of the Poincaré sections of 4 systems with very different initial conditions}
+	\label{fig:f-poincare}
+\end{figure}
+
+Figure \ref{fig:f-poincare} was made with the number of steps for each period $n=500$, the final time $t_{end} \approx 317 s$ and a time step of $dt \approx \num{6.3d-4} s$. For all the initial conditions tested, the resulting Poincaré sections all display a chaotic behavior, although the distribution of the dots stays within a pattern. These results suggest that whatever the initial conditions are, the system is always chaotic with the $d$, $\Omega$ and $\kappa$ chosen for this section.
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+	\includegraphics[width=\textwidth]{graphs/f_sens.png}
+	\caption{Poincaré sections of two simulations}
+	\label{fig:f-senspcr}
+\end{subfigure}
+\begin{subfigure}[t]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{graphs/f_lyap.eps}
+	\caption{Difference in the phase space of the two simulations over time}
+	\label{fig:f-lyap}
+\end{subfigure}
+\caption{Comparison of two simulations with an initial angle difference of \num{1d-8} and initial velocity $\theta_0 = 0$}
+\label{fig:f-sens}
+\end{figure}
+
+Figure \ref{fig:f-sens} was made with the same numerical conditions as fig.\ref{fig:f-poincare}. In this situation, an infinitesimally small difference on the initial angle causes the dots on the Poincaré section to be scattered differently, although they still stay within the same pattern as in fig.\ref{fig:f-poincare} for both systems. The difference plotted on fig.\ref{fig:f-lyap} once again grows sharply at the beginning of the simulation then stays relatively constant. With $t_0=0$ and $t_1=11.74$, the Lyapunov exponent is computed:
+\begin{equation*}
+	\lambda \approx 0.25
+\end{equation*}
+As $\lambda > 0$, it indicates a chaotic system.
 
 \subsection{Optional} %TODO : Changer le titre.
 
