@@ -637,7 +637,7 @@ In this section, air resistance is added to the system. We set the damping coeff
 
 Figure \ref{fig:f-poincare} was made with the number of steps for each period $n=500$, the final time $t_{end} \approx 317 s$ and a time step of $dt \approx \num{6.3d-4} s$. For all the initial conditions tested, the resulting Poincaré sections all display a chaotic behavior, although the distribution of the dots stays within a pattern. These results suggest that whatever the initial conditions are, the system is always chaotic with the $d$, $\Omega$ and $\kappa$ chosen for this section.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/f_sens.png}
@@ -662,8 +662,9 @@ As $\lambda > 0$, it indicates a chaotic system.
 \subsection{Optional} %TODO : Changer le titre.
 
 \subsubsection{Fourier transformation}
+In this section, the Fourier transformation of $\theta$ and $\dot{\theta}$ is computed for a chaotic and a non-chaotic situation.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \begin{subfigure}[t]{0.48\textwidth}
 	\includegraphics[width=\textwidth]{graphs/g_fourier_non_chaotic.eps}
 	\caption{Non-chaotic situation where $\theta_0 = \frac{\pi}{3}$, $\dot{\theta}_0 = \num{1d-2}$, $\Omega = \omega_0$, $d=0.05$, $\kappa=0.03$ and $t_{end} = \SI{100}{\s}$}
@@ -679,13 +680,24 @@ As $\lambda > 0$, it indicates a chaotic system.
 \label{fig:g-fourier-fft}
 \end{figure}
 
+Figure \ref{fig:g-fourier-fft} is frequency analysis of two situations.
+In figure \ref{fig:g-fourier-fft-non-chaotic}, the non-chaotic situation, three peaks of freqency can be observed for both $\theta$ and $\dot{\theta}$, whereas the other frequencies do not appear in the signal.
+The frequencies are clearly described, which is what was expected for non-chaotic situations.
+In figure \ref{fig:g-fourier-fft-chaotic}, the three peaks of frequency appear again, on the same frequency, but this time, low frequencies appear in the signal.
+In the case of $\theta$, these low frequencies have a bigger amplitude than the peaks, wherein $\dot{\theta}$, these low frequencies are much smaller.
+Some frequencies are clearly described, but some other are flooded in others, which is what was expected for chaotic situations.
+
+
+\newpage
+
 \begin{thebibliography}{99}
 	\bibitem{ans:moment-inertie} Ansermet, J-P. (2015) \textit{Traité de Physique: Mécanique}. Lausanne, Vaud: Presses Polytechniques et Universitaires Romandes.
 	\bibitem{wiki:en-cin} Énergie mécanique. (2018, September 14). Wikipédia, l'encyclopédie libre. Retrieved 16:51, September 14, 2018 from \url{http://fr.wikipedia.org/w/index.php?title=%C3%89nergie_m%C3%A9canique&oldid=152194224}.
 	\bibitem{Lyap} Wikipedia contributors. (2018, October 6). Lyapunov exponent. In Wikipedia, The Free Encyclopedia. Retrieved 08:56, November 18, 2018, from \url{https://en.wikipedia.org/w/index.php?title=Lyapunov_exponent&oldid=862716940}
 	\bibitem{Lyap2} 4.3 Lyapunov Exponent. The Chaos Hypertextbook. Retrieved 09:58, September 14, 2018 from \url{https://hypertextbook.com/chaos/lyapunov-1/}
-
 \end{thebibliography}
+
+\newpage
 
 \section*{Appendix}
 \appendix
