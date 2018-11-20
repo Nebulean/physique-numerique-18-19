@@ -519,7 +519,7 @@ The resulting convergence study is given by figure \ref{fig:e-conv}.
 	\label{fig:e-conv}
 \end{figure}
 
-Figure \ref{fig:e-conv} shows the convergence of the final position of the pendulum.
+% Figure \ref{fig:e-conv} shows the convergence of the final position of the pendulum.
 On figure \ref{fig:e-conv-dt1}, all points follows a linear path, as shown by the linear fit.
 This behaviour seems strange, as the points should follow a linear path with $\Delta t^2$, since Stormer-Verlet's numerical method is of order 2.
 However, when plotting with respect to $\Delta t^2$ (figure \ref{fig:e-conv-dt2}), only the first values follows a linear path, as shown by the linear fit.
@@ -582,11 +582,11 @@ This time, the trajectory in the phase space is a set of points vaguely followin
 	\label{fig:e-chaos}
 \end{figure}
 
-Figure \ref{fig:e-chaos} was made with the number of steps for each period $n=500$, the final time $t_{end} \approx 6344 s$ and a time step of $dt \approx \num{6.3d-3} s$. As expected of chaos, we get two different distributions of points for the Poincaré section, although they are both distributed over the same general area. Figure \ref{fig:e-lyap-chaos} shows the difference in the phase space between the two simulations over time, calculated as $d=\sqrt{(\dot{\theta_1}-\dot{\theta_2})^2 + \Omega^2 (\theta_1-\theta_2)^2}$. This difference grows sharply in the initial phase of the simulation, then stays relatively constant for the rest of the simulation. From this graph we can calculate the Lyapunov exponent $\lambda$, which is the slope of $log(d(t))$ in the initial phase of the simulation. With $t_0 = 0$ initially and $t_1=14.59$ at the top of the slope, we get:
+Figure \ref{fig:e-chaos} was made with the number of steps for each period $n=500$, the final time $t_{end} \approx \num{127} s$ and a time step of $dt \approx \num{6.3d-3} s$. As expected of chaos, we get two different distributions of points for the Poincaré section, although they are both distributed over the same general area. Figure \ref{fig:e-lyap-chaos} shows the difference in the phase space between the two simulations over time, calculated as $d=\sqrt{(\dot{\theta_1}-\dot{\theta_2})^2 + \Omega^2 (\theta_1-\theta_2)^2}$. This difference grows sharply in the initial phase of the simulation, then stays relatively constant for the rest of the simulation. From this graph we can calculate the Lyapunov exponent $\lambda$, which is the slope of $log(d(t))$ in the initial phase of the simulation. With $t_0 = 0$ initially and $t_1=14.59$ at the top of the slope, we get:
 \begin{equation*}
 \lambda = \frac{log(d(t_1))-log(d(t_0))}{t_1-t_0} \approx 2.5
 \end{equation*}
-The Lyapunov exponent characterizes the rate of separation in the phase space between infinitesimally close dynamical systems.\cite{Lyap} In this case, as $\lambda > 0$, it indicates a chaotic system.\cite{Lyap2}
+The Lyapunov exponent characterizes the rate of separation in the phase space between infinitesimally close dynamical systems \cite{Lyap}. In this case, as $\lambda > 0$, it indicates a chaotic system \cite{Lyap2}.
 
 \begin{figure}[h]
 \centering
@@ -609,7 +609,9 @@ Figure \ref{fig:e-notchaos} was made with the same numerical conditions as figur
 \begin{equation*}
 \lambda \approx -7.61
 \end{equation*}
-As $\lambda < 0$, it indicates a stable system.\cite{Lyap2}
+As $\lambda < 0$, it indicates a stable system \cite{Lyap2}.
+
+%TODO : Il faut comparer les deux cas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
