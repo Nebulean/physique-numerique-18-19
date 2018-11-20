@@ -504,12 +504,26 @@ The resulting convergence study is given by figure \ref{fig:e-conv}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.6\textwidth]{graphs/e_conv.eps}
-	\caption{Convergence study on the final angle over \num{100} simulations} %TODO : C'est censé être une droite ! Je fais quoi avec ça ?
+	\begin{subfigure}[t]{0.48\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_conv_dt1.eps}
+		\caption{Convergence study on the final angle with respect to $\Delta t$. In orange, the linear fit of all the values, which has a slope of \num{-1.376d-2}.} %TODO : C'est censé être une droite ! Je fais quoi avec ça ? Aïe.
+		\label{fig:e-conv-dt1}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.48\textwidth}
+		\includegraphics[width=\textwidth]{graphs/e_conv_dt2.eps}
+		\caption{Convergence study on the final angle with respect to $\Delta t^2$. In orange, the linear fit on the 5 first values, which has a slope of \num{-6.860}.} %TODO : C'est censé être une droite ! Je fais quoi avec ça ? Aïe.
+		\label{fig:e-conv-dt2}
+	\end{subfigure}
+	\caption{Comparison of convergence study on the final angle over \num{100} simulations.}
 	\label{fig:e-conv}
 \end{figure}
 
-%TODO : Analyser ce graph.
+Figure \ref{fig:e-conv} shows the convergence of the final position of the pendulum.
+On figure \ref{fig:e-conv-dt1}, all points follows a linear path, as shown by the linear fit.
+This behaviour seems strange, as the points should follow a linear path with $\Delta t^2$, since Stormer-Verlet's numerical method is of order 2.
+However, when plotting with respect to $\Delta t^2$ (figure \ref{fig:e-conv-dt2}), only the first values follows a linear path, as shown by the linear fit.
+The non-linearity of the rest of the values can be explained by the terms of upper orders that were neglected. %TODO : Est-ce juste cette explication ?
 
 \subsubsection{Poincaré sections}
 This section focuses on the drawing of some poincaré section, using different initial conditions.
