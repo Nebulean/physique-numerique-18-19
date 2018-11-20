@@ -102,7 +102,7 @@ where $\kappa$ is an air resistance coefficient, $m$ is the mass, $\theta$ is th
 \subsection{Mechanical energy and power of non-conservative forces in the frame of reference $R'$}
 The only energy to consider is the kinetic energy of rotation, and the potential energy, as there is no translation.
 The kinetic energy of rotation is given by $E_{c,r} = \frac{1}{2}I\omega^2$, where $I$ is the moment of inertia and $\omega$ the angular velocity.
-The moment of inertia of a solid can be tough to compute for generic objects, but for a discrete number of masses, the moment of inertia is given by equation \ref{eq:moment-inertie}. \cite{ans:moment-inertie} %TODO : Ajouter à la bibliographie le livre de meca pour la formule de I.
+The moment of inertia of a solid can be tough to compute for generic objects, but for a discrete number of masses, the moment of inertia is given by equation \ref{eq:moment-inertie} \cite{ans:moment-inertie}.
 
 \begin{equation}
 	I = \sum_\alpha m_\alpha r_\alpha^2
@@ -113,8 +113,7 @@ where $m_\alpha$ is the mass and $r_\alpha$ is the distance between the origin c
 In the case of the pendulum, it is quite trivial to compute.
 The mass of rod of the pendulum is ignored, and the mass $m$ of the pendulum is condensed in a single point at a distance $L$ of the origin of $R'$.
 
-The moment of inertia is given by $I=mL^2$.\\ %TODO : J'ai pas trouvé de traduction de "point matériel".
-
+The moment of inertia is given by $I=mL^2$. %TODO : J'ai pas trouvé de traduction de "point matériel".
 The mechanical energy is then expressed as equation \ref{eq:emec}.
 
 \begin{equation}
@@ -155,8 +154,29 @@ The power of non-conservative forces is then given by equation \ref{eq:power}.
 
 
 \subsection{Solutions for little movements around equilibrium}\label{sec:sol-analytique}
-%TODO : à remplir
-%TODO : Mettre la solution analytique finale avec eq:sol-analytique-gen comme label.
+Using the conditions $d=\num{0}$, $\kappa=\num{0}$ and equation \ref{eq:equa-diff}, the following equation \ref{eq:equa-diff-no-box} can be obtained.
+
+\begin{equation}
+	\ddot{\theta} = -\frac{g}{L}\sin\theta
+	\label{eq:equa-diff-no-box}
+\end{equation}
+
+The hypothesis of little movements implies that $\theta \ll 1$.
+With this hypothesis, the approximation of first order of sinus function is $\sin\theta \approx \theta$.
+Thus, equation \ref{eq:equa-diff-approx} is the differential equation that can be solved.
+
+\begin{equation}
+	\ddot{\theta} = -\frac{g}{L}\theta = -\omega_0^2\theta
+	\label{eq:equa-diff-approx}
+\end{equation}
+where $\omega_0$ is the natural frequency and is given by $\omega_0 = \sqrt{\frac{g}{L}}$.
+The general solution of equation \ref{eq:equa-diff-approx} is given by equation \ref{eq:sol-analytique-gen}.
+
+\begin{equation}
+	\theta = A\cos\left(\omega_0 t + \varphi\right)
+	\label{eq:sol-analytique-gen}
+\end{equation}
+
 \section{Numerical computations}
 
 Unless specified otherwise, all simulations are done using a time step of $\Delta t = \SI{2d-2}{\s}$.
@@ -660,6 +680,7 @@ As $\lambda > 0$, it indicates a chaotic system.
 \end{figure}
 
 \begin{thebibliography}{99}
+	\bibitem{ans:moment-inertie} Ansermet, J-P. (2015) \textit{Traité de Physique: Mécanique}. Lausanne, Vaud: Presses Polytechniques et Universitaires Romandes.
 	\bibitem{wiki:en-cin} Énergie mécanique. (2018, September 14). Wikipédia, l'encyclopédie libre. Retrieved 16:51, September 14, 2018 from \url{http://fr.wikipedia.org/w/index.php?title=%C3%89nergie_m%C3%A9canique&oldid=152194224}.
 	\bibitem{Lyap} Wikipedia contributors. (2018, October 6). Lyapunov exponent. In Wikipedia, The Free Encyclopedia. Retrieved 08:56, November 18, 2018, from \url{https://en.wikipedia.org/w/index.php?title=Lyapunov_exponent&oldid=862716940}
 	\bibitem{Lyap2} 4.3 Lyapunov Exponent. The Chaos Hypertextbook. Retrieved 09:58, September 14, 2018 from \url{https://hypertextbook.com/chaos/lyapunov-1/}
@@ -669,7 +690,7 @@ As $\lambda > 0$, it indicates a chaotic system.
 \section*{Appendix}
 \appendix
 
-\section{Analytical developements}
+\section{Analytical developements}\label{ann:eq-diff}
 The pendulum in the frame of reference of the box with the associated cylindrical coordinates $(\hat{e_r}, \hat{e_\theta}, \hat{e_y})$ is subjected to the following forces:
 \begin{itemize}
 	\item Gravitational force: $m\mathbf{g}$
