@@ -86,24 +86,18 @@ This allows a study of different situations, one of which is the study of chaoti
 After some computations described in appendix \ref{ann:eq-diff}, equation \ref{eq:equa-diff} results.%TODO : Faire l'annexe en question.
 
 \begin{equation}
-	\ddot{\theta} = -\frac{\kappa}{m}\dot{\theta} - \frac{g}{L}\sin\theta
-	\label{eq:equa-diff}
-\end{equation}
-where $\kappa$ is an air resistance coefficient, $m$ is the mass, $\theta$ is the angle of the pendulum, $g$ the mean gravity on earth and $L$ the length of the rod.
-
-Equation \ref{eq:equa-diff} can also be written as equation \ref{eq:equa-diff-sys}, which is better for numerical computations.
-
-\begin{equation}
 	\frac{d}{dt}
 	\begin{pmatrix}
 		\theta \\ \dot{\theta}
 	\end{pmatrix}
 	= \begin{pmatrix}
 	\dot{\theta} \\
-		-\frac{\kappa}{m}\dot{\theta} - \frac{g}{L}\sin\theta
+		-\frac{\kappa}{m}\dot{\theta} - \frac{g}{L}\sin\theta + \frac{\Omega^2}{L} d \sin{\Omega t} \sin\theta
 	\end{pmatrix}
-	\label{eq:equa-diff-sys}
+	\label{eq:equa-diff}
 \end{equation}
+where $\kappa$ is an air resistance coefficient, $m$ is the mass, $\theta$ is the angle of the pendulum, $g$ the mean gravity on earth, $L$ the length of the rod, $\Omega$ the frequency of the vertical oscillation (excitation) and $d$ the amplitude of the vertical oscillation.
+
 
 \subsection{Mechanical energy and power of non-conservative forces in the frame of reference $R'$}
 The only energy to consider is the kinetic energy of rotation, and the potential energy, as there is no translation.
@@ -128,39 +122,34 @@ The mechanical energy is then expressed as equation \ref{eq:emec}.
 	\label{eq:emec}
 \end{equation}
 
-Regarding the power, there is only one force to consider, the air resistance (or drag), because it is the only non-conservative one.
-The power is expressed as $P = \mathbf{F}\cdot\mathbf{v}$, and the drag is defined as $\mathbf{f} = -\kappa\mathbf{v'}$ in this report, where $\mathbf{v'}$ is the speed in the frame of reference $R'$.
-These vectors are given by:
+Regarding the power of non-conservative forces, there are two forces to consider, the air resistance and the force of inertia from the oscillation of the box.
+The power is expressed as $P = \mathbf{F}\cdot\mathbf{v}$, the damping force is defined as $\mathbf{F_f} = -\kappa\mathbf{v'}$ in this report, where $\mathbf{v'}$ is the speed in the frame of reference $R'$, and the force of inertia as $\mathbf{F_I} = m \Omega^2 \sin(\Omega t) \hat{z}$, with $\hat{z}$ the vertical direction in the cartesian coordinates. $P_{nc}$ is calculated using the cylindrical coordinates $(\hat{e_r}, \hat{e_\theta}, \hat{e_y})$:
 
-\begin{align*}
-	\mathbf{f} =
+\begin{equation*}
+	P_{nc}= (\mathbf{F_f} + \mathbf{F_I})\cdot \mathbf{v} =
+	\left[
 	\begin{pmatrix}
-		f\cos\theta \\
-		f\sin\theta \\
+		0 \\
+		-\kappa \dot{\theta} \\
 		0
 	\end{pmatrix}
-	= \begin{pmatrix}
-		f\cos\theta \\
-		f\sin\theta \\
+	+ \begin{pmatrix}
+		m \Omega^2 \sin(\Omega t) \cos\theta \\
+		m \Omega^2 \sin(\Omega t) \sin\theta \\
 		0
 	\end{pmatrix}
-	\text{ and }
-	\mathbf{v} =
+	\right]
+	\cdot
 	\begin{pmatrix}
-		-v'\cos\theta \\
-		-v'\sin\theta \\
+		0 \\
+		L\dot{\theta} \\
 		0
 	\end{pmatrix}
-	= \begin{pmatrix}
-		-\dot{\theta}L\cos\theta \\
-		-\dot{\theta}L\sin\theta \\
-		0
-	\end{pmatrix}
-\end{align*}
+\end{equation*}
 
-The power of the drag is then given by equation \ref{eq:power}.
+The power of non-conservative forces is then given by equation \ref{eq:power}.
 \begin{equation}
-	P = \kappa\dot{\theta}^2 L^2
+	P = -\kappa\dot{\theta}^2 L^2 + mL\dot{\theta} \Omega^2 \sin(\Omega t) \sin\theta
 	\label{eq:power}
 \end{equation}
 
@@ -676,5 +665,31 @@ As $\lambda > 0$, it indicates a chaotic system.
 	\bibitem{Lyap2} 4.3 Lyapunov Exponent. The Chaos Hypertextbook. Retrieved 09:58, September 14, 2018 from \url{https://hypertextbook.com/chaos/lyapunov-1/}
 
 \end{thebibliography}
+
+\section*{Appendix}
+\appendix
+
+\section{Analytical developements}
+The pendulum in the frame of reference of the box with the associated cylindrical coordinates $(\hat{e_r}, \hat{e_\theta}, \hat{e_y})$ is subjected to the following forces:
+\begin{itemize}
+	\item Gravitational force: $m\mathbf{g}$
+	\item Force of traction: $\mathbf{T}$
+	\item Damping force: $-\kappa \dot{\theta} \hat{e_\theta}$
+	\item Inertial force from the oscillation of the frame of reference: $m \Omega^2 \sin(\Omega t) \hat{z}$, with $\hat{z}$ the vertical direction in the cartesian coordinates.
+\end{itemize}
+
+We start by computing the moment of inertia with respect to O $I_O = mL^2$ of the pendulum. Then the angular momentum $L_O$ and the torque $M_O$ follow:
+\begin{align*}
+	&L_O = mL^2\dot{\theta}\\
+	&M_O = mL^2\ddot{\theta}
+\end{align*}
+Thus we get the following relation for the sum of the moments of force by projecting them on $\hat{e_\theta}$:
+\begin{equation*}
+-Lmg\sin\theta-\kappa L^2\dot{\theta} + mL\Omega^2 d \sin{\Omega t} \sin\theta = mL^2\ddot{\theta}
+\end{equation*}
+which gives us the expression of the angular acceleration:
+\begin{equation*}
+\ddot{\theta} = -\frac{\kappa}{m}\dot{\theta} - \frac{g}{L}\sin\theta + \frac{\Omega^2}{L} d \sin{\Omega t} \sin\theta
+\end{equation*}
 
 \end{document}
