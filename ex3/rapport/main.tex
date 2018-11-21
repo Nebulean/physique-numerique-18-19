@@ -77,7 +77,7 @@
 
 \section{Introduction}
 %TODO : Améliorer cette impro.
-This experiment will focus on the study of a simple pendulum in a box moving with a certain frequency.
+This experiment will focus on the study of a simple pendulum in a box oscillating with frequency $\Omega$ and amplitude $d$.
 This allows a study of different situations, one of which is the study of chaotic movements.
 
 \section{Analytical computations}
@@ -153,7 +153,7 @@ The power of non-conservative forces is then given by equation \ref{eq:power}.
 \end{equation}
 
 
-\subsection{Solutions for little movements around equilibrium}\label{sec:sol-analytique}
+\subsection{Solutions for small movements around equilibrium}\label{sec:sol-analytique}
 Using the conditions $d=\num{0}$, $\kappa=\num{0}$ and equation \ref{eq:equa-diff}, the following equation \ref{eq:equa-diff-no-box} can be obtained.
 
 \begin{equation}
@@ -176,6 +176,7 @@ The general solution of equation \ref{eq:equa-diff-approx} is given by equation 
 	\theta = A\cos\left(\omega_0 t + \varphi\right)
 	\label{eq:sol-analytique-gen}
 \end{equation}
+with $A$ the amplitude and $\phi$ the phase.
 
 \section{Numerical computations}
 
@@ -236,7 +237,7 @@ In this section, the convergence of the numerical method of Stormer-Verlet will 
 	\label{fig:a-conv}
 \end{figure}
 
-Figure \ref{fig:a-conv} show the study of the error the final angle with respect to the time step.
+Figure \ref{fig:a-conv} show the study of the error on the final angle with respect to the time step.
 The main aspect of this study is the order of convergence of Stormer-Verlet's method.
 On a log-log graph, the error decreases linearly with smaller time steps.
 By finding the slope of the drawn line, the order of Stormer-Verlet's method can be deduced.
@@ -269,7 +270,7 @@ In summary, the numerical method of Stormet-Verlet converges.
 \begin{figure}[h]
 \centering
 	\includegraphics[width=0.6\textwidth]{graphs/a_ener.eps}
-	\caption{Study of the mechanical energy of the pendulum with respect to time. The time step used is $\Delta t = \SI{2d-2}{\s}$.}
+	\caption{Study of the mechanical energy of the pendulum with respect to time.}
 	\label{fig:a-ener}
 \end{figure}
 
@@ -313,7 +314,7 @@ The initial conditions are given by $\theta_0 = \SI{0}{\radian}$ and $\dot{\thet
 The constants are given by $\Omega = \omega_0$, $d = \SI{3d-2}{\m}$, $\kappa = \SI{0}{\kg\per\s}$ and $t_{end} = \SI{250}{\s}$.
 
 \subsubsection{Verification of the mechanical energy theorem}\label{sec:c-thm}
-The mechanical energy theorem is given by equation \ref{eq:thm-ene}. \cite{wiki:en-cin}
+The mechanical energy theorem is given by equation \ref{eq:thm-ene} \cite{wiki:en-cin}.
 
 \begin{equation}
 	\frac{dE_m}{dt} = P_{nc}
@@ -342,11 +343,11 @@ Thus, by using this method, figure \ref{fig:c-thm} results.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.55\textwidth]{graphs/c_thm.eps}
-	\caption{Verification of the mechanical energy theorem by drawing the difference over time. The computations are done using a time step of $\Delta t = \SI{2d-2}{\s}$.}
+	\caption{Verification of the mechanical energy theorem by drawing the difference of the derivative of the mechanical energy and the power of non-conservative forces over time}
 	\label{fig:c-thm}
 \end{figure}
 
-%TODO : Faire une discussion sur cette figure quand le graph sera final.
+As expected the difference $\frac{d(E_m)}{dt}-P_{nc}$ is almost zero everywhere. The maximum error of order $10^{-3}$ is caused by the imperfect numerical derivation of $E_m$ at times when it varies quickly.
 
 \subsubsection{Varying $\Omega$}
 
@@ -386,7 +387,7 @@ Figure \ref{fig:c-comp} was made using a time step of $\Delta t = \SI{2d-2}{\s}$
 	\label{fig:c-emax}
 \end{figure}
 
-Figure \ref{fig:c-emax} shows that the system has very little response to the excitation for $\Omega<9.749$. However the maximum of the response in energy increases exponentially until it peaks around $\Omega= 9.74985$, an excitation frequency lower than the natural frequency of the system, $\omega_0$. The maximum of the energy then decreases linearly until no response is observable from $\Omega=9.96$ onwards.
+Figure \ref{fig:c-emax} shows that the system has very little response to the excitation for $\Omega<9.749$. However the maximum of the response in energy then increases exponentially until it peaks around $\Omega= 9.74985$, an excitation frequency lower than the natural frequency of the system, $\omega_0$. The maximum of the energy then decreases linearly until no response is observable from $\Omega=9.96$ onwards.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -417,7 +418,7 @@ The method here is the same described in section \ref{sec:c-thm}, and the result
 \label{fig:d-thm}
 \end{figure}
 
-Figure \ref{fig:d-thm} is the verification of the mechanical energy theorem, where the derivative of $E_{mec}$ has been computed numerically.
+Figure \ref{fig:d-thm} is the verification of the mechanical energy theorem, where the derivative of $E_{m}$ has been computed numerically.
 The theorem is more or less verified in the \num{20} first seconds of the simulation.
 This can be observed on figure \ref{fig:d-thm-energie} where the curve is close to 0.
 After that, the difference changes drastically and oscillates with a great amplitude, which seems to implies that the theorem is not verified after \SI{20}{\s}.
@@ -454,7 +455,7 @@ In this section, $\Omega$ varies around a $2\omega_0$, and the maximum of mechan
 Figure \ref{fig:d-emax} shows the maximum mechanical energy for a range of $\Omega$.
 A resonance phenomenon can be observed on figures \ref{fig:d-emax-full}, around $\Omega=\SI{19.15}{\radian\per\s}$.
 Figure \ref{fig:d-emax-close} shows a closer look on the curve around this condition.
-It can be seen that the maximum reached by the mechanical energy increases drastically, until a point where it just slowly decreases.
+It can be seen that the maximum reached by the mechanical energy increases exponentially, until a point where it just decreases linearly.
 
 \begin{figure}[h]
 \centering
@@ -489,7 +490,7 @@ This comes from the resonance phenomenon, which changes the maximum amplitude of
 	~
 	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{graphs/d_compemec.eps}
-		\caption{Evolution of the mechanical energy $E_{mec}$ for 5 different $\Omega$}
+		\caption{Evolution of the mechanical energy $E_{m}$ for 5 different $\Omega$}
 		\label{fig:d-comp-emec}
 	\end{subfigure}
 	\caption{Comparison of different parameters over time for systems with different $\Omega$ around $\omega_0$}
@@ -670,7 +671,7 @@ Then by using the approximation $\sin\phi \approx \phi$ for small angles:
 \begin{equation}
 \ddot{\phi} = \frac{g}{L}\phi -\frac{\Omega^2}{L}d\sin(\Omega t)\phi
 \end{equation}
-Since we want the movement to be similar to that of the pendulum with $\theta \approx 0$, we set $\theta_2$ one such small angle and equalize the accelerations:
+Since we want the movement to be similar to that of the pendulum with $\theta \approx 0$, we set $\theta_2$ one such small angle and equalize the accelerations using eq.\eqref{eq:equa-diff-no-box}:
 \begin{align}
 \ddot{\theta_2} \approx \ddot{\phi}\\
 -\frac{g}{L} \theta_2 \approx \frac{g}{L}\phi -\frac{\Omega^2}{L}d\sin(\Omega t)\phi
@@ -690,7 +691,7 @@ As an approximation we then choose $\Omega=\sqrt{2g}/d$ and vary $d$ to empirica
 	\end{subfigure}
 	\begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/g_stabk.eps}
-	\caption{Stabilization of angle $\theta$ around $\pi$ with damping coefficient $\kappa = 0.1$}
+	\caption{Stabilization of angle $\theta$ around $\pi$ with damping coefficient $\kappa = 0.1 ~ \si{\kg \per \square \s}$}
 	\end{subfigure}
 	\caption{Stabilization of angle $\theta$ around $\pi$}
 	\label{fig:g-stab}
@@ -721,8 +722,8 @@ Figure \ref{fig:g-fourier-fft} is frequency analysis of two situations.
 In figure \ref{fig:g-fourier-fft-non-chaotic}, the non-chaotic situation, three peaks of freqency can be observed for both $\theta$ and $\dot{\theta}$, whereas the other frequencies do not appear in the signal.
 The frequencies are clearly described, which is what was expected for non-chaotic situations.
 In figure \ref{fig:g-fourier-fft-chaotic}, the three peaks of frequency appear again, on the same frequency, but this time, low frequencies appear in the signal.
-In the case of $\theta$, these low frequencies have a bigger amplitude than the peaks, wherein $\dot{\theta}$, these low frequencies are much smaller.
-Some frequencies are clearly described, but some other are flooded in others, which is what was expected for chaotic situations.
+In the case of $\theta$, these low frequencies have a bigger amplitude than the peaks, whereas $\dot{\theta}$, these low frequencies are much smaller.
+Some frequencies are clearly described, but some other are muddled with others, which is what was expected for chaotic situations.
 
 \subsubsection{Some other Poincaré sections}
 This section contains some more figures, found empirically, by changing some of the parameters.
@@ -731,33 +732,53 @@ Strange attractors are characterized by a region with a higher points density, i
 On figure \ref{fig:g-funfunfun-1984}, points are attracted by outline of the middle hole.
 On figure \ref{fig:g-funfunfun-comet}, points are attracted by the center.
 On figure \ref{fig:g-funfunfun-bernd}, points are attracted by the curve at the bottom.
-And finally, on figure \ref{fig:g-funfunfun-eye}, points are attracked by the eye-shaped form. All of these are strange attractors.
+On figure \ref{fig:g-funfunfun-eye}, points are attracted by the eye-shaped form.
+On figure \ref{fig:g-funfunfun-rainbow}, points are attracted by the curve.
+By changing $\Omega$, the attractor just moves, and points follow.
+On figure \ref{fig:g-funfunfun-sun}, points are attracted by the sun-shaped form.
+All of these are strange attractors of chaotic situations.
 
-\begin{figure}[h]
-	\begin{subfigure}[t]{0.48\textwidth}
+
+\newpage
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[t]{0.43\textwidth}
 		\includegraphics[width=\textwidth]{graphs/g_funfunfun_1984.png}
 		\caption{Conditions: $\kappa=0$, $d=0.04$, $\theta_0=\frac{2\pi}{3}$, $\dot{\theta}_0=0$ and $\Omega=\omega_0$.}
 		\label{fig:g-funfunfun-1984}
 	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.48\textwidth}
+	\begin{subfigure}[t]{0.43\textwidth}
 		\includegraphics[width=\textwidth]{graphs/g_funfunfun_comet.png}
 		\caption{Conditions: $\kappa=0.0001$, $d=0.001$, $\theta_0=\frac{2\pi}{3}$, $\dot{\theta}_0=10$, $\Omega=\omega_0$.}
 		\label{fig:g-funfunfun-comet}
 	\end{subfigure}
-	~
-	\begin{subfigure}[t]{0.48\textwidth}
+	~\newline
+	\begin{subfigure}[t]{0.43\textwidth}
 		\includegraphics[width=\textwidth]{graphs/g_funfunfun_bernd.png}
 		\caption{Conditions: $\kappa=0.0005$, $d=0.04$, $\theta_0=\frac{2\pi}{3}$, $\dot{\theta}_0=0$ and $\Omega=3\omega_0$.}
 		\label{fig:g-funfunfun-bernd}
 	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.48\textwidth}
+	\begin{subfigure}[t]{0.43\textwidth}
 		\includegraphics[width=\textwidth]{graphs/g_funfunfun_eye.png}
 		\caption{Conditions: $\kappa=0.0005$, $d=0.04$, $\theta_0=\frac{2\pi}{3}$, $\dot{\theta}_0=0$ and $\Omega=\omega_0$.}
 		\label{fig:g-funfunfun-eye}
 	\end{subfigure}
-	\caption{Poincaré sections showing differents types of strange attractors, with different situations.} %TODO : Il est pas ouf celui-là, je vais peut-être le changer.
+	~\newline
+	\begin{subfigure}[t]{0.43\textwidth}
+		\includegraphics[width=\textwidth]{graphs/g_funfunfun_rainbow.eps}
+		\caption{Seven simulations were done to compare the changes of the strange attractor with respect to $\Omega$, where $\Omega\in\left[\num{14.36}, \num{16.44}\right]$ and each color is a simulation in this range. Conditions: $\kappa=0.0001$, $d=0.001$, $\theta_0=\pi-\num{1d-8}$ and $\dot{\theta}_0=10$.}
+		\label{fig:g-funfunfun-rainbow}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.43\textwidth}
+		\includegraphics[width=\textwidth]{graphs/g_funfunfun_sun.png}
+		\caption{Conditions: $\kappa=0.001$, $d=0.01$, $\theta_0=0$, $\dot{\theta}_0=\num{1d-2}$ and $\Omega=0.8\omega_0$.}
+		\label{fig:g-funfunfun-sun}
+	\end{subfigure}
+	\caption{Poincaré sections showing differents types of strange attractors, with different situations. $t_{end}$ is computed by $\num{30000}\times\frac{2\pi}{\Omega}$} %TODO : Il est pas ouf celui-là, je vais peut-être le changer.
 	\label{fig:g-funfunfun}
 \end{figure}
 % \begin{figure} %TODO : On a pas le mettre, ça n'a rien à faire dans ce rapport.
@@ -767,7 +788,6 @@ And finally, on figure \ref{fig:g-funfunfun-eye}, points are attracked by the ey
 % \end{figure}
 
 
-\newpage
 
 \begin{thebibliography}{99}
 	\bibitem{ans:moment-inertie} Ansermet, J-P. (2015) \textit{Traité de Physique: Mécanique}. Lausanne, Vaud: Presses Polytechniques et Universitaires Romandes.
