@@ -637,7 +637,7 @@ In this section, air resistance is added to the system. We set the damping coeff
 
 Figure \ref{fig:f-poincare} was made with the number of steps for each period $n=500$, the final time $t_{end} \approx 317 s$ and a time step of $dt \approx \num{6.3d-4} s$. For all the initial conditions tested, the resulting Poincaré sections all display a chaotic behavior, although the distribution of the dots stays within a pattern. These results suggest that whatever the initial conditions are, the system is always chaotic with the $d$, $\Omega$ and $\kappa$ chosen for this section.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
 	\includegraphics[width=\textwidth]{graphs/f_sens.png}
@@ -660,6 +660,44 @@ Figure \ref{fig:f-sens} was made with the same numerical conditions as fig.\ref{
 As $\lambda > 0$, it indicates a chaotic system.
 
 \subsection{Optional} %TODO : Changer le titre.
+
+\subsubsection{Stabilization around $\theta=\pi$}
+
+In this section we will try to find $\Omega$ and $d$ such that $\theta$ stabilizes around $\pi$. We start with the movement equation for small movements with $d=0$ and $k=0$ (eq.\eqref{eq:equa-diff-no-box}) and write the equivalent for small movements around $\pi$ with $d \neq 0$, using the small angle $\phi := \theta_1-\pi$:
+\begin{equation}
+\ddot{\theta_1}=\ddot{\phi} = \frac{g}{L}\sin\phi - \frac{\Omega^2}{L}d\sin(\Omega t) \sin\phi
+\end{equation} since $\sin(\phi+\pi) = -\sin(\phi)$.
+Then by using the approximation $\sin\phi \approx \phi$ for small angles:
+\begin{equation}
+\ddot{\phi} = \frac{g}{L}\phi -\frac{\Omega^2}{L}d\sin(\Omega t)\phi
+\end{equation}
+Since we want the movement to be similar to that of the pendulum with $\theta \approx 0$, we set $\theta_2$ one such small angle and equalize the accelerations:
+\begin{align}
+\ddot{\theta_2} \approx \ddot{\phi}\\
+-\frac{g}{L} \theta_2 \approx \frac{g}{L}\phi -\frac{\Omega^2}{L}d\sin(\Omega t)\phi
+\end{align}
+And we choose $\theta_2=\phi$ since they are both small angles. Thus we get:
+\begin{equation}
+\Omega^2 d \sin(\Omega t) \approx 2g
+\end{equation}
+
+As an approximation we then choose $\Omega=\sqrt{2g}/d$ and vary $d$ to empirically find a system with $\theta_0$ close to $\pi$ which oscillates around $\pi$. For $\theta_0=pi-0.01 ~\si{\radian}$, $\dot{\theta}_0=0~\si{\radian \per \s}$, $t_{end}=20s$ and $d=0.035m$, we get figure \ref{fig:g-stab}.
+
+\begin{figure}[h]
+\centering
+	\begin{subfigure}[t]{0.49\textwidth}
+	\includegraphics[width=\textwidth]{graphs/g_stab.eps}
+	\caption{Oscillation of angle $\theta$ around $\pi$}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.49\textwidth}
+	\includegraphics[width=\textwidth]{graphs/g_stabk.eps}
+	\caption{Stabilization of angle $\theta$ around $\pi$ with damping coefficient $\kappa = 0.1$}
+	\end{subfigure}
+	\caption{Stabilization of angle $\theta$ around $\pi$}
+	\label{fig:g-stab}
+\end{figure}
+
+However it should be noted that the stabilization worked not only with these precise conditions but also with $0.03m\leq d \leq 0.04m$, or with $\theta_0$ further away from $\pi$, or even with $\Omega=\sqrt{\pi g}/d$.
 
 \subsubsection{Fourier transformation}
 
