@@ -10,7 +10,6 @@ n = 100; % On choisit le nombre de de pas de temps que l'on veut avoir dans chaq
 
 tfin = 10000*2*pi/Omega; % Le cas où i = 10000 est celui de base, mais j'ai pris un peu plus.
 
-dt = 2*pi/(n*Omega);
 
 %% CHOIX DE DIFFERENTES CONDITIONS INITIALES
 % MK8 % -> A GARDER PETIT MOUVEMENTS
