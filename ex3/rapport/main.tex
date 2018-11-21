@@ -221,10 +221,9 @@ The numerical method seems to be stable over time.
 Figure \ref{fig:a-traj-zoomed} shows the same comparison, but focuses on the end of the simulation, where the peak difference occurs.
 This slight difference does not seem to affect the amplitude of the sinus, but only its period.
 The numerical method has a slightly decreasing period over time.
-This comes from computational errors and not from the numerical method, as Stormer-Verlet seems to be stable in this problem.
-These errors are probably generated when numbers are rounded.
-%TODO : Vraiment (pour les 2 dernières lignes) ? Vérifier avec le rapport de la dernière fois, parce qu'il me semble qu'on a déjà dit un truc similaire (et faux).
-%TODO : Les 2-3 dernières phrases me semblent assez moche, faudrait les modifier.
+This comes from the numerical method itself.
+Stormer-Verlet, as shown later, is a 2nd order numerical method ($\Delta t^2$), which means that terms of high order are ignored by this method.
+Thus, these approximations implies a little error in the results.
 
 
 \subsubsection{Convergence study}
@@ -233,7 +232,7 @@ In this section, the convergence of the numerical method of Stormer-Verlet will 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=0.6\textwidth]{graphs/a_conv.eps}
-	\caption{Error on the final angle of the pendulum with respect to the time step. The final time is not exactly \SI{20}{\s} for every case, but is often a close value, which is the final time, but of the sum of some $\Delta t$ do not end on \num{20}. \num{20} simulations are considered in this study.} %TODO : Je trouve la dernière phrase pas très belle. Si t'as une amélioration, je suis preneur.
+	\caption{Error on the final angle of the pendulum with respect to the time step. The final time is not exactly \SI{20}{\s} for every case, but is often a close value, which is the final time. But the sum of all $\Delta t$ does not always lead to \num{20}. \num{20} simulations are considered in this study.} %TODO : Je trouve la dernière phrase pas très belle. Si t'as une amélioration, je suis preneur.
 	\label{fig:a-conv}
 \end{figure}
 
