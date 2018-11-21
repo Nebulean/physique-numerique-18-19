@@ -700,8 +700,9 @@ As an approximation we then choose $\Omega=\sqrt{2g}/d$ and vary $d$ to empirica
 However it should be noted that the stabilization worked not only with these precise conditions but also with $0.03m\leq d \leq 0.04m$, or with $\theta_0$ further away from $\pi$, or even with $\Omega=\sqrt{\pi g}/d$.
 
 \subsubsection{Fourier transformation}
+In this section, the Fourier transformation of $\theta$ and $\dot{\theta}$ is computed for a chaotic and a non-chaotic situation.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \begin{subfigure}[t]{0.48\textwidth}
 	\includegraphics[width=\textwidth]{graphs/g_fourier_non_chaotic.eps}
 	\caption{Non-chaotic situation where $\theta_0 = \frac{\pi}{3}$, $\dot{\theta}_0 = \num{1d-2}$, $\Omega = \omega_0$, $d=0.05$, $\kappa=0.03$ and $t_{end} = \SI{100}{\s}$}
@@ -717,13 +718,66 @@ However it should be noted that the stabilization worked not only with these pre
 \label{fig:g-fourier-fft}
 \end{figure}
 
+Figure \ref{fig:g-fourier-fft} is frequency analysis of two situations.
+In figure \ref{fig:g-fourier-fft-non-chaotic}, the non-chaotic situation, three peaks of freqency can be observed for both $\theta$ and $\dot{\theta}$, whereas the other frequencies do not appear in the signal.
+The frequencies are clearly described, which is what was expected for non-chaotic situations.
+In figure \ref{fig:g-fourier-fft-chaotic}, the three peaks of frequency appear again, on the same frequency, but this time, low frequencies appear in the signal.
+In the case of $\theta$, these low frequencies have a bigger amplitude than the peaks, wherein $\dot{\theta}$, these low frequencies are much smaller.
+Some frequencies are clearly described, but some other are flooded in others, which is what was expected for chaotic situations.
+
+\subsubsection{Some other Poincaré sections}
+This section contains some more figures, found empirically, by changing some of the parameters.
+Figure \ref{fig:g-funfunfun} contains four chaotic situation, with strange attractors in it.
+Strange attractors are characterized by a region with a higher points density, in a chaotic situation.
+On figure \ref{fig:g-funfunfun-1984}, points are attracted by outline of the middle hole.
+On figure \ref{fig:g-funfunfun-comet}, points are attracted by the center.
+On figure \ref{fig:g-funfunfun-bernd}, points are attracted by the curve at the bottom.
+And finally, on figure \ref{fig:g-funfunfun-eye}, points are attracked by the eye-shaped form. All of these are strange attractors.
+
+\begin{figure}[h]
+	\begin{subfigure}[t]{0.48\textwidth}
+		\includegraphics[width=\textwidth]{graphs/g_funfunfun_1984.png}
+		\caption{Conditions: $\kappa=0$, $d=0.04$, $\theta_0=\frac{2\pi}{3}$, $\dot{\theta}_0=0$ and $\Omega=\omega_0$.}
+		\label{fig:g-funfunfun-1984}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.48\textwidth}
+		\includegraphics[width=\textwidth]{graphs/g_funfunfun_comet.png}
+		\caption{Conditions: $\kappa=0.0001$, $d=0.001$, $\theta_0=\frac{2\pi}{3}$, $\dot{\theta}_0=10$, $\Omega=\omega_0$.}
+		\label{fig:g-funfunfun-comet}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.48\textwidth}
+		\includegraphics[width=\textwidth]{graphs/g_funfunfun_bernd.png}
+		\caption{Conditions: $\kappa=0.0005$, $d=0.04$, $\theta_0=\frac{2\pi}{3}$, $\dot{\theta}_0=0$ and $\Omega=3\omega_0$.}
+		\label{fig:g-funfunfun-bernd}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.48\textwidth}
+		\includegraphics[width=\textwidth]{graphs/g_funfunfun_eye.png}
+		\caption{Conditions: $\kappa=0.0005$, $d=0.04$, $\theta_0=\frac{2\pi}{3}$, $\dot{\theta}_0=0$ and $\Omega=\omega_0$.}
+		\label{fig:g-funfunfun-eye}
+	\end{subfigure}
+	\caption{Poincaré sections showing differents types of strange attractors, with different situations.} %TODO : Il est pas ouf celui-là, je vais peut-être le changer.
+	\label{fig:g-funfunfun}
+\end{figure}
+% \begin{figure} %TODO : On a pas le mettre, ça n'a rien à faire dans ce rapport.
+% 	\centering
+% 	\includegraphics[width=0.6\textwidth]{graphs/g_funfunfun_rainbow.eps}
+% 	\caption{\text{The rainbow}: }
+% \end{figure}
+
+
+\newpage
+
 \begin{thebibliography}{99}
 	\bibitem{ans:moment-inertie} Ansermet, J-P. (2015) \textit{Traité de Physique: Mécanique}. Lausanne, Vaud: Presses Polytechniques et Universitaires Romandes.
 	\bibitem{wiki:en-cin} Énergie mécanique. (2018, September 14). Wikipédia, l'encyclopédie libre. Retrieved 16:51, September 14, 2018 from \url{http://fr.wikipedia.org/w/index.php?title=%C3%89nergie_m%C3%A9canique&oldid=152194224}.
 	\bibitem{Lyap} Wikipedia contributors. (2018, October 6). Lyapunov exponent. In Wikipedia, The Free Encyclopedia. Retrieved 08:56, November 18, 2018, from \url{https://en.wikipedia.org/w/index.php?title=Lyapunov_exponent&oldid=862716940}
 	\bibitem{Lyap2} 4.3 Lyapunov Exponent. The Chaos Hypertextbook. Retrieved 09:58, September 14, 2018 from \url{https://hypertextbook.com/chaos/lyapunov-1/}
-
 \end{thebibliography}
+
+\newpage
 
 \section*{Appendix}
 \appendix
