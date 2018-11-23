@@ -1,0 +1,125 @@
+% debut d'un fichier latex standard
+\documentclass[a4paper,12pt,twoside]{article}
+
+% pour l'inclusion de figures en eps,pdf,jpg
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+% quelques symboles mathematiques en plus
+\usepackage{amsmath}
+% le tout en langue francaise
+\usepackage[french]{babel}
+% on peut ecrire directement les caracteres avec l'accent
+% a utiliser sur Linux/Windows
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% a utiliser sur le Mac
+%\usepackage[applemac]{inputenc}
+% pour l'inclusion de links dans le document
+\usepackage[colorlinks,bookmarks=false,linkcolor=blue,urlcolor=blue]{hyperref}
+\usepackage{siunitx}
+
+\paperheight=297mm
+\paperwidth=210mm
+
+\setlength{\textheight}{235mm}
+\setlength{\topmargin}{-1.2cm} % pour centrer la page verticalement
+%\setlength{\footskip}{5mm}
+\setlength{\textwidth}{15cm}
+\setlength{\oddsidemargin}{0.56cm}
+\setlength{\evensidemargin}{0.56cm}
+
+\pagestyle{plain}
+
+% quelques abreviations utiles
+\def \be {\begin{equation}}
+\def \ee {\end{equation}}
+\def \dd  {{\rm d}}
+
+\newcommand{\mail}[1]{{\href{mailto:#1}{#1}}}
+\newcommand{\ftplink}[1]{{\href{ftp://#1}{#1}}}
+%
+% latex SqueletteRapport.tex      % compile la source LaTeX
+% xdvi SqueletteRapport.dvi &     % visualise le resultat
+% dvips -t a4 -o SqueletteRapport.ps SqueletteRapport % produit un PostScript
+% ps2pdf SqueletteRapport.ps      % convertit en pdf
+
+% pdflatex SqueletteRapport.pdf    % compile et produit un pdf
+
+% ======= Le document commence ici ======
+
+\begin{document}
+% Le titre, l'auteur et la date
+\title{Gravitationnal systems.\\{\small Apollo 13, atmosphere re-entry and asteroids of Troie \\ Physique Numérique I}\\{\small Rapport 4}}
+\date{\today}
+\author{Delphine Martres et Damien Korber\\{\small \mail{delphine.martres@epfl.ch} et \mail{damien.korber@epfl.ch}}}
+\maketitle
+\tableofcontents % Table des matieres
+
+% Quelques options pour les espacements entre lignes, l'identation
+% des nouveaux paragraphes, et l'espacement entre paragraphes
+\baselineskip=16pt
+\parindent=15pt
+\parskip=5pt
+\newpage
+
+
+%%%% ON COMMENCE A ECRIRE D'ICI
+
+\section{Introduction}
+
+\section{"Houston, we've had a problem"}
+Apollo 13 is located at a distance $r_0 = \SI{314159}{\kilo\meter}$ from the center of Earth.
+Its velocity with respect to earth's frame of reference is $v_0 = \SI{1.2}{\kilo\meter\per\second}$.
+Because of a fuel shortage, the norm of speed can not be changed.
+However, it is possible to ajust its direction.
+To bring back Apollo 13's crew, their trajectory needs to at get as close as $h=\SI{10}{\kilo\meter}$ to earth, the distance where the atmosphere slows the ship to break its orbit.
+In this experiment, the Moon will be ignored, so it will be a 1 body gravitationnal problem.
+%TODO : Est-ce qu'il faut mettre là toutes les constantes ? Y'en a plein et je les définis quand on en a besoin...
+
+\subsection{Initial velocity of Apollo 13}
+The goal of this section is to find the componants of the velocity of the probs, so that it get close to earth, at \SI{10}{\kilo\meter}.
+Two physical laws are considered to solve this problem. %TODO : C'est pas des lois, t'as un autre mot ?
+\begin{itemize}
+  \item Conservation of mechanical energy
+  \item Conservation of angular momentum
+\end{itemize}
+
+\subsubsection{Conservation of mechanical energy}
+The mechanical energy of the probe at any moment is given by equation \eqref{eq:1c-em-apollo13}.
+\begin{equation}
+  E_m = \frac{1}{2}mv^2 - G\frac{mM}{r}
+  \label{eq:1c-em-apollo13}
+\end{equation}
+where $m=\SI{5809}{\kilo\gram}$ is the mass of the probe, $M=\SI{5.972d24}{\kilo\gram}$ is the mass of earth, $G=\SI{6.674d-11}{\cubic\meter\per\kilo\gram\per\square\second}$ is the gravitational constant, $v$ is the speed of the probe with respect to earth's frame of reference, and $r$ is the distance between the probe and the center of earth.\\
+
+By conservation of mechanical energy, two moments are chosen.
+\begin{itemize}
+  \item $t=\SI{0}{\s}: E_{m,t_0} = \frac{1}{2}mv_0^2 - G\frac{mM}{r_0}$
+  \item $t=t_{end}: E_{m,t_{end}} = \frac{1}{2}mv_{end}^2 - G\frac{mM}{h}$
+\end{itemize}
+
+Thus, solving $E_{m,t_0} = E_{m,t_{end}}$, the velocity of the probe when it is at a distance $h=\SI{10}{\kilo\meter}$ of earth can be found, and is given by equation \eqref{eq:1c-vitesse-finale}.
+
+\begin{equation}
+  v_{end} = \sqrt{v_0^2 - \frac{GM}{2}\left(\frac{1}{h} - \frac{1}{r_0}\right)}
+  \label{eq:1c-vitesse-finale}
+\end{equation}
+
+\subsubsection{Conservation of angular momentum}
+%TODO : À écrire.
+
+\section{"Houston, we're going to have a real problem"}
+
+\section{Two bodies: Earth and Moon}
+
+\section{Three bodies: Earth, Moon and Apollo 13}
+
+\section{Three bodies: Earth, Moon and a third body - Lagrangian points}
+
+
+
+
+
+
+\end{document}
