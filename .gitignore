@@ -10,6 +10,9 @@
 ex1/exercice/Exercice1
 ex2/exercice/Exercice2
 ex3/exercice/Exercice3
+ex4/exercice/Exercice4
 *m~
 */exercice/graphs/*
 */rapport/graphs/*.pdf
+*/rapport/*.fls
+*/rapport/*.fdb_latexmk

@@ -1,0 +1,7 @@
+% Parametres physiques :
+tFin     = 20
+
+% Parametres numeriques :
+dt       = 0.02
+output   = a.out
+sampling = 1
