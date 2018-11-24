@@ -5,5 +5,7 @@ m         = (0., 0., 0.)
 
 % Parametres numeriques :
 dt       = 0.02
+epsilon  = 0.5
+dtad     = true
 output   = a.out
 sampling = 1

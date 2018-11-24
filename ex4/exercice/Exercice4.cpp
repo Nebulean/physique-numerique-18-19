@@ -14,7 +14,7 @@ using namespace std;
 class Engine
 {
 private:
-  double t, tFin, dt;
+  double t, tFin, dt, epsilon; //epsilon la précision pour le dt adaptatif
   int sampling;
   int last;
   ofstream *outputFile;
@@ -24,6 +24,7 @@ private:
                         // Earth is ALWAYS the first body.
   valarray<double> m;   // vector containing all the masses
   bool atm;             // false if no atmosphere, true is atmosphere.
+  bool dtad;            // indicates whether run() should use the adaptative dt or not
 
   // some constants
   const double Rt     = 6378.1 * 1000;        // Earth's radius
@@ -66,8 +67,8 @@ private:
     double vy1(p[p.size()/2. + 2*body + 1]);
     double vy2(0);
 
-    // ====================== GRAVITATIONNAL EFFECT ============================
-    // This for loop will computate the gravitationnal effect on the body.
+    // ====================== GRAVITATIONAL EFFECT ============================
+    // This for loop will compute the gravitational effect on the body.
     for (size_t i = 0; i < m.size(); i++) {
       // check that the body is not affected by itself
       if (i == body)
@@ -110,7 +111,7 @@ private:
 
 
 
-  void step(){
+  valarray step(valarray vect, double time_step){
     // RK4
     // some initialisations
     vector<double> k1, k2, k3, k4;
@@ -119,6 +120,23 @@ private:
     // for (size_t i = 0; i < p.size(); i++) {
     //   k1.push_back( dt*)
     // }
+    return pres;
+  }
+
+  valarray dtadapt(){
+    valarray p1(step(p, dt));
+    valarray ptemp(step(p, dt/2));
+    valarray p2(step(ptemp, dt/2));
+    d=max(abs(p1-p2));
+
+    if(d<=epsilon){
+      t=t+dt;
+      dt*=pow(epsilon/d, 1./5.); // power 1/(n+1) with n the order of convergence
+      return p2;
+    } else {
+      dt*=0.99*pow(epsilon/d, 1./5.);
+      dtadapt();
+    }
   }
 
 public:
@@ -136,6 +154,8 @@ public:
     tFin        = configFile.get<double>("tFin");
     dt          = configFile.get<double>("dt");
     atm         = configFile.get<bool>("atm");
+    epsilon     = configFile.get<double>("epsilon")
+    dtad        = configFile.get<double>("dtad")
     // m           = configFile.get<valarray<double> >("m"); //TODO: Comment faire pour avoir une liste d'éléments ?
     // d        = configFile.get<double>("d");
     // Omega    = configFile.get<double>("Omega");
@@ -164,8 +184,14 @@ public:
     printOut(true);
     while( t < tFin-0.5*dt )
     {
-      step();
-      t += dt;
+      if(dtad){
+        p = dtadapt();
+        //t += dt; //done in dtadapt
+      } else {
+        p = step(p, dt);
+        t += dt;
+      }
+
       printOut(false);
     }
     printOut(true);
