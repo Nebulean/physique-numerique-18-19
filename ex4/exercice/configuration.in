@@ -1,5 +1,7 @@
 % Parametres physiques :
-tFin     = 20
+tFin      = 20
+atm       = true
+m         = (0., 0., 0.)
 
 % Parametres numeriques :
 dt       = 0.02
