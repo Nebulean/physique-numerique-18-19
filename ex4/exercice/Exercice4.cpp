@@ -14,7 +14,7 @@ using namespace std;
 class Engine
 {
 private:
-  double t, tFin, dt;
+  double t, tFin, dt, epsilon; //epsilon la précision pour le dt adaptatif
   int sampling;
   int last;
   ofstream *outputFile;
@@ -24,6 +24,7 @@ private:
                         // Earth is ALWAYS the first body.
   valarray<double> m;   // vector containing all the masses
   bool atm;             // false if no atmosphere, true is atmosphere.
+  bool dtad;            // indicates whether run() should use the adaptative dt or not
 
   // some constants
   const double Rt     = 6378.1 * 1000;        // Earth's radius
@@ -66,8 +67,8 @@ private:
     double vy1(p[p.size()/2. + 2*body + 1]);
     double vy2(0);
 
-    // ====================== GRAVITATIONNAL EFFECT ============================
-    // This for loop will computate the gravitationnal effect on the body.
+    // ====================== GRAVITATIONAL EFFECT ============================
+    // This for loop will compute the gravitational effect on the body.
     for (size_t i = 0; i < m.size(); i++) {
       // check that the body is not affected by itself
       if (i == body)
@@ -110,27 +111,30 @@ private:
 
 
 
-  void step(){
+  valarray<double> step(valarray<double> const& v, double time_step){
     // RK4
     // some initialisations
-    vector<double> k1, k2, k3, k4;
-    size_t mid = p.size()/2.;
-    size_t full = p.size();
+    size_t mid = v.size()/2.;
+    size_t full = v.size();
+    valarray<double> k1(full), k2(full), k3(full), k4(full);
 
     // We start by computing the changes k.
     // k1 - positions.
-    for (size_t i = mid; i < full; i++) {
-      k1.push_back( dt*p[i] );
+    for (size_t i = 0; i < mid; i++) {
+      k1[i] = dt*v[mid + i];
+      // k1.push_back( dt*p[i] );
     }
 
     // k1 - speed.
     for (size_t i = mid; i < full; i++) {
-      k1.push_back( dt*a(i) );
+      // k1[i] = dt*a(i); // Finir l'acceleration avant d'écrire.
+      // k1.push_back( dt*a(i) );
     }
 
     // k2 - positions.
-    for (size_t i = mid; i < full; i++) {
-      k2.push_back( dt*( p[i]+0.5*k1[i] ) ); // C'est bizarre, mais ça semble être ce qu'il faut corriger par rapport au rapport 2.
+    for (size_t i = 0; i < mid; i++) {
+      k2[i] = dt*( v[mid + i] + 0.5*k1[mid + i] );
+      // k2.push_back( dt*( p[i]+0.5*k1[i] ) ); // C'est bizarre, mais ça semble être ce qu'il faut corriger par rapport au rapport 2.
     }
 
     // k2 - speed.
@@ -139,8 +143,9 @@ private:
     }
 
     // k3 - positions.
-    for (size_t i = mid; i < full; i++) {
-      k3.push_back( dt*( p[i]+0.5*k2[i] ));
+    for (size_t i = 0; i < mid; i++) {
+      k3[i] = dt*( v[mid + i] + 0.5*k2[mid + i] );
+      // k3.push_back( dt*( p[i]+0.5*k2[i] ));
     }
 
     // k3 - speed.
@@ -149,8 +154,9 @@ private:
     }
 
     // k4 - positions.
-    for (size_t i = mid; i < full; i++) {
-      k4.push_back( dt*(p[i]+k3[i]) );
+    for (size_t i = 0; i < mid; i++) {
+      k4[i] = dt*( v[mid + i] + k3[mid + i] );
+      // k4.push_back( dt*(p[i]+k3[i]) );
     }
 
     // k4 - speed.
@@ -158,9 +164,33 @@ private:
       // k4.push_back( dt*( a() )); // Finir l'acceleration avant d'écrire.
     }
 
+    valarray<double> pres(full);
+
+    pres += 1./6. * (k1 + 2*k2 + 2*k3 + k4);
+
     // We apply to the current vector p.
-    for (size_t i = 0; i < full; i++) {
-      p[i] += 1./6.*( k1[i] + 2*k2[i] + 2*k3[i] + k4[i] );
+    // for (size_t i = 0; i < full; i++) {
+      // pres[i] += 1./6.*( k1[i] + 2*k2[i] + 2*k3[i] + k4[i] );
+    // Computing the k.
+    // for (size_t i = 0; i < p.size(); i++) {
+    //   k1.push_back( dt*)
+    // }
+    return pres;
+  }
+
+  valarray<double> dtadapt(){
+    valarray<double> p1(step(p, dt));
+    valarray<double> ptemp(step(p, dt/2));
+    valarray<double> p2(step(ptemp, dt/2));
+    double d = abs(p1-p2).max();
+
+    if(d<=epsilon){
+      t=t+dt;
+      dt*=pow(epsilon/d, 1./5.); // power 1/(n+1) with n the order of convergence
+      return p2;
+    } else {
+      dt*=0.99*pow(epsilon/d, 1./5.);
+      dtadapt();
     }
   }
 
@@ -179,6 +209,8 @@ public:
     tFin        = configFile.get<double>("tFin");
     dt          = configFile.get<double>("dt");
     atm         = configFile.get<bool>("atm");
+    epsilon     = configFile.get<double>("epsilon");
+    dtad        = configFile.get<double>("dtad");
     // m           = configFile.get<valarray<double> >("m"); //TODO: Comment faire pour avoir une liste d'éléments ?
     // d        = configFile.get<double>("d");
     // Omega    = configFile.get<double>("Omega");
@@ -207,8 +239,14 @@ public:
     printOut(true);
     while( t < tFin-0.5*dt )
     {
-      step();
-      t += dt;
+      if(dtad){
+        p = dtadapt();
+        //t += dt; //done in dtadapt
+      } else {
+        p = step(p, dt);
+        t += dt;
+      }
+
       printOut(false);
     }
     printOut(true);
