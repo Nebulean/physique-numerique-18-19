@@ -114,11 +114,54 @@ private:
     // RK4
     // some initialisations
     vector<double> k1, k2, k3, k4;
+    size_t mid = p.size()/2.;
+    size_t full = p.size();
 
-    // Computing the k.
-    // for (size_t i = 0; i < p.size(); i++) {
-    //   k1.push_back( dt*)
-    // }
+    // We start by computing the changes k.
+    // k1 - positions.
+    for (size_t i = mid; i < full; i++) {
+      k1.push_back( dt*p[i] );
+    }
+
+    // k1 - speed.
+    for (size_t i = mid; i < full; i++) {
+      k1.push_back( dt*a(i) );
+    }
+
+    // k2 - positions.
+    for (size_t i = mid; i < full; i++) {
+      k2.push_back( dt*( p[i]+0.5*k1[i] ) ); // C'est bizarre, mais ça semble être ce qu'il faut corriger par rapport au rapport 2.
+    }
+
+    // k2 - speed.
+    for (size_t i = mid; i < full; i++) {
+      // k2.push_back( dt*( a() ) ); // Finir l'acceleration avant d'écrire.
+    }
+
+    // k3 - positions.
+    for (size_t i = mid; i < full; i++) {
+      k3.push_back( dt*( p[i]+0.5*k2[i] ));
+    }
+
+    // k3 - speed.
+    for (size_t i = mid; i < full; i++) {
+      // k3.push_back( dt*( a() ) ); // Finir l'acceleration avant d'écrire.
+    }
+
+    // k4 - positions.
+    for (size_t i = mid; i < full; i++) {
+      k4.push_back( dt*(p[i]+k3[i]) );
+    }
+
+    // k4 - speed.
+    for (size_t i = mid; i < full; i++) {
+      // k4.push_back( dt*( a() )); // Finir l'acceleration avant d'écrire.
+    }
+
+    // We apply to the current vector p.
+    for (size_t i = 0; i < full; i++) {
+      p[i] += 1./6.*( k1[i] + 2*k2[i] + 2*k3[i] + k4[i] );
+    }
   }
 
 public:
