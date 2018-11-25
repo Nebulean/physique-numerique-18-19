@@ -80,6 +80,7 @@ private:
     return rho0 * exp(-(n - Rt)/lambda);
   }
 
+  // returns the drag.
   valarray<double> drag(valarray<double> const& r, valarray<double> const& v){
     valarray<double> f(2);
     f = -0.5 * rho(r) * S * Cx * norm(v) * v;
@@ -146,8 +147,6 @@ private:
     // }
     // // TODO: On a calculé la norme, il faut encore le projeter.
   }
-
-
 
   valarray<double> step(valarray<double> const& v, double time_step){
     //TODO: Cette version est ancienne, il faut la mettre à jour. (En attente de l'accélération)
@@ -217,19 +216,21 @@ private:
     return pres;
   }
 
-  valarray<double> dtadapt(){
+  // changes the dt with a better one, and returns the computed step.
+  valarray<double> stepDtAdapt(){
     valarray<double> p1(step(p, dt));
     valarray<double> ptemp(step(p, dt/2));
     valarray<double> p2(step(ptemp, dt/2));
+
     double d = abs(p1-p2).max();
 
     if(d<=epsilon){
-      t=t+dt;
-      dt*=pow(epsilon/d, 1./5.); // power 1/(n+1) with n the order of convergence
+      t += dt;
+      dt *= pow(epsilon/d, 1./5.); // power 1/(n+1) with n the order of convergence
       return p2;
     } else {
-      dt*=0.99*pow(epsilon/d, 1./5.);
-      dtadapt(); //TODO: y'a pas de retour ?
+      dt *= 0.99 * dt * pow(epsilon/d, 1./5.);
+      return stepDtAdapt();
     }
   }
 
@@ -279,7 +280,7 @@ public:
     while( t < tFin-0.5*dt )
     {
       if(dtad){
-        p = dtadapt();
+        p = stepDtAdapt();
         //t += dt; //done in dtadapt
       } else {
         p = step(p, dt);
