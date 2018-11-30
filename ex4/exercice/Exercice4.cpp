@@ -49,28 +49,31 @@ private:
   // returns the position of the body.
   valarray<double> getPos(size_t body, valarray<double> const& vec){
     valarray<double> r(2);
-    r[0] = vec[4*body];
-    r[1] = vec[4*body + 1];
+    // r[0] = vec[4*body];
+    // r[1] = vec[4*body + 1];
+    r = vec[slice(4*body,2,1)];
     return r;
   }
 
   // returns the velocity of the body.
   valarray<double> getVel(size_t body, valarray<double> const& vec){
     valarray<double> v(2);
-    v[0] = vec[4*body + 2];
-    v[1] = vec[4*body + 3];
+    // v[0] = vec[4*body + 2];
+    // v[1] = vec[4*body + 3];
+    v = vec[slice(4*body+2,2,1)];
     return v;
   }
 
-  void setPos(size_t body, valarray<double> vectarg){
-    p[4*body] = vectarg[0];
-    p[4*body + 1] = vectarg[1];
-  }
-
-  void setVel(size_t body, valarray<double> vectarg){
-    p[4*body + 2] = vectarg[0];
-    p[4*body + 3] = vectarg[1];
-  }
+  // void setPos(size_t body, valarray<double> vectarg){
+  //   // p[4*body] = vectarg[0];
+  //   // p[4*body + 1] = vectarg[1];
+  //   p[slice(4*body,)]
+  // }
+  //
+  // void setVel(size_t body, valarray<double> vectarg){
+  //   p[4*body + 2] = vectarg[0];
+  //   p[4*body + 3] = vectarg[1];
+  // }
 
   double getMass(size_t body){
     switch (body) {
@@ -106,15 +109,29 @@ private:
   // }
   valarray<double> grav(size_t target, size_t actor, valarray<double> const& vec){
     valarray<double> g(2);
-    cout << "vec = ( ";
-    for (size_t i = 0; i < vec.size(); i++) {
-      cout << vec[i] << ", ";
-    }
-    cout << ")" << endl;
+    // cout << "vec = ( ";
+    // for (size_t i = 0; i < vec.size(); i++) {
+    //   cout << vec[i] << ", ";
+    // }
+    // cout << ")" << endl;
+    // double x = getPos(target, vec)[0]-getPos(actor, vec)[0];
+    // double y = getPos(target, vec)[1]-getPos(actor, vec)[1];
+    //
+    // if(x==0){
+    //   g[0] = 0.;
+    // } else {
+    //   g[0] = -G * getMass(target) * getMass(actor) / pow(x,2);
+    // }
+    //
+    // if(y==0){
+    //   g[1] = 0.;
+    // } else {
+    //   g[1] = -G * getMass(target) * getMass(actor) / pow(y,2);
+    // }
 
-    g[0] = -G * getMass(target) * getMass(actor) / pow(abs(getPos(target, vec)[0]-getPos(actor, vec)[0]),3) * (getPos(target, vec)[0]-getPos(actor, vec)[0]);
-    g[1] = -G * getMass(target) * getMass(actor) / pow(abs(getPos(target, vec)[1]-getPos(actor, vec)[1]),3) * (getPos(target, vec)[1]-getPos(actor, vec)[1]);
-    // cout << "grav = " << g[0] << g[1] << endl;
+    g = -G * getMass(target) * getMass(actor) / pow(norm(getPos(target, vec)-getPos(actor, vec)),3) * (getPos(target, vec)-getPos(actor, vec));
+
+    cout << "grav = " << g[0] << " " << g[1] << endl;
     return g;
   }
 
@@ -138,6 +155,7 @@ private:
       if(i!=body)
         res+= grav(body, i, vec)/getMass(body);
     }
+    cout << "a =" << res[0] << " " << res[1] << endl;
     return res;
   }
 
@@ -161,11 +179,11 @@ private:
       k1[4*body + 3] = time_step*vec[1];
     }
 
-    cout << "k1 = ( ";
-    for (size_t i = 0; i < k1.size(); i++) {
-      cout << k1[i] << ", ";
-    }
-    cout << ")" << endl;
+    // cout << "k1 = ( ";
+    // for (size_t i = 0; i < k1.size(); i++) {
+    //   cout << k1[i] << ", ";
+    // }
+    // cout << ")" << endl;
 
     // k2
     for (size_t body = 0; body < 3; body++) {
@@ -208,7 +226,7 @@ private:
 
     valarray<double> res(v);
 
-    res += 1./6. * (k1 + 2*k2 + 2*k3 + k4);
+    res += 1./6. * (k1 + 2.*k2 + 2.*k3 + k4);
 
     return res;
   }

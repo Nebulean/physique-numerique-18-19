@@ -1,9 +1,9 @@
 % Parametres physiques :
 tFin      = 0.1
 % atm       = true
-m1        = 0.
-m2        = 0.
-m3        = 0.
+m1        = 5.972e24
+m2        = 1.
+m3        = 5809.
 
 % Conditions initiales
 % Terre
