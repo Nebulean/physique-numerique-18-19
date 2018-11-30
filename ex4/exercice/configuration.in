@@ -1,13 +1,30 @@
 % Parametres physiques :
-tFin      = 20
-atm       = true
+tFin      = 0.1
+% atm       = true
 m1        = 0.
 m2        = 0.
 m3        = 0.
 
+% Conditions initiales
+% Terre
+x1        = 0.
+y1        = 0.
+vx1       = 0.
+vy1       = 0.
+% Lune
+x2        = 384748e3.
+y2        = 0.
+vx2       = 0.
+vy2       = 0.
+% Apollo
+x3        = 0.
+y3        = 314159e3.
+vx3       = 226.144622617
+vy3       = 1178.498455
+
 % Parametres numeriques :
 dt       = 0.02
 epsilon  = 0.5
-dtad     = true
+dtad     = false
 output   = a.out
 sampling = 1
