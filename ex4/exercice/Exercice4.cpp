@@ -83,7 +83,7 @@ private:
       case 1:
         return m2;
         break;
-      case 3:
+      case 2:
         return m3;
         break;
       default:
@@ -169,59 +169,67 @@ private:
     // k1
     for (size_t body = 0; body < 3; body++) {
       // position
-      k1[4*body] = time_step*v[4*body + 2];
-      k1[4*body + 1] = time_step*v[4*body + 3];
+      // k1[4*body] = time_step*v[4*body + 2];
+      // k1[4*body + 1] = time_step*v[4*body + 3];
+      k1[slice(4*body,2,1)] = time_step*v[slice(4*body + 2,2,1)];
 
       // speed
-      valarray<double> vec(2);
-      vec = a(body, v);
-      k1[4*body + 2] = time_step*vec[0];
-      k1[4*body + 3] = time_step*vec[1];
+      // valarray<double> vec(2);
+      // vec = a(body, v);
+      // k1[4*body + 2] = time_step*vec[0];
+      // k1[4*body + 3] = time_step*vec[1];
+      k1[slice(4*body+2,2,1)] = time_step*a(body, v);
     }
 
-    // cout << "k1 = ( ";
-    // for (size_t i = 0; i < k1.size(); i++) {
-    //   cout << k1[i] << ", ";
-    // }
-    // cout << ")" << endl;
+    cout << "k1 = ( ";
+    for (size_t i = 0; i < k1.size(); i++) {
+      cout << k1[i] << ", ";
+    }
+    cout << ")" << endl;
 
     // k2
     for (size_t body = 0; body < 3; body++) {
       // position
-      k2[4*body] = time_step*( v[4*body + 2] + 0.5*k1[4*body + 2] );
-      k2[4*body + 1] = time_step*( v[4*body + 3] + 0.5*k1[4*body + 3] );
+      // k2[4*body] = time_step*( v[4*body + 2] + 0.5*k1[4*body + 2] );
+      // k2[4*body + 1] = time_step*( v[4*body + 3] + 0.5*k1[4*body + 3] );
+      k2[slice(4*body,2,1)] = time_step*(v[slice(4*body + 2,2,1)] + 0.5*k1[slice(4*body + 2,2,1)]);
 
       // speed
-      valarray<double> vec(2);
-      vec = a(body, v + 0.5*k1);
-      k2[4*body + 2] = time_step*vec[0];
-      k3[4*body + 3] = time_step*vec[1];
+      // valarray<double> vec(2);
+      // vec = a(body, v + 0.5*k1);
+      // k2[4*body + 2] = time_step*vec[0];
+      // k3[4*body + 3] = time_step*vec[1];
+      k2[slice(4*body + 2,2,1)] = time_step*a(body, v + 0.5*k1);
     }
 
     // k3
     for (size_t body = 0; body < 3; body++) {
       // position
-      k3[4*body] = time_step*( v[4*body + 2] + 0.5*k2[4*body + 2] );
-      k3[4*body + 1] = time_step*( v[4*body + 3] + 0.5*k2[4*body + 3] );
+      // k3[4*body] = time_step*( v[4*body + 2] + 0.5*k2[4*body + 2] );
+      // k3[4*body + 1] = time_step*( v[4*body + 3] + 0.5*k2[4*body + 3] );
+      k3[slice(4*body,2,1)] = time_step*( v[slice(4*body + 2,2,1)] + 0.5*k2[slice(4*body + 2,2,1)] );
 
       // speed
-      valarray<double> vec(2);
-      vec = a(body, v + 0.5*k2);
-      k3[4*body + 2] = time_step*vec[0];
-      k3[4*body + 3] = time_step*vec[1];
+      // valarray<double> vec(2);
+      // vec = a(body, v + 0.5*k2);
+      // k3[4*body + 2] = time_step*vec[0];
+      // k3[4*body + 3] = time_step*vec[1];
+      k3[slice(4*body + 2,2,1)] = time_step * a(body, v + 0.5*k2);
     }
 
     // k4
     for (size_t body = 0; body < 3; body++) {
       // position
-      k4[4*body] = time_step*( v[4*body + 2] + k3[4*body + 2] );
-      k4[4*body + 1] = time_step*( v[4*body + 3] + k3[4*body + 3] );
+      // k4[4*body] = time_step*( v[4*body + 2] + k3[4*body + 2] );
+      // k4[4*body + 1] = time_step*( v[4*body + 3] + k3[4*body + 3] );
+      k4[slice(4*body,2,1)] = time_step*( v[slice(4*body + 2,2,1)] + k3[slice(4*body + 2,2,1)] );
 
       // speed
-      valarray<double> vec(2);
-      vec = a(body, v + k3);
-      k4[4*body + 2] = time_step*vec[0];
-      k4[4*body + 3] = time_step*vec[1];
+      // valarray<double> vec(2);
+      // vec = a(body, v + k3);
+      // k4[4*body + 2] = time_step*vec[0];
+      // k4[4*body + 3] = time_step*vec[1];
+      k4[slice(4*body + 2,2,1)] = time_step * a(body, v + k3);
     }
 
     valarray<double> res(v);
