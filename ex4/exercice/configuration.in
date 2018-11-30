@@ -1,5 +1,5 @@
 % Parametres physiques :
-tFin      = 0.1
+tFin      = 100
 % atm       = true
 m1        = 5.972e24
 m2        = 1.
@@ -23,8 +23,8 @@ vx3       = 226.144622617
 vy3       = 1178.498455
 
 % Parametres numeriques :
-dt       = 0.02
-epsilon  = 0.5
-dtad     = false
+dt       = 0.002
+epsilon  = 1e-4
+dtad     = true
 output   = a.out
 sampling = 1

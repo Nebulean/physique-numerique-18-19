@@ -83,7 +83,7 @@ private:
       case 1:
         return m2;
         break;
-      case 3:
+      case 2:
         return m3;
         break;
       default:
@@ -129,9 +129,14 @@ private:
     //   g[1] = -G * getMass(target) * getMass(actor) / pow(y,2);
     // }
 
-    g = -G * getMass(target) * getMass(actor) / pow(norm(getPos(target, vec)-getPos(actor, vec)),3) * (getPos(target, vec)-getPos(actor, vec));
+    valarray<double> r(2);
+    r = getPos(target, vec) - getPos(actor, vec);
 
-    cout << "grav = " << g[0] << " " << g[1] << endl;
+    g = -G * getMass(target) * getMass(actor) / pow(norm(r), 3) * r;
+
+    // g = -G * getMass(target) * getMass(actor) / pow(norm(getPos(target, vec)-getPos(actor, vec)),3) * (getPos(target, vec)-getPos(actor, vec));
+
+    // cout << "grav = " << g[0] << " " << g[1] << endl;
     return g;
   }
 
@@ -155,7 +160,7 @@ private:
       if(i!=body)
         res+= grav(body, i, vec)/getMass(body);
     }
-    cout << "a =" << res[0] << " " << res[1] << endl;
+    // cout << "a =" << res[0] << " " << res[1] << endl;
     return res;
   }
 
@@ -238,6 +243,7 @@ private:
     valarray<double> p2(step(ptemp, dt/2));
 
     double d = abs(p1-p2).max();
+    cout << d << endl;
 
     if(d<=epsilon){
       t += dt;
