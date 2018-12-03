@@ -186,11 +186,11 @@ private:
       // k1[slice(4*body+2,2,1)] = time_step*a(body, v);
     }
 
-    cout << "k1 = ( ";
-    for (size_t i = 0; i < k1.size(); i++) {
-      cout << k1[i] << ", ";
-    }
-    cout << ")" << endl;
+    // cout << "k1 = ( ";
+    // for (size_t i = 0; i < k1.size(); i++) {
+    //   cout << k1[i] << ", ";
+    // }
+    // cout << ")" << endl;
 
     // k2
     for (size_t body = 0; body < 3; body++) {
@@ -278,10 +278,11 @@ public:
     dt          = configFile.get<double>("dt");
     // atm         = configFile.get<bool>("atm");
     epsilon     = configFile.get<double>("epsilon");
-    dtad        = configFile.get<double>("dtad");
+    dtad        = configFile.get<bool>("dtad");
     m1          = configFile.get<double>("m1");
     m2          = configFile.get<double>("m2");
     m3          = configFile.get<double>("m3");
+    sampling    = configFile.get<int>("sampling");
     p           = {configFile.get<double>("x1"), configFile.get<double>("y1"), configFile.get<double>("vx1"), configFile.get<double>("vy1"), configFile.get<double>("x2"), configFile.get<double>("y2"), configFile.get<double>("vx2"), configFile.get<double>("vy2"), configFile.get<double>("x3"), configFile.get<double>("y3"), configFile.get<double>("vx3"), configFile.get<double>("vy3")};
     // Ouverture du fichier de sortie
     outputFile = new ofstream(configFile.get<string>("output").c_str());
