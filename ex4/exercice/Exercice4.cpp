@@ -273,19 +273,23 @@ private:
   // changes the dt with a better one, and returns the computed step.
   valarray<double> stepDtAdapt(){
     valarray<double> p1(step(p, dt));
-    valarray<double> ptemp(step(p, dt/2));
-    valarray<double> p2(step(ptemp, dt/2));
+    valarray<double> ptemp(step(p, dt/2.));
+    valarray<double> p2(step(ptemp, dt/2.));
 
     double d = abs(p1-p2).max();
-    coutBigFatVec(p1, "p1");
-    coutBigFatVec(p2, "p2");
+    // coutBigFatVec(p1, "p1");
+    // coutBigFatVec(ptemp, "ptemp");
+    // coutBigFatVec(p2, "p2");
 
     if(d<=epsilon){
       t += dt;
       dt *= pow(epsilon/d, 1./5.); // power 1/(n+1) with n the order of convergence
       return p2;
     } else {
-      dt *= 0.99 * dt * pow(epsilon/d, 1./5.);
+      dt *= 0.99 * pow(epsilon/d, 1./5.);
+      // cout << "epsilon = " << epsilon << endl;
+      // cout << "pow = " << pow(epsilon/d, 1./5.) << endl;
+      // cout << "new dt = " << dt << endl;
       return stepDtAdapt();
     }
   }
@@ -318,7 +322,7 @@ public:
     m2          = configFile.get<double>("m2");
     m3          = configFile.get<double>("m3");
     p           = {configFile.get<double>("x1"), configFile.get<double>("y1"), configFile.get<double>("vx1"), configFile.get<double>("vy1"), configFile.get<double>("x2"), configFile.get<double>("y2"), configFile.get<double>("vx2"), configFile.get<double>("vy2"), configFile.get<double>("x3"), configFile.get<double>("y3"), configFile.get<double>("vx3"), configFile.get<double>("vy3")};
-    sampling    = configFile.get<double>("sampling");
+    sampling    = configFile.get<int>("sampling");
     // Ouverture du fichier de sortie
     outputFile = new ofstream(configFile.get<string>("output").c_str());
     outputFile->precision(15);
@@ -337,6 +341,7 @@ public:
     {
       if(dtad){
         p = stepDtAdapt();
+        // cout << "On est sorti de stepDtAdapt" << endl;
         //t += dt; //done in dtadapt
       } else {
         p = step(p, dt);
