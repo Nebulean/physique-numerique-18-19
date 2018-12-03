@@ -29,18 +29,24 @@ end
 
 %% TREATMENT
 %% LOADING DATA
-res = zeros(nsimul, 7);
+fordist = zeros(nsimul, 7);
 tfin = zeros(1, nsimul);
+forvmax = zeros(nsimul, 6);
 for i=1:nsimul
    data = load(output{1,i});
    
-   res(i, 1) = data(end,2); % dt
-   res(i, 2) = data(end,3); % earth X
-   res(i, 3) = data(end,4); % earth Y
-   res(i, 4) = data(end,11); % apollo X
-   res(i, 5) = data(end,12); % apollo Y
-   res(i, 6) = data(end,13); % apollo vx
-   res(i, 7) = data(end,14) % apollo vy
+   fordist(i, 1) = data(end,2); % dt
+   fordist(i, 2) = data(end,3); % earth X
+   fordist(i, 3) = data(end,4); % earth Y
+   fordist(i, 4) = data(end,11); % apollo X
+   fordist(i, 5) = data(end,12); % apollo Y
+   
+   forvmax(i, 1) = data(1,13); % apollo vx initial
+   forvmax(i, 2) = data(1,14) % apollo vy initial
+   forvmax(i, 3) = data(1,3); % earth X initial
+   forvmax(i, 4) = data(1,4); % earth Y initial
+   forvmax(i, 5) = data(1,11); % apollo X initial
+   forvmax(i, 6) = data(1,12) % apollo Y initial
    
    t(1,i) = data(end, 1);
 end
@@ -50,10 +56,19 @@ RT = 6378.1 * 1000; % earth's radius
 
 dist = zeros(nsimul, 1);
 vmax = zeros(nsimul, 1);
+r0 = zeros(nsimul, 1);
 for i=1:nsimul
-   dist(i, 1) = sqrt((res(i,4) - res(i,2))^2 + (res(i, 5) - res(i,3))^2 ) - RT;
-   vmax(i, 1) = sqrt(res(i,6)^2 + res(i,7)^2)
+   dist(i, 1) = sqrt((fordist(i,4) - fordist(i,2))^2 + (fordist(i, 5) - fordist(i,3))^2 ) - RT;
+   vmax(i, 1) = sqrt(fordist(i,6)^2 + fordist(i,7)^2);
+   r0(i, 1) = sqrt( (forvmax(i,4) - forvmax(i,2))^2 + (forvmax(i,5) - forvmax(i,3))^2 );
 end
+
+
+G = 6.67408e-11; % gran constant
+M = 5.972e24; % mass of earth
+
+vmaxTH = sqrt(( forvmax(1, 1)^2 + forvmax(1,2)^2 ) + G*M/2 .* abs(1./dist - 1./r0) );
+
 
 %% PLOTTING DATA
 fig1=figure;
