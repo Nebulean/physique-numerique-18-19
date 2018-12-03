@@ -1,8 +1,8 @@
 % Parametres physiques :
-tFin      = 10000
+tFin      = 172800
 % atm       = true
 m1        = 5.972e24
-m2        = 1.
+m2        = 734770000
 m3        = 5809.
 
 % Conditions initiales

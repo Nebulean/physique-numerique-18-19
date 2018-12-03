@@ -6,6 +6,7 @@
 #include <valarray>
 #include <vector>
 #include <cmath>
+#include <string>
 
 using namespace std;
 
@@ -131,7 +132,6 @@ private:
 
     valarray<double> r(2);
     r = getPos(target, vec) - getPos(actor, vec);
-
     g = -G * getMass(target) * getMass(actor) / pow(norm(r), 3) * r;
 
     // g = -G * getMass(target) * getMass(actor) / pow(norm(getPos(target, vec)-getPos(actor, vec)),3) * (getPos(target, vec)-getPos(actor, vec));
@@ -156,9 +156,11 @@ private:
 
   valarray<double> a(size_t body, valarray<double> const& vec){
     valarray<double> res(0.,2);
-    for(size_t i=0; i<3; ++i){
-      if(i!=body)
+    for(size_t i(0); i<3; ++i){
+      if(i != body){
         res+= grav(body, i, vec)/getMass(body);
+        // cout << "grav of " << i << " on " << body << ": (" << grav(body, i, vec)[0] << ", " << grav(body, i, vec)[0] << ")" << endl;
+      }
     }
     // cout << "a =" << res[0] << " " << res[1] << endl;
     return res;
@@ -186,11 +188,11 @@ private:
       // k1[slice(4*body+2,2,1)] = time_step*a(body, v);
     }
 
-    cout << "k1 = ( ";
-    for (size_t i = 0; i < k1.size(); i++) {
-      cout << k1[i] << ", ";
-    }
-    cout << ")" << endl;
+    // cout << "k1 = ( ";
+    // for (size_t i = 0; i < k1.size(); i++) {
+    //   cout << k1[i] << ", ";
+    // }
+    // cout << ")" << endl;
 
     // k2
     for (size_t body = 0; body < 3; body++) {
@@ -207,6 +209,12 @@ private:
       // k2[slice(4*body + 2,2,1)] = time_step*a(body, v + 0.5*k1);
     }
 
+    // cout << "k2 = ( ";
+    // for (size_t i = 0; i < k2.size(); i++) {
+    //   cout << k2[i] << ", ";
+    // }
+    // cout << ")" << endl;
+
     // k3
     for (size_t body = 0; body < 3; body++) {
       // position
@@ -221,6 +229,12 @@ private:
       k3[4*body + 3] = time_step*vec[1];
       // k3[slice(4*body + 2,2,1)] = time_step * a(body, v + 0.5*k2);
     }
+
+    // cout << "k3 = ( ";
+    // for (size_t i = 0; i < k3.size(); i++) {
+    //   cout << k3[i] << ", ";
+    // }
+    // cout << ")" << endl;
 
     // k4
     for (size_t body = 0; body < 3; body++) {
@@ -237,9 +251,21 @@ private:
       // k4[slice(4*body + 2,2,1)] = time_step * a(body, v + k3);
     }
 
+    // cout << "k4 = ( ";
+    // for (size_t i = 0; i < k4.size(); i++) {
+    //   cout << k4[i] << ", ";
+    // }
+    // cout << ")" << endl;
+
     valarray<double> res(v);
 
     res += 1./6. * (k1 + 2.*k2 + 2.*k3 + k4);
+
+    // cout << "res = (";
+    // for (size_t i = 0; i < res.size(); i++) {
+    //   cout << res[i] << ", ";
+    // }
+    // cout << ")" << endl;
 
     return res;
   }
@@ -251,7 +277,8 @@ private:
     valarray<double> p2(step(ptemp, dt/2));
 
     double d = abs(p1-p2).max();
-    cout << d << endl;
+    coutBigFatVec(p1, "p1");
+    coutBigFatVec(p2, "p2");
 
     if(d<=epsilon){
       t += dt;
@@ -261,6 +288,14 @@ private:
       dt *= 0.99 * dt * pow(epsilon/d, 1./5.);
       return stepDtAdapt();
     }
+  }
+
+  void coutBigFatVec(valarray<double> const& vec, string name){
+    cout << name << "=( ";
+    for (size_t i = 0; i < vec.size() - 1; i++) {
+      cout << vec[i] << ", ";
+    }
+    cout << vec[vec.size() - 1] << " )" << endl;
   }
 
 public:
@@ -278,11 +313,12 @@ public:
     dt          = configFile.get<double>("dt");
     // atm         = configFile.get<bool>("atm");
     epsilon     = configFile.get<double>("epsilon");
-    dtad        = configFile.get<double>("dtad");
+    dtad        = configFile.get<bool>("dtad");
     m1          = configFile.get<double>("m1");
     m2          = configFile.get<double>("m2");
     m3          = configFile.get<double>("m3");
     p           = {configFile.get<double>("x1"), configFile.get<double>("y1"), configFile.get<double>("vx1"), configFile.get<double>("vy1"), configFile.get<double>("x2"), configFile.get<double>("y2"), configFile.get<double>("vx2"), configFile.get<double>("vy2"), configFile.get<double>("x3"), configFile.get<double>("y3"), configFile.get<double>("vx3"), configFile.get<double>("vy3")};
+    sampling    = configFile.get<double>("sampling");
     // Ouverture du fichier de sortie
     outputFile = new ofstream(configFile.get<string>("output").c_str());
     outputFile->precision(15);
