@@ -30,9 +30,10 @@ private:
   const double G      = 6.67408e-11;  // Gravitational constant
   const double rho0   = 1.2;                  // Air density at see level
   const double lambda = 7238.2;               // The caracteristical width
-  const double S      = 0;                    // Section area               //TODO: IL FAUT LE DEFINIR
+  const double S      = 11.9459060516;                    // Section area               //TODO: IL FAUT LE DEFINIR
   const double Cx     = 0.3;                  // Drag coefficient
 
+  // prints result in output file
   void printOut(bool force){
     if((!force && last>=sampling) || (force && last!=1)){
       *outputFile << t << " " << dt; // tous les trucs à print.
@@ -148,17 +149,32 @@ private:
   }
 
   // returns the drag.
-  valarray<double> drag(valarray<double> const& r, valarray<double> const& v){
-    valarray<double> f(2);
-    f = -0.5 * rho(r) * S * Cx * norm(v) * v;
-    return f;
+  valarray<double> drag(size_t target, size_t actor, valarray<double> const& vec){
+    if (actor == 0 && target == 2 && atm) { // Earth is always on first position and Apollo on third position. atm is a toggle.
+      valarray<double> f(2);
+      valarray<double> v(2);
+      valarray<double> r(2);
+
+      r = getPos(target, vec) - getPos(actor, vec);
+      // coutBigFatVec(r, "r");
+      cout << "norm of r = " << norm(r) << endl;
+      v = getVel(target, vec) - getVel(actor, vec);
+      // coutBigFatVec(v, "v");
+      cout << "norm of v = " << norm(v) << endl;
+      f = -0.5 * rho(r) * S * Cx * norm(v) * v;
+      cout << "norm of f = " << norm(f) << endl;
+      return f;
+    }
+    // cout << "not the right bodies" << endl;
+    return {0,0};
   }
 
   valarray<double> a(size_t body, valarray<double> const& vec){
     valarray<double> res(0.,2);
     for(size_t i(0); i<3; ++i){
       if(i != body){
-        res+= grav(body, i, vec)/getMass(body);
+        res += grav(body, i, vec)/getMass(body);
+        res += drag(body, i, vec)/getMass(body);
         // cout << "grav of " << i << " on " << body << ": (" << grav(body, i, vec)[0] << ", " << grav(body, i, vec)[0] << ")" << endl;
       }
     }
@@ -273,19 +289,23 @@ private:
   // changes the dt with a better one, and returns the computed step.
   valarray<double> stepDtAdapt(){
     valarray<double> p1(step(p, dt));
-    valarray<double> ptemp(step(p, dt/2));
-    valarray<double> p2(step(ptemp, dt/2));
+    valarray<double> ptemp(step(p, dt/2.));
+    valarray<double> p2(step(ptemp, dt/2.));
 
     double d = abs(p1-p2).max();
-    coutBigFatVec(p1, "p1");
-    coutBigFatVec(p2, "p2");
+    // coutBigFatVec(p1, "p1");
+    // coutBigFatVec(ptemp, "ptemp");
+    // coutBigFatVec(p2, "p2");
 
     if(d<=epsilon){
       t += dt;
       dt *= pow(epsilon/d, 1./5.); // power 1/(n+1) with n the order of convergence
       return p2;
     } else {
-      dt *= 0.99 * dt * pow(epsilon/d, 1./5.);
+      dt *= 0.99 * pow(epsilon/d, 1./5.);
+      // cout << "epsilon = " << epsilon << endl;
+      // cout << "pow = " << pow(epsilon/d, 1./5.) << endl;
+      // cout << "new dt = " << dt << endl;
       return stepDtAdapt();
     }
   }
@@ -311,7 +331,7 @@ public:
 
     tFin        = configFile.get<double>("tFin");
     dt          = configFile.get<double>("dt");
-    // atm         = configFile.get<bool>("atm");
+    atm         = configFile.get<bool>("atm");
     epsilon     = configFile.get<double>("epsilon");
     dtad        = configFile.get<bool>("dtad");
     m1          = configFile.get<double>("m1");
@@ -319,7 +339,7 @@ public:
     m3          = configFile.get<double>("m3");
     sampling    = configFile.get<int>("sampling");
     p           = {configFile.get<double>("x1"), configFile.get<double>("y1"), configFile.get<double>("vx1"), configFile.get<double>("vy1"), configFile.get<double>("x2"), configFile.get<double>("y2"), configFile.get<double>("vx2"), configFile.get<double>("vy2"), configFile.get<double>("x3"), configFile.get<double>("y3"), configFile.get<double>("vx3"), configFile.get<double>("vy3")};
-    sampling    = configFile.get<double>("sampling");
+    sampling    = configFile.get<int>("sampling");
     // Ouverture du fichier de sortie
     outputFile = new ofstream(configFile.get<string>("output").c_str());
     outputFile->precision(15);
@@ -338,6 +358,7 @@ public:
     {
       if(dtad){
         p = stepDtAdapt();
+        // cout << "On est sorti de stepDtAdapt" << endl;
         //t += dt; //done in dtadapt
       } else {
         p = step(p, dt);
