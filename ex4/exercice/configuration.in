@@ -1,6 +1,6 @@
 % Parametres physiques :
 tFin      = 172800 % 2jours = 172'800s
-% atm       = true
+atm       = true
 m1        = 5.972e24
 m2        = 734770000
 m3        = 5809.

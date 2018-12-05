@@ -83,30 +83,30 @@ set(gca, 'fontsize', 22);
 plot(dt, dist, 'x');
 grid on;
 
-set(gca, 'XScale', 'log');
-set(gca, 'YScale', 'log');
+% set(gca, 'XScale', 'log');
+% set(gca, 'YScale', 'log');
 
 xlabel("$\Delta t$ [s]");
 ylabel("Distance between Earth and Apollo 13 [m]");
 
 hold off;
 
-fig2=figure;
-hold on;
-
-set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
-set(groot, 'defaultLegendInterpreter', 'latex');
-set(groot, 'defaultTextInterpreter', 'latex');
-set(groot, 'defaultAxesFontSize', 18);
-set(gca, 'fontsize', 22);
-
-plot(dt, vmax, 'x');
-grid on;
-
-set(gca, 'XScale', 'log');
-set(gca, 'YScale', 'log');
-
-xlabel("$\Delta t$ [s]");
-ylabel("vmax of Apollo 13 [m/s]");
-
-hold off;
+% fig2=figure;
+% hold on;
+% 
+% set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+% set(groot, 'defaultLegendInterpreter', 'latex');
+% set(groot, 'defaultTextInterpreter', 'latex');
+% set(groot, 'defaultAxesFontSize', 18);
+% set(gca, 'fontsize', 22);
+% 
+% plot(dt, vmax, 'x');
+% grid on;
+% 
+% set(gca, 'XScale', 'log');
+% set(gca, 'YScale', 'log');
+% 
+% xlabel("$\Delta t$ [s]");
+% ylabel("vmax of Apollo 13 [m/s]");
+% 
+% hold off;
