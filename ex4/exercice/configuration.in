@@ -23,8 +23,8 @@ vx3       = 226.144622617
 vy3       = -1178.498455
 
 % Parametres numeriques :
-dt       = 0.2
-epsilon  = 1e-4
+dt       = 600
+epsilon  = 10
 dtad     = true
 output   = a.out
 sampling = 1

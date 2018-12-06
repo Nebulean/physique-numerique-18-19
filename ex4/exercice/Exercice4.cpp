@@ -157,12 +157,12 @@ private:
 
       r = getPos(target, vec) - getPos(actor, vec);
       // coutBigFatVec(r, "r");
-      cout << "norm of r = " << norm(r) << endl;
+      // cout << "norm of r = " << norm(r) << endl;
       v = getVel(target, vec) - getVel(actor, vec);
       // coutBigFatVec(v, "v");
-      cout << "norm of v = " << norm(v) << endl;
+      // cout << "norm of v = " << norm(v) << endl;
       f = -0.5 * rho(r) * S * Cx * norm(v) * v;
-      cout << "norm of f = " << norm(f) << endl;
+      // cout << "norm of f = " << norm(f) << endl;
       return f;
     }
     // cout << "not the right bodies" << endl;

@@ -5,33 +5,27 @@
 
 %% BEFORE-SIMULATIONS
 tFin = 172800; % 2 days in seconds.
-dtad='false'; % We do not want an adaptative dt.
+dtad="true";
+dt=60;
 
-nsimul = 10; % Number of simulations that we want. 8, because 172800 = 2^8 * 3^3 * 5^2.
-dt = zeros(nsimul, 1);
-for i=1:nsimul
-    dt(i,1) = 256/2^i;
-    disp(sprintf("i = %d", i));
-end
+nsimul = 25; % Number of simulations that we want. 8, because 172800 = 2^8 * 3^3 * 5^2.
+epsilon = logspace(-7,-1,nsimul);
 
-% dt = logspace(4, 0, nsimul); % logspace ne marche pas parce que les tfin
-% sont différents. Il nous faut un diviseur commun.
 
 %% SIMULATIONS
 output = cell(1, nsimul)
 for i=1:nsimul
-     output{1, i} = sprintf("dt=%f.out", dt(i));
-     cmd = sprintf("./Exercice4 configuration.in dt=%0.15f dtad=%s tFin=%d output=%s", dt(i), dtad, tFin, output{1,i});
+     output{1, i} = sprintf("epsilon=%0.7f.out", epsilon(i));
+     cmd = sprintf("./Exercice4 configuration.in epsilon=%0.15f dt=%0.15f dtad=%s tFin=%d output=%s", epsilon(i), dt, dtad, tFin, output{1,i});
      
      disp(cmd);
-     %system(cmd);
+     system(cmd);
 end
 
-%% TREATMENT
 %% LOADING DATA
 fordist = zeros(nsimul, 7);
 tfin = zeros(1, nsimul);
-forvmax = zeros(nsimul, 6);
+% forvmax = zeros(nsimul, 6);
 for i=1:nsimul
    data = load(output{1,i});
    
@@ -41,12 +35,12 @@ for i=1:nsimul
    fordist(i, 4) = data(end,11); % apollo X
    fordist(i, 5) = data(end,12); % apollo Y
    
-   forvmax(i, 1) = data(1,13); % apollo vx initial
-   forvmax(i, 2) = data(1,14) % apollo vy initial
-   forvmax(i, 3) = data(1,3); % earth X initial
-   forvmax(i, 4) = data(1,4); % earth Y initial
-   forvmax(i, 5) = data(1,11); % apollo X initial
-   forvmax(i, 6) = data(1,12) % apollo Y initial
+%    forvmax(i, 1) = data(1,13); % apollo vx initial
+%    forvmax(i, 2) = data(1,14); % apollo vy initial
+%    forvmax(i, 3) = data(1,3); % earth X initial
+%    forvmax(i, 4) = data(1,4); % earth Y initial
+%    forvmax(i, 5) = data(1,11); % apollo X initial
+%    forvmax(i, 6) = data(1,12); % apollo Y initial
    
    t(1,i) = data(end, 1);
 end
@@ -55,19 +49,19 @@ end
 RT = 6378.1 * 1000; % earth's radius
 
 dist = zeros(nsimul, 1);
-vmax = zeros(nsimul, 1);
+% vmax = zeros(nsimul, 1);
 r0 = zeros(nsimul, 1);
 for i=1:nsimul
    dist(i, 1) = sqrt((fordist(i,4) - fordist(i,2))^2 + (fordist(i, 5) - fordist(i,3))^2 ) - RT;
-   vmax(i, 1) = sqrt(fordist(i,6)^2 + fordist(i,7)^2);
-   r0(i, 1) = sqrt( (forvmax(i,4) - forvmax(i,2))^2 + (forvmax(i,5) - forvmax(i,3))^2 );
+%    vmax(i, 1) = sqrt(fordist(i,6)^2 + fordist(i,7)^2);
+%    r0(i, 1) = sqrt( (forvmax(i,4) - forvmax(i,2))^2 + (forvmax(i,5) - forvmax(i,3))^2 );
 end
 
 
-G = 6.67408e-11; % gran constant
+G = 6.67408e-11; % grav constant
 M = 5.972e24; % mass of earth
 
-vmaxTH = sqrt(( forvmax(1, 1)^2 + forvmax(1,2)^2 ) + G*M/2 .* abs(1./dist - 1./r0) );
+% vmaxTH = sqrt(( forvmax(1, 1)^2 + forvmax(1,2)^2 ) + G*M/2 .* abs(1./dist - 1./r0) );
 
 
 %% PLOTTING DATA
@@ -80,13 +74,13 @@ set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 set(gca, 'fontsize', 22);
 
-plot(dt, dist, 'x');
+plot(epsilon, dist);
 grid on;
 
 % set(gca, 'XScale', 'log');
 % set(gca, 'YScale', 'log');
 
-xlabel("$\Delta t$ [s]");
+xlabel("Precision $\epsilon$ [m]");
 ylabel("Distance between Earth and Apollo 13 [m]");
 
 hold off;
