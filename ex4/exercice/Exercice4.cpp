@@ -339,7 +339,6 @@ public:
     m3          = configFile.get<double>("m3");
     sampling    = configFile.get<int>("sampling");
     p           = {configFile.get<double>("x1"), configFile.get<double>("y1"), configFile.get<double>("vx1"), configFile.get<double>("vy1"), configFile.get<double>("x2"), configFile.get<double>("y2"), configFile.get<double>("vx2"), configFile.get<double>("vy2"), configFile.get<double>("x3"), configFile.get<double>("y3"), configFile.get<double>("vx3"), configFile.get<double>("vy3")};
-    sampling    = configFile.get<int>("sampling");
     // Ouverture du fichier de sortie
     outputFile = new ofstream(configFile.get<string>("output").c_str());
     outputFile->precision(15);
