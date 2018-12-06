@@ -6,8 +6,8 @@ dt = d(:,2);
 x1 = d(:,3);
 y1 = d(:,4);
 
-% x2 = d(:,7);
-% y2 = d(:,8);
+x2 = d(:,7);
+y2 = d(:,8);
 
 x3 = d(:,11);
 y3 = d(:,12);
@@ -22,7 +22,7 @@ pbaspect([1 1 1]);
 daspect([1 1 1])
 plot(x3(1), y3(1), 'x', 'Color','green');
 centerOfEarth = [x1(1), y1(1)];
-plotCircle(centerOfEarth, 6371000, 50, 'blue');
+plotCircle(centerOfEarth, 6371000, 500, 'blue');
 
 % centerOfMoon = [x2(1), y2(1)];
 % plotCircle(centerOfMoon, 1737500, 50, 'red');

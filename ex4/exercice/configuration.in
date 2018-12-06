@@ -1,6 +1,6 @@
 % Parametres physiques :
 tFin      = 172800 % 2jours = 172'800s
-atm       = true
+atm       = false
 m1        = 5.972e24
 m2        = 734770000
 m3        = 5809.
@@ -23,8 +23,8 @@ vx3       = 226.144622617
 vy3       = -1178.498455
 
 % Parametres numeriques :
-dt       = 600
-epsilon  = 1
-dtad     = true
+dt       = 20
+epsilon  = 1e-4
+dtad     = false
 output   = a.out
 sampling = 1
