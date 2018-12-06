@@ -157,12 +157,12 @@ private:
 
       r = getPos(target, vec) - getPos(actor, vec);
       // coutBigFatVec(r, "r");
-      cout << "norm of r = " << norm(r) << endl;
+      // cout << "norm of r = " << norm(r) << endl;
       v = getVel(target, vec) - getVel(actor, vec);
       // coutBigFatVec(v, "v");
-      cout << "norm of v = " << norm(v) << endl;
+      // cout << "norm of v = " << norm(v) << endl;
       f = -0.5 * rho(r) * S * Cx * norm(v) * v;
-      cout << "norm of f = " << norm(f) << endl;
+      // cout << "norm of f = " << norm(f) << endl;
       return f;
     }
     // cout << "not the right bodies" << endl;
@@ -337,8 +337,8 @@ public:
     m1          = configFile.get<double>("m1");
     m2          = configFile.get<double>("m2");
     m3          = configFile.get<double>("m3");
-    p           = {configFile.get<double>("x1"), configFile.get<double>("y1"), configFile.get<double>("vx1"), configFile.get<double>("vy1"), configFile.get<double>("x2"), configFile.get<double>("y2"), configFile.get<double>("vx2"), configFile.get<double>("vy2"), configFile.get<double>("x3"), configFile.get<double>("y3"), configFile.get<double>("vx3"), configFile.get<double>("vy3")};
     sampling    = configFile.get<int>("sampling");
+    p           = {configFile.get<double>("x1"), configFile.get<double>("y1"), configFile.get<double>("vx1"), configFile.get<double>("vy1"), configFile.get<double>("x2"), configFile.get<double>("y2"), configFile.get<double>("vx2"), configFile.get<double>("vy2"), configFile.get<double>("x3"), configFile.get<double>("y3"), configFile.get<double>("vx3"), configFile.get<double>("vy3")};
     // Ouverture du fichier de sortie
     outputFile = new ofstream(configFile.get<string>("output").c_str());
     outputFile->precision(15);

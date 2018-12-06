@@ -14,15 +14,18 @@ y3 = d(:,12);
 
 vx3 = d(:,13);
 vy3 = d(:,14);
+
 %% On plot les endroits initiaux.
 fig=figure
 hold on;
+pbaspect([1 1 1]);
+daspect([1 1 1])
 plot(x3(1), y3(1), 'x', 'Color','green');
 centerOfEarth = [x1(1), y1(1)];
 plotCircle(centerOfEarth, 6371000, 500, 'blue');
 
-centerOfMoon = [x2(1), y2(1)];
-plotCircle(centerOfMoon, 1737500, 50, 'red');
+% centerOfMoon = [x2(1), y2(1)];
+% plotCircle(centerOfMoon, 1737500, 50, 'red');
 
 
 % puis on plot les positions.
@@ -33,6 +36,8 @@ plot(x3(2:end), y3(2:end), '-', 'Color', 'green', 'LineWidth', 1.2);
 
 
 hold off;
+
+nsteps=length(t)
 
 function circle = plotCircle(center, radius, nb, color)
     circle = zeros(nb, 2);
