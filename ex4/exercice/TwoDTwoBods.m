@@ -20,18 +20,18 @@ fig=figure
 hold on;
 pbaspect([1 1 1]);
 daspect([1 1 1])
-plot(x3(1), y3(1), 'x', 'Color','green');
+% plot(x3(1), y3(1), 'x', 'Color','green');
 centerOfEarth = [x1(1), y1(1)];
 plotCircle(centerOfEarth, 6371000, 500, 'blue');
 
-% centerOfMoon = [x2(1), y2(1)];
-% plotCircle(centerOfMoon, 1737500, 50, 'red');
+centerOfMoon = [x2(1), y2(1)];
+plotCircle(centerOfMoon, 1737500, 50, 'red');
 
 
 % puis on plot les positions.
 plot(x1(2:end), y1(2:end), '-', 'Color', 'blue', 'LineWidth', 1.2);
-% plot(x2(2:end), y2(2:end), '-', 'Color', 'red');
-plot(x3(2:end), y3(2:end), '-', 'Color', 'green', 'LineWidth', 1.2);
+plot(x2(2:end), y2(2:end), '-', 'Color', 'red', 'LineWidth', 1.2);
+% plot(x3(2:end), y3(2:end), '-', 'Color', 'green', 'LineWidth', 1.2);
 
 
 
