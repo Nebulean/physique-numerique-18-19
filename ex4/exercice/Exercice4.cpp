@@ -111,33 +111,10 @@ private:
   // }
   valarray<double> grav(size_t target, size_t actor, valarray<double> const& vec){
     valarray<double> g(2);
-    // cout << "vec = ( ";
-    // for (size_t i = 0; i < vec.size(); i++) {
-    //   cout << vec[i] << ", ";
-    // }
-    // cout << ")" << endl;
-    // double x = getPos(target, vec)[0]-getPos(actor, vec)[0];
-    // double y = getPos(target, vec)[1]-getPos(actor, vec)[1];
-    //
-    // if(x==0){
-    //   g[0] = 0.;
-    // } else {
-    //   g[0] = -G * getMass(target) * getMass(actor) / pow(x,2);
-    // }
-    //
-    // if(y==0){
-    //   g[1] = 0.;
-    // } else {
-    //   g[1] = -G * getMass(target) * getMass(actor) / pow(y,2);
-    // }
 
     valarray<double> r(2);
     r = getPos(target, vec) - getPos(actor, vec);
     g = -G * getMass(target) * getMass(actor) / pow(norm(r), 3) * r;
-
-    // g = -G * getMass(target) * getMass(actor) / pow(norm(getPos(target, vec)-getPos(actor, vec)),3) * (getPos(target, vec)-getPos(actor, vec));
-
-    // cout << "grav = " << g[0] << " " << g[1] << endl;
     return g;
   }
 
