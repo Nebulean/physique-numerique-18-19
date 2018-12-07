@@ -24,7 +24,7 @@ vy3       = -1178.498455
 
 % Parametres numeriques :
 dt       = 20
-epsilon  = 1e-4
+epsilon  = 1e-5
 dtad     = false
 output   = a.out
 sampling = 1

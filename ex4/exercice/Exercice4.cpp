@@ -66,17 +66,6 @@ private:
     return v;
   }
 
-  // void setPos(size_t body, valarray<double> vectarg){
-  //   // p[4*body] = vectarg[0];
-  //   // p[4*body + 1] = vectarg[1];
-  //   p[slice(4*body,)]
-  // }
-  //
-  // void setVel(size_t body, valarray<double> vectarg){
-  //   p[4*body + 2] = vectarg[0];
-  //   p[4*body + 3] = vectarg[1];
-  // }
-
   double getMass(size_t body){
     switch (body) {
       case 0:
@@ -104,11 +93,6 @@ private:
   }
 
   // returns the gravitational effect of mass 2 on mass 1.
-  // valarray<double> grav(double mass1, double mass2, valarray<double> const& r){
-  //   valarray<double> g(2);
-  //   g = -G * mass1 * mass2 * (1./pow(norm(r),3)) * r;
-  //   return g;
-  // }
   valarray<double> grav(size_t target, size_t actor, valarray<double> const& vec){
     valarray<double> g(2);
 
@@ -133,16 +117,14 @@ private:
       valarray<double> r(2);
 
       r = getPos(target, vec) - getPos(actor, vec);
-      // coutBigFatVec(r, "r");
-      // cout << "norm of r = " << norm(r) << endl;
+
       v = getVel(target, vec) - getVel(actor, vec);
-      // coutBigFatVec(v, "v");
-      // cout << "norm of v = " << norm(v) << endl;
+
       f = -0.5 * rho(r) * S * Cx * norm(v) * v;
-      // cout << "norm of f = " << norm(f) << endl;
+
       return f;
     }
-    // cout << "not the right bodies" << endl;
+
     return {0,0};
   }
 
@@ -152,10 +134,8 @@ private:
       if(i != body){
         res += grav(body, i, vec)/getMass(body);
         res += drag(body, i, vec)/getMass(body);
-        // cout << "grav of " << i << " on " << body << ": (" << grav(body, i, vec)[0] << ", " << grav(body, i, vec)[0] << ")" << endl;
       }
     }
-    // cout << "a =" << res[0] << " " << res[1] << endl;
     return res;
   }
 
@@ -171,14 +151,12 @@ private:
       // position
       k1[4*body] = time_step*v[4*body + 2];
       k1[4*body + 1] = time_step*v[4*body + 3];
-      // k1[slice(4*body,2,1)] = time_step*v[slice(4*body + 2,2,1)];
 
       // speed
       valarray<double> vec(2);
       vec = a(body, v);
       k1[4*body + 2] = time_step*vec[0];
       k1[4*body + 3] = time_step*vec[1];
-      // k1[slice(4*body+2,2,1)] = time_step*a(body, v);
     }
 
     // k2
@@ -186,73 +164,46 @@ private:
       // position
       k2[4*body] = time_step*( v[4*body + 2] + 0.5*k1[4*body + 2] );
       k2[4*body + 1] = time_step*( v[4*body + 3] + 0.5*k1[4*body + 3] );
-      // k2[slice(4*body,2,1)] = time_step*( v[slice(4*body + 2,2,1)] + 0.5*k1[slice(4*body + 2,2,1)] );
 
       // speed
       valarray<double> vec(2);
       vec = a(body, v + 0.5*k1);
       k2[4*body + 2] = time_step*vec[0];
       k2[4*body + 3] = time_step*vec[1];
-      // k2[slice(4*body + 2,2,1)] = time_step*a(body, v + 0.5*k1);
     }
 
-    // cout << "k2 = ( ";
-    // for (size_t i = 0; i < k2.size(); i++) {
-    //   cout << k2[i] << ", ";
-    // }
-    // cout << ")" << endl;
 
     // k3
     for (size_t body = 0; body < 3; body++) {
       // position
       k3[4*body] = time_step*( v[4*body + 2] + 0.5*k2[4*body + 2] );
       k3[4*body + 1] = time_step*( v[4*body + 3] + 0.5*k2[4*body + 3] );
-      // k3[slice(4*body,2,1)] = time_step*( v[slice(4*body + 2,2,1)] + 0.5*k2[slice(4*body + 2,2,1)] );
 
       // speed
       valarray<double> vec(2);
       vec = a(body, v + 0.5*k2);
       k3[4*body + 2] = time_step*vec[0];
       k3[4*body + 3] = time_step*vec[1];
-      // k3[slice(4*body + 2,2,1)] = time_step * a(body, v + 0.5*k2);
     }
 
-    // cout << "k3 = ( ";
-    // for (size_t i = 0; i < k3.size(); i++) {
-    //   cout << k3[i] << ", ";
-    // }
-    // cout << ")" << endl;
 
     // k4
     for (size_t body = 0; body < 3; body++) {
       // position
       k4[4*body] = time_step*( v[4*body + 2] + k3[4*body + 2] );
       k4[4*body + 1] = time_step*( v[4*body + 3] + k3[4*body + 3] );
-      // k4[slice(4*body,2,1)] = time_step*( v[slice(4*body + 2,2,1)] + k3[slice(4*body + 2,2,1)] );
 
       // speed
       valarray<double> vec(2);
       vec = a(body, v + k3);
       k4[4*body + 2] = time_step*vec[0];
       k4[4*body + 3] = time_step*vec[1];
-      // k4[slice(4*body + 2,2,1)] = time_step * a(body, v + k3);
     }
 
-    // cout << "k4 = ( ";
-    // for (size_t i = 0; i < k4.size(); i++) {
-    //   cout << k4[i] << ", ";
-    // }
-    // cout << ")" << endl;
 
     valarray<double> res(v);
 
-    res += 1./6. * (k1 + 2.*k2 + 2.*k3 + k4);
-
-    // cout << "res = (";
-    // for (size_t i = 0; i < res.size(); i++) {
-    //   cout << res[i] << ", ";
-    // }
-    // cout << ")" << endl;
+    res += 1./6. * (k1 + 2.0*k2 + 2.0*k3 + k4);
 
     return res;
   }
@@ -264,9 +215,7 @@ private:
     valarray<double> p2(step(ptemp, dt/2.));
 
     double d = abs(p1-p2).max();
-    // coutBigFatVec(p1, "p1");
-    // coutBigFatVec(ptemp, "ptemp");
-    // coutBigFatVec(p2, "p2");
+
 
     if(d<=epsilon){
       t += dt;
@@ -274,9 +223,6 @@ private:
       return p2;
     } else {
       dt *= 0.99 * pow(epsilon/d, 1./5.);
-      // cout << "epsilon = " << epsilon << endl;
-      // cout << "pow = " << pow(epsilon/d, 1./5.) << endl;
-      // cout << "new dt = " << dt << endl;
       return stepDtAdapt();
     }
   }
