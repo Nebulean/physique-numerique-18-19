@@ -181,12 +181,6 @@ private:
       // k1[slice(4*body+2,2,1)] = time_step*a(body, v);
     }
 
-    // cout << "k1 = ( ";
-    // for (size_t i = 0; i < k1.size(); i++) {
-    //   cout << k1[i] << ", ";
-    // }
-    // cout << ")" << endl;
-
     // k2
     for (size_t body = 0; body < 3; body++) {
       // position
@@ -198,7 +192,7 @@ private:
       valarray<double> vec(2);
       vec = a(body, v + 0.5*k1);
       k2[4*body + 2] = time_step*vec[0];
-      k3[4*body + 3] = time_step*vec[1];
+      k2[4*body + 3] = time_step*vec[1];
       // k2[slice(4*body + 2,2,1)] = time_step*a(body, v + 0.5*k1);
     }
 
