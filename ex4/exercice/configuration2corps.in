@@ -1,0 +1,30 @@
+% Parametres physiques :
+tFin      = 31536000
+atm       = false
+m1        = 5.972e24
+m2        = 7.3477e22
+m3        = 0.001
+
+% Conditions initiales
+% Terre
+x1        = -4.676244537e6
+y1        = 0.
+vx1       = 0.
+vy1       = 12.44632236
+% Lune
+x2        = 380071755.5
+y2        = 0.
+vx2       = 0.
+vy2       = -1011.601415
+% Apollo
+x3        = 0.
+y3        = 314159e3.
+vx3       = 226.144622617
+vy3       = -1178.498455
+
+% Parametres numeriques :
+dt       = 60
+epsilon  = 1e-4
+dtad     = true
+output   = 2corps.out
+sampling = 1
