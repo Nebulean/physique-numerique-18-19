@@ -84,7 +84,7 @@ for i=1:nsimul
     r0 = sqrt((Ex(1) - Ax(1))^2 + (Ey(1) - Ay(1))^2);
     % vitesse numérique avec les dt
     vit = sqrt(Avx.^2 + Avy.^2);
-    vitTH(i,1) = sqrt(1200^2 + 0.5*G*M*(1/mindist(i,1) + 1/r0)); % Vitesse max théorique pour un hmin donné.
+    vitTH(i,1) = sqrt(1200^2 + 0.5*G*M*(1/(mindist(i,1) + RT) + 1/r0)); % Vitesse max théorique pour un hmin donné.
     [tmp, index] = max(vit);
     fit = polyfit(t(index-1:index+1), vit(index-1:index+1), 2);
     A = fit(1); B = fit(2); C = fit(3);

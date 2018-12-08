@@ -40,12 +40,34 @@ private:
       for (size_t i = 0; i < p.size(); i++) {
         *outputFile << " " << p[i];
       }
+      // we print the acceleration of the third body (apollo in general), use in 4.3.
+      valarray<double> accel(2);
+      accel = a(2, p);
+      *outputFile << " " << accel[0] << " " << accel[1];
+
+      // we print the power of drag.
+      *outputFile << " " << powerOfDrag(p);
       *outputFile << endl;
       last = 1;
     }
     else{
       last++;
     }
+  }
+
+  double powerOfDrag(valarray<double> const& vec){
+    if (atm) {
+      double power(0.);
+      valarray<double> F(0., 2);
+      valarray<double> v(0., 2);
+
+      F = drag(2, 0, vec);
+      v = getVel(2, vec);
+      power = F[0]*v[0] + F[1]*v[1];
+
+      return power;
+    }
+    return 0.;
   }
 
   // returns the position of the body.
