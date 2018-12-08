@@ -21,13 +21,13 @@ end
 % sont différents. Il nous faut un diviseur commun.
 
 %% SIMULATIONS
-output = cell(1, nsimul)
+output = cell(1, nsimul);
 for i=1:nsimul
      output{1, i} = sprintf("dt=%f.out", dt(i));
      cmd = sprintf("./Exercice4 configuration.in dt=%0.15f dtad=%s tFin=%d atm=%s output=%s", dt(i), dtad, tFin, atm, output{1,i});
      
      disp(cmd);
-     system(cmd);
+     %system(cmd);
 end
 
 %% TREATMENT
@@ -39,7 +39,10 @@ RT = 6378.1 * 1000; % earth's radius
 distTH = 10e3 + RT;
 mindist = zeros(nsimul, 1);
 maxvit = zeros(nsimul, 1);
+vitTH =zeros(nsimul,1);
 nsteps = zeros(nsimul, 1);
+G = 6.67408e-11;
+M = 5.972e24;
 for i=1:nsimul
    data = load(output{1,i});
    
@@ -63,8 +66,7 @@ for i=1:nsimul
     nsteps(i) = length(t);
     %% On calcul la distance minimale
     % Distance numérique avec les dt
-%     dist = sqrt((Ex - Ax).^2 + (Ey - Ay).^2);
-    dist = sqrt((Ax).^2 + (Ay).^2);
+    dist = sqrt((Ex - Ax).^2 + (Ey - Ay).^2);
     % Premièrement, on calcul le point où il y a la distance minimale.
     [tmp, index] = min(dist);
     if index+1 > length(dist)
@@ -72,30 +74,21 @@ for i=1:nsimul
     else
         fit = polyfit(t(index-1:index+1), dist(index-1:index+1), 2);
     end
-%     fit = polyfit(x(index-1:index+1), y(index-1:index+1), 2);
     A = fit(1); B = fit(2); C = fit(3);
+    
     % On calcul le minimum à l'aide de l'analyse
-    mindist(i, 1) = C - B^2/(4*A) - distTH;
+    mindist(i, 1) = abs(C - B^2/(4*A) - distTH); %TODO: Retirer les abs lorsque le résultat sera correcte
     
     %% On calcul la vitesse maximale
+    r0 = sqrt((Ex(1) - Ax(1))^2 + (Ey(1) - Ay(1))^2);
     % vitesse numérique avec les dt
     vit = sqrt(Avx.^2 + Avy.^2);
+    vitTH(i,1) = sqrt(1200^2 + 0.5*G*M*(1/mindist(i,1) + 1/r0)); % Vitesse max théorique pour un hmin donné.
     [tmp, index] = max(vit);
     fit = polyfit(t(index-1:index+1), vit(index-1:index+1), 2);
     A = fit(1); B = fit(2); C = fit(3);
-    maxvit(i, 1) = abs(C - B^2/(4*A));
+    maxvit(i, 1) = abs(C - B^2/(4*A) - vitTH(i,1));
 end
-
-%% COMPUTING DISTANCE
-
-% 
-% dist = zeros(nsimul, 1);
-% vmax = zeros(nsimul, 1);
-% r0 = zeros(nsimul, 1);
-% for i=1:nsimul
-%    dist(i, 1) = sqrt((values(i,4) - values(i,2))^2 + (values(i, 5) - values(i,3))^2 ) - RT;
-%    vmax(i, 1) = sqrt(values(i,6)^2 + values(i,7)^2);
-% end
 
 %% PLOTTING DATA
 %% hmin
@@ -117,7 +110,7 @@ set(gca, 'XScale', 'log');
 set(gca, 'YScale', 'log');
 
 xlabel("$\Delta t$ [s]");
-ylabel("$h_{min}$ [m]");
+ylabel("$|$error on $h_{min}|$ [m]");
 
 hold off;
 
@@ -131,14 +124,14 @@ set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 set(gca, 'fontsize', 22);
 
-plot(dt.^4, maxvit, 'x');
+plot(dt, maxvit, 'x');
 grid on;
 
-% set(gca, 'XScale', 'log');
-% set(gca, 'YScale', 'log');
+set(gca, 'XScale', 'log');
+set(gca, 'YScale', 'log');
 
 xlabel("$\Delta t$ [s]");
-ylabel("$v_{max}$ [m/s]");
+ylabel("$|$error on $h_{max}|$ [m/s]");
 
 hold off;
 
