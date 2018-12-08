@@ -63,6 +63,7 @@ for i=1:nsimul
     Avy = data(:,14);
 
     t = data(:, 1);
+    
     nsteps(i) = length(t);
     %% On calcul la distance minimale
     % Distance numérique avec les dt

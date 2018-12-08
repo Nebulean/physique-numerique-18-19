@@ -1,8 +1,10 @@
 %% On génère les données
-cmd = "./Exercice4 configuration.in tFin=172800 atm=false dt=8 dtad=false output=ex1a_traj.out";
+dtad="false"; % Pour ex1b
+%dtad="true"; % Pour ex1c
+cmd = sprintf("./Exercice4 configuration.in tFin=172800 atm=false dt=8 dtad=%s output=ex1b_traj.out", dtad);
 system(cmd)
 %% On load les données
-d = load("ex1a_traj.out");
+d = load("ex1b_traj.out");
 
 t = d(:,1);
 dt = d(:,2);
