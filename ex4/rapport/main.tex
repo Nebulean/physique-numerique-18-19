@@ -3,7 +3,7 @@
 
 % pour l'inclusion de figures en eps,pdf,jpg
 \usepackage{graphicx}
-\usepackage{subfigure}
+\usepackage{subcaption}
 \usepackage{wrapfig}
 % quelques symboles mathematiques en plus
 \usepackage{amsmath}
@@ -73,8 +73,8 @@ Apollo 13 is located at a distance $r_0 = \SI{314159}{\kilo\meter}$ from the cen
 Its velocity with respect to earth's frame of reference is $v_0 = \SI{1.2}{\kilo\meter\per\second}$.
 Because of a fuel shortage, the norm of speed can not be changed.
 However, it is possible to ajust its direction.
-To bring back Apollo 13's crew, their trajectory needs to at get as close as $h=\SI{10}{\kilo\meter}$ to earth, the distance where the atmosphere slows the ship to break its orbit.
-In this experiment, the Moon will be ignored, so it will be a 1 body gravitationnal problem.
+To bring back Apollo 13's crew, their trajectory needs to get as close as $h=\SI{10}{\kilo\meter}$ to the surface of earth, the distance where the atmosphere is dense enough to slow the ship and break its orbit.
+In this experiment, the Moon will be ignored and the mass of Apollo 13 is neglictable compared to Earth's mass. Then, it will be a 1 body gravitationnal problem.
 %TODO : Est-ce qu'il faut mettre là toutes les constantes ? Y'en a plein et je les définis quand on en a besoin...
 
 \subsection{Initial velocity of Apollo 13}
@@ -86,28 +86,112 @@ Two physical laws are considered to solve this problem. %TODO : C'est pas des lo
 \end{itemize}
 
 \subsubsection{Conservation of mechanical energy}
-The mechanical energy of the probe at any moment is given by equation \eqref{eq:1c-em-apollo13}.
+The mechanical energy of the probe at any moment is given by equation \eqref{eq:1a-em-apollo13}.
 \begin{equation}
   E_m = \frac{1}{2}mv^2 - G\frac{mM}{r}
-  \label{eq:1c-em-apollo13}
+  \label{eq:1a-em-apollo13}
 \end{equation}
 where $m=\SI{5809}{\kilo\gram}$ is the mass of the probe, $M=\SI{5.972d24}{\kilo\gram}$ is the mass of earth, $G=\SI{6.674d-11}{\cubic\meter\per\kilo\gram\per\square\second}$ is the gravitational constant, $v$ is the speed of the probe with respect to earth's frame of reference, and $r$ is the distance between the probe and the center of earth.\\
 
 By conservation of mechanical energy, two moments are chosen.
 \begin{itemize}
   \item $t=\SI{0}{\s}: E_{m,t_0} = \frac{1}{2}mv_0^2 - G\frac{mM}{r_0}$
-  \item $t=t_{end}: E_{m,t_{end}} = \frac{1}{2}mv_{end}^2 - G\frac{mM}{h}$
+  \item $t=t_{end}: E_{m,t_{end}} = \frac{1}{2}mv_{end}^2 - G\frac{mM}{h + R_t}$
 \end{itemize}
-
-Thus, solving $E_{m,t_0} = E_{m,t_{end}}$, the velocity of the probe when it is at a distance $h=\SI{10}{\kilo\meter}$ of earth can be found, and is given by equation \eqref{eq:1c-vitesse-finale}.
+where $v_0 = \SI{1.2}{\kilo\meter\per\second}$ is the initial velocity of Apollo 13, $r_0 = \SI{314159}{\kilo\meter}$ is the initial distance between Apollo 13 and the center of earth.
+Thus, solving $E_{m,t_0} = E_{m,t_{end}}$, the velocity of the probe when it is at a distance $h=\SI{10}{\kilo\meter}$ of earth can be found, and is given by equation \eqref{eq:1a-vitesse-finale}.
 
 \begin{equation}
-  v_{end} = \sqrt{v_0^2 - \frac{GM}{2}\left(\frac{1}{h} - \frac{1}{r_0}\right)}
-  \label{eq:1c-vitesse-finale}
+  v_{end} = \sqrt{v_0^2 - \frac{GM}{2}\left(\frac{1}{h + R_t} - \frac{1}{r_0}\right)}
+  \label{eq:1a-vitesse-finale}
 \end{equation}
 
 \subsubsection{Conservation of angular momentum}
 %TODO : À écrire.
+
+\subsubsection{Maximum velocity of the probe}
+The maximum velocity of the probe on this given situation is given by equation \eqref{eq:1a-vitesse-finale}.
+This affirmations comes from the fact that, as the gravitational force is the only one considered, the maximum velocity is given by the moment where the distance is minimal, which is $h_{min}$ in this situation.
+Thus, after some computation, the maximum velocity reached by Apollo 13 is given by equation \eqref{eq:1a-vitesse-max}.
+
+\begin{equation}
+  v_{max} = \SI{5657.03}{\meter\per\second} %TODO : Donnée à verifier, elle n'est peut-être pas à jour. (calculs.nb)
+  \label{eq:1a-vitesse-max}
+\end{equation}
+
+
+
+
+\subsection{Numerical analysis with a non-adaptative time step}
+In this section, the simulation of the previous simulation will be computed numerically, using the numerical method: Runge-Kutta of order 4 (RK4).
+
+\subsubsection{Trajectory}
+The trajectory of Apollo 13 and earth are represented in figure \ref{fig:1b-trajectory-non-adaptative}.
+In this figure, earth is considered circular and is drawn at the right scale.
+The green cross represents the initial position of Apollo 13, and the green points are its trajectory.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphs/ex1b-traj.eps}
+  \caption{blabla}
+  \label{fig:1b-trajectory-non-adaptative}
+\end{figure}
+
+%TODO : Un peu d'analyse de la trajectoire
+
+\subsubsection{Convergence studies: $h_{min}$ and $v_{max}$}
+To study the convergence of RK4, the minimal distance between Earth's surface and Apollo 13, and the maximal speed of Apollo 13 will be studied.
+The convergence studies are represented in figure \ref{fig:1b-conv}.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex1b-conv-hmin.eps}
+    \caption{blabla}
+    \label{fig:1b-conv-hmin}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex1b-conv-vmax.eps}
+    \caption{blabla}
+    \label{fig:1b-conv-vmax}
+  \end{subfigure}
+  \caption{blabla}
+  \label{fig:1b-conv}
+\end{figure}
+
+%TODO : Analyser ces graphs.
+
+\subsection{Numerical analysis with an adaptative time step}
+This time, the same sitation is computed numerically, but with an adaptative time step.
+It means that, for each steps, the time step is adapted to reach a particular precision.
+It allows to use greater time steps when the evolution is slightly changing, and to use smaller time steps when the evolution is greatly changing.
+Thus, it greatly reduces the number of steps required to do a simulation.
+
+\subsubsection{Convergence study on the precision}
+The adaptative time step is controlled by a factor, $\epsilon$, which provides the precision that the next step has to reach.
+By varying $\epsilon$, the convergence of $h_{min}$ with respect to the number of steps can be studied.
+The resulting study is represented in figure \ref{fig:1c-conv-epsilon}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphs/ex1c-conv-epsilon.eps}
+  \caption{blabla}
+  \label{fig:1c-conv-epsilon}
+\end{figure}
+
+%TODO : Analyser ce graph.
+
+Figure \ref{fig:1c-dt} represents the evolution of dt over time for one simulation.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphs/ex1c-dt.eps}
+  \caption{blabla}
+  \label{fig:1c-dt}
+\end{figure}
+
+%TODO : Parler plus en profondeur de ce graph.
 
 \section{"Houston, we're going to have a real problem"}
 
