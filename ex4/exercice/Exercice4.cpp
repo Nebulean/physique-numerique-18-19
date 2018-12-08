@@ -203,7 +203,7 @@ private:
 
     valarray<double> res(v);
 
-    res += 1./6. * (k1 + 2.0*k2 + 2.0*k3 + k4);
+    res += (k1 + 2.0*k2 + 2.0*k3 + k4)/6;
 
     return res;
   }
