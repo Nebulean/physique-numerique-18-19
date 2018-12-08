@@ -1,20 +1,21 @@
 %% TASK
-% Résoudre numériquement la trajectoire d’Apollo 13 avec un pas de temps ∆t fixe. [N.B. :
-% Il suffit de simuler 2 jours]. Faire une étude de convergence de l’altitude minimale hmin
-% et de vmax avec ∆t et comparer avec le résultat analytique.
-
+% Impémenter le pas de temps adaptatif dans le code et calculer la trajectoire. 
+% Faire une étude de convergence, en variant ε, qui est la précision requise par pas de temps.
+% Illuster comment le pas de temps ∆t change au cours de la simulation.
+% Comparer le nombre de pas de temps nécessaires pour obtenir un résultat sur hmin de précision donnée
+% avec le schéma à ∆t fixe.
 %% BEFORE-SIMULATIONS
 tFin = 172800; % 2 days in seconds.
 dtad="true";
-dt=60;
+dt=60; % dt initial
 
-nsimul = 8; % Number of simulations that we want. 8, because 172800 = 2^8 * 3^3 * 5^2.
-epsilon = zeros(nsimul, 1);
-for i=1:nsimul
-    epsilon(i,1) = 10/10^i;
-    disp(sprintf("i = %d", i));
-end
-% epsilon = logspace(-7,-1,nsimul);
+nsimul = 20; % Number of simulations that we want. 8, because 172800 = 2^8 * 3^3 * 5^2.
+% epsilon = zeros(nsimul, 1);
+% for i=1:nsimul
+%     epsilon(i,1) = 10/10^i;
+%     %disp(sprintf("i = %d", i));
+% end
+epsilon = logspace(0, -5, nsimul)
 
 %% SIMULATIONS
 output = cell(1, nsimul)
@@ -27,31 +28,37 @@ for i=1:nsimul
 end
 
 %% LOADING DATA
-fordist = zeros(nsimul, 7);
-tfin = zeros(1, nsimul);
-% forvmax = zeros(nsimul, 6);
-for i=1:nsimul
-   data = load(output{1,i});
-   
-   fordist(i, 1) = data(end,2); % dt
-   fordist(i, 2) = data(end,3); % earth X
-   fordist(i, 3) = data(end,4); % earth Y
-   fordist(i, 4) = data(end,11); % apollo X
-   fordist(i, 5) = data(end,12); % apollo Y
-   
-
-%    forvmax(i, 6) = data(1,12); % apollo Y initial
-   
-   t(1,i) = data(end, 1);
-end
-
-%% COMPUTING DISTANCE
+mindist = zeros(nsimul, 1);
+nsteps = zeros(nsimul, 1);
 RT = 6378.1 * 1000; % earth's radius
-
-dist = zeros(nsimul, 1);
-r0 = zeros(nsimul, 1);
+distTH = 10e3 + RT;
+tfinal = zeros(nsimul, 1);
 for i=1:nsimul
-   dist(i, 1) = sqrt((fordist(i,4) - fordist(i,2))^2 + (fordist(i, 5) - fordist(i,3))^2 ) - RT;
+    data = load(output{1,i});
+
+    Ex = data(:,3);
+    Ey = data(:,4);
+    Ax = data(:,11);
+    Ay = data(:,12);
+    
+    t = data(:, 1);
+    nsteps(i,1) = length(t);
+    tfinal(i,1) = t(end);
+    %% On calcul la distance minimale
+    % Distance numérique avec les dt
+    dist = sqrt((Ex - Ax).^2 + (Ey - Ay).^2);
+    % Premièrement, on calcul le point où il y a la distance minimale.
+    [tmp, index] = min(dist);
+    if index+1 > length(dist)
+        fit = polyfit(t(index-2:index), dist(index-2:index), 2);
+    else
+        fit = polyfit(t(index-1:index+1), dist(index-1:index+1), 2);
+    end
+    A = fit(1); B = fit(2); C = fit(3);
+    
+    % On calcul le minimum à l'aide de l'analyse
+    mindist(i, 1) = abs(C - B^2/(4*A) - distTH); %TODO: Retirer les abs lorsque le résultat sera correcte
+   t(1,i) = data(end, 1);
 end
 
 %% PLOTTING DATA
@@ -64,13 +71,13 @@ set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 set(gca, 'fontsize', 22);
 
-plot(epsilon, dist,'x');
+plot(nsteps, mindist, 'x');
 grid on;
 
-set(gca, 'XScale', 'log');
-set(gca, 'YScale', 'log');
+% set(gca, 'XScale', 'log');
+% set(gca, 'YScale', 'log');
 
-xlabel("Precision $\epsilon$ [m]");
-ylabel("Distance between Earth and Apollo 13 [m]");
+xlabel("Number of steps [-]");
+ylabel("$h_{min}$ [m]");
 
 hold off;
