@@ -16,7 +16,7 @@ vx3 = d(:,13);
 vy3 = d(:,14);
 
 %% On plot les endroits initiaux.
-fig=figure
+f1=figure
 hold on;
 pbaspect([1 1 1]);
 daspect([1 1 1])

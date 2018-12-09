@@ -36,23 +36,44 @@ private:
   // prints result in output file
   void printOut(bool force){
     if((!force && last>=sampling) || (force && last!=1)){
-      *outputFile << t << " " << dt; // tous les trucs à print.
-      for (size_t i = 0; i < p.size(); i++) {
+      *outputFile << t << " " << dt; // tous les trucs à print. 1 2
+      for (size_t i = 0; i < p.size(); i++) { // 3-14
         *outputFile << " " << p[i];
       }
       // we print the acceleration of the third body (apollo in general), use in 4.3.
       valarray<double> accel(2);
       accel = a(2, p);
-      *outputFile << " " << accel[0] << " " << accel[1];
+      *outputFile << " " << accel[0] << " " << accel[1]; // 15 16
 
       // we print the power of drag.
-      *outputFile << " " << powerOfDrag(p);
+      *outputFile << " " << powerOfDrag(p); // 17
+
+      // prints the mechanical energy of Earth and Moon
+      *outputFile << " " << emec(0) << " " << emec(1); // 18 19
+
+      double qmvmt1(m1*norm(getVel(0,p))), qmvmt2(m2*norm(getVel(1,p))); // momentum of Earth and Moon
+      *outputFile << " " << qmvmt1 << " " << qmvmt2; // 20 21
+
+      *outputFile << " " << norm(getPos(0,p)-getPos(1,p)); // 22
+
       *outputFile << endl;
       last = 1;
     }
     else{
       last++;
     }
+  }
+
+  valarray<double> centerOfMass(size_t bod1, size_t bod2, valarray<double> const& vec){ //returns coordinates of the center of mass of bod1 and bod2
+    valarray<double> r1(getPos(bod1, vec)), r2(getPos(bod2, vec));
+    double M1(getMass(bod1)), M2(getMass(bod2));
+    return (r1*M1+r2*M2)/(M1+M2);
+  }
+
+  double emec(size_t body){
+    double pot = -G * getMass(body) * (getMass((body+1)%3) + getMass((body+2)%3))/norm(centerOfMass((body+1)%3,(body+2)%3,p) - getPos(body,p));
+    double kin = 0.5 * getMass(body) * norm(getVel(body, p))*norm(getVel(body, p));
+    return pot+kin;
   }
 
   double powerOfDrag(valarray<double> const& vec){
@@ -114,12 +135,17 @@ private:
     return sqrt(res);
   }
 
+  // valarray<double> dist(size_t bod1, size_t bod2, valarray<double> const& vec){ // distance between bod1 and bod2
+  //   return (getPos(bod1, vec) - getPos(bod2, vec));
+  // }
+
   // returns the gravitational effect of mass 2 on mass 1.
   valarray<double> grav(size_t target, size_t actor, valarray<double> const& vec){
     valarray<double> g(2);
 
     valarray<double> r(2);
     r = getPos(target, vec) - getPos(actor, vec);
+    // r = dist(target, actor, p);
     g = -G * getMass(target) * getMass(actor) / pow(norm(r), 3) * r;
     return g;
   }
