@@ -124,7 +124,6 @@ private:
     return g;
   }
 
-
   // returns the air density on earth.
   double rho(valarray<double> const& r){
     double n(norm(r));
@@ -166,6 +165,8 @@ private:
     // some initialisations
     size_t full = v.size();
     valarray<double> k1(full), k2(full), k3(full), k4(full);
+
+    // cout << "time step = " << time_step << endl;
 
     // We start by computing the changes k.
     // k1
@@ -292,8 +293,10 @@ public:
     t = 0.;
     last = 0;
     printOut(true);
+
     while( t < tFin-0.5*dt )
     {
+
       if(dtad){
         p = stepDtAdapt();
         // cout << "On est sorti de stepDtAdapt" << endl;
@@ -304,6 +307,10 @@ public:
       }
 
       printOut(false);
+      // temporaire, afin d'arrêter la simulation quand l'engin s'écrase sur terre.
+      if (norm(getPos(0, p) - getPos(2, p)) < Rt) {
+        t = tFin;
+      }
     }
     printOut(true);
   }

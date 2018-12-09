@@ -194,6 +194,87 @@ Figure \ref{fig:1c-dt} represents the evolution of dt over time for one simulati
 %TODO : Parler plus en profondeur de ce graph.
 
 \section{"Houston, we're going to have a real problem"}
+\subsection{PARTIE A - CHANGER TITRE}
+
+\subsection{Rotating the probe to get the minimal acceleration}
+This section will focus on a way to minimize the acceleration underwent by the astronauts in Apollo 13.
+
+The method is quite simple: slightly changing the direction of the initial velocity of the probe.
+To achieve this, the initial velocity will be rotated by an angle $\theta$ that will be found in an empirical way.
+Note that the probe must land on its first entry in the atmosphere: it should not slow with multiples periods around earth. %TODO : Je trouve cette phrase pas très belle.
+
+Let $\mathbf{v} = \begin{pmatrix} v_1, v_2\end{pmatrix}$ be the initial velocity and $\mathbf{w} = \begin{pmatrix} w_1, w_2\end{pmatrix}$ be the rotated initial velocity.
+Both velocities are linked by the rotation matrix, and their relation is given by equation \eqref{eq:v-rotation}.
+
+\begin{equation}
+  \begin{pmatrix}
+    w_1 \\
+    w_2
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \cos\theta & -\sin\theta \\
+    \sin\theta & \cos\theta
+  \end{pmatrix}
+  \begin{pmatrix}
+    v_1 \\
+    v_2 \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    v_1\cos\theta - v_2\sin\theta \\
+    v_1\sin\theta + v_2\cos\theta
+  \end{pmatrix}
+  \label{eq:v-rotation}
+\end{equation}
+
+To find the right angle $\theta$ minimizing the acceleration, the plot of the maximum acceleration for a given angle, and the trajectory of the probe, will be use.
+
+Denote $i$ the process number, $\phi_0$ an arbitrary angle and $\Theta_0 = 0$ an angle.
+First, an arbitrary range of angles are selected: $A_0 = [\Theta_0-\phi_0, \Theta_0+\phi_0]$.
+The rotated velocities $\mathbf{w}$ are computed and stored, for $N$ angles contained in $A$.
+These velocities are inserted as the initial velocities, and all the simulations are made.
+Next, the two plot cited above are created and analysed.
+The plot of trajectory gives an idea of the angles to ignore (those where the probe does not land on the period).
+Regarding the left angles, the plot of maximum acceleration gives the best angle in this range, the one giving the smallest maximum acceleration. This angle is denoted by $\Theta_1$.
+The process is restarted with a new range of angles $A_1 = [\Theta_1 - \phi_1, \Theta_1 + \phi_1]$, where $\phi_1 < \phi_0$.
+By looping $k$ times, until the moment where the minimal acceleration only slightly changes over analysis,  one of the best angle is found.
+This angle is given by $\theta = \Theta_k$.
+
+To illustate this method, figure \ref{fig:2b-min-a} gives an example of the plots that can be made for one process.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/2b-min-a-traj.eps}
+    \caption{blabla}
+    \label{fig:2b-min-a-traj}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/2b-min-a-comp.eps}
+    \caption{blabla}
+    \label{fig:2b-min-a-comp}
+  \end{subfigure}
+  \caption{blabla}
+  \label{fig:2b-min-a}
+\end{figure}
+
+The angle of rotation found using this processes is given by equation \eqref{eq:2b-a-min-angle}.
+
+\begin{equation}
+  \theta = XXX\SI{}{\radian} %TODO : Compléter ce résultat.
+  \label{eq:2b-a-min-angle}
+\end{equation}
+
+The norm of the smallest maximal acceleration, found using angle of equation \eqref{eq:2b-a-min-angle}, is given by equation \eqref{eq:2b-a-min}.
+
+\begin{equation}
+  a = XXX\SI{}{\meter\per\square\second} = XXX\num{}\text{G} %TODO : Compléter ce résultat.
+  \label{eq:2b-a-min}
+\end{equation}
+
+%TODO : Peut-être qu'il faut mettre ces résultat en inline, parce que ça prend beaucoup de place pour pas beaucoup de visibilité de mettre ça en équation.
 
 \section{Two bodies: Earth and Moon}
 
