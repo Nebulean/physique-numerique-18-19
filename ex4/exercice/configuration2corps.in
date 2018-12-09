@@ -1,5 +1,5 @@
 % Parametres physiques :
-tFin      = 31536000
+tFin      = 25228000
 atm       = false
 m1        = 5.972e24
 m2        = 7.3477e22
