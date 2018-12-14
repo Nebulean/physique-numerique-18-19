@@ -26,7 +26,7 @@ output = cell(1, nsimul);
 for i=1:nsimul
      output{1, i} = sprintf("dt=%f.out", dt(i));
      cmd = sprintf("./Exercice4 configuration.in dt=%0.15f dtad=%s tFin=%d atm=%s output=%s", dt(i), dtad, tFin, atm, output{1,i});
-     
+
      disp(cmd);
      %system(cmd);
 end
@@ -47,7 +47,7 @@ G = 6.674e-11;
 M = 5.972e24;
 for i=1:nsimul
    data = load(output{1,i});
-   
+
 %    val(i, 1) = data(end,2); % dt
 %    val(i, 2) = data(end,3); % earth X
 %    val(i, 3) = data(end,4); % earth Y
@@ -55,18 +55,18 @@ for i=1:nsimul
 %    val(i, 5) = data(end,12); % apollo Y
 %    val(i, 6) = data(end,13); % apollo vx initial
 %    val(i, 7) = data(end,14) % apollo vy initial
-   
+
     Ex = data(:,3);
     Ey = data(:,4);
     Ax = data(:,11);
     Ay = data(:,12);
-    
+
     Avx = data(:,13);
     Avy = data(:,14);
 
     t = data(:, 1);
     tfin(i) = t(end);
-    
+
     nsteps(i) = length(t);
     % On calcul la distance minimale
     % Distance numérique avec les dt
@@ -85,7 +85,7 @@ for i=1:nsimul
         fit = polyfit(t(index-2:index+2), dist(index-2:index+2), 2);
     end
     A = fit(1); B = fit(2); C = fit(3);
-    
+
     % On calcul le minimum à l'aide de l'analyse
     mindist(i, 1) = abs(C - B^2/(4*A) - distTH)% + 76.462738037109375); %TODO: Retirer les abs lorsque le résultat sera correcte
     h0(i,1) = C - B^2/(4*A) - RT;
@@ -159,9 +159,9 @@ saveas(fig2, 'graphs/ex1b_conv_vel','epsc');
 % function polynome = poly_approx(x, y, ordre, steps)
 %     pf = polyfit(x, y, ordre);
 %     T = linspace(min(x), max(x), steps);
-%     
+%
 %     n = ordre + 1;
-%     
+%
 %     polynome = zeros(2,length(T));
 %     for i=1:n
 %        polynome(2,:) = polynome(2,:) + pf(i)*T.^(n-i);

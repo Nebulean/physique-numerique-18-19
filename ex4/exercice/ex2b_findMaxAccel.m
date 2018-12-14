@@ -6,13 +6,13 @@ tFin=172800;
 
 % On va appliquer une rotation légère sur la vitesse initiale d'Apollo, ce
 % qui devrait nous permettre de trouver un minimum pour l'accélération.
-nsimul = 25
+nsimul = 10
 range = 0.542039599325e-3 + pi/100000
 angle = linspace(-range, range, nsimul);
 
 % On importe la vitesse initiale
-vx       = 226.144622617;
-vy       = -1178.498455;
+vx       = 226.1446244551499;
+vy       = -1178.49845516659;
 
 % On calcul les nouvelles vitesses
 newvx = zeros(nsimul, 1);

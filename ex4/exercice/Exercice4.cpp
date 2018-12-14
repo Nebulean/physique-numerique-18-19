@@ -334,9 +334,9 @@ public:
 
       printOut(false);
       // temporaire, afin d'arrêter la simulation quand l'engin s'écrase sur terre.
-      if (norm(getPos(0, p) - getPos(2, p)) < Rt) {
-        t = tFin;
-      }
+      // if (norm(getPos(0, p) - getPos(2, p)) < Rt) {
+      //   t = tFin;
+      // }
     }
     printOut(true);
   }
