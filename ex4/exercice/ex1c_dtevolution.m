@@ -24,6 +24,13 @@ set(gca, 'fontsize', 22);
 
 plot(t, dt, '.');
 grid on;
+box on;
 
-ylabel("$\Delta t$ [s]");
+ylabel("Time step $\Delta t$ [s]");
 xlabel("Time $t$ [s]");
+
+hold off;
+
+saveas(fig1, 'graphs/ex1c_conveps_dt','epsc');
+
+nsteps = length(t)

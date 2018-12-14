@@ -14,7 +14,7 @@ nsimul = 10; % Number of simulations that we want. 8, because 172800 = 2^8 * 3^3
 %     dt(i,1) = 128/2^i; %256, 128, 64
 %     fprintf("i = %d", i);
 % end
-dt = round(logspace(0.5, 3, nsimul));
+dt = round(logspace(0.5, 2.5, nsimul));
 %dt = round(linspace(0.1,100,nsimul));
 
 
@@ -28,7 +28,7 @@ for i=1:nsimul
      cmd = sprintf("./Exercice4 configuration.in dt=%0.15f dtad=%s tFin=%d atm=%s output=%s", dt(i), dtad, tFin, atm, output{1,i});
 
      disp(cmd);
-     %system(cmd);
+     system(cmd);
 end
 
 %% TREATMENT
@@ -119,19 +119,28 @@ set(gca, 'fontsize', 22);
 % plot(dt, dist, 'x');
 plot(dt, mindist, 'x');
 
-dtfixed(:,1) = dt(1,:);
-fit = polyfit(log(dtfixed), log(mindist), 1);
-% plot(fit(1,:), fit(2,:), '.')
-grid on;
-
 set(gca, 'XScale', 'log');
 set(gca, 'YScale', 'log');
+
+dtfixed(:,1) = dt(1,:);
+[fit, slope] = poly_approx(log10(dtfixed(1:end)), log10(mindist(1:end)), 1, 2);
+fit = 10.^fit;
+fitplot = plot(fit(1,:), fit(2,:), '-');
+
+grid on;
+box on;
+
+txtReg = sprintf("slope: %0.2f", slope);
+legend([fitplot], txtReg, 'Location', 'NorthWest');
 
 xlabel("$\Delta t$ [s]");
 ylabel("$|$error on $h_{min}|$ [m]");
 
 hold off;
 saveas(fig1, 'graphs/ex1b_conv_h','epsc');
+
+
+
 
 % vmax
 fig2=figure;
@@ -144,7 +153,17 @@ set(groot, 'defaultAxesFontSize', 18);
 set(gca, 'fontsize', 22);
 
 plot(dt, maxvit, 'x');
+
 grid on;
+box on;
+
+dtfixed(:,1) = dt(1,:);
+[fit, slope] = poly_approx(log10(dtfixed(1:end)), log10(maxvit(1:end)), 1, 2);
+fit = 10.^fit;
+fitplot = plot(fit(1,:), fit(2,:), '-');
+
+txtReg = sprintf("slope: %0.2f", slope);
+legend([fitplot], txtReg, 'Location', 'NorthWest');
 
 set(gca, 'XScale', 'log');
 set(gca, 'YScale', 'log');
@@ -156,16 +175,17 @@ hold off;
 saveas(fig2, 'graphs/ex1b_conv_vel','epsc');
 
 
-% function polynome = poly_approx(x, y, ordre, steps)
-%     pf = polyfit(x, y, ordre);
-%     T = linspace(min(x), max(x), steps);
-%
-%     n = ordre + 1;
-%
-%     polynome = zeros(2,length(T));
-%     for i=1:n
-%        polynome(2,:) = polynome(2,:) + pf(i)*T.^(n-i);
-%     end
-%     %polynome(2,:) = polynome(2,:) + pf(n);
-%     polynome(1,:) = T;
-% end
+function [polynome, slope] = poly_approx(x, y, ordre, steps)
+    pf = polyfit(x, y, ordre);
+    slope = pf(1);
+    T = linspace(min(x), max(x), steps);
+
+    n = ordre + 1;
+
+    polynome = zeros(2,length(T));
+    for i=1:n
+       polynome(2,:) = polynome(2,:) + pf(i)*T.^(n-i);
+    end
+    
+    polynome(1,:) = T;
+end

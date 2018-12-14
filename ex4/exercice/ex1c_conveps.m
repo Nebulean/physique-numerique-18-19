@@ -9,18 +9,18 @@ tFin = 172800; % 2 days in seconds.
 dtad="true";
 dt=60; % dt initial
 
-nsimul = 20; % Number of simulations that we want. 8, because 172800 = 2^8 * 3^3 * 5^2.
+nsimul = 30; % Number of simulations that we want. 8, because 172800 = 2^8 * 3^3 * 5^2.
 % epsilon = zeros(nsimul, 1);
 % for i=1:nsimul
 %     epsilon(i,1) = 10/10^i;
 %     %disp(sprintf("i = %d", i));
 % end
-epsilon = logspace(0, -5, nsimul)
+epsilon = logspace(0, -7, nsimul)
 
 %% SIMULATIONS
 output = cell(1, nsimul)
 for i=1:nsimul
-     output{1, i} = sprintf("epsilon=%0.7f.out", epsilon(i));
+     output{1, i} = sprintf("epsilon=%0.10f.out", epsilon(i));
      cmd = sprintf("./Exercice4 configuration.in epsilon=%0.15f dt=%0.15f dtad=%s tFin=%d output=%s", epsilon(i), dt, dtad, tFin, output{1,i});
      
      disp(cmd);
@@ -49,10 +49,10 @@ for i=1:nsimul
     dist = sqrt((Ex - Ax).^2 + (Ey - Ay).^2);
     % Premièrement, on calcul le point où il y a la distance minimale.
     [tmp, index] = min(dist);
-    if index+1 > length(dist)
-        fit = polyfit(t(index-2:index), dist(index-2:index), 2);
+    if index+2 > length(dist)
+        fit = polyfit(t(index-4:index), dist(index-4:index), 2);
     else
-        fit = polyfit(t(index-1:index+1), dist(index-1:index+1), 2);
+        fit = polyfit(t(index-2:index+2), dist(index-2:index+2), 2);
     end
     A = fit(1); B = fit(2); C = fit(3);
     
@@ -73,11 +73,36 @@ set(gca, 'fontsize', 22);
 
 plot(nsteps, mindist, 'x');
 grid on;
+box on;
 
-% set(gca, 'XScale', 'log');
-% set(gca, 'YScale', 'log');
+set(gca, 'XScale', 'log');
+set(gca, 'YScale', 'log');
+
+[fit, slope] = poly_approx(log10(nsteps), log10(mindist), 1, 2);
+fit = 10.^fit;
+fitplot = plot(fit(1,:), fit(2,:), '-');
+
+txtReg = sprintf("slope: %0.2f", slope);
+legend([fitplot], txtReg, 'Location', 'NorthEast');
 
 xlabel("Number of steps [-]");
-ylabel("$h_{min}$ [m]");
+ylabel("$|$error on $h_{min}|$ [m]");
 
 hold off;
+
+saveas(fig1, 'graphs/ex1c_conveps_h','epsc');
+
+function [polynome, slope] = poly_approx(x, y, ordre, steps)
+    pf = polyfit(x, y, ordre);
+    slope = pf(1);
+    T = linspace(min(x), max(x), steps);
+
+    n = ordre + 1;
+
+    polynome = zeros(2,length(T));
+    for i=1:n
+       polynome(2,:) = polynome(2,:) + pf(i)*T.^(n-i);
+    end
+    
+    polynome(1,:) = T;
+end

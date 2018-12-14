@@ -1,7 +1,7 @@
 %% On génère les données
-dtad="false"; % Pour ex1b
+dtad="true"; % Pour ex1b
 %dtad="true"; % Pour ex1c
-cmd = sprintf("./Exercice4 configuration.in tFin=172800 atm=false dt=8 dtad=%s output=ex1b_traj.out", dtad);
+cmd = sprintf("./Exercice4 configuration.in tFin=172800 atm=false dt=50 dtad=%s output=ex1b_traj.out", dtad);
 system(cmd)
 %% On load les données
 d = load("ex1b_traj.out");
@@ -24,6 +24,14 @@ vy3 = d(:,14);
 %% On plot les endroits initiaux.
 fig=figure
 hold on;
+
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+set(gca, 'fontsize', 22);
+
+
 pbaspect([1 1 1]);
 daspect([1 1 1])
 plot(x3(1), y3(1), 'x', 'Color','green');
@@ -34,10 +42,21 @@ plotCircle(centerOfEarth, 6371000, 500, 'blue');
 plot(x1(2:end), y1(2:end), '-', 'Color', 'blue', 'LineWidth', 1.2);
 plot(x3(2:end), y3(2:end), '-', 'Color', 'green', 'LineWidth', 1.2);
 
-grid on;
+xlabel("x [m]");
+ylabel("y [m]");
 
+grid on;
+box on;
 
 hold off;
+
+if dtad=="true"
+    saveas(fig, 'graphs/ex1c_traj.eps', 'epsc');
+
+end
+if dtad=="false"
+    saveas(fig, 'graphs/ex1b_traj.eps', 'epsc');
+end
 
 nsteps = length(t)
 

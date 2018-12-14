@@ -125,16 +125,16 @@ Thus, after some computation, the maximum velocity reached by Apollo 13 is given
 \subsection{Numerical analysis with a non-adaptative time step}
 In this section, the simulation of the previous simulation will be computed numerically, using the numerical method: Runge-Kutta of order 4 (RK4).
 
-\subsubsection{Trajectory}
-The trajectory of Apollo 13 and earth are represented in figure \ref{fig:1b-trajectory-non-adaptative}.
+\subsubsection{Trajectory}\label{sec:1b_traj}
+The trajectory of Apollo 13 and earth are represented in figure \ref{fig:1b_traj}.
 In this figure, earth is considered circular and is drawn at the right scale.
 The green cross represents the initial position of Apollo 13, and the green points are its trajectory.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{graphs/ex1b-traj.eps}
-  \caption{blabla}
-  \label{fig:1b-trajectory-non-adaptative}
+  \includegraphics[width=0.5\textwidth]{graphs/ex1b_traj.eps}
+  \caption{Trajectory of Apollo 13 (in green, where the cross is its initial position) with Earth (in blue) at the correct scale. The simulation ran with $dt=\SI{50}{\s}$ over \SI{172800}{\s}, and \num{3457} steps where computed.}
+  \label{fig:1b_traj}
 \end{figure}
 
 %TODO : Un peu d'analyse de la trajectoire
@@ -147,51 +147,65 @@ The convergence studies are represented in figure \ref{fig:1b_conv}.
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1b_conv_h.eps}
-    \caption{blabla}
+    \caption{Convergence study on the minimum distance between Apollo 13 and the earth.}
     \label{fig:1b_conv_hmin}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1b_conv_vel.eps}
-    \caption{blabla}
+    \caption{Convergence study on the maximum velocity of Apollo 13.}
     \label{fig:1b_conv_vmax}
   \end{subfigure}
-  \caption{blabla}
+  \caption{Convergence studies for 10 simulation, with a final time of \SI{172800}{\s} (which is two days).}
   \label{fig:1b_conv}
 \end{figure}
 
 %TODO : Analyser ces graphs.
 
 \subsection{Numerical analysis with an adaptative time step}
-This time, the same sitation is computed numerically, but with an adaptative time step.
+This time, the same situation is computed numerically, but with an adaptative time step.
 It means that, for each steps, the time step is adapted to reach a particular precision.
 It allows to use greater time steps when the evolution is slightly changing, and to use smaller time steps when the evolution is greatly changing.
 Thus, it greatly reduces the number of steps required to do a simulation.
 
+\subsubsection{Trajectory}
+The trajectory of the probe is computed with the same conditions than in section \ref{sec:1b_traj}, with the adaptative time step enabled.
+Thus, it is possible to compare both results.
+The trajectory of the probe is represented in figure \ref{fig:1c_traj}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphs/ex1c_traj.eps}
+  \caption{Trajectory of Apollo 13 (in green, where the cross is its initial position) with Earth (in blue) at the correct scale. The simulation ran with $\epsilon=\SI{d-5}{\m}$ over \SI{172800}{\s}, and \num{1162} steps where computed.}
+  \label{fig:1c_traj}
+\end{figure}
+
+%TODO: Faire une comparaison des deux trajectoires (1c_traj et 1b_traj), notamment avec les nsteps.
+
+
 \subsubsection{Convergence study on the precision}
 The adaptative time step is controlled by a factor, $\epsilon$, which provides the precision that the next step has to reach.
 By varying $\epsilon$, the convergence of $h_{min}$ with respect to the number of steps can be studied.
-The resulting study is represented in figure \ref{fig:1c-conv-epsilon}.
+The resulting study is represented in figure \ref{fig:1c_conveps_h}, and figure \ref{fig:1c_conveps_dt} represents the evolution of dt over time for one of the simulation.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{graphs/ex1c-conv-epsilon.eps}
-  \caption{blabla}
-  \label{fig:1c-conv-epsilon}
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex1c_conveps_h.eps}
+    \caption{Convergence study of the minimum distance between Apollo 13 and the Earth.}
+    \label{fig:1c_conveps_h}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex1c_conveps_dt.eps}
+    \caption{Evolution of the time step over time for $\epsilon=\SI{1e-5}{\m}$, and \num{1162} steps were computed.}
+    \label{fig:1c_conveps_dt}
+  \end{subfigure}
+  \caption{Simulations using an adaptative time step. All of the simulations were ran for \SI{172800}{\s}$.}
+  \label{fig:1c_conveps}
 \end{figure}
 
-%TODO : Analyser ce graph.
-
-Figure \ref{fig:1c-dt} represents the evolution of dt over time for one simulation.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.5\textwidth]{graphs/ex1c-dt.eps}
-  \caption{blabla}
-  \label{fig:1c-dt}
-\end{figure}
-
-%TODO : Parler plus en profondeur de ce graph.
+%TODO : Analyser ces graph.
 
 \section{"Houston, we're going to have a real problem"}
 \subsection{PARTIE A - CHANGER TITRE}
