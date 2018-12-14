@@ -27,7 +27,7 @@ private:
 
   // some constants
   const double Rt     = 6378.1 * 1000;        // Earth's radius
-  const double G      = 6.67408e-11;  // Gravitational constant
+  const double G      = 6.674e-11;  // Gravitational constant
   const double rho0   = 1.2;                  // Air density at see level
   const double lambda = 7238.2;               // The caracteristical width
   const double S      = 11.9459060516;                    // Section area               //TODO: IL FAUT LE DEFINIR
