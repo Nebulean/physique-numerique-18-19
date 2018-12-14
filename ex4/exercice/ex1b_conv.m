@@ -77,7 +77,7 @@ for i=1:nsimul
     end
     A = fit(1); B = fit(2); C = fit(3);
     
-    % On calcul le minimum à l'aide de l'analyse
+    % On calcule le minimum à l'aide de l'analyse
     mindist(i, 1) = abs(C - B^2/(4*A) - distTH); %TODO: Retirer les abs lorsque le résultat sera correcte
     
     %% On calcul la vitesse maximale
