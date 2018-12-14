@@ -208,7 +208,57 @@ The resulting study is represented in figure \ref{fig:1c_conveps_h}, and figure 
 %TODO : Analyser ces graph.
 
 \section{"Houston, we're going to have a real problem"}
-\subsection{PARTIE A - CHANGER TITRE}
+In this section, the atmosphere of Earth will be considered.
+This allows the probe to return to the ground, hopefully, in safety.
+
+\subsection{Earth re-entry without modifying the initial conditions}
+This section studies the possibilities for Apollo 13 to return to Earth, when no modification to the trajectory is applied.\\
+
+First, the trajectory of the probe is represented, to get an idea of the behavious of the probe.
+Figure \ref{fig:2a_traj} represents the trajectory of Apollo 13.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex2a_traj_full.eps}
+    \caption{Full trajectory.}
+    \label{fig:2a_traj_full}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex2a_traj_close.eps}
+    \caption{Closer look of figure \ref{fig:2a_traj_full}.}
+    \label{fig:fig:2a_traj_close}
+  \end{subfigure}
+  \caption{Trajectory of Apollo 13 (in green, where the cross is the initial position), and the Earth (in blue) at the right scale. The simulation was supposed to run for \SI{172800}{\s} with an adaptative time step of $\epsilon=\SI{1d-5}{\m}$ but was stopped after \SI{159483}{\s} because Apollo 13 crashed into Earth.}
+  \label{fig:2a_traj}
+\end{figure}
+
+%TODO: Analyser le graph.
+
+Using these conditions, the maximum acceleration that was experienced by the probe is given by equation \eqref{eq:2a_maxAccel}.
+
+\begin{equation}
+  a_\text{max} = \SI{220.53}{\meter\per\square\second} = \num{22.49}\text{ G}
+  \label{eq:2a_maxAccel}
+\end{equation}
+
+This acceleration is absolutely unbearable for any humain, and probably any other mammals.
+To get a comparison, astronauts can experience around $\num{3}\text{ G}$ during a liftoff \cite{nasa:ask_the_crew}, but they are experimented and equipped with g-suits, which reduces the impact of acceleration \cite{wiki:g-suit} on the body.\\
+
+The maximum power of the air resistance is given by equation \eqref{eq:2a_maxPower}.
+
+\begin{equation}
+  P_{max}(\mathbf{f_\text{drag}}) = \SI{9671578285}{\watt} %TODO: Vérifier les valeurs.
+  \label{eq:2a_maxPower}
+\end{equation}
+%TODO: Un mot sur la puissance peut-être ?
+
+%TODO: FAIRE LES CONVERGENCES: Selon cloclal: "J'ai fait a_max en fonction de nsteps et erreur sur a_max en fonction de nsteps puis puiss_max en fonction de nsteps et erreur sur puiss_max en fonction de nsteps"
+
+
+Thus, returning to Earth using the current trajectory is not possible, and another method must be found, which is the topic of next section.
+
 
 \subsection{Rotating the probe to get the minimal acceleration}
 This section will focus on a way to minimize the acceleration underwent by the astronauts in Apollo 13.
@@ -260,34 +310,35 @@ To illustate this method, figure \ref{fig:2b-min-a} gives an example of the plot
 \begin{figure}[h]
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/2b-min-a-traj.eps}
-    \caption{blabla}
+    \includegraphics[width=\textwidth]{graphs/ex2b_convacc.eps}
+    \caption{Maximum acceleration of all simulations.}
     \label{fig:2b-min-a-traj}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/2b-min-a-comp.eps}
-    \caption{blabla}
+    \includegraphics[width=\textwidth]{graphs/ex2b_traj.eps}
+    \caption{Trajectories for a given angle. Different colors means different different rotation angles. The legend was removed for readability reasons.}
     \label{fig:2b-min-a-comp}
   \end{subfigure}
-  \caption{blabla}
+  \caption{Study of the trajectory and the maximum acceleration for \num{10} simulations, using an adaptative time step of $\epsilon=1e-4$. The angles of rotations used are contained in the range $[-\frac{\pi}{50}, \frac{\pi}{50}]$.}
   \label{fig:2b-min-a}
 \end{figure}
 
 The angle of rotation found using this processes is given by equation \eqref{eq:2b-a-min-angle}.
 
 \begin{equation}
-  \theta = XXX\SI{}{\radian} %TODO : Compléter ce résultat.
+  \theta \approx \SI{5.448956d-4}{\radian} %TODO : Compléter ce résultat.
   \label{eq:2b-a-min-angle}
 \end{equation}
 
 The norm of the smallest maximal acceleration, found using angle of equation \eqref{eq:2b-a-min-angle}, is given by equation \eqref{eq:2b-a-min}.
 
 \begin{equation}
-  a = XXX\SI{}{\meter\per\square\second} = XXX\num{}\text{G} %TODO : Compléter ce résultat.
+  a = \SI{63.29}{\meter\per\square\second} \approx \num{6.45}\text{ G} %TODO : Compléter ce résultat.
   \label{eq:2b-a-min}
 \end{equation}
 
+%TODO: Parler de ces résultats.
 %TODO : Peut-être qu'il faut mettre ces résultat en inline, parce que ça prend beaucoup de place pour pas beaucoup de visibilité de mettre ça en équation.
 
 \section{Two bodies: Earth and Moon}
@@ -297,8 +348,12 @@ The norm of the smallest maximal acceleration, found using angle of equation \eq
 \section{Three bodies: Earth, Moon and a third body - Lagrangian points}
 
 
-
-
+\addcontentsline{toc}{section}{References}
+\begin{thebibliography}{99}
+  \bibitem{nasa:ask_the_crew} Wakata, K. (2002, April 7). Ask the Crew: STS-92. Retrieved December 14, 2018, from \url{https://spaceflight.nasa.gov/feedback/expert/answer/crew/sts-92/index.html}
+  \bibitem{wiki:g-suit} Wikipedia contributors. (2018, December 4). G-suit. In Wikipedia, The Free Encyclopedia. Retrieved 20:59, December 14, 2018, from \url{https://en.wikipedia.org/w/index.php?title=G-suit&oldid=871987759}
+\end{thebibliography}
+%TODO: Checker l'ordre des références.
 
 
 \end{document}

@@ -31,6 +31,12 @@ P = d(:,17);
 %% Trajectoire
 fig1=figure
 hold on;
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+set(gca, 'fontsize', 22);
+
 % on plot les endroits initiaux
 pbaspect([1 1 1]);
 daspect([1 1 1]);
@@ -43,7 +49,43 @@ plot(x1(2:end), y1(2:end), '-', 'Color', 'blue', 'LineWidth', 1.2);
 plot(x3(2:end), y3(2:end), '-', 'Color', 'green', 'LineWidth', 1.2);
 
 grid on;
+box on;
+
+xlabel("x [m]");
+ylabel("y [m]");
 hold off;
+saveas(fig1, 'graphs/ex2a_traj_full','epsc');
+
+%% Trajectoire (proche de la terre)
+fig2=figure
+hold on;
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+set(gca, 'fontsize', 22);
+
+% on plot les endroits initiaux
+pbaspect([1 1 1]);
+daspect([1 1 1]);
+plot(x3(1), y3(1), 'x', 'Color','green');
+centerOfEarth = [x1(1), y1(1)];
+plotCircle(centerOfEarth, 6371000, 500, 'blue');
+
+% puis on plot les positions.
+plot(x1(2:end), y1(2:end), '-', 'Color', 'blue', 'LineWidth', 1.2);
+plot(x3(2:end), y3(2:end), '-', 'Color', 'green', 'LineWidth', 1.2);
+
+xlim([0, 5e6]);
+ylim([-8.5e6, -3.5e6]);
+
+grid on;
+box on;
+
+xlabel("x [m]");
+ylabel("y [m]");
+hold off;
+saveas(fig2, 'graphs/ex2a_traj_close','epsc');
 
 % nsteps = length(t)
 
