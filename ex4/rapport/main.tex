@@ -102,7 +102,7 @@ where $v_0 = \SI{1.2}{\kilo\meter\per\second}$ is the initial velocity of Apollo
 Thus, solving $E_{m,t_0} = E_{m,t_{end}}$, the velocity of the probe when it is at a distance $h=\SI{10}{\kilo\meter}$ of earth can be found, and is given by equation \eqref{eq:1a-vitesse-finale}.
 
 \begin{equation}
-  v_{end} = \sqrt{v_0^2 - \frac{GM}{2}\left(\frac{1}{h + R_t} - \frac{1}{r_0}\right)}
+  v_{end} = \sqrt{v_0^2 + 2GM\left(\frac{1}{h + R_t} - \frac{1}{r_0}\right)}
   \label{eq:1a-vitesse-finale}
 \end{equation}
 
@@ -115,7 +115,7 @@ This affirmations comes from the fact that, as the gravitational force is the on
 Thus, after some computation, the maximum velocity reached by Apollo 13 is given by equation \eqref{eq:1a-vitesse-max}.
 
 \begin{equation}
-  v_{max} = \SI{5657.03}{\meter\per\second} %TODO : Donnée à verifier, elle n'est peut-être pas à jour. (calculs.nb)
+  v_{max} = \SI{11121.52}{\meter\per\second} %TODO : Donnée à verifier, elle n'est peut-être pas à jour. (calculs.nb)
   \label{eq:1a-vitesse-max}
 \end{equation}
 
@@ -141,23 +141,23 @@ The green cross represents the initial position of Apollo 13, and the green poin
 
 \subsubsection{Convergence studies: $h_{min}$ and $v_{max}$}
 To study the convergence of RK4, the minimal distance between Earth's surface and Apollo 13, and the maximal speed of Apollo 13 will be studied.
-The convergence studies are represented in figure \ref{fig:1b-conv}.
+The convergence studies are represented in figure \ref{fig:1b_conv}.
 
 \begin{figure}[h]
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/ex1b-conv-hmin.eps}
+    \includegraphics[width=\textwidth]{graphs/ex1b_conv_h.eps}
     \caption{blabla}
-    \label{fig:1b-conv-hmin}
+    \label{fig:1b_conv_hmin}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/ex1b-conv-vmax.eps}
+    \includegraphics[width=\textwidth]{graphs/ex1b_conv_vel.eps}
     \caption{blabla}
-    \label{fig:1b-conv-vmax}
+    \label{fig:1b_conv_vmax}
   \end{subfigure}
   \caption{blabla}
-  \label{fig:1b-conv}
+  \label{fig:1b_conv}
 \end{figure}
 
 %TODO : Analyser ces graphs.

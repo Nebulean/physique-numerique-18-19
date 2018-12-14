@@ -8,13 +8,14 @@ tFin = 172800; % 2 days in seconds.
 dtad='false'; % We do not want an adaptative dt.
 atm='false';
 
-nsimul = 5; % Number of simulations that we want. 8, because 172800 = 2^8 * 3^3 * 5^2.
-dt = zeros(nsimul, 1);
-for i=1:nsimul
-    dt(i,1) = 128/2^i; %256
-    fprintf("i = %d", i);
-end
-
+nsimul = 10; % Number of simulations that we want. 8, because 172800 = 2^8 * 3^3 * 5^2.
+% dt = zeros(nsimul, 1);
+% for i=1:nsimul
+%     dt(i,1) = 128/2^i; %256, 128, 64
+%     fprintf("i = %d", i);
+% end
+dt = round(logspace(0.5, 3, nsimul));
+%dt = round(linspace(0.1,100,nsimul));
 
 
 % dt = logspace(4, 0, nsimul); % logspace ne marche pas parce que les tfin
@@ -32,16 +33,17 @@ end
 
 %% TREATMENT
 %% LOADING DATA
-fordist = zeros(nsimul, 7);
+%fordist = zeros(nsimul, 7);
 tfin = zeros(1, nsimul);
-val = zeros(nsimul, 6);
+%val = zeros(nsimul, 6);
 RT = 6378.1 * 1000; % earth's radius
 distTH = 10e3 + RT;
 mindist = zeros(nsimul, 1);
 maxvit = zeros(nsimul, 1);
-vitTH =zeros(nsimul,1);
+vitTH = zeros(nsimul,1);
 nsteps = zeros(nsimul, 1);
-G = 6.67408e-11;
+h0 = zeros(nsimul, 1);
+G = 6.674e-11;
 M = 5.972e24;
 for i=1:nsimul
    data = load(output{1,i});
@@ -63,36 +65,48 @@ for i=1:nsimul
     Avy = data(:,14);
 
     t = data(:, 1);
+    tfin(i) = t(end);
     
     nsteps(i) = length(t);
-    %% On calcul la distance minimale
+    % On calcul la distance minimale
     % Distance numérique avec les dt
     dist = sqrt((Ex - Ax).^2 + (Ey - Ay).^2);
     % Premièrement, on calcul le point où il y a la distance minimale.
     [tmp, index] = min(dist);
-    if index+1 > length(dist)
-        fit = polyfit(t(index-2:index), dist(index-2:index), 2);
+%     if index+1 > length(dist)
+%         fit = polyfit(t(index-2:index), dist(index-2:index), 2);
+%     else
+%         fit = polyfit(t(index-1:index+1), dist(index-1:index+1), 2);
+%     end
+%     A = fit(1); B = fit(2); C = fit(3);
+    if index+2 > length(dist)
+        fit = polyfit(t(index-4:index), dist(index-4:index), 2);
     else
-        fit = polyfit(t(index-1:index+1), dist(index-1:index+1), 2);
+        fit = polyfit(t(index-2:index+2), dist(index-2:index+2), 2);
     end
     A = fit(1); B = fit(2); C = fit(3);
     
     % On calcul le minimum à l'aide de l'analyse
-    mindist(i, 1) = abs(C - B^2/(4*A) - distTH); %TODO: Retirer les abs lorsque le résultat sera correcte
-    
+    mindist(i, 1) = abs(C - B^2/(4*A) - distTH)% + 76.462738037109375); %TODO: Retirer les abs lorsque le résultat sera correcte
+    h0(i,1) = C - B^2/(4*A) - RT;
     %% On calcul la vitesse maximale
     r0 = sqrt((Ex(1) - Ax(1))^2 + (Ey(1) - Ay(1))^2);
     % vitesse numérique avec les dt
     vit = sqrt(Avx.^2 + Avy.^2);
-    vitTH(i,1) = sqrt(1200^2 + 0.5*G*M*(1/(mindist(i,1) + RT) + 1/r0)); % Vitesse max théorique pour un hmin donné.
+    vitTH(i,1) = sqrt(1200^2 + 2*G*M*(1/(RT + h0(i,1)) - 1/r0)); % Vitesse max théorique pour un hmin donné.
     [tmp, index] = max(vit);
+%     if index+2 > length(vit)
+%         fit = polyfit(t(index-4:index), vit(index-4:index), 2);
+%     else
+%         fit = polyfit(t(index-2:index+2), vit(index-2:index+2), 2);
+%     end
     fit = polyfit(t(index-1:index+1), vit(index-1:index+1), 2);
     A = fit(1); B = fit(2); C = fit(3);
-    maxvit(i, 1) = abs(C - B^2/(4*A) - vitTH(i,1));
+    maxvit(i, 1) = C - B^2/(4*A) - vitTH(i,1);
 end
 
 %% PLOTTING DATA
-%% hmin
+% hmin
 fig1=figure;
 hold on;
 
@@ -104,7 +118,10 @@ set(gca, 'fontsize', 22);
 
 % plot(dt, dist, 'x');
 plot(dt, mindist, 'x');
-% plot(nsteps, mindist, 'x');
+
+dtfixed(:,1) = dt(1,:);
+fit = polyfit(log(dtfixed), log(mindist), 1);
+% plot(fit(1,:), fit(2,:), '.')
 grid on;
 
 set(gca, 'XScale', 'log');
@@ -114,8 +131,9 @@ xlabel("$\Delta t$ [s]");
 ylabel("$|$error on $h_{min}|$ [m]");
 
 hold off;
+saveas(fig1, 'graphs/ex1b_conv_h','epsc');
 
-%% vmax
+% vmax
 fig2=figure;
 hold on;
 
@@ -132,20 +150,22 @@ set(gca, 'XScale', 'log');
 set(gca, 'YScale', 'log');
 
 xlabel("$\Delta t$ [s]");
-ylabel("$|$error on $h_{max}|$ [m/s]");
+ylabel("$|$error on $v_{max}|$ [m/s]");
 
 hold off;
+saveas(fig2, 'graphs/ex1b_conv_vel','epsc');
 
 
 % function polynome = poly_approx(x, y, ordre, steps)
 %     pf = polyfit(x, y, ordre);
 %     T = linspace(min(x), max(x), steps);
 %     
-%     n = ordre + 1
+%     n = ordre + 1;
 %     
-%     polynome = zeros(2,length(T))
+%     polynome = zeros(2,length(T));
 %     for i=1:n
 %        polynome(2,:) = polynome(2,:) + pf(i)*T.^(n-i);
 %     end
+%     %polynome(2,:) = polynome(2,:) + pf(n);
 %     polynome(1,:) = T;
 % end
