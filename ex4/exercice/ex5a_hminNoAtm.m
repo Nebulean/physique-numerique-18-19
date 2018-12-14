@@ -11,8 +11,8 @@ range = 1*10^(-4)
 angle = linspace(1.166*10^(-3)-range, 1.166*10^(-3)+range, nsimul);
 
 % On importe la vitesse initiale
-vx       = 226.144622617;
-vy       = -1178.498455;
+vx       = 226.1446244551499;
+vy       = -1178.49845516659;
 
 % On calcul les nouvelles vitesses
 newvx = zeros(nsimul, 1);

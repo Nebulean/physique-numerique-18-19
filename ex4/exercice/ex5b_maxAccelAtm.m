@@ -6,13 +6,13 @@ atm="true";
 tFin=172800;
 
 % On va appliquer une rotation légère sur la vitesse initiale d'Apollo
-nsimul = 5;
-range = 1*10^(-3);
-angle = linspace(2*10^(-3), 3*10^(-3), nsimul);
+nsimul = 20;
+range = 1*10^(-5);
+angle = linspace(1.7128*10^(-3)-range, 1.7128*10^(-3)+range, nsimul);
 
 % On importe la vitesse initiale
-vx       = 226.144622617;
-vy       = -1178.498455;
+vx       = 226.1446244551499;
+vy       = -1178.49845516659;
 
 % On calcul les nouvelles vitesses
 newvx = zeros(nsimul, 1);
@@ -23,7 +23,7 @@ newvy = vx*sin(angle) + vy*cos(angle);
 
 %% SIMULATIONS
 for i=1:nsimul
-    cmd = sprintf("./Exercice4 conf3corps.in tFin=%f atm=%s dt=8 dtad=%s epsilon=%f output=ex5a_hminAtm%d.out vx3=%0.15f vy3=%0.15f", tFin, atm, dtad, epsilon, i, newvx(i), newvy(i));
+    cmd = sprintf("./Exercice4 conf3corps.in tFin=%f atm=%s dt=8 dtad=%s epsilon=%f output=ex5a_maxAccelAtm%d.out vx3=%0.15f vy3=%0.15f", tFin, atm, dtad, epsilon, i, newvx(i), newvy(i));
     disp(cmd)
     system(cmd)
 end
@@ -34,10 +34,11 @@ hold on;
 pbaspect([1 1 1]);
 daspect([1 1 1]);
 maxAccel = zeros(nsimul, 1);
+RT = 6378.1 * 1000; % earth's radius
 g = 9.80665;
 
 for i=1:nsimul
-    d = load(sprintf("ex5a_hminAtm%d.out",i));
+    d = load(sprintf("ex5a_maxAccelAtm%d.out",i));
     
     t = d(:,1);
     dt = d(:,2);
