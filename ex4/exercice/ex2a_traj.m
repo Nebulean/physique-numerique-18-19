@@ -1,6 +1,6 @@
 %% On génère les données
 dtad="true";
-epsilon=1e-5
+epsilon=1e-6;
 atm="true";
 tFin=172800;
 cmd = sprintf("./Exercice4 configuration.in tFin=%f atm=%s dt=8 dtad=%s epsilon=%f output=ex2a_traj.out", tFin, atm, dtad, epsilon);
@@ -93,7 +93,18 @@ saveas(fig2, 'graphs/ex2a_traj_close','epsc');
 % fig2=figure
 
 %% Quelques calculs supplémentaires
-maxAccel = max( sqrt(ax3.^2 + ay3.^2) );
+a = sqrt(ax3.^2 + ay3.^2)
+[tmp, index] = max(a);
+
+if index+2 > length(a)
+        fit = polyfit(t(index-4:index), a(index-4:index), 2);
+    else
+        fit = polyfit(t(index-2:index+2), a(index-2:index+2), 2);
+    end
+A = fit(1); B = fit(2); C = fit(3);
+
+maxAccel = abs( C - B^2/(4*A) );
+  
 g = 9.80665; % source: https://fr.wikipedia.org/wiki/G_(acc%C3%A9l%C3%A9ration)
 fprintf("L'acceleration max de Apollo est %0.2f [m/s^2], soit %0.2fG.\n", maxAccel, maxAccel/g);
 

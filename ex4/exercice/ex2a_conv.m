@@ -4,7 +4,9 @@ dtad='true';
 atm='true';
 
 nsimul = 20;
-epsilon = logspace(2, -6, nsimul);
+%epsilon = logspace(2, -3.5, nsimul);
+%epsilon = logspace(2, -4, nsimul);
+epsilon = logspace(0, -4, nsimul);
 
 %% SIMULATIONS
 output = cell(1, nsimul);
@@ -20,61 +22,41 @@ end
 
 %% TRAITEMENT DES DONNEES
 nstepsamax = zeros(1,nsimul);
-nstepspmax = zeros(1,nsimul);
+
 amax = zeros(1,nsimul);
-pmax = zeros(1,nsimul);
+
+tfinamax = zeros(1,nsimul);
 for i=1:nsimul
     d = load(output{1,i});
+    t = d(:,1);
     ax = d(:,15);
     ay = d(:,16);
-    power = d(:,17);
-    
-    % tfin = d(end,1)
 
+    
     a = sqrt(ax.^2 + ay.^2);
     
     [maxAccel, index] = max(a);
-    nstepsamax(i) = length(a(1:index));
-   
-    [maxPower, index] = max(abs(power));
-    nstepspmax(i) = length(power(1:index));
-    
-    amax(i) = maxAccel;
-    pmax(i) = maxPower;
+
+    nstepsamax(i) = length(a);
+
+    tfinamax(i) = d(index,1)
+  
+    if index+2 > length(a)
+        fit = polyfit(t(index-4:index), a(index-4:index), 2);
+    elseif index-2 < length(a)
+        fit = polyfit(t(index:index+4), a(index:index+4), 2);
+    else
+        fit = polyfit(t(index-2:index+2), a(index-2:index+2), 2);
+    end
+    A = fit(1); B = fit(2); C = fit(3);
+
+    amax(i) = abs( C - B^2/(4*A) );    
 end
 
-[tmp, index] = max(nstepsamax);
-amaxref = amax(index);
+amaxref = 2.205352363586426e+02;
 erramax = abs(amaxref - amax)
 
-[tmp, index] = max(nstepspmax(i));
-pmaxref = pmax(index);
-errpmax = abs(pmaxref - pmax);
-
 %% GRAPHS
-fig1=figure;
-hold on;
-set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
-set(groot, 'defaultLegendInterpreter', 'latex');
-set(groot, 'defaultTextInterpreter', 'latex');
-set(groot, 'defaultAxesFontSize', 18);
-set(gca, 'fontsize', 22);
-
-plot(nstepsamax, amax, 'x');
-
-% set(gca, 'XScale','log');
-% set(gca, 'YScale','log');
-
-box on;
-grid on;
-
-
-hold off;
-
-
-
-
-
 fig2=figure;
 hold on;
 set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
@@ -89,6 +71,8 @@ plot(nstepsamax(1:end-1), erramax(1:end-1), 'x');
 fit = 10.^fit;
 fitplot = plot(fit(1,:), fit(2,:), '-');
 
+xlabel("Number of steps [-]");
+ylabel("$|$error on $a_{max}| [m/s^2]$")
 
 set(gca, 'XScale','log');
 set(gca, 'YScale','log');
@@ -102,57 +86,7 @@ grid on;
 
 hold off;
 
-
-
-fig3=figure;
-hold on;
-set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
-set(groot, 'defaultLegendInterpreter', 'latex');
-set(groot, 'defaultTextInterpreter', 'latex');
-set(groot, 'defaultAxesFontSize', 18);
-set(gca, 'fontsize', 22);
-
-plot(nstepspmax, pmax, 'x');
-
-% set(gca, 'XScale','log');
-% set(gca, 'YScale','log');
-
-box on;
-grid on;
-
-
-hold off;
-
-
-
-
-fig4=figure;
-hold on;
-set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
-set(groot, 'defaultLegendInterpreter', 'latex');
-set(groot, 'defaultTextInterpreter', 'latex');
-set(groot, 'defaultAxesFontSize', 18);
-set(gca, 'fontsize', 22);
-
-plot(nstepspmax(2:end), errpmax(2:end), 'x');
-
-[fit, slope] = poly_approx(log10(nstepspmax(2:end)), log10(errpmax(2:end)), 1, 2);
-fit = 10.^fit;
-fitplot = plot(fit(1,:), fit(2,:), '-');
-
-
-set(gca, 'XScale','log');
-set(gca, 'YScale','log');
-
-lgd = sprintf("slope: %0.4f", slope);
-legend([fitplot], lgd);
-
-box on;
-grid on;
-
-
-hold off;
-
+saveas(fig2, 'graphs/ex2a_conv','epsc');
 
 
 

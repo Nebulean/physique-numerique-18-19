@@ -129,6 +129,8 @@ In this section, the simulation of the previous simulation will be computed nume
 The trajectory of Apollo 13 and earth are represented in figure \ref{fig:1b_traj}.
 In this figure, earth is considered circular and is drawn at the right scale.
 The green cross represents the initial position of Apollo 13, and the green points are its trajectory.
+On this figure, the probe seems to come close to Earth, but as drag is not considered, it is not slowed down.
+This implicates that the probe gain speed from coming closer to Earth, and then, it continues its path.
 
 \begin{figure}[h]
   \centering
@@ -136,8 +138,6 @@ The green cross represents the initial position of Apollo 13, and the green poin
   \caption{Trajectory of Apollo 13 (in green, where the cross is its initial position) with Earth (in blue) at the correct scale. The simulation ran with $dt=\SI{50}{\s}$ over \SI{172800}{\s}, and \num{3457} steps where computed.}
   \label{fig:1b_traj}
 \end{figure}
-
-%TODO : Un peu d'analyse de la trajectoire
 
 \subsubsection{Convergence studies: $h_{min}$ and $v_{max}$}
 To study the convergence of RK4, the minimal distance between Earth's surface and Apollo 13, and the maximal speed of Apollo 13 will be studied.
@@ -160,13 +160,19 @@ The convergence studies are represented in figure \ref{fig:1b_conv}.
   \label{fig:1b_conv}
 \end{figure}
 
-%TODO : Analyser ces graphs.
+The first information to extract from figure \ref{fig:1b_conv} is the fact that both parameters converges.
+On figure \ref{fig:1b_conv_hmin}, it can be seen that the error on the minimal distance gets really small, \num{d-3} meters, with respect to the distances considered, which are hundred thousands of kilometers.
+The same applies for figure \ref{fig:1b_conv_vmax}, where the error becomes small too.
+Thus, RK4 seems to be a good numerical method to get precise results.
+The next point is to analyse is the order of convergence, which is given by the slope of the linear regressions.
+In both cases, the slope is close to $4$, which is what was expected for a fourth-order numerical method.
+Thus, RK4 converges on the expected order for this simulation.
 
 \subsection{Numerical analysis with an adaptative time step}
 This time, the same situation is computed numerically, but with an adaptative time step.
-It means that, for each steps, the time step is adapted to reach a particular precision.
+It means that, for each steps, the time step is modified, to obtain a particular precision.
 It allows to use greater time steps when the evolution is slightly changing, and to use smaller time steps when the evolution is greatly changing.
-Thus, it greatly reduces the number of steps required to do a simulation.
+Thus, it should greatly reduces the number of steps required to do a simulation.
 
 \subsubsection{Trajectory}
 The trajectory of the probe is computed with the same conditions than in section \ref{sec:1b_traj}, with the adaptative time step enabled.
@@ -181,7 +187,12 @@ The trajectory of the probe is represented in figure \ref{fig:1c_traj}.
 \end{figure}
 
 %TODO: Faire une comparaison des deux trajectoires (1c_traj et 1b_traj), notamment avec les nsteps.
-
+The most important comparison to make between the adaptative and non-adaptative time step's simulations, is the number of steps required to achieve them.
+For the non-adaptative time step (fig. \ref{fig:1b_traj}), \num{3457} steps where required to get the solution, but for the adaptative time step (fig. \ref{fig:1c_traj}), \num{1162} steps where required, which is three times less.
+On a such simple simulation, the difference between both results is not so significant, as both of them computes quickly.
+But on really big simulations (considering millions of steps), this different is not neglectable.
+Also, the adaptative time step simulation used a high precision of $\epsilon=\SI{d-5}{\m}$, which may be unnecessary in some sitation.
+With a precision of \SI{d-3}{\m}, the solution is already quite good for some problems, and it requires much less time steps to be computed.
 
 \subsubsection{Convergence study on the precision}
 The adaptative time step is controlled by a factor, $\epsilon$, which provides the precision that the next step has to reach.
@@ -201,11 +212,16 @@ The resulting study is represented in figure \ref{fig:1c_conveps_h}, and figure 
     \caption{Evolution of the time step over time for $\epsilon=\SI{1e-5}{\m}$, and \num{1162} steps were computed.}
     \label{fig:1c_conveps_dt}
   \end{subfigure}
-  \caption{Simulations using an adaptative time step. All of the simulations were ran for \SI{172800}{\s}$.}
+  \caption{Simulations using an adaptative time step. All of the simulations were ran for $\SI{172800}{\s}$.}
   \label{fig:1c_conveps}
 \end{figure}
 
-%TODO : Analyser ces graph.
+Figure \ref{fig:1c_conveps_h} shows that RK4 converges to the real minimum distance, as the error keeps decreasing linearly (on a log-log plot).
+Furthermore, the slope of the linear regression is estimated to $4$, which is the expected order of convergence of RK4.
+Figure \ref{fig:1c_conveps_dt} shows the evolution of dt over time, thus shows how the adaptative time steps works.
+As the probe approaches Earth, dt keeps decreasing, because of the increasing speed of the probe.
+But as soon the probe overtakes Earth, the speed starts decreasing and dt starts increasing.
+This result is as expected, and shows that the adaptative time step actually work.
 
 \section{"Houston, we're going to have a real problem"}
 In this section, the atmosphere of Earth will be considered.
@@ -244,18 +260,29 @@ Using these conditions, the maximum acceleration that was experienced by the pro
 \end{equation}
 
 This acceleration is absolutely unbearable for any humain, and probably any other mammals.
-To get a comparison, astronauts can experience around $\num{3}\text{ G}$ during a liftoff \cite{nasa:ask_the_crew}, but they are experimented and equipped with g-suits, which reduces the impact of acceleration \cite{wiki:g-suit} on the body.\\
+To get a comparison, astronauts can experience around $\num{3}\text{ G}$ during a liftoff \cite{nasa:ask_the_crew}, but they are experimented and equipped with g-suits, which reduces the impact of acceleration \cite{wiki:g-suit} on the body.To complete this analysis, a convergence study of the maximum acceleration is given by figure \ref{fig:2a_conv}.\\
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphs/ex2a_conv.eps}
+  \caption{Convergence study of the error on the maximum acceleration with respect to the number of steps considered. The range of precisions considered is $\epsilon \in [\SI{d-4}{\m}, \SI{1}{\m}]$}
+  \label{fig:2a_conv}
+\end{figure}
+
+First, it is important to say that the maximum acceleration can not be exactly found, because there is no analytical solution to this problem.
+Thus, to consider the error on the maximum acceleration, all the values were compared to the most precise value of the maximum acceleration, which is the one given in equation \eqref{eq:2a_maxAccel}.
+On figure \ref{fig:2a_conv}, the main point is the slope of the convergence.
+This slope is approximately $4$, which is the expected order of convergence for RK4.
+It can also be seen that the error is quite small compared to the considered maximum acceleration, which is given by equation \eqref{eq:2a_maxAccel}.
+Thus, RK4 is once again proven to be converging at the right order, and fits the situation well.
 
 The maximum power of the air resistance is given by equation \eqref{eq:2a_maxPower}.
 
 \begin{equation}
-  P_{max}(\mathbf{f_\text{drag}}) = \SI{9671578285}{\watt} %TODO: Vérifier les valeurs.
+  P_{max}(\mathbf{f_\text{drag}}) = \SI{9672252913}{\watt} %TODO: Vérifier les valeurs.
   \label{eq:2a_maxPower}
 \end{equation}
 %TODO: Un mot sur la puissance peut-être ?
-
-%TODO: FAIRE LES CONVERGENCES: Selon cloclal: "J'ai fait a_max en fonction de nsteps et erreur sur a_max en fonction de nsteps puis puiss_max en fonction de nsteps et erreur sur puiss_max en fonction de nsteps"
-
 
 Thus, returning to Earth using the current trajectory is not possible, and another method must be found, which is the topic of next section.
 
