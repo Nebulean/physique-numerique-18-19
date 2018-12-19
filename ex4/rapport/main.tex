@@ -376,6 +376,92 @@ However, it is still non-neglectable, and astronauts will probably pass out at t
 
 \section{Three bodies: Earth, Moon and a third body - Lagrangian points}
 
+\section{Optional}
+\subsection{The remaining Lagrangian points}
+The section studies the remaining Lagrangian points, which are L1, L2, L3 and L5.
+
+For a 3-body simulation with one neglectable mass, equation \eqref{eq:5b_lagrange_general} gives the general evolution of the third body.
+This equation comes from the lessons.
+
+\begin{equation}
+  \frac{d^2}{dt^2}
+  \begin{pmatrix}
+    x' \\
+    y'
+  \end{pmatrix}
+  = -\Omega^2
+  \begin{pmatrix}
+    \frac{d^3\beta(x' + d\alpha)}{r'^3_{13}} + \frac{d^3\alpha(x' - d\beta)}{r'^3_{23}} - x'\\
+    \frac{d^3\beta}{r'^3_{13}}y' + \frac{d^3\alpha}{r'^3_{23}}y' - y'
+  \end{pmatrix}
+  + 2\Omega\frac{d}{dt}
+  \begin{pmatrix}
+    y' \\
+    -x'
+  \end{pmatrix}
+  \label{eq:5b_lagrange_general}
+\end{equation}
+
+with $\Omega$ the angular momentum of both the Earth (body 1) and the Moon (body 2) in the frame of reference $R'$, $r_{ij}$ the distance between bodies $i$ and $j$, $d$ the distance between the Earth and the Moon, $x'$ ($y'$) the horizontal (vertical) position of the third body, in the frame of reference $R'$, $\alpha = m_2/(m_1 + m_2)$, $\beta = m_1/(m_1 + m_2)$ and $m_i$ the mass of body $i$.\\
+
+In this section, only stationary situations are considered, which means that all derivative are null.
+Thus, the equation that will be used is given by equation \eqref{eq:5b_lagrange_stationnaire}.
+
+\begin{equation}
+  0
+  =
+  \begin{pmatrix}
+    \frac{d^3\beta(x' + d\alpha)}{r'^3_{13}} + \frac{d^3\alpha(x' - d\beta)}{r'^3_{23}} - x'\\
+    \frac{d^3\beta}{r'^3_{13}}y' + \frac{d^3\alpha}{r'^3_{23}}y' - y'
+  \end{pmatrix}
+  \label{eq:5b_lagrange_stationnaire}
+\end{equation}
+
+\subsubsection{Finding L1, L2 and L3}
+Points L1, L2 and L3 are particular, because they are all located on the horizontal line, which implicate that $y'=0$.
+Thus, for equation \eqref{eq:5b_lagrange_stationnaire}, $r_{ij} = (x'_j - x'_i)\text{sgn}\left(x'_j - x_i\right)$.
+To simplify the notation, define $\sigma_i = \text{sgn}\left(x'_j - x'_i\right)$.
+The final equation for these point is then given by equation \eqref{eq:5b_lagrange_stationnaire_L123}.
+
+\begin{equation}
+  \frac{d^3\beta\left(x' + d\alpha\right)}{\left(x-x_1\right)^3\sigma_1} + \frac{d^3\alpha\left(x' - d\beta\right)}{\left(x-x_2\right)^3\sigma_2} - x' = 0
+  \label{eq:5b_lagrange_stationnaire_L123}
+\end{equation}
+
+Each of these lagrangian point is determined by $\sigma_i$, at it explains where the third body is with respect to the two others.
+Thus:
+\begin{itemize}
+  \item for L1: $\sigma_1$ = 1, $\sigma_2$ = -1;
+  \item for L2: $\sigma_1$ = 1, $\sigma_2$ = 1;
+  \item for L3: $\sigma_1$ = -1, $\sigma_2$ = -1.
+\end{itemize}
+
+Equation \eqref{eq:5b_lagrange_stationnaire_L123} needs to be solved numerically, as the final polynome is of 7th degree.
+Thus, the position of point L1, L2 and L3 are given by:
+\begin{itemize}
+  \item for L1: $lx_1 = \SI{3.219948720257e8}{\m}$, $ly_1 = \SI{0}{\m}$
+  \item for L2: $lx_2 = \SI{4.446515204924e8}{\m}$, $ly_2 = \SI{0}{\m}$
+  \item for L3: $lx_3 = \SI{-3.866963974114e8}{\m}$, $ly_3 = \SI{0}{\m}$
+\end{itemize}
+
+\subsubsection{Finding L5}
+%TODO: À faire
+
+\subsubsection{Stability of all points}
+%TODO: À faire
+
+
+\subsubsection{Representation of Lagrangian points}
+To conclude this section, a representation of all the Lagrangian points is drawn in figure \ref{fig:6b_allLPoints}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphs/ex6b_allLPoints.eps}
+  \caption{Representation of all computed Lagrangian points. The origin is the center of gravity between the Earth and the Moon, the blue circle is the Earth (false radius) and the red circle is the Moon (false radius).}
+  \label{fig:6b_allLPoints}
+\end{figure}
+
+
 
 \addcontentsline{toc}{section}{References}
 \begin{thebibliography}{99}
