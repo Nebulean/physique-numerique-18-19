@@ -7,12 +7,12 @@ tFin=172800;
 
 % On va appliquer une rotation légère sur la vitesse initiale d'Apollo
 nsimul = 25;
-range = 1*10^(-4)
-angle = linspace(1.166*10^(-3)-range, 1.166*10^(-3)+range, nsimul);
+range = 1*10^(-5)
+angle = linspace(-1.7378e-2-range, -1.7378e-2+range, nsimul);
 
 % On importe la vitesse initiale
-vx       = 226.1446244551499;
-vy       = -1178.49845516659;
+vx       = -1178.49845516659;
+vy       = 226.1446244551499;
 
 % On calcul les nouvelles vitesses
 newvx = zeros(nsimul, 1);
@@ -61,6 +61,8 @@ for i=1:nsimul
     [tmp, index] = min(dist);
     if index+1 > length(dist)
         fit = polyfit(t(index-2:index), dist(index-2:index), 2);
+    elseif index-1 < 1
+        fit = polyfit(t(index:index+2), dist(index:index+2), 2);
     else
         fit = polyfit(t(index-1:index+1), dist(index-1:index+1), 2);
     end

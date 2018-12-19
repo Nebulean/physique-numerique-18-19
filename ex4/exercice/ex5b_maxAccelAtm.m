@@ -6,13 +6,13 @@ atm="true";
 tFin=172800;
 
 % On va appliquer une rotation légère sur la vitesse initiale d'Apollo
-nsimul = 20;
+nsimul = 25;
 range = 1*10^(-5);
-angle = linspace(1.7128*10^(-3)-range, 1.7128*10^(-3)+range, nsimul);
+angle = linspace(-1.793e-2-range, -1.793e-2+range, nsimul);
 
 % On importe la vitesse initiale
-vx       = 226.1446244551499;
-vy       = -1178.49845516659;
+vx       = -1178.49845516659;
+vy       = 226.1446244551499;
 
 % On calcul les nouvelles vitesses
 newvx = zeros(nsimul, 1);
