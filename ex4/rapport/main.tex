@@ -282,6 +282,8 @@ The maximum power of the air resistance is given by equation \eqref{eq:2a_maxPow
   P_{max}(\mathbf{f_\text{drag}}) = \SI{9672252913}{\watt} %TODO: Vérifier les valeurs.
   \label{eq:2a_maxPower}
 \end{equation}
+
+% The maximum power described by equation \eqref{eq:2a_maxPower} is big.
 %TODO: Un mot sur la puissance peut-être ?
 
 Thus, returning to Earth using the current trajectory is not possible, and another method must be found, which is the topic of next section.
@@ -295,7 +297,7 @@ To achieve this, the initial velocity will be rotated by an angle $\theta$ that 
 Note that the probe must land on its first entry in the atmosphere: it should not slow with multiples periods around earth. %TODO : Je trouve cette phrase pas très belle.
 
 Let $\mathbf{v} = \begin{pmatrix} v_1, v_2\end{pmatrix}$ be the initial velocity and $\mathbf{w} = \begin{pmatrix} w_1, w_2\end{pmatrix}$ be the rotated initial velocity.
-Both velocities are linked by the rotation matrix, and their relation is given by equation \eqref{eq:v-rotation}.
+Both velocities are linked by the rotation matrix, and their relation is given by equation \eqref{eq:v_rotation}.
 
 \begin{equation}
   \begin{pmatrix}
@@ -316,7 +318,7 @@ Both velocities are linked by the rotation matrix, and their relation is given b
     v_1\cos\theta - v_2\sin\theta \\
     v_1\sin\theta + v_2\cos\theta
   \end{pmatrix}
-  \label{eq:v-rotation}
+  \label{eq:v_rotation}
 \end{equation}
 
 To find the right angle $\theta$ minimizing the acceleration, the plot of the maximum acceleration for a given angle, and the trajectory of the probe, will be use.
@@ -332,41 +334,41 @@ The process is restarted with a new range of angles $A_1 = [\Theta_1 - \phi_1, \
 By looping $k$ times, until the moment where the minimal acceleration only slightly changes over analysis,  one of the best angle is found.
 This angle is given by $\theta = \Theta_k$.
 
-To illustate this method, figure \ref{fig:2b-min-a} gives an example of the plots that can be made for one process.
+To illustate this method, figure \ref{fig:2b_min_a} gives an example of the plots that can be made for one process.
 
 \begin{figure}[h]
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex2b_convacc.eps}
     \caption{Maximum acceleration of all simulations.}
-    \label{fig:2b-min-a-traj}
+    \label{fig:2b_min_a_traj}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex2b_traj.eps}
     \caption{Trajectories for a given angle. Different colors means different different rotation angles. The legend was removed for readability reasons.}
-    \label{fig:2b-min-a-comp}
+    \label{fig:2b_min_a_comp}
   \end{subfigure}
   \caption{Study of the trajectory and the maximum acceleration for \num{10} simulations, using an adaptative time step of $\epsilon=1e-4$. The angles of rotations used are contained in the range $[-\frac{\pi}{50}, \frac{\pi}{50}]$.}
-  \label{fig:2b-min-a}
+  \label{fig:2b_min_a}
 \end{figure}
 
-The angle of rotation found using this processes is given by equation \eqref{eq:2b-a-min-angle}.
+The angle of rotation found using this processes is given by equation \eqref{eq:2b_a_min-angle}.
 
 \begin{equation}
   \theta \approx \SI{5.448956d-4}{\radian} %TODO : Compléter ce résultat.
-  \label{eq:2b-a-min-angle}
+  \label{eq:2b_a_min_angle}
 \end{equation}
 
-The norm of the smallest maximal acceleration, found using angle of equation \eqref{eq:2b-a-min-angle}, is given by equation \eqref{eq:2b-a-min}.
+The norm of the smallest maximal acceleration, found using angle of equation \eqref{eq:2b_a_min_angle}, is given by equation \eqref{eq:2b_a_min}.
 
 \begin{equation}
   a = \SI{63.29}{\meter\per\square\second} \approx \num{6.45}\text{ G} %TODO : Compléter ce résultat.
-  \label{eq:2b-a-min}
+  \label{eq:2b_a_min}
 \end{equation}
 
-%TODO: Parler de ces résultats.
-%TODO : Peut-être qu'il faut mettre ces résultat en inline, parce que ça prend beaucoup de place pour pas beaucoup de visibilité de mettre ça en équation.
+The acceleration in equation \eqref{eq:2b_a_min} is much smaller than the initial acceleration (eq. \eqref{eq:2a_maxAccel}), and is closer to the maximum acceleration astronauts are subjected to.
+However, it is still non-neglectable, and astronauts will probably pass out at this moment, but at least, they will land in one piece and have a chance of overcoming this mission.
 
 \section{Two bodies: Earth and Moon}
 
