@@ -1,6 +1,8 @@
 %% On load les données
 d = load("Lagrange.out");
 
+Omega = 2.66160639e-6;
+
 t = d(:,1);
 dt = d(:,2);
 
@@ -18,6 +20,18 @@ vy3 = d(:,14);
 
 dAT = sqrt((x3-x1).^2 + (y3-y1).^2);
 dAL = sqrt((x3-x2).^2 + (y3-y2).^2);
+
+old = x1;
+x1 = x1.*cos(Omega*t) - y1.*sin(Omega*t);
+y1 = old.*sin(Omega*t) + y1.*cos(Omega*t);
+
+old = x2;
+x2 = x2.*cos(Omega*t) - y2.*sin(Omega*t);
+y2 = old.*sin(Omega*t) + y2.*cos(Omega*t);
+
+old = x3;
+x3 = x3.*cos(Omega*t) - y3.*sin(Omega*t);
+y3 = old.*sin(Omega*t) + y3.*cos(Omega*t);
 
 %% On plot les endroits initiaux.
 fig=figure
