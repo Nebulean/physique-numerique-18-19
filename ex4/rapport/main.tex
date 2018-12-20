@@ -74,11 +74,11 @@ Its velocity with respect to earth's frame of reference is $v_0 = \SI{1.2}{\kilo
 Because of a fuel shortage, the norm of speed can not be changed.
 However, it is possible to ajust its direction.
 To bring back Apollo 13's crew, their trajectory needs to get as close as $h=\SI{10}{\kilo\meter}$ to the surface of earth, the distance where the atmosphere is dense enough to slow the ship and break its orbit.
-In this experiment, the Moon will be ignored and the mass of Apollo 13 is neglictable compared to Earth's mass. Then, it will be a 1 body gravitationnal problem.
-%TODO : Est-ce qu'il faut mettre là toutes les constantes ? Y'en a plein et je les définis quand on en a besoin...
+In this experiment, the Moon will be ignored and the mass of Apollo 13 is neglictable compared to Earth's mass. Then, it will be a 1 body gravitational problem.
+%TODO : Est-ce qu'il faut mettre là toutes les constantes ? Y'en a plein et je les définis quand on en a besoin... oui
 
 \subsection{Initial velocity of Apollo 13}
-The goal of this section is to find the componants of the velocity of the probs, so that it get close to earth, at \SI{10}{\kilo\meter}.
+The goal of this section is to find the components of the velocity of the probe, so that it gets on an orbit close to earth, at \SI{10}{\kilo\meter}.
 Two physical laws are considered to solve this problem. %TODO : C'est pas des lois, t'as un autre mot ?
 \begin{itemize}
   \item Conservation of mechanical energy
@@ -91,7 +91,7 @@ The mechanical energy of the probe at any moment is given by equation \eqref{eq:
   E_m = \frac{1}{2}mv^2 - G\frac{mM}{r}
   \label{eq:1a-em-apollo13}
 \end{equation}
-where $m=\SI{5809}{\kilo\gram}$ is the mass of the probe, $M=\SI{5.972d24}{\kilo\gram}$ is the mass of earth, $G=\SI{6.674d-11}{\cubic\meter\per\kilo\gram\per\square\second}$ is the gravitational constant, $v$ is the speed of the probe with respect to earth's frame of reference, and $r$ is the distance between the probe and the center of earth.\\
+where $m=\SI{5809}{\kilo\gram}$ is the mass of the probe, $M=\SI{5.972d24}{\kilo\gram}$ is the mass of earth, $G=\SI{6.674d-11}{\cubic\meter\per\kilo\gram\per\square\second}$ is the gravitational constant, $v$ is the speed of the probe with respect to earth's frame of reference, and $r$ is the distance between the probe and the center of Earth.\\
 
 By conservation of mechanical energy, two moments are chosen.
 \begin{itemize}
@@ -107,7 +107,11 @@ Thus, solving $E_{m,t_0} = E_{m,t_{end}}$, the velocity of the probe when it is 
 \end{equation}
 
 \subsubsection{Conservation of angular momentum}
-
+The angular momentum of the probe at any moment is given by equation \eqref{}.
+\begin{equation}
+L = mr^2 \omega
+\end{equation}
+where $\omega$ is the angular velocity of the probe.
 
 \subsubsection{Maximum velocity of the probe}
 The maximum velocity of the probe on this given situation is given by equation \eqref{eq:1a-vitesse-finale}.
