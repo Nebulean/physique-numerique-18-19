@@ -1,5 +1,5 @@
 %% On load les données
-cmd = "./Exercice4 configLagrange.in"
+cmd = "./Exercice4 configLagrange.in x3=197697755.462803"
 system(cmd);
 d = load("Lagrange.out");
 
@@ -57,7 +57,10 @@ plotCircle(centerOfMoon, 1737500, 50, 'red');
 % puis on plot les positions.
 plot(x1, y1, '-', 'Color', 'blue', 'LineWidth', 1.2);
 plot(x2, y2, '-', 'Color', 'red', 'LineWidth', 1.2);
-plot(x3(2:end), y3(2:end), '-', 'Color', 'green', 'LineWidth', 1.2);
+
+v=sqrt(vx3(2:end).^2 + vy3(2:end).^2)
+coloredLinePlot(x3(2:end), y3(2:end), v, "Speed $[m/s]$")
+
 
 xlabel("x [m]");
 ylabel("y [m]");
@@ -67,7 +70,8 @@ box on;
 
 hold off;
 
-saveas(fig, 'graphs/ex6a_traj','epsc');
+% saveas(fig, 'graphs/ex6b_traj', 'epsc');
+print(fig, "graphs/ex6b_traj", '-dpng', '-r500');
 
 f2=figure;
 hold on;
@@ -79,8 +83,6 @@ set(gca, 'fontsize', 22);
 
 plot(t,dAT, t,dAL);
 
-pbaspect([1 1 1]);
-
 xlabel("Time t [s]");
 ylabel("Distance [m]")
 grid on;
@@ -89,14 +91,13 @@ legend('Distance to Earth','Distance to Moon');
 
 
 hold off;
-
-saveas(f2, 'graphs/ex6a_dist','epsc');
+saveas(f2, 'graphs/ex6b_dist','epsc');
 
 nsteps = length(t)
 
 function circle = plotCircle(center, radius, nb, color)
     circle = zeros(nb, 2);
-    t = linspace(0, 2*pi, nb)
+    t = linspace(0, 2*pi, nb);
 
     for i=1:nb
         circle(i,1) = center(1) + radius*cos(t(i));   %*(1-t.^2)/(1+t.^2);
@@ -107,15 +108,18 @@ function circle = plotCircle(center, radius, nb, color)
 end
 
 
-% function polynome = poly_approx(x, y, ordre, steps)
-%     pf = polyfit(x, y, ordre);
-%     T = linspace(min(x), max(x), steps);
-%     
-%     n = ordre + 1
-%     
-%     polynome = zeros(2,length(T))
-%     for i=1:n
-%        polynome(2,:) = polynome(2,:) + pf(i)*T.^(n-i);
-%     end
-%     polynome(1,:) = T;
-% end
+function c=coloredLinePlot(x, y, col, label)
+    surface('XData', [x x],             ... % N.B.  XYZC Data must have at least 2 cols
+        'YData', [y y],             ...
+        'ZData', zeros(numel(x),2), ...
+        'CData', [col col],             ...
+        'FaceColor', 'none',        ...
+        'EdgeColor', 'interp',      ...
+        'Marker', 'none');
+    
+    c=colorbar()
+    colormap jet	
+    c.Label.Interpreter = 'latex'
+    c.Label.String = label
+    %c.Tick.Interpreter = 'latex'
+end
