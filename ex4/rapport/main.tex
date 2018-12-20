@@ -450,8 +450,82 @@ In all of these cases the oscillations can be explained by the approximations ma
 \section{Three bodies: Earth, Moon and Apollo 13}
 
 \section{Three bodies: Earth, Moon and a third body - Lagrangian points}
+The goal of this section is to study the Lagrangian point L4, which location forms an equilateral triangle with the Earth and the Moon.
+
+By using simple geometry, it is possible to find the exact position of L4 and the initial velocity required to stay on this point, with respect the the frame of reference $R'$.
+This initial positions and the velocities of L4 with respect to $R'$ are given by equation \eqref{eq:L4_position_vitesse}.
+
+\begin{equation}
+  \mathbf{r_\text{L4}} =
+  \begin{pmatrix}
+    \num{187697755.46} \\
+    \num{333201542.06}
+  \end{pmatrix}
+  \text{\si{\m} and }
+  \mathbf{v_\text{L4}} =
+  \begin{pmatrix}
+    \num{886.85} \\
+    \num{-499.58}
+  \end{pmatrix}\si{\m\per\s}
+  \label{eq:L4_position_vitesse}
+\end{equation}
+
+To study the stability of L4, a third body with a neglectable mass is set on this point with the right initial conditions.
+Figure \ref{fig:6a_traj} shows the trajectory of the probe when starting on this point, and figure \ref{fig:6a_dist} represents the evolution of the distance between the probe and both the Earth and the Moon.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex6a_traj.eps}
+    \caption{Trajectory of Apollo 13 (in magenta), with the Earth (in blue) and the Moon (in red) at their right radius.}
+    \label{fig:6a_traj}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex6a_dist.eps}
+    \caption{Evolution of the distance between the probe and both the Earth and the Moon.}
+    \label{fig:6a_dist}
+  \end{subfigure}
+  \caption{Stability analysis of L4. The simulation ran for a year, for \num{10423} steps, with an adaptative time step of precision $\epsilon = \SI{e-4}{\m}$.}
+  \label{fig:6a_stab}
+\end{figure}
+
+The only information that can be extracted from figure \ref{fig:6a_traj} is that the trajectory of the probe is so condensed around a point, that it cannot be seen at this distance.
+On the other side, figure \ref{fig:6a_dist} does not seem to show constant distances.
+However, both distances changes of order \SI{1000}{\m}, which is small compared to the distances considered (millions of meters).
+Thus, this point seems to be stationary, as expected, but the informations from figure \ref{fig:6a_stab} are not enough to study the stability of this Lagrangian point.\\
+
+To a study of the stability of this point, the probe will be placed \SI{1000}{\km} away from L4.
+Figure \ref{fig:6b_traj} gives the trajectory of the probe and \ref{fig:6b_dist} the evolution of the distance between the probe and both the Moon and the Earth.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex6b_traj.png}
+    \caption{Trajectory of Apollo 13 (range of colors represented by the speed of the probe), with the Earth (in blue) and the Moon (in red) at their right radius.}
+    \label{fig:6b_traj}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex6b_dist.eps}
+    \caption{Evolution of the distance between the probe and both the Earth and the Moon.}
+    \label{fig:6b_dist}
+  \end{subfigure}
+  \caption{Stability analysis of L4, with a gap of \SI{1000}{\km}. The simulation ran for a year, for \num{10505} steps, with an adaptative time step of precision $\epsilon = \SI{e-4}{\m}$.}
+  \label{fig:6b_stab}
+\end{figure}
+
+Figure \ref{fig:6b_traj} shows that, even when the probe is away from L4, it will still stay in the region.
+This confirms the expectation: L4 is a stable Lagrangian point.
+If it were not the case, the probe would turn around the Earth of the Moon, but not around L4.
+Figure \ref{fig:6b_traj} shows that the probe does not approach too much the Earth and the Moon, but rather stays around L4 as suggested by figure \ref{fig:6b_traj}.
+
+
+
+
 
 \section{Optional}
+%TODO: On parle de Coriolis et des forces d'inertie dans cette section ?
 \subsection{The remaining Lagrangian points}
 The section studies the remaining Lagrangian points, which are L1, L2, L3 and L5.
 
@@ -523,18 +597,93 @@ Thus, the position of point L1, L2 and L3 are given by:
 %TODO: À faire
 
 \subsubsection{Stability of all points}
-%TODO: À faire
-
-
-\subsubsection{Representation of Lagrangian points}
-To conclude this section, a representation of all the Lagrangian points is drawn in figure \ref{fig:6b_allLPoints}.
+The stability of L1 is analysed by figures \ref{fig:7b_L1_traj} and \ref{fig:7b_L1_dist}.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{graphs/ex6b_allLPoints.eps}
-  \caption{Representation of all computed Lagrangian points. The origin is the center of gravity between the Earth and the Moon, the blue circle is the Earth (false radius) and the red circle is the Moon (false radius).}
-  \label{fig:6b_allLPoints}
+  \begin{subfigure}[t]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex7b_L1_traj.png}
+    \caption{Trajectory of Apollo 13 (range of colors represented by the speed of the probe), with the Earth (in blue) and the Moon (in red) at their right radius.}
+    \label{fig:7b_L1_traj}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex7b_L1_dist.eps}
+    \caption{Evolution of the distance between the probe and both the Earth and the Moon.}
+    \label{fig:7b_L1_dist}
+  \end{subfigure}
+  \caption{Stability analysis of L1. The simulation ran for a year, for \num{19932} steps, with an adaptative time step of precision $\epsilon = \SI{e-4}{\m}$.}
+  \label{fig:7b_L1}
 \end{figure}
+
+L1 is a clear case of unstable point.
+As shown by figure \ref{fig:7b_L1_traj}, the probe initialy started in L1, but it did not stay for long, as it immediately goes away.
+At the beginning, the probe does not goes straight down, which is caused by Coriolis effect.
+Futhermore, it starts orbiting around the Earth, instead of point L1.
+Figure \ref{fig:7b_L1_dist} shows the evolution of the distances between the probe and the two other bodies.
+This evolution has nothing to do with what L4 showed, as the variation is of order \SI{d8}{\m}.
+The expectations are then confirmed by figure \ref{fig:7b_L1}: L1 is an unstable Lagrangian point.\\
+
+The stability of L2 is analysed by figures \ref{fig:7b_L2_traj} and \ref{fig:7b_L2_dist}.
+The same analysis as L1 can be performed for this point, and the conclusion is: L2 is an unstable Lagrangian point.\\
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex7b_L2_traj.png}
+    \caption{Trajectory of Apollo 13 (range of colors represented by the speed of the probe), with the Earth (in blue) and the Moon (in red) at their right radius.}
+    \label{fig:7b_L2_traj}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex7b_L2_dist.eps}
+    \caption{Evolution of the distance between the probe and both the Earth and the Moon.}
+    \label{fig:7b_L2_dist}
+  \end{subfigure}
+  \caption{Stability analysis of L2. The simulation ran for a year, for \num{22834} steps, with an adaptative time step of precision $\epsilon = \SI{e-4}{\m}$.}
+  \label{fig:7b_L2}
+\end{figure}
+
+The stability of L3 is analysed by figures \ref{fig:7b_L3_traj} and \ref{fig:7b_L3_dist}.
+The stability of L3 is a bit different than L1 and L2.
+The divergence of the probe is much slower to diverge, and one year is not enough to get interesting data.
+Thus, the simulations were ran for two years instead on one.
+
+Again, the probe does not stay around L3, and the same analysis as L1 and L2 can be done.
+Thus, the expectations are correct: L3 is an unstable Lagrangian point.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex7b_L3_traj.png}
+    \caption{Trajectory of Apollo 13 (range of colors represented by the speed of the probe), with the Earth (in blue) and the Moon (in red) at their right radius.}
+    \label{fig:7b_L3_traj}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex7b_L3_dist.eps}
+    \caption{Evolution of the distance between the probe and both the Earth and the Moon.}
+    \label{fig:7b_L3_dist}
+  \end{subfigure}
+  \caption{Stability analysis of L3. The simulation ran for two year, for \num{23247} steps, with an adaptative time step of precision $\epsilon = \SI{e-4}{\m}$.}
+  \label{fig:7b_L3}
+\end{figure}
+
+%TODO: Tableau résumant les convergences ?
+
+\subsubsection{Representation of Lagrangian points}
+To conclude this section, a representation of all the Lagrangian points is drawn in figure \ref{fig:7b_allLPoints}.
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphs/ex7b_allLPoints.eps}
+  \caption{Representation of all computed Lagrangian points. The origin is the center of gravity between the Earth and the Moon, the blue circle is the Earth (false radius) and the red circle is the Moon (false radius).}
+  \label{fig:7b_allLPoints}
+\end{figure}
+
+
+
 
 
 
