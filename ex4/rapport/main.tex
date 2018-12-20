@@ -107,11 +107,17 @@ Thus, solving $E_{m,t_0} = E_{m,t_{end}}$, the velocity of the probe when it is 
 \end{equation}
 
 \subsubsection{Conservation of angular momentum}
-The angular momentum of the probe at any moment is given by equation \eqref{}.
+The angular momentum of the probe at any moment is given by equation \eqref{eq:momcin}.
 \begin{equation}
 L = mr^2 \omega
+\label{eq:momcin}
 \end{equation}
-where $\omega$ is the angular velocity of the probe.
+where $\omega$ is the angular velocity of the probe. From $ L_{t_0} = L{t_end} $ we get equation \eqref{eq:momcin2}.
+\begin{equation}
+v_{\theta 0} = \frac{(h+R_T)^2}{r_0^2} \sqrt{v_0^2 + G M_T \left(\frac{1}{h+R_T}-\frac{1}{r_0}\right)} 
+\label{eq:momcin2}
+\end{equation}
+
 
 \subsubsection{Maximum velocity of the probe}
 The maximum velocity of the probe on this given situation is given by equation \eqref{eq:1a-vitesse-finale}.
@@ -375,6 +381,21 @@ The acceleration in equation \eqref{eq:2b_a_min} is much smaller than the initia
 However, it is still non-neglectable, and astronauts will probably pass out at this moment, but at least, they will land in one piece and have a chance of overcoming this mission.
 
 \section{Two bodies: Earth and Moon}
+In this section the 2-body system Earth-Moon is studied. The distance between the Earth and the Moon is $d = 384748 ~\si{\km}$.
+
+\subsection{Uniform circular trajectories}
+We will consider a uniform circular trajectory for both objects in the frame of reference of the center of mass $G$ of the system Earth-Moon. The position of $G$ is given by equation \eqref{eq:CM}.
+\begin{equation}
+\mathbf{r_G} = \frac{m_L \mathbf{r_L} + m_T \mathbf{r_T}}{m_L + m_T}
+\label{eq:CM}
+\end{equation}
+If the Earth and the Moon are aligned on the x axis, we get $x_G = 4.676244537 \times 10^6 ~\si{\m}$ in the geocentric frame of reference. Hence, in the frame of reference of $G$, the positions of the Earth and Moon aligned on the x axis are $x_T = -4.676244537 \times 10^6 ~\si{\m}$ and $x_L = d-x_G = 3.800717555 \times 10^8 ~\si{\m}$.\\
+From the expression of the gravitational force $ma = G m_T m_L/d^2$ and the expression of the acceleration of an object in a uniform circular trajectory $a = v^2/R$ with R the radius of the trajectory, we get the expression of the initial velocity for object $i$ ($i \neq j$) in equation \eqref{eq:MCUvit}.
+\begin{equation}
+v_i = \frac{\sqrt{RG m_j}}{d}
+\label{eq:MCUvit}
+\end{equation}
+Hence, choosing a clockwise rotation, the Earth's initial velocity is $v_T = 12.44632236 ~\si{\m \per \s}$ and the Moon's initial velocity is $v_L = -1011.601415~\si{\m \per \s}$.
 
 \section{Three bodies: Earth, Moon and Apollo 13}
 
