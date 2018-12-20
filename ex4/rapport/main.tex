@@ -395,7 +395,57 @@ From the expression of the gravitational force $ma = G m_T m_L/d^2$ and the expr
 v_i = \frac{\sqrt{RG m_j}}{d}
 \label{eq:MCUvit}
 \end{equation}
-Hence, choosing a clockwise rotation, the Earth's initial velocity is $v_T = 12.44632236 ~\si{\m \per \s}$ and the Moon's initial velocity is $v_L = -1011.601415~\si{\m \per \s}$.
+Hence, choosing a clockwise rotation, the Earth's initial velocity is $v_T = 12.44632236 ~\si{\m \per \s}$ and the Moon's initial velocity is $v_L = -1011.601415~\si{\m \per \s}$. The trajectories with these initial conditions are shown on fig.\ref{fig:4_traj}.
+
+\subsection{Conservation of quantities}
+Since the only force applied on both objects is a conservative force, the mechanical energies and momentum are conserved. As their trajectory is a uniform circle, their distance with respect to each other is also conserved. Fig.\ref{fig:4emec} shows the mechanical energy of the Earth and the Moon over time, fig.\ref{fig:4p} shows their momentum over time, and fig.\ref{4d} shows their distance over time. All of these simulations were done over $25228000$ s or about 292 days, so that the system performed around ten revolutions.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex4b_emece.eps}
+    \caption{Mechanical energy of the Earth}
+    \label{fig:emece}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex4b_emecl.eps}
+    \caption{Mechanical energy of the Moon}
+    \label{fig:emecl}
+  \end{subfigure}
+  \caption{Mechanical energy of both objects over ten revolutions}
+  \label{fig:4emec}
+\end{figure}
+
+All of these quantities for both objects oscillate over time, although they are conserved on average. The amplitude of the oscillations of the mechanical energy is of order $10^{24}$ for the Earth and of order $10^{22}$ for the Moon, which are both quite small compared to the order of magnitude of $10^28$ for their mechanical energies.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex4b_p.eps}
+    \caption{Momentum of the Earth and Moon}
+    \label{fig:4p}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex4b_d.eps}
+    \caption{Distance between the Earth and the Moon}
+    \label{fig:4d}
+  \end{subfigure}
+  \caption{Other conservative quantities of both objects over ten revolutions}
+  \label{fig:4cons}
+\end{figure}
+
+The amplitude of the oscillations of the momentum are of order $10^{22}$ for an order of magnitude of $10^{25}$ for the momentum of both objects. The difference between their momenta is not visible at this scale, however by zooming in, it can be observed that the maximum difference is of order $10^{16}$.\\
+The amplitude of the oscillations of the distance between the Earth and the Moon is of order $10^4$ for an order of magnitude of $10^8$ for the distance. The average distance is $3.84744028 \cdot 10^8 m$.\\
+In all of these cases the oscillations can be explained by the approximations made by the Runge-Kutta numerical method.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphs/ex4_traj.eps}
+  \caption{Trajectories of the Earth and the Moon in a uniform circular motion in the frame of reference of the center of gravity $G$}
+  \label{fig:4_traj}
+\end{figure}
 
 \section{Three bodies: Earth, Moon and Apollo 13}
 

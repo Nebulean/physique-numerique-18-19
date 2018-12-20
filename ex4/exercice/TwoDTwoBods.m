@@ -16,7 +16,16 @@ vx3 = d(:,13);
 vy3 = d(:,14);
 
 %% On plot les endroits initiaux.
+
+
 f1=figure
+
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+set(gca, 'fontsize', 22);
+
 hold on;
 pbaspect([1 1 1]);
 daspect([1 1 1])
@@ -33,9 +42,15 @@ plot(x1(2:end), y1(2:end), '-', 'Color', 'blue', 'LineWidth', 1.2);
 plot(x2(2:end), y2(2:end), '-', 'Color', 'red', 'LineWidth', 1.2);
 % plot(x3(2:end), y3(2:end), '-', 'Color', 'green', 'LineWidth', 1.2);
 
+xlabel("x [m]");
+ylabel("y [m]");
 
+grid on;
+box on;
 
 hold off;
+
+saveas(f1, 'graphs/ex4_traj.eps', 'epsc');
 
 nsteps=length(t)
 
