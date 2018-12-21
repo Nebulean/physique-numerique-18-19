@@ -75,15 +75,11 @@ Because of a fuel shortage, the norm of speed can not be changed.
 However, it is possible to ajust its direction.
 To bring back Apollo 13's crew, their trajectory needs to get as close as $h=\SI{10}{\kilo\meter}$ to the surface of earth, the distance where the atmosphere is dense enough to slow the ship and break its orbit.
 In this experiment, the Moon will be ignored and the mass of Apollo 13 is neglictable compared to Earth's mass. Then, it will be a 1 body gravitational problem.
-%TODO : Est-ce qu'il faut mettre là toutes les constantes ? Y'en a plein et je les définis quand on en a besoin... oui
+
+%TODO : tableau avec les constantes
 
 \subsection{Initial velocity of Apollo 13}
-The goal of this section is to find the components of the velocity of the probe, so that it gets on an orbit close to earth, at \SI{10}{\kilo\meter}.
-Two physical laws are considered to solve this problem. %TODO : C'est pas des lois, t'as un autre mot ?
-\begin{itemize}
-  \item Conservation of mechanical energy
-  \item Conservation of angular momentum
-\end{itemize}
+The goal of this section is to find the components of the velocity of the probe, so that it gets on an orbit close to earth, at \SI{10}{\kilo\meter}. When neglecting the effect of the atomsphere, Apollo is only subjected to the gravitational forces of Earth and Moon, which are conservative forces. Therefore we can use conservation of mechanical energy and conservation of angular momentum to solve for the initial velocity.
 
 \subsubsection{Conservation of mechanical energy}
 The mechanical energy of the probe at any moment is given by equation \eqref{eq:1a-em-apollo13}.
@@ -98,11 +94,11 @@ By conservation of mechanical energy, two moments are chosen.
   \item $t=\SI{0}{\s}: E_{m,t_0} = \frac{1}{2}mv_0^2 - G\frac{mM}{r_0}$
   \item $t=t_{end}: E_{m,t_{end}} = \frac{1}{2}mv_{end}^2 - G\frac{mM}{h + R_t}$
 \end{itemize}
-where $v_0 = \SI{1.2}{\kilo\meter\per\second}$ is the initial velocity of Apollo 13, $r_0 = \SI{314159}{\kilo\meter}$ is the initial distance between Apollo 13 and the center of earth.
+where $v_0 = \SI{1.2}{\kilo\meter\per\second}$ is the initial velocity of Apollo 13, $r_0 = \SI{314159}{\kilo\meter}$ is the initial distance between Apollo 13 and the center of earth, and $v_{end}=v_{max}$ is the velocity of Apollo at its closest point to Earth, and its maximum velocity, by the second law of Kepler.
 Thus, solving $E_{m,t_0} = E_{m,t_{end}}$, the velocity of the probe when it is at a distance $h=\SI{10}{\kilo\meter}$ of earth can be found, and is given by equation \eqref{eq:1a-vitesse-finale}.
 
 \begin{equation}
-  v_{end} = \sqrt{v_0^2 + 2GM\left(\frac{1}{h + R_t} - \frac{1}{r_0}\right)}
+  v_{end} = v_{max} = \sqrt{v_0^2 + 2GM\left(\frac{1}{h + R_t} - \frac{1}{r_0}\right)} = \SI{11121.52}{\meter\per\second}
   \label{eq:1a-vitesse-finale}
 \end{equation}
 
@@ -112,22 +108,23 @@ The angular momentum of the probe at any moment is given by equation \eqref{eq:m
 L = mr^2 \omega
 \label{eq:momcin}
 \end{equation}
-where $\omega$ is the angular velocity of the probe. From $ L_{t_0} = L{t_end} $ we get equation \eqref{eq:momcin2}.
+where $\omega$ is the angular velocity of the probe. From $ L_{t_0} = L{t_{end}} $ we get equation \eqref{eq:momcin2} with the polar coordinates $(r,\theta)$ centered on the center of the Earth.
 \begin{equation}
-v_{\theta 0} = \frac{(h+R_T)^2}{r_0^2} \sqrt{v_0^2 + G M_T \left(\frac{1}{h+R_T}-\frac{1}{r_0}\right)}
+v_{\theta 0} = \frac{(h+R_t)^2}{r_0^2} \sqrt{v_0^2 + 2 G M \left(\frac{1}{h+R_t}-\frac{1}{r_0}\right)}
 \label{eq:momcin2}
 \end{equation}
 
+If Apollo is initially aligned with the Earth on the $y$ axis in cartesian coordinates, then at the initial position $\hat{e}_r$ is aligned with $\hat{e}_y$ and $\hat{e}_\theta$ is aligned with $\hat{e}_x$. Therefore $v_{x0} = v_{\theta 0} = 226.145~\si{\m \per \s}$ and $v_{y0} = \sqrt{v_0^2 - v_{x0}^2} = -1178.498~\si{\m \per \s}$.
 
-\subsubsection{Maximum velocity of the probe}
-The maximum velocity of the probe on this given situation is given by equation \eqref{eq:1a-vitesse-finale}.
-This affirmations comes from the fact that, as the gravitational force is the only one considered, the maximum velocity is given by the moment where the distance is minimal, which is $h_{min}$ in this situation.
-Thus, after some computation, the maximum velocity reached by Apollo 13 is given by equation \eqref{eq:1a-vitesse-max}.
 
-\begin{equation}
-  v_{max} = \SI{11121.52}{\meter\per\second} %TODO : Donnée à verifier, elle n'est peut-être pas à jour. (calculs.nb)
-  \label{eq:1a-vitesse-max}
-\end{equation}
+%\subsubsection{Maximum velocity of the probe}
+%The maximum velocity of the probe on this given situation is given by equation \eqref{eq:1a-vitesse-finale} because since the gravitational force is the only one considered, the maximum velocity is given by the moment where the distance is minimal, which is $h_{min}$ in this situation.
+%Thus, after some computation, the maximum velocity reached by Apollo 13 is given by equation \eqref{eq:1a-vitesse-max}.
+%
+%\begin{equation}
+%  v_{max} = \SI{11121.52}{\meter\per\second}
+%  \label{eq:1a-vitesse-max}
+%\end{equation}
 
 
 
