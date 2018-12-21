@@ -45,10 +45,10 @@ maxAccel = zeros(nsimul, 1);
 g = 9.80665;
 for i=1:nsimul
     d = load(sprintf("ex2b_findMaxAccel%d.out",i));
-    
+
     t = d(:,1);
     dt = d(:,2);
-    
+
     x1 = d(:,3);
     y1 = d(:,4);
 
@@ -60,21 +60,21 @@ for i=1:nsimul
 
     ax3 = d(:,15);
     ay3 = d(:,16);
-    
+
     maxAccel(i,1) = max( sqrt(ax3.^2 + ay3.^2) ) / g;
 
     % puis on plot les positions.
     plot(x1(2:end), y1(2:end), '-');
     plot(x3(2:end), y3(2:end), '-');
-    
+
     xlabel("x [m]");
     ylabel("y [m]");
     grid on;
     box on;
-    
+
 end
 % on plot les endroits initiaux
-    
+
 plot(x3(1), y3(1), 'x', 'Color','green');
 centerOfEarth = [x1(1), y1(1)];
 plotCircle(centerOfEarth, 6371000, 500, 'blue');
@@ -114,6 +114,6 @@ function circle = plotCircle(center, radius, nb, color)
         circle(i,1) = center(1) + radius*cos(t(i));   %*(1-t.^2)/(1+t.^2);
         circle(i,2) = center(2) + radius*sin(t(i));   %*2.*t/(1+t.^2);
     end
-       
+
     plot(circle(:,1), circle(:,2), '-', 'Color', color, 'LineWidth', 1.2);
 end

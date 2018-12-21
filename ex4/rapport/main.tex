@@ -300,6 +300,7 @@ Thus, returning to Earth using the current trajectory is not possible, and anoth
 
 
 \subsection{Rotating the probe to get the minimal acceleration}
+\label{sec:minaccel}
 This section will focus on a way to minimize the acceleration underwent by the astronauts in Apollo 13.
 
 The method is quite simple: slightly changing the direction of the initial velocity of the probe.
@@ -455,6 +456,51 @@ In all of these cases the oscillations can be explained by the approximations ma
 \end{figure}
 
 \section{Three bodies: Earth, Moon and Apollo 13}
+Now we add Apollo to the previous system so that we get a 3-body system. As the frame of reference used is now that of the center of gravity $G$, the initial position and velocity of Apollo need to be changed accordingly. With Earth, Apollo and the Moon aligned on the x-axis, we get Apollo's initial position $x_A = 309482755.5 m$. To the initial velocity in the geocentric frame of reference, the effect rotation of the Earth in the frame of reference of $G$ should be added. The new velocity is then $\mathbf{v_A}=\Omega \mathbf{r_A} \hat{e_{\theta}}$ with $\Omega$ the angular velocity of the Earth-Moon system, with the polar coordinates $(r,\theta)$. By projecting onto cartesian coordinates we get the initial velocity of Apollo in the frame of reference of $G$: $\mathbf{v_A}=\begin{pmatrix} \num{-1178.5} \\ \num{-597.6} \end{pmatrix}$.
+
+\subsection{Minimal height without atmosphere} 
+In this new system we vary the direction of the initial velocity of Apollo so that it reaches a minimal Earth orbit height close to $h_{min} = 10000$ m with a precision better than $100$ m (Fig.\ref{fig:5a}). The effect of the atmosphere is neglected ($\rho_0 = 0$).
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.47\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex5a_hmin.eps}
+    \caption{Difference between the minimal height of the orbit of Apollo around Earth and the desired minimal height $h_{min}$ with respect to the angle variation from the initial velocity direction}
+    \label{fig:5a_hmin}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex5a_trajzoom.eps}
+    \caption{Trajectories of Apollo for these angles. The inner blue circle is the final position of Earth and the blue line inside of it is its trajectory}
+    \label{fig:5a_traj}
+  \end{subfigure}
+  \caption{Study of the minimal height of Apollo with respect to the angle of the initial velocity}
+  \label{fig:5a}
+\end{figure}
+
+By proceeding empirically we find that with an angle variation of $-0.309676$ rad, Apollo reaches a minimal height of $1001.315$ m, which is a very good precision.
+
+\subsection{Maximal acceleration with atmosphere}
+With the same method, and with $\rho_0 = 1.2 ~\si{\kg \per \m^3}$, the maximal acceleration of Apollo is minimized like in section \ref{sec:minaccel} so that it lands on Earth with one atmosphere entry (Fig.\ref{fig:5b}).
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.47\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex5b_accel.eps}
+    \caption{Maximal acceleration of Apollo with respect to the angle variation from the initial velocity direction. The blue line is the surface of the Earth}
+    \label{fig:5b_amax}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex5b_traj.eps}
+    \caption{Trajectories of Apollo for these angles}
+    \label{fig:5b_traj}
+  \end{subfigure}
+  \caption{Study of the maximal acceleration of Apollo with respect to the angle of the initial velocity}
+  \label{fig:5b}
+\end{figure}
+
+Apollo reaches a maximal acceleration of $6.45$ g at an angle variation of $-0.309176$.
 
 \section{Three bodies: Earth, Moon and a third body - Lagrangian points}
 The goal of this section is to study the Lagrangian point L4, which location forms an equilateral triangle with the Earth and the Moon.

@@ -73,6 +73,10 @@ end
 plot(x3(1), y3(1), 'x', 'Color','green');
 centerOfEarth = [x1(end), y1(end)];
 plotCircle(centerOfEarth, RT, 500, 'blue');
+set(gca, 'fontsize', 22);
+xlabel("x [m]");
+ylabel("y [m]");
+box on;
 hold off;
 
 % on plot l'accel
@@ -80,6 +84,10 @@ fig = figure;
 hold on;
 plot(angle, maxAccel, 'x');
 grid on;
+set(gca, 'fontsize', 22);
+xlabel('Angle difference with initial velocity direction [rad]');
+ylabel('Maximal acceleration [g]');
+box on;
 hold off;
 
 function circle = plotCircle(center, radius, nb, color)
