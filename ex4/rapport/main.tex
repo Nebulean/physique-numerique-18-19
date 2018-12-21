@@ -108,11 +108,11 @@ L = mr^2 \omega
 \end{equation}
 where $\omega$ is the angular velocity of the probe. From $ L_{t_0} = L{t_{end}} $ we get equation \eqref{eq:momcin2} with the polar coordinates $(r,\theta)$ centered on the center of the Earth.
 \begin{equation}
-v_{\theta 0} = \frac{(h+R_t)^2}{r_0^2} \sqrt{v_0^2 + 2 G M \left(\frac{1}{h+R_t}-\frac{1}{r_0}\right)}
+v_{\theta 0} = \frac{(h+R_t)^2}{r_0^2} v_{\theta end}
 \label{eq:momcin2}
 \end{equation}
 
-If Apollo is initially aligned with the Earth on the $y$ axis in cartesian coordinates, then at the initial position $\hat{e}_r$ is aligned with $\hat{e}_y$ and $\hat{e}_\theta$ is aligned with $\hat{e}_x$. Therefore $v_{x0} = v_{\theta 0} = 226.145~\si{\m \per \s}$ and $v_{y0} = \sqrt{v_0^2 - v_{x0}^2} = -1178.498~\si{\m \per \s}$.
+Since $v_{end}$ is at the lowest point of the orbit, $v_{end} = v_{\theta end}$. If Apollo is initially aligned with the Earth on the $y$ axis in cartesian coordinates, then at the initial position $\hat{e}_r$ is aligned with $\hat{e}_y$ and $\hat{e}_\theta$ is aligned with $\hat{e}_x$. Therefore $v_{x0} = v_{\theta 0} = 226.145~\si{\m \per \s}$ and $v_{y0} = \sqrt{v_0^2 - v_{x0}^2} = -1178.498~\si{\m \per \s}$.
 
 
 %\subsubsection{Maximum velocity of the probe}
@@ -135,7 +135,7 @@ The trajectory of Apollo 13 and earth are represented in figure \ref{fig:1b_traj
 In this figure, earth is considered circular and is drawn at the right scale.
 The green cross represents the initial position of Apollo 13, and the green points are its trajectory.
 On this figure, the probe seems to come close to Earth, but as drag is not considered, it is not slowed down.
-This implicates that the probe gain speed from coming closer to Earth, and then, it continues its path.
+This implies that the probe gains speed by coming closer to Earth, and then, it continues its path.
 
 \begin{figure}[h]
   \centering
@@ -195,9 +195,9 @@ The trajectory of the probe is represented in figure \ref{fig:1c_traj}.
 The most important comparison to make between the adaptative and non-adaptative time step's simulations, is the number of steps required to achieve them.
 For the non-adaptative time step (fig. \ref{fig:1b_traj}), \num{3457} steps where required to get the solution, but for the adaptative time step (fig. \ref{fig:1c_traj}), \num{1162} steps where required, which is three times less.
 On a such simple simulation, the difference between both results is not so significant, as both of them computes quickly.
-But on really big simulations (considering millions of steps), this different is not neglectable.
+But on really big simulations (considering millions of steps), this different is not negligible.
 Also, the adaptative time step simulation used a high precision of $\epsilon=\SI{d-5}{\m}$, which may be unnecessary in some sitation.
-With a precision of \SI{d-3}{\m}, the solution is already quite good for some problems, and it requires much less time steps to be computed.
+With a precision of \SI{d-3}{\m}, the solution is already quite good for some problems, and it requires much fewer time steps to be computed.
 
 \subsubsection{Convergence study on the precision}
 The adaptative time step is controlled by a factor, $\epsilon$, which provides the precision that the next step has to reach.
@@ -226,11 +226,11 @@ Furthermore, the slope of the linear regression is estimated to $4$, which is th
 Figure \ref{fig:1c_conveps_dt} shows the evolution of dt over time, thus shows how the adaptative time steps works.
 As the probe approaches Earth, dt keeps decreasing, because of the increasing speed of the probe.
 But as soon the probe overtakes Earth, the speed starts decreasing and dt starts increasing.
-This result is as expected, and shows that the adaptative time step actually work.
+This result is as expected, and shows that the adaptative time step functions as expected.
 
 \section{"Houston, we're going to have a real problem"}
 In this section, the atmosphere of Earth will be considered.
-This allows the probe to return to the ground, hopefully, in safety.
+This allows the probe to return to the ground, hopefully safely.
 
 \subsection{Earth re-entry without modifying the initial conditions}
 This section studies the possibilities for Apollo 13 to return to Earth, when no modification to the trajectory is applied.\\
@@ -264,8 +264,8 @@ Using these conditions, the maximum acceleration that was experienced by the pro
   \label{eq:2a_maxAccel}
 \end{equation}
 
-This acceleration is absolutely unbearable for any humain, and probably any other mammals.
-To get a comparison, astronauts can experience around $\num{3}\text{ g}$ during a liftoff \cite{nasa:ask_the_crew}, but they are experimented and equipped with g-suits, which reduces the impact of acceleration \cite{wiki:g-suit} on the body.To complete this analysis, a convergence study of the maximum acceleration is given by figure \ref{fig:2a_conv}.\\
+This acceleration is unbearable for any humain, and probably any other mammals.
+To get a comparison, astronauts can experience around $\num{3}\text{ G}$ during a liftoff \cite{nasa:ask_the_crew}, but they are experimented and equipped with g-suits, which reduces the impact of acceleration \cite{wiki:g-suit} on the body. To complete this analysis, a convergence study of the maximum acceleration is given by figure \ref{fig:2a_conv}.\\
 
 \begin{figure}[h]
   \centering
@@ -327,7 +327,7 @@ Both velocities are linked by the rotation matrix, and their relation is given b
   \label{eq:v_rotation}
 \end{equation}
 
-To find the right angle $\theta$ minimizing the acceleration, the plot of the maximum acceleration for a given angle, and the trajectory of the probe, will be use.
+To find the right angle $\theta$ minimizing the acceleration, the plot of the maximum acceleration for a given angle, and the trajectory of the probe, will be used.
 
 Denote $i$ the process number, $\phi_0$ an arbitrary angle and $\Theta_0 = \SI{0}{\radian}$ an angle.
 First, an arbitrary range of angles are selected: $A_0 = [\Theta_0-\phi_0, \Theta_0+\phi_0]$.
@@ -381,7 +381,7 @@ The norm of the smallest maximal acceleration, found using angle of equation \eq
 \end{equation}
 
 The acceleration in equation \eqref{eq:2b_a_min} is much smaller than the initial acceleration (eq. \eqref{eq:2a_maxAccel}), and is closer to the maximum acceleration astronauts are subjected to.
-However, it is still non-neglectable, and astronauts will probably pass out at this moment, but at least, they will land in one piece and have a chance of overcoming this mission.
+However, it is still non-negligible, and astronauts will probably pass out at that point, but at least, they will land in one piece.
 
 \section{Two bodies: Earth and Moon}
 In this section the 2-body system Earth-Moon is studied. The distance between the Earth and the Moon is $d = 384748 ~\si{\km}$.
@@ -495,13 +495,13 @@ With the same method, and with $\rho_0 = 1.2 ~\si{\kg \per \m^3}$, the maximal a
   \label{fig:5b}
 \end{figure}
 
-Apollo reaches a maximal acceleration of $6.45$ g at an angle variation of $-0.309176$.
+Apollo reaches a maximal acceleration of $6.45$ g at an angle variation of $-0.309176$ rad.
 
 \section{Three bodies: Earth, Moon and a third body - Lagrangian points}
 The goal of this section is to study the Lagrangian point L4, which location forms an equilateral triangle with the Earth and the Moon.
 
-By using simple geometry, it is possible to find the exact position of L4 and the initial velocity required to stay on this point, with respect the the frame of reference $R'$.
-This initial positions and the velocities of L4 with respect to $R'$ are given by equation \eqref{eq:L4_position_vitesse}.
+By using simple geometry, it is possible to find the exact position of L4. The initial velocity required to stay on this point with respect the the frame of reference $R'$ is given by $\mathbf{v} = \Omega \mathbf{r} \hat{e}_\theta$, with $\Omega$ the angular velocity of the Earth-Moon system.
+These initial positions and the velocities of L4 with respect to $R'$ are given by equation \eqref{eq:L4_position_vitesse}.
 
 \begin{equation}
   \mathbf{r_\text{L4}} =
@@ -518,7 +518,7 @@ This initial positions and the velocities of L4 with respect to $R'$ are given b
   \label{eq:L4_position_vitesse}
 \end{equation}
 
-To study the stability of L4, a third body with a neglectable mass is set on this point with the right initial conditions.
+To study the stability of L4, a third body with a negligible mass is set on this point with the right initial conditions.
 Figure \ref{fig:6a_traj} shows the trajectory of the probe when starting on this point, and figure \ref{fig:6a_dist} represents the evolution of the distance between the probe and both the Earth and the Moon.
 
 \begin{figure}[h]
@@ -539,7 +539,7 @@ Figure \ref{fig:6a_traj} shows the trajectory of the probe when starting on this
 \end{figure}
 
 The only information that can be extracted from figure \ref{fig:6a_traj} is that the trajectory of the probe is so condensed around a point, that it cannot be seen at this distance.
-On the other side, figure \ref{fig:6a_dist} does not seem to show constant distances.
+On the other hand, figure \ref{fig:6a_dist} does not seem to show constant distances.
 However, both distances changes of order \SI{1000}{\m}, which is small compared to the distances considered (millions of meters).
 Thus, this point seems to be stationary, as expected, but the informations from figure \ref{fig:6a_stab} are not enough to study the stability of this Lagrangian point.\\
 
@@ -577,7 +577,7 @@ Figure \ref{fig:6b_traj} shows that the probe does not approach too much the Ear
 \subsection{The remaining Lagrangian points}
 The section studies the remaining Lagrangian points, which are L1, L2, L3 and L5.
 
-For a 3-body simulation with one neglectable mass, equation \eqref{eq:5b_lagrange_general} gives the general evolution of the third body.
+For a 3-body simulation with one negligible mass, equation \eqref{eq:5b_lagrange_general} gives the general evolution of the third body.
 This equation comes from the lessons.
 
 \begin{equation}
@@ -615,7 +615,7 @@ Thus, the equation that will be used is given by equation \eqref{eq:5b_lagrange_
 \end{equation}
 
 \subsubsection{Finding L1, L2 and L3}
-Points L1, L2 and L3 are particular, because they are all located on the horizontal line, which implicate that $y'=0$.
+Points L1, L2 and L3 are particular, because they are all located on the horizontal line, which implies that $y'=0$.
 Thus, for equation \eqref{eq:5b_lagrange_stationnaire}, $r_{ij} = (x'_j - x'_i)\text{sgn}\left(x'_j - x_i\right)$.
 To simplify the notation, define $\sigma_i = \text{sgn}\left(x'_j - x'_i\right)$.
 The final equation for these point is then given by equation \eqref{eq:5b_lagrange_stationnaire_L123}.
@@ -625,7 +625,7 @@ The final equation for these point is then given by equation \eqref{eq:5b_lagran
   \label{eq:5b_lagrange_stationnaire_L123}
 \end{equation}
 
-Each of these lagrangian point is determined by $\sigma_i$, at it explains where the third body is with respect to the two others.
+Each of these lagrangian points is determined by $\sigma_i$, at it explains where the third body is with respect to the two others.
 Thus:
 \begin{itemize}
   \item for L1: $\sigma_1$ = 1, $\sigma_2$ = -1;
@@ -643,7 +643,7 @@ Thus, the position of point L1, L2 and L3 are given by:
 
 \subsubsection{Finding L5}
 Finding L5 is fairly easy, knowing the position of L4.
-This point is a reflexion of L4 with respect to the axis horizontal axis.
+This point is a reflection of L4 with respect to the horizontal axis.
 Thus, L5 is given by the initial position and velocity \ref{eq:pos_vit_L5}.
 
 \begin{equation}
