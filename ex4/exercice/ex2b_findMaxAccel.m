@@ -61,7 +61,7 @@ for i=1:nsimul
     ax3 = d(:,15);
     ay3 = d(:,16);
 
-    maxAccel(i,1) = max( sqrt(ax3.^2 + ay3.^2) ) / g;
+    maxAccel(i,1) = max( sqrt(ax3.^2 + ay3.^2) )% / g;
 
     % puis on plot les positions.
     plot(x1(2:end), y1(2:end), '-');

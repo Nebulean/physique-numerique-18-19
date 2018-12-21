@@ -345,13 +345,13 @@ The process is restarted with a new range of angles $A_1 = [\Theta_1 - \phi_1, \
 By looping $k$ times, until the moment where the minimal acceleration only slightly changes over analysis,  one of the best angle is found.
 This angle is given by $\theta = \Theta_k$.
 
-To illustate this method, figure \ref{fig:2b_min_a} gives an example of the plots that can be made for one process.
+To illustate this method, figure \ref{fig:ex5b_maxaccel} gives an example of the plots that can be made for one process.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.6\textwidth]{graphs/ex5b_maxaccel.eps}
-  \caption{Maximum of the acceleration of all simulations. }
-
+  \caption{Maximum of the acceleration of all simulations. Note that the line at the bottom is a problem in the simulations, which hasn't been solved (no solutions were found), but it does not affect any results.}
+  \label{fig:ex5b_maxaccel}
 \end{figure}
 
 % \begin{figure}[h]
@@ -371,17 +371,17 @@ To illustate this method, figure \ref{fig:2b_min_a} gives an example of the plot
 %   \label{fig:2b_min_a}
 % \end{figure}
 
-The angle of rotation found using this processes is given by equation \eqref{eq:2b_a_min-angle}.
+The angle of rotation found using this processes is given by equation \eqref{eq:2b_a_min_angle}.
 
 \begin{equation}
-  \theta \approx \SI{5.448956d-4}{\radian} %TODO : Compléter ce résultat.
+  \theta \approx \SI{3.303d-2}{\radian}
   \label{eq:2b_a_min_angle}
 \end{equation}
 
 The norm of the smallest maximal acceleration, found using angle of equation \eqref{eq:2b_a_min_angle}, is given by equation \eqref{eq:2b_a_min}.
 
 \begin{equation}
-  a = \SI{63.29}{\meter\per\square\second} \approx \num{6.45}\text{ G} %TODO : Compléter ce résultat.
+  a = \SI{63.27}{\meter\per\square\second} \approx \num{6.45}\text{ G} %TODO : Compléter ce résultat.
   \label{eq:2b_a_min}
 \end{equation}
 
@@ -458,7 +458,7 @@ In all of these cases the oscillations can be explained by the approximations ma
 \section{Three bodies: Earth, Moon and Apollo 13}
 Now we add Apollo to the previous system so that we get a 3-body system. As the frame of reference used is now that of the center of gravity $G$, the initial position and velocity of Apollo need to be changed accordingly. With Earth, Apollo and the Moon aligned on the x-axis, we get Apollo's initial position $x_A = 309482755.5 m$. To the initial velocity in the geocentric frame of reference, the effect rotation of the Earth in the frame of reference of $G$ should be added. The new velocity is then $\mathbf{v_A}=\Omega \mathbf{r_A} \hat{e_{\theta}}$ with $\Omega$ the angular velocity of the Earth-Moon system, with the polar coordinates $(r,\theta)$. By projecting onto cartesian coordinates we get the initial velocity of Apollo in the frame of reference of $G$: $\mathbf{v_A}=\begin{pmatrix} \num{-1178.5} \\ \num{-597.6} \end{pmatrix}$.
 
-\subsection{Minimal height without atmosphere} 
+\subsection{Minimal height without atmosphere}
 In this new system we vary the direction of the initial velocity of Apollo so that it reaches a minimal Earth orbit height close to $h_{min} = 10000$ m with a precision better than $100$ m (Fig.\ref{fig:5a}). The effect of the atmosphere is neglected ($\rho_0 = 0$).
 
 \begin{figure}[h]
@@ -564,7 +564,7 @@ Figure \ref{fig:6b_traj} gives the trajectory of the probe and \ref{fig:6b_dist}
     \caption{Evolution of the distance between the probe and both the Earth and the Moon.}
     \label{fig:6b_dist}
   \end{subfigure}
-  \caption{Stability analysis of L4, with a gap of \SI{1000}{\km}. The simulation ran for a year, for \num{10505} steps, with an adaptative time step of precision $\epsilon = \SI{e-4}{\m}$.}
+  \caption{Stability analysis of L4, with a gap of \SI{10000}{\km}. The simulation ran for a year, for \num{10505} steps, with an adaptative time step of precision $\epsilon = \SI{e-4}{\m}$.}
   \label{fig:6b_stab}
 \end{figure}
 
@@ -648,8 +648,25 @@ Thus, the position of point L1, L2 and L3 are given by:
 
 \subsubsection{Finding L5}
 Finding L5 is fairly easy, knowing the position of L4.
-This point is a
-%TODO: À faire
+This point is a reflexion of L4 with respect to the axis horizontal axis.
+Thus, L5 is given by the initial position and velocity \ref{eq:pos_vit_L5}.
+
+\begin{equation}
+  \mathbf{r_\text{L5}} =
+  \begin{pmatrix}
+    \num{187697755.46} \\
+    \num{-333201542.06}
+  \end{pmatrix}
+  \si{\m}
+  \text{ and }
+  \mathbf{v_\text{L5}} =
+  \begin{pmatrix}
+    \num{-886.85} \\
+    \num{-499.58}
+  \end{pmatrix}
+  \si{\m\per\s}
+  \label{eq:pos_vit_L5}
+\end{equation}
 
 \subsubsection{Stability of all points}
 The stability of L1 is analysed by figures \ref{fig:7b_L1_traj} and \ref{fig:7b_L1_dist}.
@@ -723,6 +740,47 @@ Thus, the expectations are correct: L3 is an unstable Lagrangian point.
   \caption{Stability analysis of L3. The simulation ran for two year, for \num{23247} steps, with an adaptative time step of precision $\epsilon = \SI{e-4}{\m}$.}
   \label{fig:7b_L3}
 \end{figure}
+
+The stability of L5 is analysed by figures \ref{fig:7b_L5_traj}, \ref{fig:7b_L5_dist}, \ref{fig:7b_L5_gap_traj} and \ref{fig:7b_L5_gap_dist}.
+The same analysis as L4 can be done, and the conclusion is: L5 is a stable Lagrangian point.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex7b_L5_stab_close.png}
+    \caption{Trajectory of Apollo 13 (range of colors represented by the speed of the probe), with the Earth (in blue) and the Moon (in red) at their right radius. The graph has been zoomed in several times to get informations.}
+    \label{fig:7b_L5_traj}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex7b_L5_dist.eps}
+    \caption{Evolution of the distance between the probe and both the Earth and the Moon.}
+    \label{fig:7b_L5_dist}
+  \end{subfigure}
+
+  \caption{Stability analysis of L5. The simulation ran for a year, for \num{10647} steps, with an adaptative time step of precision $\epsilon = \SI{e-4}{\m}$.}
+  \label{fig:7b_L5}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex7b_L5_gap_traj.png}
+    \caption{Trajectory of Apollo 13 (range of colors represented by the speed of the probe), with the Earth (in blue) and the Moon (in red) at their right radius.}
+    \label{fig:7b_L5_gap_traj}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{graphs/ex7b_L5_gap_dist.eps}
+    \caption{Evolution of the distance between the probe and both the Earth and the Moon.}
+    \label{fig:7b_L5_gap_dist}
+  \end{subfigure}
+
+  \caption{Stability analysis of L5, with a gap of \SI{10000}{\km}. The simulation ran for a year, for \num{10744} steps, with an adaptative time step of precision $\epsilon = \SI{e-4}{\m}$.}
+  \label{fig:7b_L5}
+\end{figure}
+
+
 
 %TODO: Tableau résumant les convergences ?
 

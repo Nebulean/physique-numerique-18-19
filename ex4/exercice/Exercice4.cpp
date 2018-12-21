@@ -262,16 +262,30 @@ private:
     valarray<double> p1(step(p, dt));
     valarray<double> ptemp(step(p, dt/2.));
     valarray<double> p2(step(ptemp, dt/2.));
+    // coutBigFatVec(p1, "p1");
+    // coutBigFatVec(p2, "p2");
+    // double d = abs(p1-p2).max();
 
-    double d = abs(p1-p2).max();
-
+    // Trying to solve a problem. Failed.
+    // double d(0);
+    // double dtmp(0);
+    // for (size_t i = 0; i < 3; i++) {
+    //   dtmp = abs(getPos(i, p1) - getPos(i, p2)).max();
+    //   // if (i==2) {
+    //   //   cout << dtmp << endl;
+    //   // }
+    //
+    //   if (d < dtmp) {
+    //     d = dtmp;
+    //   }
+    // }
 
     if(d<=epsilon){
       t += dt;
       dt *= pow(epsilon/d, 1./5.); // power 1/(n+1) with n the order of convergence
       return p2;
     } else {
-      dt *= 0.99 * pow(epsilon/d, 1./5.);
+      dt *= 0.95 * pow(epsilon/d, 1./5.);
       return stepDtAdapt();
     }
   }
@@ -279,6 +293,7 @@ private:
   void coutBigFatVec(valarray<double> const& vec, string name){
     cout << name << "=( ";
     for (size_t i = 0; i < vec.size() - 1; i++) {
+      cout.precision(15);
       cout << vec[i] << ", ";
     }
     cout << vec[vec.size() - 1] << " )" << endl;
