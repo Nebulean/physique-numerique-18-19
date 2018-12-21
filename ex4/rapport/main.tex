@@ -74,12 +74,10 @@ Its velocity with respect to earth's frame of reference is $v_0 = \SI{1.2}{\kilo
 Because of a fuel shortage, the norm of speed can not be changed.
 However, it is possible to ajust its direction.
 To bring back Apollo 13's crew, their trajectory needs to get as close as $h=\SI{10}{\kilo\meter}$ to the surface of earth, the distance where the atmosphere is dense enough to slow the ship and break its orbit.
-In this experiment, the Moon will be ignored and the mass of Apollo 13 is neglictable compared to Earth's mass. Then, it will be a 1 body gravitational problem.
-
-%TODO : tableau avec les constantes
+In this experiment, the Moon will be ignored and the mass of Apollo 13 is negligible compared to Earth's mass. Then, it will be a 1 body gravitational problem.
 
 \subsection{Initial velocity of Apollo 13}
-The goal of this section is to find the components of the velocity of the probe, so that it gets on an orbit close to earth, at \SI{10}{\kilo\meter}. When neglecting the effect of the atomsphere, Apollo is only subjected to the gravitational forces of Earth and Moon, which are conservative forces. Therefore we can use conservation of mechanical energy and conservation of angular momentum to solve for the initial velocity.
+The goal of this section is to find the components of the velocity of the probe, so that it gets on an orbit close to earth, at \SI{10}{\kilo\meter}. When neglecting the effect of the atmosphere, Apollo is only subjected to the gravitational forces of Earth and Moon, which are conservative forces. Therefore we can use conservation of mechanical energy and conservation of angular momentum to solve for the initial velocity.
 
 \subsubsection{Conservation of mechanical energy}
 The mechanical energy of the probe at any moment is given by equation \eqref{eq:1a-em-apollo13}.
@@ -179,7 +177,7 @@ Thus, RK4 converges on the expected order for this simulation.
 This time, the same situation is computed numerically, but with an adaptative time step.
 It means that, for each steps, the time step is modified, to obtain a particular precision.
 It allows to use greater time steps when the evolution is slightly changing, and to use smaller time steps when the evolution is greatly changing.
-Thus, it should greatly reduces the number of steps required to do a simulation.
+Thus, it should greatly reduce the number of steps required to do a simulation.
 
 \subsubsection{Trajectory}
 The trajectory of the probe is computed with the same conditions than in section \ref{sec:1b_traj}, with the adaptative time step enabled.
@@ -262,12 +260,12 @@ Figure \ref{fig:2a_traj} represents the trajectory of Apollo 13.
 Using these conditions, the maximum acceleration that was experienced by the probe is given by equation \eqref{eq:2a_maxAccel}.
 
 \begin{equation}
-  a_\text{max} = \SI{220.53}{\meter\per\square\second} = \num{22.49}\text{ G}
+  a_\text{max} = \SI{220.53}{\meter\per\square\second} = \num{22.49}\text{ g}
   \label{eq:2a_maxAccel}
 \end{equation}
 
 This acceleration is absolutely unbearable for any humain, and probably any other mammals.
-To get a comparison, astronauts can experience around $\num{3}\text{ G}$ during a liftoff \cite{nasa:ask_the_crew}, but they are experimented and equipped with g-suits, which reduces the impact of acceleration \cite{wiki:g-suit} on the body.To complete this analysis, a convergence study of the maximum acceleration is given by figure \ref{fig:2a_conv}.\\
+To get a comparison, astronauts can experience around $\num{3}\text{ g}$ during a liftoff \cite{nasa:ask_the_crew}, but they are experimented and equipped with g-suits, which reduces the impact of acceleration \cite{wiki:g-suit} on the body.To complete this analysis, a convergence study of the maximum acceleration is given by figure \ref{fig:2a_conv}.\\
 
 \begin{figure}[h]
   \centering
@@ -286,12 +284,12 @@ Thus, RK4 is once again proven to be converging at the right order, and fits the
 The maximum power of the air resistance is given by equation \eqref{eq:2a_maxPower}.
 
 \begin{equation}
-  P_{max}(\mathbf{f_\text{drag}}) = \SI{9672252913}{\watt} %TODO: Vérifier les valeurs.
+  P_{max}(\mathbf{f_\text{drag}}) = \SI{9672252913}{\watt}
   \label{eq:2a_maxPower}
 \end{equation}
 
-% The maximum power described by equation \eqref{eq:2a_maxPower} is big.
-%TODO: Un mot sur la puissance peut-être ?
+Equation \eqref{eq:2a_maxPower} describes the maximal power of drag, applied to the probe.
+No references has been found to compare this value, but it seems considerable, as a high power applied to the probe will heat it, and in this case, will probably melt it.
 
 Thus, returning to Earth using the current trajectory is not possible, and another method must be found, which is the topic of next section.
 
@@ -331,7 +329,7 @@ Both velocities are linked by the rotation matrix, and their relation is given b
 
 To find the right angle $\theta$ minimizing the acceleration, the plot of the maximum acceleration for a given angle, and the trajectory of the probe, will be use.
 
-Denote $i$ the process number, $\phi_0$ an arbitrary angle and $\Theta_0 = 0$ an angle.
+Denote $i$ the process number, $\phi_0$ an arbitrary angle and $\Theta_0 = \SI{0}{\radian}$ an angle.
 First, an arbitrary range of angles are selected: $A_0 = [\Theta_0-\phi_0, \Theta_0+\phi_0]$.
 The rotated velocities $\mathbf{w}$ are computed and stored, for $N$ angles contained in $A$.
 These velocities are inserted as the initial velocities, and all the simulations are made.
@@ -378,7 +376,7 @@ The angle of rotation found using this processes is given by equation \eqref{eq:
 The norm of the smallest maximal acceleration, found using angle of equation \eqref{eq:2b_a_min_angle}, is given by equation \eqref{eq:2b_a_min}.
 
 \begin{equation}
-  a = \SI{63.27}{\meter\per\square\second} \approx \num{6.45}\text{ G} %TODO : Compléter ce résultat.
+  a = \SI{63.27}{\meter\per\square\second} \approx \num{6.45}\text{ g} %TODO : Compléter ce résultat.
   \label{eq:2b_a_min}
 \end{equation}
 
@@ -403,7 +401,7 @@ v_i = \frac{\sqrt{RG m_j}}{d}
 Hence, choosing a clockwise rotation, the Earth's initial velocity is $v_T = 12.44632236 ~\si{\m \per \s}$ and the Moon's initial velocity is $v_L = -1011.601415~\si{\m \per \s}$. The trajectories with these initial conditions are shown on fig.\ref{fig:4_traj}.
 
 \subsection{Conservation of quantities}
-Since the only force applied on both objects is a conservative force, the mechanical energies and momentum are conserved. As their trajectory is a uniform circle, their distance with respect to each other is also conserved. Fig.\ref{fig:4emec} shows the mechanical energy of the Earth and the Moon over time, fig.\ref{fig:4p} shows their momentum over time, and fig.\ref{4d} shows their distance over time. All of these simulations were done over $25228000$ s or about 292 days, so that the system performed around ten revolutions.
+Since the only force applied on both objects is a conservative force, the mechanical energies and momentum are conserved. As their trajectory is a uniform circle, their distance with respect to each other is also conserved. Fig. \ref{fig:4emec} shows the mechanical energy of the Earth and the Moon over time, fig. \ref{fig:4p} shows their momentum over time, and fig. \ref{fig:4d} shows their distance over time. All of these simulations were done over $25228000$ s or about 292 days, so that the system performed around ten revolutions, and with $\epsilon = 1 \cdot 10^{-4}$.
 
 \begin{figure}[h]
   \centering
@@ -442,7 +440,7 @@ All of these quantities for both objects oscillate over time, although they are 
 \end{figure}
 
 The amplitude of the oscillations of the momentum are of order $10^{22}$ for an order of magnitude of $10^{25}$ for the momentum of both objects. The difference between their momenta is not visible at this scale, however by zooming in, it can be observed that the maximum difference is of order $10^{16}$.\\
-The amplitude of the oscillations of the distance between the Earth and the Moon is of order $10^4$ for an order of magnitude of $10^8$ for the distance. The average distance is $3.84744028 \cdot 10^8 m$.\\
+The amplitude of the oscillations of the distance between the Earth and the Moon is of order $10^4$ for an order of magnitude of $10^8$ for the distance. The average distance is $\SI{3.84744028d8}{\m}$.\\
 In all of these cases the oscillations can be explained by the approximations made by the Runge-Kutta numerical method.
 
 \begin{figure}[h]
@@ -453,10 +451,10 @@ In all of these cases the oscillations can be explained by the approximations ma
 \end{figure}
 
 \section{Three bodies: Earth, Moon and Apollo 13}
-Now we add Apollo to the previous system so that we get a 3-body system. As the frame of reference used is now that of the center of gravity $G$, the initial position and velocity of Apollo need to be changed accordingly. With Earth, Apollo and the Moon aligned on the x-axis, we get Apollo's initial position $x_A = 309482755.5 m$. To the initial velocity in the geocentric frame of reference, the effect rotation of the Earth in the frame of reference of $G$ should be added. The new velocity is then $\mathbf{v_A}=\Omega \mathbf{r_A} \hat{e_{\theta}}$ with $\Omega$ the angular velocity of the Earth-Moon system, with the polar coordinates $(r,\theta)$. By projecting onto cartesian coordinates we get the initial velocity of Apollo in the frame of reference of $G$: $\mathbf{v_A}=\begin{pmatrix} \num{-1178.5} \\ \num{-597.6} \end{pmatrix}$.
+Now we add Apollo to the previous system so that we get a 3-body system. As the frame of reference used is now that of the center of gravity $G$, the initial position and velocity of Apollo need to be changed accordingly. With Earth, Apollo and the Moon aligned on the x-axis, we get Apollo's initial position $x_A = \SI{309482755.5}{\m}$. To the initial velocity in the geocentric frame of reference, the effect rotation of the Earth in the frame of reference of $G$ should be added. The new velocity is then $\mathbf{v_A}=\Omega \mathbf{r_A} \hat{e_{\theta}}$ with $\Omega$ the angular velocity of the Earth-Moon system, with the polar coordinates $(r,\theta)$. By projecting onto cartesian coordinates we get the initial velocity of Apollo in the frame of reference of $G$: $\mathbf{v_A}=\begin{pmatrix} \num{-1178.5} \\ \num{-597.6} \end{pmatrix}$.
 
 \subsection{Minimal height without atmosphere}
-In this new system we vary the direction of the initial velocity of Apollo so that it reaches a minimal Earth orbit height close to $h_{min} = 10000$ m with a precision better than $100$ m (Fig.\ref{fig:5a}). The effect of the atmosphere is neglected ($\rho_0 = 0$).
+In this new system we vary the direction of the initial velocity of Apollo so that it reaches a minimal Earth orbit height close to $h_{min} = 10000$ m with a precision better than $100$ m (Fig.\ref{fig:5a}). The effect of the atmosphere is neglected ($\rho_0 = 0$) and the precision is $\epsilon = \num{d-4}$.
 
 \begin{figure}[h]
   \centering
