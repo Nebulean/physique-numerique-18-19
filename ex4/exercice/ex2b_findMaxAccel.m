@@ -6,9 +6,10 @@ tFin=172800;
 
 % On va appliquer une rotation légère sur la vitesse initiale d'Apollo, ce
 % qui devrait nous permettre de trouver un minimum pour l'accélération.
-nsimul = 10;
-range = pi/50;%5.420395993250000e-04 + pi/1100000; % angle qui me semble correcte.
-angle = linspace(-range, range, nsimul);
+nsimul = 1000;
+center = 0%5.4555555e-04;
+range = 1%5.420395993250000e-04 + pi/1100000+ 0.001; % angle qui me semble correcte.
+angle = linspace(center-range, center+range, nsimul);
 
 % On importe la vitesse initiale
 vx       = 226.1446244551499;
@@ -25,7 +26,7 @@ newvy = vx*sin(angle) + vy*cos(angle);
 for i=1:nsimul
     cmd = sprintf("./Exercice4 configuration.in tFin=%f atm=%s dt=8 dtad=%s epsilon=%f output=ex2b_findMaxAccel%d.out vx3=%0.15f vy3=%0.15f", tFin, atm, dtad, epsilon, i, newvx(i), newvy(i));
     disp(cmd)
-    system(cmd)
+    %system(cmd)
 end
 
 %% On charge et traite ces données et on plot la trajectoire de chaque simulation.
@@ -60,7 +61,7 @@ for i=1:nsimul
     ax3 = d(:,15);
     ay3 = d(:,16);
     
-    maxAccel(i,1) = max( sqrt(ax3.^2 + ay3.^2) );% / g;
+    maxAccel(i,1) = max( sqrt(ax3.^2 + ay3.^2) ) / g;
 
     % puis on plot les positions.
     plot(x1(2:end), y1(2:end), '-');

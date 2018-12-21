@@ -114,7 +114,7 @@ L = mr^2 \omega
 \end{equation}
 where $\omega$ is the angular velocity of the probe. From $ L_{t_0} = L{t_end} $ we get equation \eqref{eq:momcin2}.
 \begin{equation}
-v_{\theta 0} = \frac{(h+R_T)^2}{r_0^2} \sqrt{v_0^2 + G M_T \left(\frac{1}{h+R_T}-\frac{1}{r_0}\right)} 
+v_{\theta 0} = \frac{(h+R_T)^2}{r_0^2} \sqrt{v_0^2 + G M_T \left(\frac{1}{h+R_T}-\frac{1}{r_0}\right)}
 \label{eq:momcin2}
 \end{equation}
 
@@ -348,20 +348,27 @@ To illustate this method, figure \ref{fig:2b_min_a} gives an example of the plot
 
 \begin{figure}[h]
   \centering
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/ex2b_convacc.eps}
-    \caption{Maximum acceleration of all simulations.}
-    \label{fig:2b_min_a_traj}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/ex2b_traj.eps}
-    \caption{Trajectories for a given angle. Different colors means different different rotation angles. The legend was removed for readability reasons.}
-    \label{fig:2b_min_a_comp}
-  \end{subfigure}
-  \caption{Study of the trajectory and the maximum acceleration for \num{10} simulations, using an adaptative time step of $\epsilon=1e-4$. The angles of rotations used are contained in the range $[-\frac{\pi}{50}, \frac{\pi}{50}]$.}
-  \label{fig:2b_min_a}
+  \includegraphics[width=0.6\textwidth]{graphs/ex5b_maxaccel.eps}
+  \caption{Maximum of the acceleration of all simulations. }
+
 \end{figure}
+
+% \begin{figure}[h]
+%   \centering
+%   \begin{subfigure}[t]{0.45\textwidth}
+%     \includegraphics[width=\textwidth]{graphs/ex2b_convacc.eps}
+%     \caption{Maximum acceleration of all simulations.}
+%     \label{fig:2b_min_a_traj}
+%   \end{subfigure}
+%   ~
+%   \begin{subfigure}[t]{0.45\textwidth}
+%     \includegraphics[width=\textwidth]{graphs/ex2b_traj.eps}
+%     \caption{Trajectories for a given angle. Different colors means different different rotation angles. The legend was removed for readability reasons.}
+%     \label{fig:2b_min_a_comp}
+%   \end{subfigure}
+%   \caption{Study of the trajectory and the maximum acceleration for \num{10} simulations, using an adaptative time step of $\epsilon=1e-4$. The angles of rotations used are contained in the range $[-\frac{\pi}{50}, \frac{\pi}{50}]$.}
+%   \label{fig:2b_min_a}
+% \end{figure}
 
 The angle of rotation found using this processes is given by equation \eqref{eq:2b_a_min-angle}.
 
@@ -594,6 +601,8 @@ Thus, the position of point L1, L2 and L3 are given by:
 \end{itemize}
 
 \subsubsection{Finding L5}
+Finding L5 is fairly easy, knowing the position of L4.
+This point is a
 %TODO: À faire
 
 \subsubsection{Stability of all points}
