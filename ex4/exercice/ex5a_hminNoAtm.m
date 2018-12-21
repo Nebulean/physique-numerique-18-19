@@ -30,7 +30,7 @@ for i=1:nsimul
 end
 
 %% On charge et traite ces données et on plot la trajectoire de chaque simulation.
-fig_traj=figure
+f1=figure
 hold on;
 pbaspect([1 1 1]);
 daspect([1 1 1]);
@@ -81,18 +81,32 @@ for i=1:nsimul
     
 end
 
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+
 % on plot les endroits initiaux
 plot(x3(1), y3(1), 'x', 'Color','green');
 centerOfEarth = [x1(end), y1(end)];
 plotCircle(centerOfEarth, RT, 500, 'blue');
+set(gca, 'fontsize', 22);
+xlabel("x [m]");
+ylabel("y [m]");
+box on;
 hold off;
 
 % on plot hmin
-f=figure
+f2=figure;
 plot (angle,mindist,'x');
+set(gca, 'fontsize', 22);
 xlabel('Angle difference with initial velocity direction [rad]');
-ylabel('Difference between minimal height and the desired height $h_{min}$ [m]');
+ylabel('Difference of minimal height w/ $h_{min}$ [m]');
+box on;
 grid on;
+
+saveas(f1,'graphs/ex5a_traj.eps','epsc');
+saveas(f2,'graphs/ex5a_hmin.eps','epsc');
 
 function circle = plotCircle(center, radius, nb, color)
     circle = zeros(nb, 2);
