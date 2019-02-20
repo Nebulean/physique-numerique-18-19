@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
   // Iterations:
   //////////////////////////////////////
   vector<vector<double>> Told(T);
-  vector<vector<double> > Tstar(N+1,vector<double>(N+1));
+  vector<vector<double> > Tstar(T);
   double m(eps);
 
   //Initial step
@@ -108,22 +108,25 @@ int main(int argc, char* argv[])
   //     }
   //   }
   // }
-  for(int iter=0; iter*dt<tfin || m<eps; ++iter)
+
+  for(int iter=0; iter*dt<tfin || m>eps; ++iter)
   {
+    // cout << "itération: " << iter << endl;
     // TODO: Schema a 2 niveaux et calcul de max(|dT/dt|)
     // schema a 2 niveaux
     for (size_t i = 0; i < T.size(); i++) {
       for (size_t j = 0; j < T.size(); j++) {
         if (!flag[i][j]) {
-          Tstar[i][j] = Told[i][j] + Dcoef*dt/(h*h)*(Told[i+1][j] + Told[i-1][j] + Told[i][j+1] + Told[i][j-1] + 4*Told[i][j]);
+          Tstar[i][j] = Told[i][j] + Dcoef*dt/(h*h)*(Told[i+1][j] + Told[i-1][j] + Told[i][j+1] + Told[i][j-1] - 4*Told[i][j]);
           T[i][j] = Told[i][j] + alpha*(Tstar[i][j] - Told[i][j]);
         }
       }
     }
 
     m = max(deriv(Told,T,dt,flag));
-
+    // cout << "m=" << m << endl;
     Told = T;
+    Tstar = T;
 
     // Diagnostiques:
     output_P << iter*dt << " " << puissance(T, kappa, h, xa, xb, ya, yb)
@@ -158,10 +161,10 @@ vector<vector<double> > deriv(vector<vector<double> > const& Told, vector<vector
   vector<vector<double>> res(Tnew.size(),vector<double>(Tnew.size()));
   for (size_t i = 0; i < res.size(); i++){
     for (size_t j = 0; j < res.size(); j++){
-      // if (!f[i][j])
+      if (!f[i][j])
         res[i][j] = 1./step * (Tnew[i][j]-Told[i][j]);
-      // else
-      //   res[i][j] = 0;
+      else
+        res[i][j] = 0;
     }
   }
   return res;
