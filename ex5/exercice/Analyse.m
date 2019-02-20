@@ -12,6 +12,7 @@ t = data(:,1);
 Pc = data(:,2);
 Pf = data(:,3);
 Ptot = data(:,4);
+kappa=1.2;
 
 %% Analyse %%
 %%%%%%%%%%%%%
@@ -22,6 +23,12 @@ jxc = zeros(N-1,N-1);
 jyc = zeros(N-1,N-1);
 jnorm = sqrt(jxc.^2+jyc.^2);
 
+for i=2:N-1
+    for j=2:N-2
+        jxc(i-1,j) = -kappa/h * (T(i+1,j) - T(i,j));
+        jyc(i-1,j) = -kappa/h * (T(i,j+1) - T(i,j));
+    end
+end
 
 %% Figures %%
 %%%%%%%%%%%%%
