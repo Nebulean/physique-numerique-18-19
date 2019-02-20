@@ -14,7 +14,7 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice5'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-nsimul = 10; % Nombre de simulations a faire
+nsimul = 5; % Nombre de simulations a faire
 
 dt = logspace(-5,-3, nsimul);
 
@@ -50,8 +50,8 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     if(strcmp(paramstr,'dt'))
         data = load([output{i} '_T.out']);
         N = sqrt(length(data));
-        Y = data(1:N,2)*N/L;
-        X = data(1:N,1)*N/L
+        Y = data(1:N,2);
+        X = data(1:N:N*N,1);
         
 %         Xap =  min(abs(X-xp));
 %         if (Xap <= xp)
@@ -69,12 +69,15 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
 %         end
 %         Yhigh = Ylow+1;
 
-        Xlow = floor(xp*N/L)
+        Xlow = floor(xp*N+1/L)+1
         Xhigh = Xlow+1
-        Ylow = floor(xp*N/L)
+        Ylow = floor(xp*N+1/L)+1
         Yhigh = Ylow+1
         
-        indx = find (X==Xlow)
+        T1 = T(Xlow+41*(Ylow-1));
+        T2 = T(Xlow+41*(Yhigh-1));
+        T3 = T(Xhigh+41*(Ylow-1));
+        T4 = T(Xhigh+41*(Yhigh-1));
         
         Tp(i) = 1/4 * (Xlow+Xhigh+Ylow+Yhigh);
     end
