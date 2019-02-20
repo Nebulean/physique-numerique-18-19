@@ -117,8 +117,13 @@ int main(int argc, char* argv[])
     for (size_t i = 0; i < T.size(); i++) {
       for (size_t j = 0; j < T.size(); j++) {
         if (!flag[i][j]) {
-          Tstar[i][j] = Told[i][j] + Dcoef*dt/(h*h)*(Told[i+1][j] + Told[i-1][j] + Told[i][j+1] + Told[i][j-1] - 4*Told[i][j]);
-          T[i][j] = Told[i][j] + alpha*(Tstar[i][j] - Told[i][j]);
+          // Jacobi sans surrelaxation
+          T[i][j] = Told[i][j] + Dcoef*dt/(h*h)*(Told[i+1][j] + Told[i-1][j] + Told[i][j+1] + Told[i][j-1] - 4*Told[i][j]);
+          // GS sans surrelaxation
+          // T[i][j] = T[i][j] + Dcoef*dt/(h*h)*(T[i+1][j] + T[i-1][j] + T[i][j+1] + T[i][j-1] - 4*T[i][j]);
+          // Jacobi avec surrelaxation
+          // Tstar[i][j] = Told[i][j] + Dcoef*dt/(h*h)*(Told[i+1][j] + Told[i-1][j] + Told[i][j+1] + Told[i][j-1] - 4*Told[i][j]);
+          // T[i][j] = Told[i][j] + alpha*(Tstar[i][j] - Told[i][j]); // ATTENTION: Alpha est peut-être faux, c'est pas le même que dans le cours
         }
       }
     }
