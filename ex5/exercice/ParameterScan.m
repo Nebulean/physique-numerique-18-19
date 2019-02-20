@@ -36,19 +36,47 @@ end
 %% Analyse %%
 %%%%%%%%%%%%%
 
+L = .1;
+
 % Parcours des resultats de toutes les simulations
 
 if(strcmp(paramstr,'dt'))
-    xp = 0;
-    yp = 0;
+    xp = .0455;
+    yp = .0636;
     Tp = zeros(1,nsimul);
 end
 
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     if(strcmp(paramstr,'dt'))
         data = load([output{i} '_T.out']);
-        % TODO: interpoler la temperature en (xp,yp)
-        Tp(i) = 0;
+        N = sqrt(length(data));
+        Y = data(1:N,2)*N/L;
+        X = data(1:N,1)*N/L
+        
+%         Xap =  min(abs(X-xp));
+%         if (Xap <= xp)
+%             Xlow = Xap
+%         else
+%             Xlow = Xap-1
+%         end
+%         Xhigh = Xlow+1;
+%         
+%         Yap =  min(abs(Y-xp));
+%         if (Yap <= yp)
+%             Ylow = Yap
+%         else
+%             Ylow = Xap-1
+%         end
+%         Yhigh = Ylow+1;
+
+        Xlow = floor(xp*N/L)
+        Xhigh = Xlow+1
+        Ylow = floor(xp*N/L)
+        Yhigh = Ylow+1
+        
+        indx = find (X==Xlow)
+        
+        Tp(i) = 1/4 * (Xlow+Xhigh+Ylow+Yhigh);
     end
 end
 
