@@ -14,7 +14,7 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice5'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-nsimul = 5; % Nombre de simulations a faire
+nsimul = 10; % Nombre de simulations a faire
 
 dt = logspace(-5,-3, nsimul);
 
@@ -41,8 +41,8 @@ L = .1;
 % Parcours des resultats de toutes les simulations
 
 if(strcmp(paramstr,'dt'))
-    xp = .0455;
-    yp = .0636;
+    xp = .05;
+    yp = .02;
     Tp = zeros(1,nsimul);
 end
 
@@ -50,10 +50,11 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     if(strcmp(paramstr,'dt'))
         data = load([output{i} '_T.out']);
         N = sqrt(length(data));
-        Y = data(1:N,2);
-        X = data(1:N:N*N,1);
+        Y = data(:,2);
+        X = data(:,1);
+        T = data(:,3);
         
-%         Xap =  min(abs(X-xp));
+%         Xap =  min(abs(X-xp))
 %         if (Xap <= xp)
 %             Xlow = Xap
 %         else
@@ -69,17 +70,22 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
 %         end
 %         Yhigh = Ylow+1;
 
-        Xlow = floor(xp*N+1/L)+1
-        Xhigh = Xlow+1
-        Ylow = floor(xp*N+1/L)+1
-        Yhigh = Ylow+1
-        
-        T1 = T(Xlow+41*(Ylow-1));
-        T2 = T(Xlow+41*(Yhigh-1));
-        T3 = T(Xhigh+41*(Ylow-1));
-        T4 = T(Xhigh+41*(Yhigh-1));
-        
-        Tp(i) = 1/4 * (Xlow+Xhigh+Ylow+Yhigh);
+%         Xlow = floor(xp*N/L)
+%         Xhigh = Xlow+1
+%         Ylow = floor(yp*N/L)
+%         Yhigh = Ylow+1
+
+        Xid = xp*(N-1)/L+1
+        Yid = yp*(N-1)/L+1
+
+%         
+%         T1 = T(Xlow+N*Ylow+1)
+%         T2 = T(Xlow+N*Yhigh+1)
+%         T3 = T(Xhigh+N*Ylow+1)
+%         T4 = T(Xhigh+N*Yhigh+1)
+%         
+        Tid = (Xid-1)*N+Yid
+        Tp(i) = T(Tid)
     end
 end
 
