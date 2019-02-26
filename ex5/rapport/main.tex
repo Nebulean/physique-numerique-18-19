@@ -50,11 +50,13 @@
 
 \begin{document}
 % Le titre, l'auteur et la date
-\title{Heat problem\\{\small \\ Physique Numérique I}\\{\small Rapport 5}}
+\title{Heat problem\\{\small Physique Numérique I}\\{\small Rapport 5}}
 \date{\today}
 \author{Delphine Martres et Damien Korber\\{\small \mail{delphine.martres@epfl.ch} et \mail{damien.korber@epfl.ch}}}
+
 \maketitle
 \tableofcontents % Table des matieres
+
 
 % Quelques options pour les espacements entre lignes, l'identation
 % des nouveaux paragraphes, et l'espacement entre paragraphes
@@ -67,6 +69,55 @@
 %%%% ON COMMENCE A ECRIRE D'ICI
 
 \section{Introduction}
+This project focuses on the propagation of heat in an homogeneous environment.
+Two heat sources are considered: a cold and a hot one.
+TODO: A COMPLETER
+
+\section{Convergence and stability of the scheme}
+
+\section{Heat flux}
+This section focuses on the analysis of the behavious of the heat flux.
+The heat flux is obtained with equation \eqref{eq:flux-chaleur}.
+
+\begin{equation}
+  \vec{j} = -\kappa\vec{\nabla} T
+  \label{eq:flux-chaleur}
+\end{equation}
+
+By using a forward finite difference method, $\vec{j}$ can be numerically computed with equation \eqref{eq:flux-chaleur-numerique}.
+
+\begin{equation}
+  \vec{j} = -\frac{\kappa}{h}
+  \begin{pmatrix}
+    T^k_{i+1,j} - T^k_{i,j} & T^k_{i,j+1} - T^k_{i,j}
+  \end{pmatrix}
+  \label{eq:flux-chaleur-numerique}
+\end{equation}
+
+The result for the heat flux at $t=\SI{0.1}{\second}$ is given by figures \ref{fig:c-temp} and \ref{fig:c-heat-flux}.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/c_temp.eps}
+    \caption{Graph of temperatures, represented by the color gradient, in Celsius, with the direction and the intensity of the heat flux represented by the arrows.}
+    \label{fig:c-temp}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/c_heat_flux.eps}
+    \caption{Intensity of the heat flux represented by the color gradient.}
+    \label{fig:c-heat-flux}
+  \end{subfigure}
+  \caption{Study of the heat flux at $t=\SI{0.1}{\second}$.}
+  \label{fig:c}
+\end{figure}
+
+%TODO: ANALYSE.
+
+\section{Power}
+
+\section{Heat flux with respect to the distance between the bodies}
 
 \section{Conclusion}
 
