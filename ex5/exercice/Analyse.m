@@ -7,6 +7,7 @@ Y = data(1:N,2);
 X = data(1:N:N*N,1);
 T = reshape(data(:,3),N,N)'; % 1D -> 2D
 h = (max(X)-min(X))/(N-1);
+
 data = load([output '_P.out']);
 t = data(:,1);
 Pc = data(:,2);
@@ -14,24 +15,33 @@ Pf = data(:,3);
 Ptot = data(:,4);
 kappa=1.2;
 
+data = load(['output_F.out']);
+% Yc = data(1:N,2);
+% Xc = data(1:N:N*N,1);
+jyc = reshape(data(:,3),N-1,N-1)';
+jxc = reshape(data(:,4),N-1,N-1)';
+% jxc2 = reshape(data(:,5),N-1,N-1)';
+% jyc2 = reshape(data(:,6),N-1,N-1)';
+
+
 %% Analyse %%
 %%%%%%%%%%%%%
 % TODO : calcul du flux de chaleur au centre des cellules du maillage
 Xmid = X(1:N-1)+h/2;
 Ymid = Y(1:N-1)+h/2;
-jxc = zeros(N-1,N-1);
-jyc = zeros(N-1,N-1);
-jx = zeros(N-1,N-1);
-jy = zeros(N-1,N-1);
+% jxc = zeros(N-1,N-1);
+% jyc = zeros(N-1,N-1);
+% jx = zeros(N-1,N-1);
+% jy = zeros(N-1,N-1);
 
 % Simple différence finie centrée, mais on veut la valeur au centre de la
 % cellule.
-for i=1:length(jx)
-   for j=1:length(jx)
-      jxc(i,j) = -kappa/h * (T(i+1,j) - T(i,j));
-      jyc(i,j) = -kappa/h * (T(i,j+1) - T(i,j));
-   end
-end
+% for i=1:length(jx)
+%    for j=1:length(jx)
+%       jxc(i,j) = -kappa/h * (T(i+1,j) - T(i,j));
+%       jyc(i,j) = -kappa/h * (T(i,j+1) - T(i,j));
+%    end
+% end
 
 % for i=1:length(jxc)
 %    for i=1:length(jyc)
@@ -50,8 +60,8 @@ end
 % Du coup, on centre le résultat.
 % for i=1:N-1
 %     for j=2:N-2
-%         jxc(i,j) = (jx(i,j+1)+jx(i,j))/2
-%         jyc(i,j) = (jx(i+1,j)+jx(i,j))/2;
+%         jyc(i,j) = (jxc(i,j+1)+jx(i,j))/2
+%         jxc(i,j) = (jx(i+1,j)+jx(i,j))/2;
 %     end
 % end
 jnorm = sqrt(jxc.^2+jyc.^2);
@@ -82,12 +92,7 @@ hold off
 % Flux de chaleur :
 f2=figure
 hold on
-% set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
-% set(groot, 'defaultLegendInterpreter', 'latex');
-% set(groot, 'defaultTextInterpreter', 'latex');
-% set(groot, 'defaultAxesFontSize', 18);
-% set(gca, 'fontsize', 30);
-% set(gca, 'LineWidth',1.5);
+
 
 contourf(Xmid,Ymid,jnorm',30,'LineStyle','None')
 xlabel('x [m]')
@@ -97,6 +102,7 @@ colorbar
 axis equal
 box on
 hold off
+
 
 % Puissance :
 f3=figure
