@@ -7,11 +7,15 @@
 
 using namespace std;
 
-double puissance(vector<vector<double> > const& T, double const& kappa, double const& h, double const& x1, double const& x2, double const& y1, double const& y2);
+double puissance(vector<vector<double> > const& T, vector<vector<double> >& jx, vector<vector<double> >& jy, double const& kappa, double const& h, double const& x1, double const& x2, double const& y1, double const& y2);
 
 vector<vector<double> > deriv(vector<vector<double> > const& Told, vector<vector<double> > const& Tnew, double step, vector<vector<bool> > const& f);
 
 double max(vector<vector<double> > const& vec);
+
+void flux(vector<vector<double> > const& T, vector<vector<bool> > const& flag, vector<vector<double> >& jx, vector<vector<double> >& jy, vector<vector<double> >& jcx, vector<vector<double> >& jcy, double kappa, double h);
+
+void print(ostream const& s);
 
 int main(int argc, char* argv[])
 {
@@ -58,12 +62,31 @@ int main(int argc, char* argv[])
   string output = configFile.get<string>("output");
   ofstream output_T((output+"_T.out").c_str()); // Temperature au temps final
   ofstream output_P((output+"_P.out").c_str()); // Puissance au cours du temps
+  ofstream output_F((output+"_F.out").c_str()); // Flux de chaleur
   output_T.precision(15);
   output_P.precision(15);
 
   // Tableaux:
   vector<vector<bool> > flag(N+1,vector<bool>(N+1));
   vector<vector<double> > T(N+1,vector<double>(N+1));
+
+  // j for the edges
+  vector<vector<double> > jx(N, vector<double>(N+1, 0.0));
+  vector<vector<double> > jy(N+1, vector<double>(N, 0.0));
+
+  vector<vector<double> > jcx(N, vector<double>(N, 0.0));
+  vector<vector<double> > jcy(N, vector<double>(N, 0.0));
+
+  // vector<vector<vector<double> > > jcx(N+1, vector<vector<double> >(N, vector<double>(2, 0.0)));
+  // vector<vector<double> > j(N+1, vector<double>(N+1));
+
+  // j on the middle of the sides of the square
+  // vector<vector<vector<double> > > jxc(N+1, vector<vector<double> >(N, vector<double>(2, 0.0)));
+  // vector<vector<vector<double> > > jyc(N+1, vector<vector<double> >(N, vector<double>(2, 0.0)));
+
+  // j on the middle of square
+  // vector<vector<vector<double> > > jc(N+1, vector<vector<double> >(N, vector<double>(2, 0.0)));
+
 
 
   // TODO: Initialisation des tableaux
@@ -133,12 +156,22 @@ int main(int argc, char* argv[])
     Told = T;
     Tstar = T;
 
+    // flux
+    flux(T, flag, jx, jy, jcx, jcy, kappa, h);
+
     // Diagnostiques:
-    output_P << iter*dt << " " << puissance(T, kappa, h, xa, xb, ya, yb)
-                        << " " << puissance(T, kappa, h, xc, xd, ya, yb)
-                        << " " << puissance(T, kappa, h, xa, xd, ya, yb) << endl;
+    output_P << iter*dt << " " << puissance(T, jx, jy, kappa, h, xa, xb, ya, yb)
+                        << " " << puissance(T, jx, jy, kappa, h, xc, xd, ya, yb)
+                        << " " << puissance(T, jx, jy, kappa, h, xa, xd, ya, yb) << endl;
   }
   output_P.close();
+
+  // flux:
+  // flux(T, flag, jx, jy, jcx, jcy, kappa, h);
+  for(int i(0);i<N;++i)
+    for(int j(0);j<N;++j)
+      output_F << i*h + h/2.0 << " " << j*h + h/2.0 << " " << jcx[i][j] << " " << jcy[i][j] << " " << jx[i][j] << " " << jy[i][j] << endl;
+  output_F.close();
 
 
   // Ecriture de la temperature finale:
@@ -148,6 +181,8 @@ int main(int argc, char* argv[])
   output_T.close();
   return 0;
 }
+
+
 
 double max(vector<vector<double> > const& vec){
   double res(-300);
@@ -176,7 +211,52 @@ vector<vector<double> > deriv(vector<vector<double> > const& Told, vector<vector
 }
 
 // TODO: Calculer la puissance calorifique emise/recue par le rectangle allant de (x1,y1) a (x2,y2)
-double puissance(vector<vector<double> > const& T, double const& kappa, double const& h, double const& x1, double const& x2, double const& y1, double const& y2)
+// double puissance(vector<vector<double> > const& T, double const& kappa, double const& h, double const& x1, double const& x2, double const& y1, double const& y2)
+double puissance(vector<vector<double> > const& T, vector<vector<double> >& jx, vector<vector<double> >& jy, double const& kappa, double const& h, double const& x1, double const& x2, double const& y1, double const& y2)
 {
   return 0;
 }
+
+void flux(vector<vector<double> > const& T, vector<vector<bool> > const& flag, vector<vector<double> >& jx, vector<vector<double> >& jy, vector<vector<double> >& jcx, vector<vector<double> >& jcy, double kappa, double h)
+{
+  // compute the flux - horizontal
+  for (size_t i = 0; i < jx.size(); i++) {
+    for (size_t j = 0; j < jx[i].size(); j++) {
+      if (!flag[i][j]) {
+        jx[i][j] = -kappa/h *(T[i+1][j] - T[i][j]);
+      }
+    }
+  }
+
+  // compute the flux - vertical
+  for (size_t i = 0; i < jy.size(); i++) {
+    for (size_t j = 0; j < jy[i].size(); j++) {
+      if (!flag[i][j]) {
+        jy[i][j] = -kappa*(T[i][j+1] - T[i][j])/h;
+      }
+    }
+  }
+
+  // compute the flux on the middle of the square
+  for (size_t i = 0; i < jx.size(); i++) {
+    for (size_t j = 0; j < jy.size(); j++) {
+      if (!flag[i][j]) {
+        jcx[i][j] = (jy[i][j] + jy[i+1][j])/2;
+        jcy[i][j] = (jx[i][j] + jx[i][j+1])/2;
+      }
+    }
+  }
+  // for (size_t i = 0; i < jx[0].size()-1; i++) {
+  //   for (size_t j = 0; j < jy.size()-1; j++) {
+  //     if (!flag[i][j]) {
+  //       // cout << "jx = " << jx.size() << "; jy = " << jy.size() << "; jcx = " << jcx.size() << "; jcy = " << jcy.size() << endl;
+  //       jcx[i][j] = (jy[i+1][j] + jy[i][j])/2.0;
+  //       jcy[i][j] = (jx[i][j+1] + jx[i][j])/2.0;
+  //     }
+  //   }
+  // }
+}
+
+// void print(ostream& s){
+//   cout << s << endl;
+// }
