@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
   //////////////////////////////////////
   vector<vector<double>> Told(T);
   vector<vector<double> > Tstar(T);
-  double m(eps);
+  double m(eps+1);
 
   //Initial step
   // if (!flag[i][j]) {
@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
   //   }
   // }
 
-  for(int iter=0; iter*dt<tfin || m>eps; ++iter)
+  for(int iter=0; iter*dt<tfin && m>=eps; ++iter)
   {
     // cout << "itération: " << iter << endl;
     // TODO: Schema a 2 niveaux et calcul de max(|dT/dt|)

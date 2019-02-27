@@ -7,6 +7,27 @@
 % par la valeur scannee.
 %
 
+%         Xap =  min(abs(X-xp))
+%         if (Xap <= xp)
+%             Xlow = Xap
+%         else
+%             Xlow = Xap-1
+%         end
+%         Xhigh = Xlow+1;
+%         
+%         Yap =  min(abs(Y-xp));
+%         if (Yap <= yp)
+%             Ylow = Yap
+%         else
+%             Ylow = Xap-1
+%         end
+%         Yhigh = Ylow+1;
+
+%         Xlow = floor(xp*N/L)
+%         Xhigh = Xlow+1
+%         Ylow = floor(yp*N/L)
+%         Yhigh = Ylow+1
+
 %% Parametres %%
 %%%%%%%%%%%%%%%%
 
@@ -16,7 +37,11 @@ input = 'configuration.in'; % Nom du fichier d'entree de base
 
 nsimul = 10; % Nombre de simulations a faire
 
-dt = logspace(-5,-3, nsimul);
+% POUR N=40:
+% dt = logspace(-5,-3, nsimul);
+
+% POUR N=80:
+dt = logspace(-6,-4, nsimul);
 
 paramstr = 'dt'; % Nom du parametre a scanner
 param = dt; % Valeurs du parametre a scanner
@@ -42,7 +67,7 @@ L = .1;
 
 if(strcmp(paramstr,'dt'))
     xp = .05;
-    yp = .02;
+    yp = .05;
     Tp = zeros(1,nsimul);
 end
 
@@ -54,51 +79,47 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
         X = data(:,1);
         T = data(:,3);
         
-%         Xap =  min(abs(X-xp))
-%         if (Xap <= xp)
-%             Xlow = Xap
-%         else
-%             Xlow = Xap-1
-%         end
-%         Xhigh = Xlow+1;
-%         
-%         Yap =  min(abs(Y-xp));
-%         if (Yap <= yp)
-%             Ylow = Yap
-%         else
-%             Ylow = Xap-1
-%         end
-%         Yhigh = Ylow+1;
 
-%         Xlow = floor(xp*N/L)
-%         Xhigh = Xlow+1
-%         Ylow = floor(yp*N/L)
-%         Yhigh = Ylow+1
+%         Xid = xp*(N-1)/L+1
+%         Yid = yp*(N-1)/L+1
+% %         
+%         Tid = (Xid-1)*N+Yid
 
-        Xid = xp*(N-1)/L+1
-        Yid = yp*(N-1)/L+1
-
-%         
-%         T1 = T(Xlow+N*Ylow+1)
-%         T2 = T(Xlow+N*Yhigh+1)
-%         T3 = T(Xhigh+N*Ylow+1)
-%         T4 = T(Xhigh+N*Yhigh+1)
-%         
-        Tid = (Xid-1)*N+Yid
-        Tp(i) = T(Tid)
+        G = griddata(X,Y,T,xp,yp);
+        Tp(i) = G
     end
 end
 
 %% Figures %%
 %%%%%%%%%%%%%
 
+
 if(strcmp(paramstr,'dt'))
     figure
-    plot(dt,Tp,'k+')
+    hold on
+    plot(dt,Tp,'k+');
+    [P,slope]=poly_approx(dt, Tp, 1, 2);
+    plot(P(1,:),P(2,:));
     xlabel('\Delta t [s]')
     ylabel(sprintf('T(%0.2f,%0.2f) [°C]',xp,yp))
+    legend("slope =" +num2str(slope));
     grid on
+    hold off;
 end
 
+%% Fonction
 
+function [polynome, slope] = poly_approx(x, y, ordre, steps)
+    pf = polyfit(x, y, ordre);
+    slope = pf(1);
+    T = linspace(min(x), max(x), steps);
 
+    n = ordre + 1;
+
+    polynome = zeros(2,length(T));
+    for i=1:n
+       polynome(2,:) = polynome(2,:) + pf(i)*T.^(n-i);
+    end
+    
+    polynome(1,:) = T;
+end
