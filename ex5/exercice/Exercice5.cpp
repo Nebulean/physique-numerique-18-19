@@ -17,9 +17,10 @@ void flux(vector<vector<double> > const& T, vector<vector<bool> > const& flag, v
 
 double sideOfSurfaceInt(vector<vector<double> > const& vec, double const h, bool const horizontal, size_t const where, size_t const lowerIndex, size_t const upperIndex, bool const positive);
 
-size_t getIndex(double const h, double const n, double const max);
+size_t getIndexT(double const h, double const n, double const max);
 
-void printflag(vector<vector<bool> > const& vec);
+template <typename type>
+void printflag(vector<vector<type> > const& vec);
 
 int main(int argc, char* argv[])
 {
@@ -60,7 +61,7 @@ int main(int argc, char* argv[])
   int N = configFile.get<int>("N"); // Nombre d'intervalles dans chaque dimension
   double dt = configFile.get<double>("dt");
   double h = L/N;
-  double alpha = Dcoef * dt / h / h;
+  // double alpha = Dcoef * dt / h / h;
 
   // Fichiers de sortie:
   string output = configFile.get<string>("output");
@@ -69,6 +70,7 @@ int main(int argc, char* argv[])
   ofstream output_F((output+"_F.out").c_str()); // Flux de chaleur
   output_T.precision(15);
   output_P.precision(15);
+  output_F.precision(15);
 
   // Tableaux:
   vector<vector<bool> > flag(N+1,vector<bool>(N+1));
@@ -120,6 +122,7 @@ int main(int argc, char* argv[])
     }
   }
 
+  printflag(flag);
   // printflag(flag);
   // Iterations:
   //////////////////////////////////////
@@ -170,6 +173,8 @@ int main(int argc, char* argv[])
                         << " " << puissance(T, jx, jy, kappa, h, xa, xd, ya, yb, L) << endl;
   }
   output_P.close();
+
+  // printflag(jx);
 
   // flux:
   // flux(T, flag, jx, jy, jcx, jcy, kappa, h);
@@ -223,29 +228,66 @@ double puissance(vector<vector<double> > const& T, vector<vector<double> >& jx, 
   double power(0.0);
 
   // Les indices que l'on doit trouver
-  size_t yBottom(getIndex(h, y1, L) - 1);
-  size_t yTop(getIndex(h, y2, L));
-  size_t xLeft(getIndex(h, x1, L) - 1);
-  size_t xRight(getIndex(h, x2, L));
-  cout << yBottom << " " << yTop << " " << xLeft << " " << xRight << endl;
-  cout << yBottom*h+h/2 << " " << yTop*h+h/2 << " " << xLeft*h+h/2 << " " << xRight*h+h/2 << endl;
+  size_t yBottom(y1/h-1);
+  size_t yTop(y2/h);
+  size_t xLeft(x1/h-1);
+  size_t xRight(x2/h);
+
+  // bottom
+  for (size_t i = xLeft; i <= xRight; i++) {
+    power -= jy[i][yBottom]*h;
+  }
+
+  // Top
+  for (size_t i = xLeft; i <= xRight; i++) {
+    power += jy[i][yTop]*h;
+  }
+
+  // Left
+  for (size_t j = yBottom; j <= yTop; j++) {
+    power -= jx[xLeft][j]*h;
+  }
+
+  // right
+  for (size_t j = yBottom; j <= yTop; j++) {
+    power += jx[xRight][j]*h;
+  }
+
+  // size_t yBottom(getIndexT(h, y1, L));
+  // size_t yTop(getIndexT(h, y2, L));
+  // size_t xLeft(getIndexT(h, x1, L));
+  // size_t xRight(getIndexT(h, x2, L));
+  // cout << yBottom << " " << yTop << " " << xLeft << " " << xRight << endl;
+  // cout << yBottom*h+h/2 << " " << yTop*h+h/2 << " " << xLeft*h+h/2 << " " << xRight*h+h/2 << endl;
 
   // On calcul l'intégrale de surface.
   // bottom surface
-  power += sideOfSurfaceInt(jy, h, true, yBottom, xLeft, xRight, false);
-  cout << "Bottom: " << sideOfSurfaceInt(jy, h, true, yBottom, xLeft, xRight, false) << endl;
+  // power += sideOfSurfaceInt(jy, h, true, yBottom, xLeft, xRight, false);
+  // for (size_t i = xLeft; i <= xRight; i++) {
+  //   power -= jy[i][yBottom]*h;
+  // }
+  // cout << "Bottom: " << sideOfSurfaceInt(jy, h, true, yBottom, xLeft, xRight, false) << endl;
 
   // top surface
-  power += sideOfSurfaceInt(jy, h, true, yTop, xLeft, xRight, true);
-  cout << "Top: " << sideOfSurfaceInt(jy, h, true, yTop, xLeft, xRight, true) << endl;
+  // power += sideOfSurfaceInt(jy, h, true, yTop, xLeft, xRight, true);
+  // for (size_t i = xLeft; i <= xRight; i++) {
+  //   power += jy[i][yTop]*h;
+  // }
+  // cout << "Top: " << sideOfSurfaceInt(jy, h, true, yTop, xLeft, xRight, true) << endl;
 
   // left surface
-  power += sideOfSurfaceInt(jx, h, false, xLeft, yBottom, yTop, false);
-  cout << "Left: " << sideOfSurfaceInt(jx, h, false, xLeft, yBottom, yTop, false) << endl;
+  // power += sideOfSurfaceInt(jx, h, false, xLeft, yBottom, yTop, false);
+  // for (size_t j = yBottom; j <= yTop; j++) {
+  //   power -= jx[xLeft][j]*h;
+  // }
+  // cout << "Left: " << sideOfSurfaceInt(jx, h, false, xLeft, yBottom, yTop, false) << endl;
 
   // right surface
-  power += sideOfSurfaceInt(jx, h, false, xRight, yBottom, yTop, true);
-  cout << "Right: " << sideOfSurfaceInt(jx, h, false, xRight, yBottom, yTop, true) << endl;
+  // for (size_t j = yBottom; j <= yTop; j++) {
+  //   power += jx[xRight][j]*h;
+  // }
+  // power += sideOfSurfaceInt(jx, h, false, xRight, yBottom, yTop, true);
+  // cout << "Right: " << sideOfSurfaceInt(jx, h, false, xRight, yBottom, yTop, true) << endl;
 
   return power;
   // return 0;
@@ -255,14 +297,17 @@ double puissance(vector<vector<double> > const& T, vector<vector<double> >& jx, 
 double sideOfSurfaceInt(vector<vector<double> > const& vec, double const h, bool const horizontal, size_t const where, size_t const lowerIndex, size_t const upperIndex, bool const positive){
   double res(0.0);
 
+  // cout << "Adding";
 
   if (horizontal) {
     for (size_t i = lowerIndex; i <= upperIndex; i++) {
       res += vec[i][where]*h;
+      // cout << " " << vec[i][where];
     }
   } else {
     for (size_t j = lowerIndex; j <= upperIndex; j++) {
       res += vec[where][j]*h;
+      // cout << " " << vec[where][j];
     }
   }
 
@@ -273,20 +318,22 @@ double sideOfSurfaceInt(vector<vector<double> > const& vec, double const h, bool
   return res;
 }
 
-// double sideOfSurfaceInt2()
-
-size_t getIndex(double const h, double const n, double const max){
+// Donne la position de la maille de T qui se trouve le plus proche de "n".
+size_t getIndexT(double const h, double const n, double const max){
   double pos(h/2.0);
   size_t index(0);
 
   while (pos < max) {
+    // cout << "Is " << pos << " < " << n << " < " << pos+h << " ? " << endl;
     if (pos+h > n && n > pos) {
+      // cout << "yes" << endl;
       return index;
     }
+    // cout << "no" << endl;
     pos += h;
     ++index;
   }
-
+  cout << "error in index getter" << endl;
   return -1;
 
   // ancien code qui fait pas du tout ce que je veux, j'ai mal compris les paramètres dimensionnels.
@@ -336,12 +383,14 @@ void flux(vector<vector<double> > const& T, vector<vector<bool> > const& flag, v
   }
 }
 
-// void printflag(vector<vector<bool> > const& vec){
-//   cout << "Printing vector" << endl << "-----" << endl;
-//   for (size_t j = vec[1].size()-1; j >= 0; j--) {
-//     for (size_t i = 0; i < vec.size()-1; i++) {
-//       cout << vec[i][j] << " ";
-//     }
-//   }
-//   cout << "-----" << endl;
-// }
+template <typename type>
+void printflag(vector<vector<type> > const& vec){
+  cout << "Printing vector" << endl << "-----" << endl;
+  for (size_t j = vec[1].size(); j > 0; j--) {
+    for (size_t i = 0; i < vec.size(); i++) {
+      cout << vec[i][j-1] << " ";
+    }
+    cout << endl;
+  }
+  cout << "-----" << endl;
+}

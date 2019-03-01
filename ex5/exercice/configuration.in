@@ -6,13 +6,13 @@ xc = .075
 xd = .085
 ya = .03
 yb = .08
-Tc = 200
-Tf = -100
-Tb = 0
+Tc = 473.15 %200
+Tf = 173.15 %-100
+Tb = 273.15 %0
 kappa = 1.2
 rho = 1.2
 Ccoef = 1e3
-tfin = .1
+tfin = 0.1
 dt = 1e-4
 
 % Parametres numeriques :

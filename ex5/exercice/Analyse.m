@@ -83,10 +83,11 @@ stride = 2; % (affiche 1 point sur [stride] dans chaque dimension)
 quiver(Xmid(1:stride:end,1:stride:end),Ymid(1:stride:end,1:stride:end),jxc(1:stride:end,1:stride:end)',jyc(1:stride:end,1:stride:end)','k')
 xlabel('x [m]')
 ylabel('y [m]')
-title('T(x,y) [°C]')
+% title('T(x,y) [°C]')
 colorbar
 axis equal
 box on
+grid on;
 hold off
 
 % Flux de chaleur :
@@ -97,10 +98,12 @@ hold on
 contourf(Xmid,Ymid,jnorm',30,'LineStyle','None')
 xlabel('x [m]')
 ylabel('y [m]')
-title('|j|(x,y) [W/m]')
+% title('|j|(x,y) [W/m]')
 colorbar
 axis equal
-box on
+box on;
+grid on;
+
 hold off
 
 
@@ -120,6 +123,7 @@ ylabel('P [W]')
 legend('P_c', 'P_f', 'P_c+P_f', 'P_{tot}')
 grid on
 box on
+grid on;
 hold off
 
 saveas(f1, "graphs/c_temp","epsc");
