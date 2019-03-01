@@ -7,7 +7,7 @@
 
 using namespace std;
 
-double puissance(vector<vector<double> > const& T, vector<vector<double> >& jx, vector<vector<double> >& jy, double const& kappa, double const& h, double const& x1, double const& x2, double const& y1, double const& y2);
+double puissance(vector<vector<double> > const& T, vector<vector<double> >& jx, vector<vector<double> >& jy, double const& kappa, double const& h, double const& x1, double const& x2, double const& y1, double const& y2, double const& L);
 
 vector<vector<double> > deriv(vector<vector<double> > const& Told, vector<vector<double> > const& Tnew, double step, vector<vector<bool> > const& f);
 
@@ -15,7 +15,11 @@ double max(vector<vector<double> > const& vec);
 
 void flux(vector<vector<double> > const& T, vector<vector<bool> > const& flag, vector<vector<double> >& jx, vector<vector<double> >& jy, vector<vector<double> >& jcx, vector<vector<double> >& jcy, double kappa, double h);
 
-void print(ostream const& s);
+double sideOfSurfaceInt(vector<vector<double> > const& vec, double const h, bool const horizontal, size_t const where, size_t const lowerIndex, size_t const upperIndex, bool const positive);
+
+size_t getIndex(double const h, double const n, double const max);
+
+void printflag(vector<vector<bool> > const& vec);
 
 int main(int argc, char* argv[])
 {
@@ -94,7 +98,7 @@ int main(int argc, char* argv[])
   for (size_t i = 0; i < flag.size(); i++) {
     for (size_t j = 0; j < flag.size(); j++) {
       // si on se trouve sur le bord
-      if (i==0 || i==flag.size()-1 || j==0 || j==flag.size()-1) {
+      if (i==0 || i==flag.size()-1 || j==0 || j==flag[i].size()-1) {
         flag[i][j] = true;
         T[i][j] = Tb;
       }
@@ -116,6 +120,7 @@ int main(int argc, char* argv[])
     }
   }
 
+  // printflag(flag);
   // Iterations:
   //////////////////////////////////////
   vector<vector<double>> Told(T);
@@ -160,9 +165,9 @@ int main(int argc, char* argv[])
     flux(T, flag, jx, jy, jcx, jcy, kappa, h);
 
     // Diagnostiques:
-    output_P << iter*dt << " " << puissance(T, jx, jy, kappa, h, xa, xb, ya, yb)
-                        << " " << puissance(T, jx, jy, kappa, h, xc, xd, ya, yb)
-                        << " " << puissance(T, jx, jy, kappa, h, xa, xd, ya, yb) << endl;
+    output_P << iter*dt << " " << puissance(T, jx, jy, kappa, h, xa, xb, ya, yb, L)
+                        << " " << puissance(T, jx, jy, kappa, h, xc, xd, ya, yb, L)
+                        << " " << puissance(T, jx, jy, kappa, h, xa, xd, ya, yb, L) << endl;
   }
   output_P.close();
 
@@ -170,7 +175,7 @@ int main(int argc, char* argv[])
   // flux(T, flag, jx, jy, jcx, jcy, kappa, h);
   for(int i(0);i<N;++i)
     for(int j(0);j<N;++j)
-      output_F << i*h + h/2.0 << " " << j*h + h/2.0 << " " << jcx[i][j] << " " << jcy[i][j] << " " << jx[i][j] << " " << jy[i][j] << endl;
+      output_F << i*h << " " << j*h << " " << jcx[i][j] << " " << jcy[i][j] << " " << jx[i][j] << " " << jy[i][j] << endl;
   output_F.close();
 
 
@@ -212,9 +217,91 @@ vector<vector<double> > deriv(vector<vector<double> > const& Told, vector<vector
 
 // TODO: Calculer la puissance calorifique emise/recue par le rectangle allant de (x1,y1) a (x2,y2)
 // double puissance(vector<vector<double> > const& T, double const& kappa, double const& h, double const& x1, double const& x2, double const& y1, double const& y2)
-double puissance(vector<vector<double> > const& T, vector<vector<double> >& jx, vector<vector<double> >& jy, double const& kappa, double const& h, double const& x1, double const& x2, double const& y1, double const& y2)
+double puissance(vector<vector<double> > const& T, vector<vector<double> >& jx, vector<vector<double> >& jy, double const& kappa, double const& h, double const& x1, double const& x2, double const& y1, double const& y2, double const& L)
 {
-  return 0;
+  // le résultat
+  double power(0.0);
+
+  // Les indices que l'on doit trouver
+  size_t yBottom(getIndex(h, y1, L) - 1);
+  size_t yTop(getIndex(h, y2, L));
+  size_t xLeft(getIndex(h, x1, L) - 1);
+  size_t xRight(getIndex(h, x2, L));
+  cout << yBottom << " " << yTop << " " << xLeft << " " << xRight << endl;
+  cout << yBottom*h+h/2 << " " << yTop*h+h/2 << " " << xLeft*h+h/2 << " " << xRight*h+h/2 << endl;
+
+  // On calcul l'intégrale de surface.
+  // bottom surface
+  power += sideOfSurfaceInt(jy, h, true, yBottom, xLeft, xRight, false);
+  cout << "Bottom: " << sideOfSurfaceInt(jy, h, true, yBottom, xLeft, xRight, false) << endl;
+
+  // top surface
+  power += sideOfSurfaceInt(jy, h, true, yTop, xLeft, xRight, true);
+  cout << "Top: " << sideOfSurfaceInt(jy, h, true, yTop, xLeft, xRight, true) << endl;
+
+  // left surface
+  power += sideOfSurfaceInt(jx, h, false, xLeft, yBottom, yTop, false);
+  cout << "Left: " << sideOfSurfaceInt(jx, h, false, xLeft, yBottom, yTop, false) << endl;
+
+  // right surface
+  power += sideOfSurfaceInt(jx, h, false, xRight, yBottom, yTop, true);
+  cout << "Right: " << sideOfSurfaceInt(jx, h, false, xRight, yBottom, yTop, true) << endl;
+
+  return power;
+  // return 0;
+}
+
+// calcul la somme de tous les points sur une ligne. vec est la ligne à sommer, h est le paramètre pour l'élément de surface et positive permet de dire si on doit faire une somme de positifs (true) ou de négatifs (false)
+double sideOfSurfaceInt(vector<vector<double> > const& vec, double const h, bool const horizontal, size_t const where, size_t const lowerIndex, size_t const upperIndex, bool const positive){
+  double res(0.0);
+
+
+  if (horizontal) {
+    for (size_t i = lowerIndex; i <= upperIndex; i++) {
+      res += vec[i][where]*h;
+    }
+  } else {
+    for (size_t j = lowerIndex; j <= upperIndex; j++) {
+      res += vec[where][j]*h;
+    }
+  }
+
+  if(!positive){
+    return -res;
+  }
+
+  return res;
+}
+
+// double sideOfSurfaceInt2()
+
+size_t getIndex(double const h, double const n, double const max){
+  double pos(h/2.0);
+  size_t index(0);
+
+  while (pos < max) {
+    if (pos+h > n && n > pos) {
+      return index;
+    }
+    pos += h;
+    ++index;
+  }
+
+  return -1;
+
+  // ancien code qui fait pas du tout ce que je veux, j'ai mal compris les paramètres dimensionnels.
+  // double pos(h/2.0);
+  // // double pos(0.0);
+  // size_t index(0);
+  //
+  // while(pos < max){
+  //   if (n < pos && pos < n+h) {
+  //       return index;
+  //   }
+  //   pos += h;
+  //   index += 1;
+  // }
+  // return -1; // error
 }
 
 void flux(vector<vector<double> > const& T, vector<vector<bool> > const& flag, vector<vector<double> >& jx, vector<vector<double> >& jy, vector<vector<double> >& jcx, vector<vector<double> >& jcy, double kappa, double h)
@@ -222,41 +309,39 @@ void flux(vector<vector<double> > const& T, vector<vector<bool> > const& flag, v
   // compute the flux - horizontal
   for (size_t i = 0; i < jx.size(); i++) {
     for (size_t j = 0; j < jx[i].size(); j++) {
-      if (!flag[i][j]) {
+      // if (!flag[i][j]) {
         jx[i][j] = -kappa/h *(T[i+1][j] - T[i][j]);
-      }
+        // cout << "i=" << i << "=" << i*h+h/2 << " j=" << j << "=" << j*h+h/2 << " val=" << jx[i][j] << endl;
+      // }
     }
   }
 
   // compute the flux - vertical
   for (size_t i = 0; i < jy.size(); i++) {
     for (size_t j = 0; j < jy[i].size(); j++) {
-      if (!flag[i][j]) {
+      // if (!flag[i][j]) {
         jy[i][j] = -kappa*(T[i][j+1] - T[i][j])/h;
-      }
+      // }
     }
   }
 
   // compute the flux on the middle of the square
-  for (size_t i = 0; i < jx.size(); i++) {
-    for (size_t j = 0; j < jy.size(); j++) {
-      if (!flag[i][j]) {
-        jcx[i][j] = (jy[i][j] + jy[i+1][j])/2;
-        jcy[i][j] = (jx[i][j] + jx[i][j+1])/2;
-      }
+  for (size_t i = 0; i < jcx.size(); i++) {
+    for (size_t j = 0; j < jcy.size(); j++) {
+      // if (!flag[i][j]) {
+        jcx[i][j] = (jx[i][j] + jx[i][j+1])/2;
+        jcy[i][j] = (jy[i][j] + jy[i+1][j])/2;
+      // }
     }
   }
-  // for (size_t i = 0; i < jx[0].size()-1; i++) {
-  //   for (size_t j = 0; j < jy.size()-1; j++) {
-  //     if (!flag[i][j]) {
-  //       // cout << "jx = " << jx.size() << "; jy = " << jy.size() << "; jcx = " << jcx.size() << "; jcy = " << jcy.size() << endl;
-  //       jcx[i][j] = (jy[i+1][j] + jy[i][j])/2.0;
-  //       jcy[i][j] = (jx[i][j+1] + jx[i][j])/2.0;
-  //     }
-  //   }
-  // }
 }
 
-// void print(ostream& s){
-//   cout << s << endl;
+// void printflag(vector<vector<bool> > const& vec){
+//   cout << "Printing vector" << endl << "-----" << endl;
+//   for (size_t j = vec[1].size()-1; j >= 0; j--) {
+//     for (size_t i = 0; i < vec.size()-1; i++) {
+//       cout << vec[i][j] << " ";
+//     }
+//   }
+//   cout << "-----" << endl;
 // }

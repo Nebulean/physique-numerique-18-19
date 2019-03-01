@@ -18,8 +18,8 @@ kappa=1.2;
 data = load(['output_F.out']);
 % Yc = data(1:N,2);
 % Xc = data(1:N:N*N,1);
-jyc = reshape(data(:,3),N-1,N-1)';
-jxc = reshape(data(:,4),N-1,N-1)';
+jxc = reshape(data(:,3),N-1,N-1)';
+jyc = reshape(data(:,4),N-1,N-1)';
 % jxc2 = reshape(data(:,5),N-1,N-1)';
 % jyc2 = reshape(data(:,6),N-1,N-1)';
 
