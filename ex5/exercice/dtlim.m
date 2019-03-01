@@ -75,5 +75,5 @@ if(strcmp(paramstr,'dt'))
     hold off;
 end
 
-% saveas(f, "graphs/b_conv40","epsc");
-saveas(f, "graphs/b_conv80","epsc");
+% saveas(f, "graphs/b_lim40","epsc");
+saveas(f, "graphs/b_lim80","epsc");

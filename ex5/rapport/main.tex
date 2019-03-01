@@ -1,4 +1,3 @@
-quelconque
 % debut d'un fichier latex standard
 \documentclass[a4paper,12pt,twoside]{article}
 
@@ -74,7 +73,43 @@ This project focuses on the propagation of heat in an homogeneous environment.
 Two heat sources are considered: a cold and a hot one.
 TODO: A COMPLETER
 
-\section{Convergence and stability of the scheme}
+\section{Convergence and stability}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/b_conv40.eps}
+    
+    \caption{Convergence}
+    \label{fig:b-conv40}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/b_lim40.eps}
+    \caption{Limit of stability}
+    \label{fig:b-lim40}
+  \end{subfigure}
+  \caption{N=40}
+  \label{fig:b40}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/b_conv80.eps}
+    
+    \caption{Convergence}
+    \label{fig:b-conv80}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/b_lim80.eps}
+    \caption{Limit of stability}
+    \label{fig:b-lim80}
+  \end{subfigure}
+  \caption{N=40}
+  \label{fig:b80}
+\end{figure}
 
 \section{Heat flux}
 This section focuses on the analysis of the behavious of the heat flux.
