@@ -38,10 +38,10 @@ input = 'configuration.in'; % Nom du fichier d'entree de base
 nsimul = 10; % Nombre de simulations a faire
 
 % POUR N=40:
-dt = logspace(-5,-3, nsimul);
+% dt = logspace(-5,-3, nsimul);
 
 % POUR N=80:
-% dt = logspace(-6,-4, nsimul);
+dt = logspace(-6,-4, nsimul);
 
 paramstr = 'dt'; % Nom du parametre a scanner
 param = dt; % Valeurs du parametre a scanner
@@ -95,7 +95,7 @@ end
 
 
 if(strcmp(paramstr,'dt'))
-    figure
+    f=figure
     hold on
     plot(dt,Tp,'k+');
     [P,slope]=poly_approx(dt, Tp, 1, 2);
@@ -106,6 +106,9 @@ if(strcmp(paramstr,'dt'))
     grid on
     hold off;
 end
+
+% saveas(f, "graphs/b_conv40","epsc");
+saveas(f, "graphs/b_conv80","epsc");
 
 %% Fonction
 

@@ -227,25 +227,25 @@ double puissance(vector<vector<double> > const& T, vector<vector<double> >& jx, 
   size_t yTop(getIndex(h, y2, L));
   size_t xLeft(getIndex(h, x1, L) - 1);
   size_t xRight(getIndex(h, x2, L));
-  cout << yBottom << " " << yTop << " " << xLeft << " " << xRight << endl;
-  cout << yBottom*h+h/2 << " " << yTop*h+h/2 << " " << xLeft*h+h/2 << " " << xRight*h+h/2 << endl;
+  // cout << yBottom << " " << yTop << " " << xLeft << " " << xRight << endl;
+  // cout << yBottom*h+h/2 << " " << yTop*h+h/2 << " " << xLeft*h+h/2 << " " << xRight*h+h/2 << endl;
 
   // On calcul l'intégrale de surface.
   // bottom surface
   power += sideOfSurfaceInt(jy, h, true, yBottom, xLeft, xRight, false);
-  cout << "Bottom: " << sideOfSurfaceInt(jy, h, true, yBottom, xLeft, xRight, false) << endl;
+  // cout << "Bottom: " << sideOfSurfaceInt(jy, h, true, yBottom, xLeft, xRight, false) << endl;
 
   // top surface
   power += sideOfSurfaceInt(jy, h, true, yTop, xLeft, xRight, true);
-  cout << "Top: " << sideOfSurfaceInt(jy, h, true, yTop, xLeft, xRight, true) << endl;
+  // cout << "Top: " << sideOfSurfaceInt(jy, h, true, yTop, xLeft, xRight, true) << endl;
 
   // left surface
   power += sideOfSurfaceInt(jx, h, false, xLeft, yBottom, yTop, false);
-  cout << "Left: " << sideOfSurfaceInt(jx, h, false, xLeft, yBottom, yTop, false) << endl;
+  // cout << "Left: " << sideOfSurfaceInt(jx, h, false, xLeft, yBottom, yTop, false) << endl;
 
   // right surface
   power += sideOfSurfaceInt(jx, h, false, xRight, yBottom, yTop, true);
-  cout << "Right: " << sideOfSurfaceInt(jx, h, false, xRight, yBottom, yTop, true) << endl;
+  // cout << "Right: " << sideOfSurfaceInt(jx, h, false, xRight, yBottom, yTop, true) << endl;
 
   return power;
   // return 0;
