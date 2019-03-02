@@ -71,20 +71,24 @@ jnorm = sqrt(jxc.^2+jyc.^2);
 % Temperature :
 f1=figure
 hold on
-% set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
-% set(groot, 'defaultLegendInterpreter', 'latex');
-% set(groot, 'defaultTextInterpreter', 'latex');
-% set(groot, 'defaultAxesFontSize', 18);
-% set(gca, 'fontsize', 30);
-% set(gca, 'LineWidth',1.5);
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
 
-contourf(X,Y,T',15,'LineStyle','None'), hold on
+contourf(X,Y,T',15,'LineStyle','None')
 stride = 2; % (affiche 1 point sur [stride] dans chaque dimension)
 quiver(Xmid(1:stride:end,1:stride:end),Ymid(1:stride:end,1:stride:end),jxc(1:stride:end,1:stride:end)',jyc(1:stride:end,1:stride:end)','k')
 xlabel('x [m]')
 ylabel('y [m]')
-% title('T(x,y) [°C]')
-colorbar
+
+c=colorbar
+c.Label.String = "Temperature [K]";
+c.Label.FontSize = 25;
+c.Label.Interpreter = "latex";
+
 axis equal
 box on
 grid on;
@@ -94,12 +98,22 @@ hold off
 f2=figure
 hold on
 
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
 
 contourf(Xmid,Ymid,jnorm',30,'LineStyle','None')
 xlabel('x [m]')
 ylabel('y [m]')
-% title('|j|(x,y) [W/m]')
-colorbar
+
+c=colorbar
+c.Label.String = "Norm of heat flux [Wm$^{-2}$]";
+c.Label.FontSize = 25
+c.Label.Interpreter = "latex";
+
 axis equal
 box on;
 grid on;
@@ -110,17 +124,17 @@ hold off
 % Puissance :
 f3=figure
 hold on
-% set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
-% set(groot, 'defaultLegendInterpreter', 'latex');
-% set(groot, 'defaultTextInterpreter', 'latex');
-% set(groot, 'defaultAxesFontSize', 18);
-% set(gca, 'fontsize', 30);
-% set(gca, 'LineWidth',1.5);
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
 
-plot(t, Pc, t, Pf, t, Pc + Pf, t, Ptot)
+plot(t, Pc, t, Pf, t, Pc + Pf, t, Ptot, 'LineWidth',1.5)
 xlabel('t [s]')
 ylabel('P [W]')
-legend('P_c', 'P_f', 'P_c+P_f', 'P_{tot}')
+legend('P$_c$', 'P$_f$', 'P$_c$+P$_f$', 'P$_{tot}$')
 grid on
 box on
 grid on;

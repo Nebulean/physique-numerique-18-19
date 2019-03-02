@@ -168,9 +168,9 @@ int main(int argc, char* argv[])
     flux(T, flag, jx, jy, jcx, jcy, kappa, h);
 
     // Diagnostiques:
-    // output_P << iter*dt << " " << puissance(T, jx, jy, kappa, h, xa, xb, ya, yb, L)
-    //                     << " " << puissance(T, jx, jy, kappa, h, xc, xd, ya, yb, L)
-    //                     << " " << puissance(T, jx, jy, kappa, h, xa, xd, ya, yb, L) << endl;
+    output_P << iter*dt << " " << puissance(T, jx, jy, kappa, h, xa, xb, ya, yb, L)
+                        << " " << puissance(T, jx, jy, kappa, h, xc, xd, ya, yb, L)
+                        << " " << puissance(T, jx, jy, kappa, h, xa, xd, ya, yb, L) << endl;
   }
   output_P.close();
 

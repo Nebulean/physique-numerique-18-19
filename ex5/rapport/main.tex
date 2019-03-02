@@ -92,6 +92,7 @@ The geometry of the problem is as represented on Fig.\ref{schema}, where the par
 
 In this report, the evolution of the system with respect to time will be simulated in order to study the heat flux and thermal power of each body.
 
+% TODO : Explication de la dérivation spatiale. (laplacien, ...)
 
 \section{Convergence and stability}
 
@@ -99,7 +100,7 @@ In this report, the evolution of the system with respect to time will be simulat
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/b_conv40.eps}
-    
+
     \caption{Convergence}
     \label{fig:b-conv40}
   \end{subfigure}
@@ -117,7 +118,7 @@ In this report, the evolution of the system with respect to time will be simulat
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/b_conv80.eps}
-    
+
     \caption{Convergence}
     \label{fig:b-conv80}
   \end{subfigure}
@@ -140,7 +141,8 @@ The heat flux is obtained with equation \eqref{eq:flux-chaleur}.
   \label{eq:flux-chaleur}
 \end{equation}
 
-By using a forward finite difference method, $\vec{j}$ can be numerically computed with equation \eqref{eq:flux-chaleur-numerique}.
+where $\kappa$ is the thermal conductivity.
+By using a forward finite difference method, $\vec{j}$ can be numerically computed using equation \eqref{eq:flux-chaleur-numerique}.
 
 \begin{equation}
   \vec{j} = -\frac{\kappa}{h}
@@ -150,26 +152,67 @@ By using a forward finite difference method, $\vec{j}$ can be numerically comput
   \label{eq:flux-chaleur-numerique}
 \end{equation}
 
-The result for the heat flux at $t=\SI{0.1}{\second}$ is given by figures \ref{fig:c-temp} and \ref{fig:c-heat-flux}.
+At $t=\SI{0.1}{\s}$, the flux heat can be seen in two ways, depending on the interest.
+On figure \ref{fig:c-temp}, multiple information can be observed.
+First, the temperature of the multiple points of the system can be studied using the color gradient.
+These colors show the diffusion of heat through the homogeneous environment.
+Next, the little arrows show the direction and the intensity of the heat flux.
+As it can be observed, the heat flux goes from the hot source to a colder environment.
+All of this can be explained by the second law of thermodynamics, which states that in a closed system, entropy never decreases. \cite{wiki:2nd-law}
+Thus, the system wants to reach the thermodynamic equilibrum, and heat goes from hot to cold. %TODO : La dernière phrase est pas très belle.
+
+% TODO : Idée - Faire le "spectre" de chaleur sur une bande horizontale.
+% The result for the heat flux at $t=\SI{0.1}{\second}$ is given by figures \ref{fig:c-temp} and \ref{fig:c-heat-flux}.
 
 \begin{figure}[h]
   \centering
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/c_temp.eps}
-    \caption{Graph of temperatures, represented by the color gradient, in Celsius, with the direction and the intensity of the heat flux represented by the arrows.}
-    \label{fig:c-temp}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/c_heat_flux.eps}
-    \caption{Intensity of the heat flux represented by the color gradient.}
-    \label{fig:c-heat-flux}
-  \end{subfigure}
-  \caption{Study of the heat flux at $t=\SI{0.1}{\second}$.}
-  \label{fig:c}
+  \includegraphics[width=0.6\textwidth]{graphs/c_temp.eps}
+  \caption{Graph of temperatures at $t=\SI{0.1}{\s}$, represented by the color gradient, in Kelvin, with the direction and the intensity of the heat flux represented by the arrows.}
+  \label{fig:c-temp}
 \end{figure}
 
-%TODO: ANALYSE.
+On figure \ref{fig:c-heat-flux}, the intensity of the heat flux can be observed using the color gradient.
+The more yellow it gets, the higher the norm of the heat flux is. %TODO : Phrase pas très belle.
+First, the graph shows indirectly the diffusion of heat through the environment.
+When the intensity is lower, it either means that the environment is closer to thermodynamic equilibrum or that less heat is flowing. %TODO : Je sais pas si cette phrase a un intérêt, c'est évident.
+But the most interesting point on this graph is the corners of the sources, in particular the hot source.
+The majority of the environment has a norm for the heat flux around $\SI{10000}{\watt\per\square\meter}$. But on these corners, the norm of the heat flux reaches \SI{25000}{\watt\per\square\meter}.
+This behavious does not appear on the border of the heat sources, so it is different from a simple "diffusion".
+These are singularities. %TODO : C'est pas un peu fort.
+This behavious can be compared to the the \textit{peak effect} \footnote{The name of this effect is directly translated from the french expression: \textit{effet de pointe}. No real translation of this effect in english seems to exist.}, an effect in electrostatics that describes the concentration of charges on the peak of a conductor.
+This comparison is not innocent, as there is a mathematical similarity between the electric field and the heat flux.
+The electric field $\vec{E}$ is derived from a scalar potential $\phi$, which give equation \eqref{eq:elec-field}.
+
+\begin{equation}
+  \vec{E} = \vec{\nabla}\phi
+  \label{eq:elec-field}
+\end{equation}
+
+Equation \eqref{eq:elec-field} is similar to equation \eqref{eq:flux-chaleur}, as $\vec{j}$ is also derived from a scalar potential ($T$). %TODO : C'est juste de dire que T est un potentiel scalaire ?
+Thus, the peaks in intensity on the corners of the sources can be compared to the \textit{peak effect} of electrostatics.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{graphs/c_heat_flux.eps}
+  \caption{Intensity of the heat flux represented by the color gradient.}
+  \label{fig:c-heat-flux}
+\end{figure}
+% \begin{figure}[h]
+%   \centering
+%   \begin{subfigure}[t]{0.45\textwidth}
+%     \includegraphics[width=\textwidth]{graphs/c_temp.eps}
+%     \caption{Graph of temperatures, represented by the color gradient, in Kelvin, with the direction and the intensity of the heat flux represented by the arrows.}
+%     \label{fig:c-temp}
+%   \end{subfigure}
+%   ~
+%   \begin{subfigure}[t]{0.45\textwidth}
+%     \includegraphics[width=\textwidth]{graphs/c_heat_flux.eps}
+%     \caption{Intensity of the heat flux represented by the color gradient.}
+%     \label{fig:c-heat-flux}
+%   \end{subfigure}
+%   \caption{Study of the heat flux at $t=\SI{0.1}{\second}$.}
+%   \label{fig:c}
+% \end{figure}
 
 \section{Power}
 
@@ -193,5 +236,11 @@ The result for the heat flux at $t=\SI{0.1}{\second}$ is given by figures \ref{f
 \end{figure}
 
 \section{Conclusion}
+
+\begin{thebibliography}{99}
+  \bibitem{wiki:2nd-law} Wikipedia contributors, "Second law of thermodynamics," Wikipedia, The Free Encyclopedia, \url{https://en.wikipedia.org/w/index.php?title=Second_law_of_thermodynamics&oldid=884867223} (accessed March 2, 2019).
+
+
+\end{thebibliography}
 
 \end{document}
