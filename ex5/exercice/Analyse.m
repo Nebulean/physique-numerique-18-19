@@ -142,4 +142,4 @@ hold off
 
 saveas(f1, "graphs/c_temp","epsc");
 saveas(f2, "graphs/c_heat_flux","epsc");
-saveas(f3, "graphs/c_power","epsc");
+saveas(f3, "graphs/d_power","epsc");
