@@ -18,7 +18,8 @@
 % pour l'inclusion de links dans le document
 \usepackage[colorlinks,bookmarks=false,linkcolor=blue,urlcolor=blue]{hyperref}
 \usepackage{siunitx}
-
+% pour les degrés
+\usepackage{textcomp}
 \paperheight=297mm
 \paperwidth=210mm
 
@@ -69,9 +70,28 @@
 %%%% ON COMMENCE A ECRIRE D'ICI
 
 \section{Introduction}
-This project focuses on the propagation of heat in an homogeneous environment.
-Two heat sources are considered: a cold and a hot one.
-TODO: A COMPLETER
+
+\begin{wrapfigure}{r}{0.55\textwidth}
+ \includegraphics[width=0.45\textwidth]{graphs/schema.png}
+ \caption{Geometry of the problem}
+ \label{schema}
+\end{wrapfigure}
+
+
+This problem focuses on the propagation of heat in an homogeneous environment.
+We consider two rectangular bodies of same height and respective temperatures $T_c = 200$°C and $T_f = -100$°C inside of a square box $\Omega$, of which the outside boundary is at Temperature $T_b = 0$°C. Initially, the temperature of the inside of the box is $T(t=0) = T_b$. The problems satisfies the heat equation \eqref{heateq}:
+
+\begin{equation}
+ \frac{\partial T}{\partial t} = D\nabla ^2 T
+ \label{heateq}
+\end{equation}
+with $D=\kappa/(\rho C)=const$, where $\kappa=1.2~\si{\W \per \K \per \m}$ is the thermal conductivity, $\rho=1.2~\si{\kg \per \m^3}$ is the mass density, and $C=10^3~\si{\J \per \kg \per \K}$ is the specific heat capacity.
+
+
+The geometry of the problem is as represented on Fig.\ref{schema}, where the parameters are: $L=10$ cm, $x_a=2$ cm, $x_b=4$ cm, $x_c=7.5$ cm, $x_d=8.5$ cm, $y_a=3$ cm, and $y_b=8$ cm.
+
+In this report, the evolution of the system with respect to time will be simulated in order to study the heat flux and thermal power of each body.
+
 
 \section{Convergence and stability}
 
@@ -154,6 +174,23 @@ The result for the heat flux at $t=\SI{0.1}{\second}$ is given by figures \ref{f
 \section{Power}
 
 \section{Heat flux with respect to the distance between the bodies}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/e_distT.eps}
+    \caption{Temperature}
+    \label{fig:e-T}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/e_distF.eps}
+    \caption{Heat flux}
+    \label{fig:e-T}
+  \end{subfigure}
+  \caption{Temperature and heat flux in function of displacement}
+  \label{fig:e}
+\end{figure}
 
 \section{Conclusion}
 
