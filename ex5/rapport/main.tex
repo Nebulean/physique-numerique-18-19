@@ -221,6 +221,7 @@ Thus, the peaks in intensity on the corners of the sources can be compared to th
 %   \caption{Study of the heat flux at $t=\SI{0.1}{\second}$.}
 %   \label{fig:c}
 % \end{figure}
+\label{par:heatflux}
 
 \section{Power study}
 This section focuses on the study of the evolution of power emitted or received from both sources over time.
@@ -271,7 +272,6 @@ On this second paragraph, a proof that $P_c + P_f = P_\text{tot}$ when $\frac{\p
   \end{align}
   which is $P_\text{tot} = P_c + P_f$.
 \end{proof}
-%TODO : Donner la preuve analytique que Pc + Pf = Ptot lorsque dT/dt -> 0.
 
 \paragraph{Numerical evolution of power.}
 This last paragraph focuses on the numerical results obtained by using the numerical method described earlier.
@@ -323,6 +323,29 @@ The norm of the stationary heat flux increases exponentially as the cold source 
 \end{figure}
 
 \section{Optional}
+Fig.\ref{fig:flibre} represents the same simulation as in section \ref{par:heatflux}, with the only difference being that the temperature of the two bodies evolves freely over time. We can observe that the heat of the hot source dissipates, and the cold source is reduced in a similar fashion. Both sources lose their original rectangular shape to take on an ovoïd shape, likely caused by the peak effect discussed in section \ref{par:heatflux}, as the heat flux is stronger on the corners of a rectangle.
+
+Fig.\ref{fig:fflux} shows that the heat flux of the system at $t=0.1$ s is stronger on the sides of the hot source. Moreover, it is slightly stronger on its left side than its right side, possibly because the temperature of the boundary on its left side is fixed at $T_b=0$°C, making for a higher temperature gradient than on its right side, where the temperature is freely evolving.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/f_temp.eps}
+    \caption{Temperature}
+    \label{fig:ftemp}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/f_heat_flux.eps}
+    \caption{Heat flux}
+    \label{fig:fflux}
+  \end{subfigure}
+  \caption{Temperature and heat flux with free temperature evolution}
+  \label{fig:flibre}
+\end{figure}
+
 Figure \ref{fig:fac1} is a simulation for a dense mesh (N=160) on a very short amount of time (t=\SI{0.02}{\s}).
 The reason why the simulation is so short is because it reaches the limit of stability for dt=\SI{1e-4}{\s}.
 On figure \ref{fig:fac1-temp}, the result for the temperature does not seem so different from what was studied before.
