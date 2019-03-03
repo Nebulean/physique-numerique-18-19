@@ -230,7 +230,23 @@ The power is defined by the surface integral stated by equation \eqref{eq:power}
 
 \paragraph{Numerical integration method.}
 This first paragraph focuses on the method used to numerically integrate, and thus obtain the power.
+Figure \ref{fig:d-mailles} is a diagram representing a simplified version of the mesh used in this project.
+The crossings between the black lines are the temperature this point, the yellow square is the source considered, the blue circles are the horizontal heat flux $j_x$ obtained with a centered finite difference method on horizontal axis, the green circles are the vertical heat flux $j_y$ obtained with a centered finite difference method on vertical axis, vectors d$\vec{\sigma}$ are represented by the arrows and finally the red square is the Gauss surface $S$ considered.\\
+%TODO : Je dis pas trop de la merde ?
+To approximate the integral, it needs to be discretized.
+A surface integral can be seen as a continuous sum over a surface $S$.
+Thus, in a discrete modelisation, which is the case here, the surface integral can be replaced by a sum over several point.
+It adds some uncertainties, but it is really easy to compute.
+Thus, the power can be found by adding $\vec{j}_i\cdot d\vec{\sigma}$ for each point contained on the border of the surface $S$, where d$\vec{\sigma} = h\hat{e}_i$ with $h$ the distance between two nodes.
+Note that $\vec{j}_i$ and $\hat{e}_j$ are either parallel or perpendicular, which means that the scalar product $\vec{j}_i\cdot\hat{e}_j$ is $\pm j_i$ when $i=j$ or $0$ when $i \neq j$.
 %TODO : Expliquer comment a été calculée la puissance.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphs/d_mailles.eps}
+  \caption{Mesh diagram considered in this project.}
+  \label{fig:d-mailles}
+\end{figure}
 
 \paragraph{Analytical proof of surfaces equivalence.}
 %TODO : Donner la preuve analytique que Pc + Pf = Ptot lorsque dT/dt -> 0.
