@@ -63,6 +63,9 @@ int main(int argc, char* argv[])
   double h = L/N;
   // double alpha = Dcoef * dt / h / h;
 
+  // Facultatif
+  bool libre = configFile.get<bool>("libre");
+
   // Fichiers de sortie:
   string output = configFile.get<string>("output");
   ofstream output_T((output+"_T.out").c_str()); // Temperature au temps final
@@ -106,12 +109,16 @@ int main(int argc, char* argv[])
       }
       // si on se trouve dans la source chaude
       else if (xa <= h*i && xb >= h*i && ya <= h*j && yb >= h*j) {
-        flag[i][j] = true;
+        if(!libre)
+          flag[i][j] = true;
+        else flag[i][j] = false;
         T[i][j] = Tc;
       }
       // si on se trouve dans la source froide
       else if (xc <= h*i && xd >= h*i && ya <= h*j && yb >= h*j) {
-        flag[i][j] = true;
+        if(!libre)
+          flag[i][j] = true;
+        else flag[i][j] = false;
         T[i][j] = Tf;
       }
       // sinon on se trouve ailleurs
