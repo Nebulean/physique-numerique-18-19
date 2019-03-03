@@ -7,6 +7,7 @@
 \usepackage{wrapfig}
 % quelques symboles mathematiques en plus
 \usepackage{amsmath}
+\usepackage{amsthm} % Pour les preuves
 % le tout en langue francaise
 %\usepackage[french]{babel}
 % on peut ecrire directement les caracteres avec l'accent
@@ -39,6 +40,9 @@
 
 \newcommand{\mail}[1]{{\href{mailto:#1}{#1}}}
 \newcommand{\ftplink}[1]{{\href{ftp://#1}{#1}}}
+
+\newcommand{\illabel}[1]{ ~ \refstepcounter{equation}(\theequation)\label{#1}} % Ecrit une équation dans le texte, numérotés.
+
 %
 % latex SqueletteRapport.tex      % compile la source LaTeX
 % xdvi SqueletteRapport.dvi &     % visualise le resultat
@@ -245,6 +249,24 @@ Note that $\vec{j}_i$ and $\hat{e}_j$ are either parallel or perpendicular, whic
 \end{figure}
 
 \paragraph{Analytical proof of surfaces equivalence.}
+On this second paragraph, a proof that $P_c + P_f = P_\text{tot}$ when $\frac{\partial T}{\partial t}\rightarrow 0$ will be described.
+
+\begin{proof}
+  The continuity equation is given by $\rho C\frac{\partial T}{\partial t} + \vec{\nabla}\cdot\vec{j} = S_\text{tot} \illabel{eq:continuity-with-T}$ where $S_\text{tot} = S_c + S_f$ the sources.
+  By hypothesis, $\frac{\partial T}{\partial t}\rightarrow 0$ which bring equation \eqref{eq:continuity-with-T} to this new equation: $\vec{\nabla}\cdot\vec{j} = S_\text{tot} \illabel{eq:continuity-without-T}$.
+  Use the definition of power over a surface $\Sigma_\text{tot}$ containing both sources.
+  \begin{align}
+    P_\text{tot} &= \iint_{\Sigma_\text{tot}}\vec{j}\cdot d\vec{\sigma} \\
+    \intertext{By using Gauss' theorem}
+    &= \iiint_{V_\text{tot}}\left(\vec{\nabla}\cdot\vec{j}\right)dV  = \iiint_{V_\text{tot}}SdV \\
+    \intertext{By using the fact that $V_\text{tot} = V_c + V_f + V_r$ where $V_c$ and $V_f$ are the volumes surrounding the hot and cold sources, and $V_r$ is the remaining volume. Thus:}
+    &= \iiint_{V_c}SdV + \iiint_{V_f}SdV + \underbrace{\iiint_{V_r}SdV}_\text{$=0$ because it does not surround a source.} \\
+    \intertext{Thus, by coming by to the power using Gauss' theorem again:}
+    &= \iiint_{V_c}SdV + \iiint_{V_f}SdV = \iiint_{V_c}\left(\vec{\nabla}\cdot\vec{j}\right)dV + \iiint_{V_f}\left(\vec{\nabla}\cdot\vec{j}\right)dV \\
+    &= \iint_{\Sigma_c}\vec{j}\cdot d\vec{\sigma} + \iint_{\Sigma_f}\vec{j}\cdot d\vec{\sigma} = P_c + P_f
+  \end{align}
+  which is $P_\text{tot} = P_c + P_f$.
+\end{proof}
 %TODO : Donner la preuve analytique que Pc + Pf = Ptot lorsque dT/dt -> 0.
 
 \paragraph{Numerical evolution of power.}
