@@ -19,3 +19,6 @@ dt = 1e-4
 N = 40
 eps = 10
 output = output
+
+% Facultatif :
+libre = false %température libre ou non
