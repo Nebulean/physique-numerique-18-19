@@ -322,7 +322,35 @@ The norm of the stationary heat flux increases exponentially as the cold source 
   \label{fig:e}
 \end{figure}
 
-\section{Conclusion}
+\section{Optional}
+Figure \ref{fig:fac1} is a simulation for a dense mesh (N=160) on a very short amount of time (t=\SI{0.02}{\s}).
+The reason why the simulation is so short is because it reaches the limit of stability for dt=\SI{1e-4}{\s}.
+On figure \ref{fig:fac1-temp}, the result for the temperature does not seem so different from what was studied before.
+But figure \ref{fig:fac1-temp-close} gives a closer look to the tol-left corner of the hot source, which is interesting.
+First, regarding the temperature, a lot of isolated peaks of temperature can be seen.
+This time, there is no physical reason behind this sudden changes of temperature, it clearly comes from the numerical simulation.
+Also, the direction of the heat flux is disturbed by these isolated peaks, as shown by the arrows.
+Simply by dividing the time step by \num{10}, dt=\SI{1e-5}{\s}, the result is almost like the one for $N=40$.
+Thus, this simulation showed what happend on the limit of stability of a numerical method.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/f1_temp.png}
+    \caption{Temperature graph}
+    \label{fig:fac1-temp}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{graphs/f1_temp_close.eps}
+    \caption{Closer look to the top-left corner of the hot source}
+    \label{fig:fac1-temp-close}
+  \end{subfigure}
+  \caption{Simulation for N=160 with an total time of \SI{0.02}{\s}}
+  \label{fig:fac1}
+\end{figure}
 
 \begin{thebibliography}{99}
   \bibitem{wiki:2nd-law} Wikipedia contributors, "Second law of thermodynamics," Wikipedia, The Free Encyclopedia, \url{https://en.wikipedia.org/w/index.php?title=Second_law_of_thermodynamics&oldid=884867223} (accessed March 2, 2019).

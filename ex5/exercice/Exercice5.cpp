@@ -99,26 +99,16 @@ int main(int argc, char* argv[])
       }
       // si on se trouve dans la source chaude
       else if (xa <= h*i && xb >= h*i && ya <= h*j && yb >= h*j) {
-<<<<<<< HEAD
-        flag[i][j] = true;
-        // flag[i][j] = false; // À activer pour facultatif.
-=======
         if(!libre)
           flag[i][j] = true;
         else flag[i][j] = false;
->>>>>>> 382924e852801a4791c69afe96a019485d78370e
         T[i][j] = Tc;
       }
       // si on se trouve dans la source froide
       else if (xc <= h*i && xd >= h*i && ya <= h*j && yb >= h*j) {
-<<<<<<< HEAD
-        flag[i][j] = true;
-        // flag[i][j] = false; // À activer pour facultatif.
-=======
         if(!libre)
           flag[i][j] = true;
         else flag[i][j] = false;
->>>>>>> 382924e852801a4791c69afe96a019485d78370e
         T[i][j] = Tf;
       }
       // sinon on se trouve ailleurs

@@ -1,7 +1,7 @@
 %% Chargement des resultats %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-cmd = "./Exercice5 configuration.in tfin=0.5 N=80"
+cmd = "./Exercice5 configuration.in tfin=0.02 dt=1e-5 N=160 libre=false"% Tc=150 Tf=100 Tb=200 libre=true"
 system(cmd)
 
 
@@ -90,6 +90,8 @@ quiver(Xmid(1:stride:end,1:stride:end),Ymid(1:stride:end,1:stride:end),jxc(1:str
 xlabel('x [m]')
 ylabel('y [m]')
 
+xlim([0.01 0.02]);
+
 c=colorbar
 c.Label.String = "Temperature [K]";
 c.Label.FontSize = 25;
@@ -146,6 +148,6 @@ box on
 grid on;
 hold off
 
-saveas(f1, "graphs/c_temp","epsc");
-saveas(f2, "graphs/c_heat_flux","epsc");
-saveas(f3, "graphs/d_power","epsc");
+saveas(f1, "graphs/f1_temp","epsc");
+saveas(f2, "graphs/f1_heat_flux","epsc");
+saveas(f3, "graphs/f1_power","epsc");
