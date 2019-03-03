@@ -8,11 +8,12 @@ input = 'configuration.in'; % Nom du fichier d'entree de base
 nsimul = 50; % Nombre de simulations a faire
 
 % POUR N=40:
-% dt = linspace(.0016,.001666,nsimul);
+% dt = linspace(.00156,.001592,nsimul);
+dt = linspace(.00154,.00164,nsimul);
 % dt = linspace(.001639,.00164,nsimul);
 
 % POUR N=80:
-dt = linspace(.00039,.000397,nsimul);
+% dt = linspace(.000385,.000397,nsimul);
 
 paramstr = 'dt'; % Nom du parametre a scanner
 param = dt; % Valeurs du parametre a scanner
@@ -67,13 +68,21 @@ end
 
 if(strcmp(paramstr,'dt'))
     f=figure
+    
+    set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+    set(groot, 'defaultLegendInterpreter', 'latex');
+    set(groot, 'defaultTextInterpreter', 'latex');
+    set(groot, 'defaultAxesFontSize', 18);
+    set(gca, 'fontsize', 25);
+    set(gca, 'LineWidth',1.5);
+    
     hold on
     plot(dt,Tp,'k+');
-    xlabel('\Delta t [s]')
-    ylabel(sprintf('T(%0.2f,%0.2f) [°C]',xp,yp))
+    xlabel('$\Delta t$ [s]')
+    ylabel(sprintf('$T(%0.2f,%0.2f)$ [K]',xp,yp))
     grid on
     hold off;
 end
 
-% saveas(f, "graphs/b_lim40","epsc");
-saveas(f, "graphs/b_lim80","epsc");
+saveas(f, "graphs/b_lim40","epsc");
+% saveas(f, "graphs/b_lim80","epsc");

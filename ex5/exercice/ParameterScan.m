@@ -7,27 +7,6 @@
 % par la valeur scannee.
 %
 
-%         Xap =  min(abs(X-xp))
-%         if (Xap <= xp)
-%             Xlow = Xap
-%         else
-%             Xlow = Xap-1
-%         end
-%         Xhigh = Xlow+1;
-%         
-%         Yap =  min(abs(Y-xp));
-%         if (Yap <= yp)
-%             Ylow = Yap
-%         else
-%             Ylow = Xap-1
-%         end
-%         Yhigh = Ylow+1;
-
-%         Xlow = floor(xp*N/L)
-%         Xhigh = Xlow+1
-%         Ylow = floor(yp*N/L)
-%         Yhigh = Ylow+1
-
 %% Parametres %%
 %%%%%%%%%%%%%%%%
 
@@ -38,10 +17,10 @@ input = 'configuration.in'; % Nom du fichier d'entree de base
 nsimul = 10; % Nombre de simulations a faire
 
 % POUR N=40:
-% dt = logspace(-5,-3, nsimul);
+dt = logspace(-5,-3, nsimul);
 
 % POUR N=80:
-dt = logspace(-6,-4, nsimul);
+% dt = logspace(-5,-4, nsimul);
 
 paramstr = 'dt'; % Nom du parametre a scanner
 param = dt; % Valeurs du parametre a scanner
@@ -96,19 +75,27 @@ end
 
 if(strcmp(paramstr,'dt'))
     f=figure
+    
+    set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+    set(groot, 'defaultLegendInterpreter', 'latex');
+    set(groot, 'defaultTextInterpreter', 'latex');
+    set(groot, 'defaultAxesFontSize', 18);
+    set(gca, 'fontsize', 25);
+    set(gca, 'LineWidth',1.5);
+    
     hold on
     plot(dt,Tp,'k+');
     [P,slope]=poly_approx(dt, Tp, 1, 2);
     plot(P(1,:),P(2,:));
-    xlabel('\Delta t [s]')
-    ylabel(sprintf('T(%0.2f,%0.2f) [°C]',xp,yp))
+    xlabel('$\Delta t$ [s]')
+    ylabel(sprintf('$T(%0.2f,%0.2f)$ [K]',xp,yp))
     legend("slope =" +num2str(slope));
     grid on
     hold off;
 end
 
-% saveas(f, "graphs/b_conv40","epsc");
-saveas(f, "graphs/b_conv80","epsc");
+saveas(f, "graphs/b_conv40","epsc");
+% saveas(f, "graphs/b_conv80","epsc");
 
 %% Fonction
 
