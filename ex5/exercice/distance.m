@@ -40,7 +40,7 @@ end
 % Parcours des resultats de toutes les simulations
 
 if(strcmp(paramstr,'dx'))
-    xp = xc+(xc-xb)/2;
+    xp = xb+(xc-xb)/2;
     yp = .05;
     Tp = zeros(1,nsimul);
     Fp = zeros(1,nsimul);
@@ -52,7 +52,7 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
         N = sqrt(length(data));
         Y = data(:,2);
         X = data(:,1);
-        T = data(:,3);
+        T = data(:,3)-273.15;
 
         G = griddata(X,Y,T,xp,yp);
         Tp(i) = G;
@@ -74,23 +74,39 @@ end
 
 if(strcmp(paramstr,'dx'))
     f1=figure;
+    
+    set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+    set(groot, 'defaultLegendInterpreter', 'latex');
+    set(groot, 'defaultTextInterpreter', 'latex');
+    set(groot, 'defaultAxesFontSize', 18);
+    set(gca, 'fontsize', 25);
+    set(gca, 'LineWidth',1.5);
+    
     hold on
     plot(dx,Tp,'k+');
     % [P,slope]=poly_approx(dt, Tp, 1, 2);
 %     plot(P(1,:),P(2,:));
-    xlabel('\Delta x [m]')
-    ylabel(sprintf('T(%0.2f,%0.2f) [°C]',xp,yp))
+    xlabel('$\Delta x$ [m]')
+    ylabel(sprintf('$T(%0.2f,%0.2f)$ [C]',xp,yp))
     % legend("slope =" +num2str(slope));
     grid on
     hold off;
     
     f2=figure;
+    
+    set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+    set(groot, 'defaultLegendInterpreter', 'latex');
+    set(groot, 'defaultTextInterpreter', 'latex');
+    set(groot, 'defaultAxesFontSize', 18);
+    set(gca, 'fontsize', 25);
+    set(gca, 'LineWidth',1.5);
+    
     hold on
     plot(dx,Fp,'k+');
     % [P,slope]=poly_approx(dt, Tp, 1, 2);
 %     plot(P(1,:),P(2,:));
-    xlabel('\Delta x [m]')
-    ylabel(sprintf('|j|(%0.2f,%0.2f) [W/m]',xp,yp))
+    xlabel('$\Delta x$ [m]')
+    ylabel(sprintf('$|j|(%0.2f,%0.2f)$ [W/m]',xp,yp))
     % legend("slope =" +num2str(slope));
     grid on
     hold off;

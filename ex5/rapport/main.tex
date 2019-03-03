@@ -92,48 +92,52 @@ We consider two rectangular bodies of same height and respective temperatures $T
 with $D=\kappa/(\rho C)=const$, where $\kappa=1.2~\si{\W \per \K \per \m}$ is the thermal conductivity, $\rho=1.2~\si{\kg \per \m^3}$ is the mass density, and $C=10^3~\si{\J \per \kg \per \K}$ is the specific heat capacity.
 
 
-The geometry of the problem is as represented on Fig.\ref{schema}, where the parameters are: $L=10$ cm, $x_a=2$ cm, $x_b=4$ cm, $x_c=7.5$ cm, $x_d=8.5$ cm, $y_a=3$ cm, and $y_b=8$ cm.
+The geometry of the problem is as represented on Fig.\ref{schema}, where the parameters are: $L=10$ cm, $x_a=2$ cm, $x_b=4$ cm, $x_c=7.5$ cm, $x_d=8.5$ cm, $y_a=3$ cm, and $y_b=8$ cm. Numerically, the system is discretized as a $N\times N$ regular grid.
 
-In this report, the evolution of the system with respect to time will be simulated in order to study the heat flux and thermal power of each body.
+In this report, the evolution of the system with respect to time will be simulated in order to study the heat flux and thermal power of each body. The simulation is done using the Jacobi method.
 
 % TODO : Explication de la dérivation spatiale. (laplacien, ...)
 
 \section{Convergence and stability}
+
+A convergence study of the temperature with the time step $\Delta t$ was made for $N=40$ (Fig.\ref{fig:b-conv40}) and $N=80$ (Fig.\ref{fig:b-conv80}) at the center point (0.05,0.05) of the system using linear interpolation. In both cases the convergence seems linear, as expected from the Jacobi algorithm. %TODO : why ?
 
 \begin{figure}[h]
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/b_conv40.eps}
 
-    \caption{Convergence}
+    \caption{N=40}
     \label{fig:b-conv40}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/b_lim40.eps}
-    \caption{Limit of stability}
-    \label{fig:b-lim40}
+    \includegraphics[width=\textwidth]{graphs/b_conv80.eps}
+    \caption{N=80}
+    \label{fig:b-conv80}
   \end{subfigure}
-  \caption{N=40}
-  \label{fig:b40}
+  \caption{Convergence study of the temperature for a varying $\Delta t$}
+  \label{fig:bconv}
 \end{figure}
+
+The limit of stability in function of $\Delta t$ was also studied in both cases on Fig.\ref{fig:blim}. The limit of stability for $N=40$ is about $\Delta t = 1.61 \cdot 10^{-3}$ s, while the limit for $N=80$ is around $\Delta t = 3.95 \cdot 10^{-4}$ s. Thus we can observe that while a higher $N$ allows for better precision on the computed values, it has a much lower limit of stability. Using this information, all of the following simulations will be run using $N=40$ and a time step $\Delta t = 1\cdot 10^{-4}$.
 
 \begin{figure}[h]
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/b_conv80.eps}
+    \includegraphics[width=\textwidth]{graphs/b_lim40.eps}
 
-    \caption{Convergence}
-    \label{fig:b-conv80}
+    \caption{N=40}
+    \label{fig:b-lim40}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/b_lim80.eps}
-    \caption{Limit of stability}
+    \caption{N=80}
     \label{fig:b-lim80}
   \end{subfigure}
-  \caption{N=40}
-  \label{fig:b80}
+  \caption{Limit of stability in $\Delta t$}
+  \label{fig:blim}
 \end{figure}
 
 \section{Heat flux}
@@ -293,13 +297,19 @@ This leads to a constant power emitted and received from the hot and the cold so
 Another interesting point of this figure is that, after a long time (\SI{0.5}{\second} for example), the sum $P_c + P_f$, respectivelly the power emitted by the hot source and the power received by the cold source, is equal to the power measured with a surface surrounding both sources, $P_\text{tot}$.
 Thus, as both curves seem to converge to the same power, the relation $\lim_{t\rightarrow\infty}P_c(t) + P_f(t) = \lim_{t\rightarrow\infty}P_\text{tot}(t)$ is verified.
 
-\section{Heat flux with respect to the distance between the bodies}
+\section{Temperature and heat flux with respect to the distance between the bodies}
+
+In this section, the two bodies are brought closer together. To get an optimal curve, the halfway point between the two bodies (0.06,0.05) is chosen, and the bodies are displaced simultaneously closer together, by one grid unit at a time.
+
+The results are displayed on Fig.\ref{fig:e}, where $\Delta x$ is the total displacement of one body. In other words, the distance between the two bodies at any point on the graph is $x_c-x_b-2\Delta x$. As the bodies are brought closer, the temperature at the halfway point, which is initially slightly higher than $0$°C, increases logarithmically up to $50$°C, which is the mean temperature of the two bodies $(T_c+T_f)/2$, before the hot body reaches it, at which point its temperature becomes $T_c=200$°C.
+
+The norm of the stationary heat flux increases exponentially as the cold source and the hot source get closer. Indeed, the closer they are, the higher the norm of the saptial gradient of temperature is, as both extremes of temperature get farther from each other and more heat transfer occurs.
 
 \begin{figure}[h]
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/e_distT.eps}
-    \caption{Temperature}
+    \caption{Temperature (in degrees Celsius)}
     \label{fig:e-T}
   \end{subfigure}
   ~
