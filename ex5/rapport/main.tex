@@ -68,18 +68,14 @@
 \baselineskip=16pt
 \parindent=15pt
 \parskip=5pt
-\newpage
+% \newpage
 
 
 %%%% ON COMMENCE A ECRIRE D'ICI
 
 \section{Introduction}
 
-\begin{wrapfigure}{r}{0.55\textwidth}
- \includegraphics[width=0.45\textwidth]{graphs/schema.png}
- \caption{Geometry of the problem \cite{doc-cours}}
- \label{schema}
-\end{wrapfigure}
+
 
 
 This problem focuses on the propagation of heat in an homogeneous environment.
@@ -91,6 +87,11 @@ We consider two rectangular bodies of same height and respective temperatures $T
 \end{equation}
 with $D=\kappa/(\rho C)$ a constant, where $\kappa=1.2~\si{\W \per \K \per \m}$ is the thermal conductivity, $\rho=1.2~\si{\kg \per \m^3}$ is the mass density, and $C=10^3~\si{\J \per \kg \per \K}$ is the specific heat capacity.
 
+\begin{wrapfigure}{r}{0.55\textwidth}
+ \includegraphics[width=0.45\textwidth]{graphs/schema.png}
+ \caption{Geometry of the problem \cite{doc-cours}}
+ \label{schema}
+\end{wrapfigure}
 
 The geometry of the problem is as represented on Fig.\ref{schema}, where the parameters are: $L=10$ cm, $x_a=2$ cm, $x_b=4$ cm, $x_c=7.5$ cm, $x_d=8.5$ cm, $y_a=3$ cm, and $y_b=8$ cm. Numerically, the system is discretized as a $N\times N$ regular grid.
 
@@ -170,7 +171,7 @@ Thus, the system tends to reach the thermodynamic equilibrum, and the heat diffu
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.6\textwidth]{graphs/c_temp.eps}
+  \includegraphics[width=0.55\textwidth]{graphs/c_temp.eps}
   \caption{Graph of temperatures at $t=\SI{0.1}{\s}$, represented by the color gradient, in Kelvin, with the direction and the intensity of the heat flux represented by the arrows}
   \label{fig:c-temp}
 \end{figure}
@@ -196,7 +197,7 @@ Thus, the peaks in intensity on the corners of the sources can be compared to th
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.6\textwidth]{graphs/c_heat_flux.eps}
+  \includegraphics[width=0.55\textwidth]{graphs/c_heat_flux.eps}
   \caption{Intensity of the heat flux represented by the color gradient}
   \label{fig:c-heat-flux}
 \end{figure}
@@ -258,7 +259,7 @@ For a simulation of $t=\SI{0.5}{\s}$, the evolution of the power is given by fig
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.6\textwidth]{graphs/d_power.eps}
+  \includegraphics[width=0.55\textwidth]{graphs/d_power.eps}
   \caption{Evolution of power for \SI{0.5}{\s}}
   \label{fig:d-power}
 \end{figure}
