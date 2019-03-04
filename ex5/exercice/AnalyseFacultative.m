@@ -2,6 +2,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 cmd = "./Exercice5 configuration.in tfin=0.02 dt=1e-5 N=160 libre=false"% Tc=150 Tf=100 Tb=200 libre=true"
+% cmd = "./Exercice5 configuration.in tfin=0.5 dt=1e-4 N=40 libre=true Tc=150 Tf=100 Tb=200"
 system(cmd)
 
 

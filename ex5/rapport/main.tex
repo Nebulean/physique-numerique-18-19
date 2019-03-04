@@ -362,6 +362,26 @@ Also, the direction of the heat flux is disturbed by these isolated peaks, as sh
 Simply by dividing the time step by \num{10}, dt=\SI{1e-5}{\s}, the result is almost like the one for $N=40$.
 Thus, this simulation shows what happens on the limit of stability of a numerical method.
 
+Figure \ref{fig:fac2} gives a case where both sources are colder than the environment, and where the sources are not kept at their temperature.
+The interesting point is that the sources change the temperature between them, which leads to a \textit{central} heat flux.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/f2_temp.eps}
+    \caption{Temperature graph}
+    \label{fig:fac2-temp}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/f2_heat_flux.eps}
+    \caption{Heat flux graph}
+    \label{fig:fac2-heat-flux.eps}
+  \end{subfigure}
+  \caption{Simulation for t=\SI{0.5}{\s}, with parameters N=40, $T_c=\SI{150}{\kelvin}$, $T_f=\SI{100}{\kelvin}$ and $T_b=\SI{200}{\kelvin}$}
+  \label{fig:fac2}
+\end{figure}
+
 \begin{thebibliography}{99}
   \bibitem{doc-cours} Laurent Villard, "Physique Numérique I-II - Exercice 5: un problème de chaleur", document of the exercice.
   \bibitem{wiki:2nd-law} Wikipedia contributors, "Second law of thermodynamics," Wikipedia, The Free Encyclopedia, \url{https://en.wikipedia.org/w/index.php?title=Second_law_of_thermodynamics&oldid=884867223} (accessed March 2, 2019).
