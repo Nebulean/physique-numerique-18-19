@@ -77,19 +77,19 @@
 
 \begin{wrapfigure}{r}{0.55\textwidth}
  \includegraphics[width=0.45\textwidth]{graphs/schema.png}
- \caption{Geometry of the problem}
+ \caption{Geometry of the problem \cite{doc-cours}}
  \label{schema}
 \end{wrapfigure}
 
 
 This problem focuses on the propagation of heat in an homogeneous environment.
-We consider two rectangular bodies of same height and respective temperatures $T_c = 200$°C and $T_f = -100$°C inside of a square box $\Omega$, of which the outside boundary is at Temperature $T_b = 0$°C. Initially, the temperature of the inside of the box is $T(t=0) = T_b$. The problems satisfies the heat equation \eqref{heateq}:
+We consider two rectangular bodies of same height and respective temperatures $T_c = 200$°C and $T_f = -100$°C inside of a square box $\Omega$, of which the outside boundary is at temperature $T_b = 0$°C. Initially, the temperature of the inside of the box is $T(t=0) = T_b$. The problems satisfies the heat equation \eqref{heateq}:
 
 \begin{equation}
  \frac{\partial T}{\partial t} = D\nabla ^2 T
  \label{heateq}
 \end{equation}
-with $D=\kappa/(\rho C)=const$, where $\kappa=1.2~\si{\W \per \K \per \m}$ is the thermal conductivity, $\rho=1.2~\si{\kg \per \m^3}$ is the mass density, and $C=10^3~\si{\J \per \kg \per \K}$ is the specific heat capacity.
+with $D=\kappa/(\rho C)$ a constant, where $\kappa=1.2~\si{\W \per \K \per \m}$ is the thermal conductivity, $\rho=1.2~\si{\kg \per \m^3}$ is the mass density, and $C=10^3~\si{\J \per \kg \per \K}$ is the specific heat capacity.
 
 
 The geometry of the problem is as represented on Fig.\ref{schema}, where the parameters are: $L=10$ cm, $x_a=2$ cm, $x_b=4$ cm, $x_c=7.5$ cm, $x_d=8.5$ cm, $y_a=3$ cm, and $y_b=8$ cm. Numerically, the system is discretized as a $N\times N$ regular grid.
@@ -120,7 +120,7 @@ A convergence study of the temperature with the time step $\Delta t$ was made fo
   \label{fig:bconv}
 \end{figure}
 
-The limit of stability in function of $\Delta t$ was also studied in both cases on Fig.\ref{fig:blim}. The limit of stability for $N=40$ is about $\Delta t = 1.61 \cdot 10^{-3}$ s, while the limit for $N=80$ is around $\Delta t = 3.95 \cdot 10^{-4}$ s. Thus we can observe that while a higher $N$ allows for better precision on the computed values, it has a much lower limit of stability. Using this information, all of the following simulations will be run using $N=40$ and a time step $\Delta t = 1\cdot 10^{-4}$.
+The limit of stability in function of $\Delta t$ was also studied in both cases on Fig.\ref{fig:blim}. The limit of stability for $N=40$ is about $\Delta t = 1.61 \cdot 10^{-3}$ s, while the limit for $N=80$ is around $\Delta t = 3.95 \cdot 10^{-4}$ s. Thus we can observe that while a higher $N$ allows for better precision on the computed values, it has a much lower limit of stability. Using this information, all of the following simulations will be run using $N=40$ and a time step $\Delta t = \SI{1e-4}{\s}$.
 
 \begin{figure}[h]
   \centering
@@ -142,7 +142,7 @@ The limit of stability in function of $\Delta t$ was also studied in both cases 
 
 \section{Heat flux}
 This section focuses on the analysis of the behavious of the heat flux.
-The heat flux is obtained with equation \eqref{eq:flux-chaleur}.
+The heat flux is defined by equation \eqref{eq:flux-chaleur}.
 
 \begin{equation}
   \vec{j} = -\kappa\vec{\nabla} T
@@ -155,7 +155,7 @@ By using a forward finite difference method, $\vec{j}$ can be numerically comput
 \begin{equation}
   \vec{j} = -\frac{\kappa}{h}
   \begin{pmatrix}
-    T^k_{i+1,j} - T^k_{i,j} & T^k_{i,j+1} - T^k_{i,j}
+    T^k_{i+1,j} - T^k_{i,j}, & T^k_{i,j+1} - T^k_{i,j}
   \end{pmatrix}
   \label{eq:flux-chaleur-numerique}
 \end{equation}
@@ -175,7 +175,7 @@ Thus, the system wants to reach the thermodynamic equilibrum, and heat goes from
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.6\textwidth]{graphs/c_temp.eps}
-  \caption{Graph of temperatures at $t=\SI{0.1}{\s}$, represented by the color gradient, in Kelvin, with the direction and the intensity of the heat flux represented by the arrows.}
+  \caption{Graph of temperatures at $t=\SI{0.1}{\s}$, represented by the color gradient, in Kelvin, with the direction and the intensity of the heat flux represented by the arrows}
   \label{fig:c-temp}
 \end{figure}
 
@@ -185,14 +185,13 @@ First, the graph shows indirectly the diffusion of heat through the environment.
 When the intensity is lower, it either means that the environment is closer to thermodynamic equilibrum or that less heat is flowing. %TODO : Je sais pas si cette phrase a un intérêt, c'est évident.
 But the most interesting point on this graph is the corners of the sources, in particular the hot source.
 The majority of the environment has a norm for the heat flux around $\SI{10000}{\watt\per\square\meter}$. But on these corners, the norm of the heat flux reaches \SI{25000}{\watt\per\square\meter}.
-This behavious does not appear on the border of the heat sources, so it is different from a simple "diffusion".
-These are singularities. %TODO : C'est pas un peu fort.
+This behavious does not appear on the border of the heat sources, so it is different from a simple "diffusion", these are singularities. %TODO : C'est pas un peu fort.
 This behavious can be compared to the the \textit{peak effect} \footnote{The name of this effect is directly translated from the french expression: \textit{effet de pointe}. No real translation of this effect in english seems to exist.}, an effect in electrostatics that describes the concentration of charges on the peak of a conductor.
 This comparison is not innocent, as there is a mathematical similarity between the electric field and the heat flux.
-The electric field $\vec{E}$ is derived from a scalar potential $\phi$, which give equation \eqref{eq:elec-field}.
+The electric field $\vec{E}$ is derived from a scalar potential $\phi$, the electric potential, which give equation \eqref{eq:elec-field}.
 
 \begin{equation}
-  \vec{E} = \vec{\nabla}\phi
+  \vec{E} = -\vec{\nabla}\phi
   \label{eq:elec-field}
 \end{equation}
 
@@ -202,25 +201,10 @@ Thus, the peaks in intensity on the corners of the sources can be compared to th
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.6\textwidth]{graphs/c_heat_flux.eps}
-  \caption{Intensity of the heat flux represented by the color gradient.}
+  \caption{Intensity of the heat flux represented by the color gradient}
   \label{fig:c-heat-flux}
 \end{figure}
-% \begin{figure}[h]
-%   \centering
-%   \begin{subfigure}[t]{0.45\textwidth}
-%     \includegraphics[width=\textwidth]{graphs/c_temp.eps}
-%     \caption{Graph of temperatures, represented by the color gradient, in Kelvin, with the direction and the intensity of the heat flux represented by the arrows.}
-%     \label{fig:c-temp}
-%   \end{subfigure}
-%   ~
-%   \begin{subfigure}[t]{0.45\textwidth}
-%     \includegraphics[width=\textwidth]{graphs/c_heat_flux.eps}
-%     \caption{Intensity of the heat flux represented by the color gradient.}
-%     \label{fig:c-heat-flux}
-%   \end{subfigure}
-%   \caption{Study of the heat flux at $t=\SI{0.1}{\second}$.}
-%   \label{fig:c}
-% \end{figure}
+
 \label{par:heatflux}
 
 \section{Power study}
@@ -235,10 +219,10 @@ The power is defined by the surface integral stated by equation \eqref{eq:power}
 
 \paragraph{Numerical integration method.}
 This first paragraph focuses on the method used to numerically integrate, and thus obtain the power.
-Figure \ref{fig:d-mailles} is a diagram representing a simplified version of the mesh used in this project.
-The crossings between the black lines are the temperature this point, the yellow square is the source considered, the blue circles are the horizontal heat flux $j_x$ obtained with a centered finite difference method on horizontal axis, the green circles are the vertical heat flux $j_y$ obtained with a centered finite difference method on vertical axis, vectors d$\vec{\sigma}$ are represented by the arrows and finally the red square is the Gauss surface $S$ considered.\\
+Figure \ref{fig:d-mailles} is a diagram representing a simplified version of the grid used in this project.
+The crossings between the black lines are the temperatures, the yellow square is the source considered, the blue circles are the horizontal heat flux $j_x$ obtained with a centered finite difference method on horizontal axis, the green circles are the vertical heat flux $j_y$ obtained with a centered finite difference method on vertical axis, vectors d$\vec{\sigma}$ are represented by the arrows and finally the red square is the Gauss surface $S$ considered.\\
 %TODO : Je dis pas trop de la merde ?
-To approximate the integral, it needs to be discretized.
+To approximate the integral, the problem needs to be discretized.
 A surface integral can be seen as a continuous sum over a surface $S$.
 Thus, in a discrete modelisation, which is the case here, the surface integral can be replaced by a sum over several point.
 It adds some uncertainties, but it is really easy to compute.
@@ -249,7 +233,7 @@ Note that $\vec{j}_i$ and $\hat{e}_j$ are either parallel or perpendicular, whic
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.5\textwidth]{graphs/d_mailles.eps}
-  \caption{Mesh diagram considered in this project.}
+  \caption{Diagram of the grid considered in this project}
   \label{fig:d-mailles}
 \end{figure}
 
@@ -258,7 +242,7 @@ On this second paragraph, a proof that $P_c + P_f = P_\text{tot}$ when $\frac{\p
 
 \begin{proof}
   The continuity equation is given by $\rho C\frac{\partial T}{\partial t} + \vec{\nabla}\cdot\vec{j} = S_\text{tot} \illabel{eq:continuity-with-T}$ where $S_\text{tot} = S_c + S_f$ the sources.
-  By hypothesis, $\frac{\partial T}{\partial t}\rightarrow 0$ which bring equation \eqref{eq:continuity-with-T} to this new equation: $\vec{\nabla}\cdot\vec{j} = S_\text{tot} \illabel{eq:continuity-without-T}$.
+  By hypothesis, $\frac{\partial T}{\partial t}\rightarrow 0$, which leads equation \eqref{eq:continuity-with-T} to this new equation: $\vec{\nabla}\cdot\vec{j} = S_\text{tot} \illabel{eq:continuity-without-T}$.
   Use the definition of power over a surface $\Sigma_\text{tot}$ containing both sources.
   \begin{align}
     P_\text{tot} &= \iint_{\Sigma_\text{tot}}\vec{j}\cdot d\vec{\sigma} \\
@@ -266,7 +250,7 @@ On this second paragraph, a proof that $P_c + P_f = P_\text{tot}$ when $\frac{\p
     &= \iiint_{V_\text{tot}}\left(\vec{\nabla}\cdot\vec{j}\right)dV  = \iiint_{V_\text{tot}}SdV \\
     \intertext{By using the fact that $V_\text{tot} = V_c + V_f + V_r$ where $V_c$ and $V_f$ are the volumes surrounding the hot and cold sources, and $V_r$ is the remaining volume. Thus:}
     &= \iiint_{V_c}SdV + \iiint_{V_f}SdV + \underbrace{\iiint_{V_r}SdV}_\text{$=0$ because it does not surround a source.} \\
-    \intertext{Thus, by coming by to the power using Gauss' theorem again:}
+    \intertext{Thus, by coming back to the power using Gauss' theorem again:}
     &= \iiint_{V_c}SdV + \iiint_{V_f}SdV = \iiint_{V_c}\left(\vec{\nabla}\cdot\vec{j}\right)dV + \iiint_{V_f}\left(\vec{\nabla}\cdot\vec{j}\right)dV \\
     &= \iint_{\Sigma_c}\vec{j}\cdot d\vec{\sigma} + \iint_{\Sigma_f}\vec{j}\cdot d\vec{\sigma} = P_c + P_f
   \end{align}
@@ -275,12 +259,12 @@ On this second paragraph, a proof that $P_c + P_f = P_\text{tot}$ when $\frac{\p
 
 \paragraph{Numerical evolution of power.}
 This last paragraph focuses on the numerical results obtained by using the numerical method described earlier.
-For a simulation of $t=\SI{0.5}{\s}$, the evolution of the power is available on figure \ref{fig:d-power}.
+For a simulation of $t=\SI{0.5}{\s}$, the evolution of the power is given by figure \ref{fig:d-power}.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.6\textwidth]{graphs/d_power.eps}
-  \caption{Evolution of power for \SI{0.5}{\s}.}
+  \caption{Evolution of power for \SI{0.5}{\s}}
   \label{fig:d-power}
 \end{figure}
 
@@ -291,7 +275,7 @@ This seems too much for a simple heat transfert between two small sources, but i
 In the first \num{25} milliseconds, the difference of temperature between the sources and the environment is not neglectable: $\Delta T=\SI{200}{\kelvin}$ for the hot source and $\Delta T=\SI{100}{\kelvin}$ for the cold source.
 Thus, at the beginning, a hugh amount of heat is transfered in a short amount of time which is the reason why power is this high.
 When the system is more stabilized, the difference is reduced, but still present.
-As the sources are kept at their temperature, heat still flows from one to another with a difference of temperature of $\Delta T=\SI{300}{\kelvin}$.
+The sources are kept at their temperature, and heat still flows from one to another with a difference of temperature of $\Delta T=\SI{300}{\kelvin}$.
 This leads to a constant power emitted and received from the hot and the cold sources.\\
 
 Another interesting point of this figure is that, after a long time (\SI{0.5}{\second} for example), the sum $P_c + P_f$, respectivelly the power emitted by the hot source and the power received by the cold source, is equal to the power measured with a surface surrounding both sources, $P_\text{tot}$.
@@ -309,7 +293,7 @@ The norm of the stationary heat flux increases exponentially as the cold source 
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/e_distT.eps}
-    \caption{Temperature (in degrees Celsius)}
+    \caption{Temperature (in degrees Celsius)}%TODO : Y'a une raison pour laquelle t'as mis entre parenthèse ?
     \label{fig:e-T}
   \end{subfigure}
   ~
@@ -324,8 +308,6 @@ The norm of the stationary heat flux increases exponentially as the cold source 
 
 \section{Optional}
 Fig.\ref{fig:flibre} represents the same simulation as in section \ref{par:heatflux}, with the only difference being that the temperature of the two bodies evolves freely over time. We can observe that the heat of the hot source dissipates, and the cold source is reduced in a similar fashion. Both sources lose their original rectangular shape to take on an ovoïd shape, likely caused by the peak effect discussed in section \ref{par:heatflux}, as the heat flux is stronger on the corners of a rectangle.
-
-Fig.\ref{fig:fflux} shows that the heat flux of the system at $t=0.1$ s is stronger on the sides of the hot source. Moreover, it is slightly stronger on its left side than its right side, possibly because the temperature of the boundary on its left side is fixed at $T_b=0$°C, making for a higher temperature gradient than on its right side, where the temperature is freely evolving.
 
 \begin{figure}[h]
   \centering
@@ -346,15 +328,7 @@ Fig.\ref{fig:fflux} shows that the heat flux of the system at $t=0.1$ s is stron
   \label{fig:flibre}
 \end{figure}
 
-Figure \ref{fig:fac1} is a simulation for a dense mesh (N=160) on a very short amount of time (t=\SI{0.02}{\s}).
-The reason why the simulation is so short is because it reaches the limit of stability for dt=\SI{1e-4}{\s}.
-On figure \ref{fig:fac1-temp}, the result for the temperature does not seem so different from what was studied before.
-But figure \ref{fig:fac1-temp-close} gives a closer look to the tol-left corner of the hot source, which is interesting.
-First, regarding the temperature, a lot of isolated peaks of temperature can be seen.
-This time, there is no physical reason behind this sudden changes of temperature, it clearly comes from the numerical simulation.
-Also, the direction of the heat flux is disturbed by these isolated peaks, as shown by the arrows.
-Simply by dividing the time step by \num{10}, dt=\SI{1e-5}{\s}, the result is almost like the one for $N=40$.
-Thus, this simulation showed what happend on the limit of stability of a numerical method.
+Fig.\ref{fig:fflux} shows that the heat flux of the system at $t=0.1$ s is stronger on the sides of the hot source. Moreover, it is slightly stronger on its left side than its right side, possibly because the temperature of the boundary on its left side is fixed at $T_b=0$°C, making for a higher temperature gradient than on its right side, where the temperature is freely evolving.
 
 \begin{figure}[h]
   \centering
@@ -375,7 +349,18 @@ Thus, this simulation showed what happend on the limit of stability of a numeric
   \label{fig:fac1}
 \end{figure}
 
+Figure \ref{fig:fac1} is a simulation for a dense grid (N=160) on a very short amount of time (t=\SI{0.02}{\s}).
+The reason why the simulation is so short is because it reaches the limit of stability for dt=\SI{1e-4}{\s}.
+On figure \ref{fig:fac1-temp}, the result for the temperature does not seem so different from what was studied before.
+But figure \ref{fig:fac1-temp-close} gives a closer look to the top-left corner of the hot source, which is interesting.
+First, regarding the temperature, a lot of isolated peaks of temperature can be seen.
+This time, there is no physical reason behind this sudden changes of temperature, it clearly comes from the numerical simulation.
+Also, the direction of the heat flux is disturbed by these isolated peaks, as shown by the arrows.
+Simply by dividing the time step by \num{10}, dt=\SI{1e-5}{\s}, the result is almost like the one for $N=40$.
+Thus, this simulation showed what happend on the limit of stability of a numerical method.
+
 \begin{thebibliography}{99}
+  \bibitem{doc-cours} Laurent Villard, "Physique Numérique I-II - Exercice 5: un problème de chaleur", document of the exercice.
   \bibitem{wiki:2nd-law} Wikipedia contributors, "Second law of thermodynamics," Wikipedia, The Free Encyclopedia, \url{https://en.wikipedia.org/w/index.php?title=Second_law_of_thermodynamics&oldid=884867223} (accessed March 2, 2019).
 
 
