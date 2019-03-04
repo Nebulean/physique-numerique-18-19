@@ -96,7 +96,6 @@ The geometry of the problem is as represented on Fig.\ref{schema}, where the par
 
 In this report, the evolution of the system with respect to time will be simulated in order to study the heat flux and thermal power of each body. The simulation is done using the Jacobi method.
 
-% TODO : Explication de la dérivation spatiale. (laplacien, ...)
 
 \section{Convergence and stability}
 
@@ -161,16 +160,13 @@ By using a forward finite difference method, $\vec{j}$ can be numerically comput
 \end{equation}
 
 At $t=\SI{0.1}{\s}$, with a stable $\Delta t$ and $N=40$, the flux heat can be seen in two ways, depending on the interest.
-On figure \ref{fig:c-temp}, multiple information can be observed.
+On figure \ref{fig:c-temp}, information about direction can be observed.
 First, the temperature of the multiple points of the system can be studied using the color gradient.
 These colors show the diffusion of heat through the homogeneous environment.
 Next, the little arrows show the direction and the intensity of the heat flux.
 As it can be observed, the heat flux goes from the hot source to a colder environment.
 All of this can be explained by the second law of thermodynamics, which states that in a closed system, entropy never decreases. \cite{wiki:2nd-law}
-Thus, the system wants to reach the thermodynamic equilibrum, and heat goes from hot to cold. %TODO : La dernière phrase est pas très belle.
-
-% TODO : Idée - Faire le "spectre" de chaleur sur une bande horizontale.
-% The result for the heat flux at $t=\SI{0.1}{\second}$ is given by figures \ref{fig:c-temp} and \ref{fig:c-heat-flux}.
+Thus, the system wants to reach the thermodynamic equilibrum, and heat diffuses.
 
 \begin{figure}[h]
   \centering
@@ -195,7 +191,7 @@ The electric field $\vec{E}$ is derived from a scalar potential $\phi$, the elec
   \label{eq:elec-field}
 \end{equation}
 
-Equation \eqref{eq:elec-field} is similar to equation \eqref{eq:flux-chaleur}, as $\vec{j}$ is also derived from a scalar potential ($T$). %TODO : C'est juste de dire que T est un potentiel scalaire ?
+Equation \eqref{eq:elec-field} is similar to equation \eqref{eq:flux-chaleur}, as $\vec{j}$ is also derived from a scalar potential ($T$).
 Thus, the peaks in intensity on the corners of the sources can be compared to the \textit{peak effect} of electrostatics.
 
 \begin{figure}[h]
@@ -228,7 +224,6 @@ Thus, in a discrete modelisation, which is the case here, the surface integral c
 It adds some uncertainties, but it is really easy to compute.
 Thus, the power can be found by adding $\vec{j}_i\cdot d\vec{\sigma}$ for each point contained on the border of the surface $S$, where d$\vec{\sigma} = h\hat{e}_i$ with $h$ the distance between two nodes.
 Note that $\vec{j}_i$ and $\hat{e}_j$ are either parallel or perpendicular, which means that the scalar product $\vec{j}_i\cdot\hat{e}_j$ is $\pm j_i$ when $i=j$ or $0$ when $i \neq j$.
-%TODO : Expliquer comment a été calculée la puissance.
 
 \begin{figure}[h]
   \centering
@@ -241,7 +236,7 @@ Note that $\vec{j}_i$ and $\hat{e}_j$ are either parallel or perpendicular, whic
 On this second paragraph, a proof that $P_c + P_f = P_\text{tot}$ when $\frac{\partial T}{\partial t}\rightarrow 0$ will be described.
 
 \begin{proof}
-  The continuity equation is given by $\rho C\frac{\partial T}{\partial t} + \vec{\nabla}\cdot\vec{j} = S_\text{tot} \illabel{eq:continuity-with-T}$ where $S_\text{tot} = S_c + S_f$ the sources.
+  The continuity equation is given by $\rho C\frac{\partial T}{\partial t} + \vec{\nabla}\cdot\vec{j} = S \illabel{eq:continuity-with-T}$ where $S = S_c + S_f$ the sources.
   By hypothesis, $\frac{\partial T}{\partial t}\rightarrow 0$, which leads equation \eqref{eq:continuity-with-T} to this new equation: $\vec{\nabla}\cdot\vec{j} = S_\text{tot} \illabel{eq:continuity-without-T}$.
   Use the definition of power over a surface $\Sigma_\text{tot}$ containing both sources.
   \begin{align}
@@ -273,7 +268,7 @@ At the beginning, the power is of order \SI{10}{\kilo\watt}, which can seem real
 And after a moment, the stabilized power is of order \SI{1}{\kilo\watt}.
 This seems too much for a simple heat transfert between two small sources, but it may have multiple explaination.
 In the first \num{25} milliseconds, the difference of temperature between the sources and the environment is not neglectable: $\Delta T=\SI{200}{\kelvin}$ for the hot source and $\Delta T=\SI{100}{\kelvin}$ for the cold source.
-Thus, at the beginning, a hugh amount of heat is transfered in a short amount of time which is the reason why power is this high.
+Thus, at the beginning, a huge amount of heat is transfered in a short amount of time which is the reason why power is this high.
 When the system is more stabilized, the difference is reduced, but still present.
 The sources are kept at their temperature, and heat still flows from one to another with a difference of temperature of $\Delta T=\SI{300}{\kelvin}$.
 This leads to a constant power emitted and received from the hot and the cold sources.\\
@@ -293,7 +288,7 @@ The norm of the stationary heat flux increases exponentially as the cold source 
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/e_distT.eps}
-    \caption{Temperature (in degrees Celsius)}%TODO : Y'a une raison pour laquelle t'as mis entre parenthèse ?
+    \caption{Temperature (in degrees Celsius)}
     \label{fig:e-T}
   \end{subfigure}
   ~
