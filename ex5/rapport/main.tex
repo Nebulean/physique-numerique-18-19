@@ -181,8 +181,8 @@ First, the graph shows indirectly the diffusion of heat through the environment.
 When the intensity is lower, it either means that the environment is closer to thermodynamic equilibrum or that less heat is flowing. %TODO : Je sais pas si cette phrase a un intérêt, c'est évident.
 But the most interesting point on this graph is the corners of the sources, in particular the hot source.
 The majority of the environment has a norm for the heat flux around $\SI{10000}{\watt\per\square\meter}$. But on these corners, the norm of the heat flux reaches \SI{25000}{\watt\per\square\meter}.
-This behavious does not appear on the border of the heat sources, so it is different from a simple "diffusion", these are singularities. %TODO : C'est pas un peu fort.
-This behavious can be compared to the the \textit{peak effect} \footnote{The name of this effect is directly translated from the french expression: \textit{effet de pointe}. No real translation of this effect in english seems to exist.}, an effect in electrostatics that describes the concentration of charges on the peak of a conductor.
+This behaviour does not appear on the border of the heat sources, so it is different from a simple "diffusion", these are singularities. %TODO : C'est pas un peu fort.
+This behaviour can be compared to the the \textit{peak effect} \footnote{The name of this effect is directly translated from the french expression: \textit{effet de pointe}. No real translation of this effect in english seems to exist.}, an effect in electrostatics that describes the concentration of charges on the peak of a conductor.
 This comparison is not innocent, as there is a mathematical similarity between the electric field and the heat flux.
 The electric field $\vec{E}$ is derived from a scalar potential $\phi$, the electric potential, which give equation \eqref{eq:elec-field}.
 
@@ -273,16 +273,16 @@ When the system is more stabilized, the difference is reduced, but still present
 The sources are kept at their temperature, and heat still flows from one to another with a difference of temperature of $\Delta T=\SI{300}{\kelvin}$.
 This leads to a constant power emitted and received from the hot and the cold sources.\\
 
-Another interesting point of this figure is that, after a long time (\SI{0.5}{\second} for example), the sum $P_c + P_f$, respectivelly the power emitted by the hot source and the power received by the cold source, is equal to the power measured with a surface surrounding both sources, $P_\text{tot}$.
+Another interesting point of this figure is that, after a long time (\SI{0.5}{\second} for example), the sum $P_c + P_f$, respectively the power emitted by the hot source and the power received by the cold source, is equal to the power measured with a surface surrounding both sources, $P_\text{tot}$.
 Thus, as both curves seem to converge to the same power, the relation $\lim_{t\rightarrow\infty}P_c(t) + P_f(t) = \lim_{t\rightarrow\infty}P_\text{tot}(t)$ is verified.
 
 \section{Temperature and heat flux with respect to the distance between the bodies}
 
 In this section, the two bodies are brought closer together. To get an optimal curve, the halfway point between the two bodies (0.06,0.05) is chosen, and the bodies are displaced simultaneously closer together, by one grid unit at a time.
 
-The results are displayed on Fig.\ref{fig:e}, where $\Delta x$ is the total displacement of one body. In other words, the distance between the two bodies at any point on the graph is $x_c-x_b-2\Delta x$. As the bodies are brought closer, the temperature at the halfway point, which is initially slightly higher than $0$°C, increases logarithmically up to $50$°C, which is the mean temperature of the two bodies $(T_c+T_f)/2$, before the hot body reaches it, at which point its temperature becomes $T_c=200$°C.
+The results are displayed on Fig.\ref{fig:e}, where $\Delta x$ is the total displacement of one body. In other words, the distance between the two bodies at any point on the graph is $d = x_c-x_b-2\Delta x$. As the bodies are brought closer, the temperature at the halfway point, which is initially slightly higher than $0$°C, increases logarithmically up to $50$°C, which is the mean temperature of the two bodies $(T_c+T_f)/2$, before the hot body reaches it, at which point its temperature becomes $T_c=200$°C.
 
-The norm of the stationary heat flux increases exponentially as the cold source and the hot source get closer. Indeed, the closer they are, the higher the norm of the saptial gradient of temperature is, as both extremes of temperature get farther from each other and more heat transfer occurs.
+The norm of the stationary heat flux increases exponentially as the cold source and the hot source get closer. Indeed, the closer they are, the higher the norm of the spatial gradient of temperature is, as both extremes of temperature get farther from each other and more heat transfer occurs. In fact, as shown on Fig.\ref{fig:e-root}, the heat flux is proportional to the inverse square distance of the two bodies.
 
 \begin{figure}[h]
   \centering
@@ -295,11 +295,19 @@ The norm of the stationary heat flux increases exponentially as the cold source 
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{graphs/e_distF.eps}
     \caption{Heat flux}
-    \label{fig:e-T}
+    \label{fig:e-F}
   \end{subfigure}
   \caption{Temperature and heat flux in function of displacement}
   \label{fig:e}
 \end{figure}
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=0.5\textwidth]{graphs/e_distF2.eps}
+ \caption{Heat flux in function of the inverse square distance}
+ \label{fig:e-root}
+\end{figure}
+
 
 \section{Optional}
 Fig.\ref{fig:flibre} represents the same simulation as in section \ref{par:heatflux}, with the only difference being that the temperature of the two bodies evolves freely over time. We can observe that the heat of the hot source dissipates, and the cold source is reduced in a similar fashion. Both sources lose their original rectangular shape to take on an ovoïd shape, likely caused by the peak effect discussed in section \ref{par:heatflux}, as the heat flux is stronger on the corners of a rectangle.
@@ -345,14 +353,14 @@ Fig.\ref{fig:fflux} shows that the heat flux of the system at $t=0.1$ s is stron
 \end{figure}
 
 Figure \ref{fig:fac1} is a simulation for a dense grid (N=160) on a very short amount of time (t=\SI{0.02}{\s}).
-The reason why the simulation is so short is because it reaches the limit of stability for dt=\SI{1e-4}{\s}.
+The reason why the simulation is so short is because it reaches the limit of stability for $\Delta t=\SI{1e-4}{\s}$.
 On figure \ref{fig:fac1-temp}, the result for the temperature does not seem so different from what was studied before.
 But figure \ref{fig:fac1-temp-close} gives a closer look to the top-left corner of the hot source, which is interesting.
 First, regarding the temperature, a lot of isolated peaks of temperature can be seen.
 This time, there is no physical reason behind this sudden changes of temperature, it clearly comes from the numerical simulation.
 Also, the direction of the heat flux is disturbed by these isolated peaks, as shown by the arrows.
 Simply by dividing the time step by \num{10}, dt=\SI{1e-5}{\s}, the result is almost like the one for $N=40$.
-Thus, this simulation showed what happend on the limit of stability of a numerical method.
+Thus, this simulation shows what happens on the limit of stability of a numerical method.
 
 \begin{thebibliography}{99}
   \bibitem{doc-cours} Laurent Villard, "Physique Numérique I-II - Exercice 5: un problème de chaleur", document of the exercice.
