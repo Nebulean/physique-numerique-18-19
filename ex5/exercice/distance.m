@@ -102,18 +102,15 @@ if(strcmp(paramstr,'dx'))
     set(gca, 'LineWidth',1.5);
     
     hold on
-    plot(1./sqrt(xc-xb-2*dx),Fp,'k+');
-    [P,slope]=poly_approx(1./sqrt(xc-xb-2*dx), Fp, 1, 2)
-    plot(P(1,:),P(2,:));
-    xlabel('$1/\sqrt{d}$ [m$^{-1/2}$]')
+    plot(dx,Fp,'k+');
+    xlabel('$\Delta x$ [m]')
     ylabel(sprintf('$|j|(%0.2f,%0.2f)$ [W/m$^2$]',xp,yp))
-    legend("slope =" +num2str(slope));
     grid on
     hold off;
 end
 
 saveas(f1, "graphs/e_distT","epsc");
-saveas(f2, "graphs/e_distF2","epsc");
+saveas(f2, "graphs/e_distF","epsc");
 
 %% Fonction
 
