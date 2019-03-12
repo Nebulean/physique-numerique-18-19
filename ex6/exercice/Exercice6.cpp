@@ -121,11 +121,25 @@ int main(int argc, char* argv[])
 
   // TODO: Assemblage des elements de la matrice et du membre de droite
 
+  diag[0]=1./(2.*h[0])*(r[1]*epsilonr(r[1], true)+r[0]*epsilonr(r[0], true))
+  for (size_t i(1); i<diag.size()-1; ++i){
+    diag[i] = 1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true)) + 1./(2.*h[i-1])*(r[i-1]*epsilonr(r[i-1], true)+r[i]*epsilonr(r[i], true));
+  }
 
+  for (size_t i(0); i<lower.size(), ++i){
+    lower[i] = -1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true));
+    upper[i] = lower[i];
+  }
+
+  // for (size_t i(1); i<rhs.size()-1; ++i){
+  //   rhs[i] = r[i]*
+  // }
 
   // TODO: Condition au bord:
 
-
+  diag[diag.size()-1]=1;
+  lower[lower.size()-1]=0;
+  rhs[rhs.size()-1]=V0;
 
   // Resolution:
   vector<double> phi(solve(diag,lower,upper,rhs));
@@ -174,4 +188,3 @@ int main(int argc, char* argv[])
 
   return 0;
 }
-
