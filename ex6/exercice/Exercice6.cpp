@@ -163,7 +163,6 @@ int main(int argc, char* argv[])
     upper[i] = lower[i];
   }
 
-  cout << r[N1-1] << " " << r[N1] << endl;
   //à rk+1=b:
   // lower[N1-1] = -1./(2.*h[N1-1])*(r[N1]*epsilonr(r[N1], false)+r[N1-1]*epsilonr(r[N1-1], true));
   // upper[N1-1] = lower[N1-1];
