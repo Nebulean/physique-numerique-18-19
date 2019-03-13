@@ -61,10 +61,19 @@ public:
     : b(b_), a0(a0_), trivial(trivial_) {};
 
   inline double operator()(double const& r) {
-    if(trivial or r>b)
+    // if(trivial or r>b)
+    //   return 1.0;
+    // else
+    //   return a0*(1.0-pow(r/b,2));
+    if(trivial){
       return 1.0;
-    else
-      return a0*(1.0-pow(r/b,2));
+    }
+    else{
+      if(r>b)
+        return 0.0;
+      else
+        return a0*(1.0-pow(r/b,2));
+    }
   }
 
 private:
@@ -189,7 +198,7 @@ int main(int argc, char* argv[])
   {
     rmid[i] = 0.5*r[i] + 0.5*r[i+1];
     // TODO: Calculer E_r et D_r/epsilon_0 au milieu des intervalles
-    Er[i] = 1/h[i]*(phi[i+1]-phi[i]);
+    Er[i] = (phi[i+1]-phi[i])/h[i];
     Dr[i] = epsilonr(rmid[i],true)*Er[i];
   }
   ofs.open((output+"_Er_Dr.out").c_str());
@@ -206,7 +215,7 @@ int main(int argc, char* argv[])
   {
     rmidmid[i] = 0.5*rmid[i] + 0.5*rmid[i+1];
     // TODO: Calculer div(E_r) et div(D_r)/epsilon_0 au milieu des milieu des intervalles
-    div_Er[i] = 0.;
+    div_Er[i] = (rmid[i+1]*Er[i+1]-rmid[i]*Er[i])/(rmid[i+1]-rmid[i])/rmidmid[i]; // DF en cylindrique (d'où le 1/r)
     div_Dr[i] = 0.;
   }
   ofs.open((output+"_rholib_divEr_divDr.out").c_str());
