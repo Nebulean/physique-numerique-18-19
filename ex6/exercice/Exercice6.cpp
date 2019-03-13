@@ -179,6 +179,12 @@ int main(int argc, char* argv[])
   lower[lower.size()-1]=0;
   rhs[rhs.size()-1]=V0;
 
+  //couts
+  // for (size_t i=0; i<diag.size(); ++i){
+  //   cout << diag[i] << " ";
+  // }
+  // cout << endl;
+
   // Resolution:
   vector<double> phi(solve(diag,lower,upper,rhs));
 
