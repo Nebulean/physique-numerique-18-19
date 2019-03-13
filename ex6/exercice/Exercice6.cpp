@@ -121,18 +121,18 @@ int main(int argc, char* argv[])
 
   //Matrice A
   //diagonale
-  diag[0]=1./(2.*h[0])*(r[1]*epsilonr(r[1], true)+r[0]*epsilonr(r[0], true))
+  diag[0]=1./(2.*h[0])*(r[1]*epsilonr(r[1], true)+r[0]*epsilonr(r[0], true));
   for (size_t i(1); i<diag.size()-1; ++i){
-    if (i=N1-1){
+    if (i==N1-1){
       diag[i] = 1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], false)+r[i]*epsilonr(r[i], true)) + 1./(2.*h[i-1])*(r[i-1]*epsilonr(r[i-1], true)+r[i]*epsilonr(r[i], true));
-    } else if (i=N1){
+    } else if (i==N1){
       diag[i] = 1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], false)) + 1./(2.*h[i-1])*(r[i-1]*epsilonr(r[i-1], true)+r[i]*epsilonr(r[i], false));
-    } else if (i=N1+1){
+    } else if (i==N1+1){
       diag[i] = 1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true)) + 1./(2.*h[i-1])*(r[i-1]*epsilonr(r[i-1], false)+r[i]*epsilonr(r[i], true));
     } else {
       diag[i] = 1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true)) + 1./(2.*h[i-1])*(r[i-1]*epsilonr(r[i-1], true)+r[i]*epsilonr(r[i], true));
     }
-  }
+  };
   //à rk+1=b:
   // diag[N1-1] = 1./(2.*h[N1-1])*(r[N1]*epsilonr(r[N1], false)+r[N1-1]*epsilonr(r[N1-1], true)) + 1./(2.*h[N1-2])*(r[N1-2]*epsilonr(r[N1-2], true)+r[N1-1]*epsilonr(r[N1-1], true));
   // diag[N1] = 1./(2.*h[N1])*(r[N1+1]*epsilonr(r[N1+1], false)+r[N1]*epsilonr(r[N1], true)) + 1./(2.*h[N1-2])*(r[N1-2]*epsilonr(r[N1-2], true)+r[N1-1]*epsilonr(r[N1-1], true));
@@ -141,10 +141,10 @@ int main(int argc, char* argv[])
   // }
 
   //sous et sur-diagonale
-  for (size_t i(0); i<lower.size(), ++i){
-    if (i=N1-1){
+  for (size_t i(0); i<lower.size(); ++i){
+    if (i==N1-1){
       lower[i] = -1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], false)+r[i]*epsilonr(r[i], true));
-    } else if (i=N1){
+    } else if (i==N1){
       lower[i] = -1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], false));
     } else {
       lower[i] = -1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true));
@@ -159,11 +159,11 @@ int main(int argc, char* argv[])
   //   upper[i] = lower[i];
   // }
 
-  // TODO: rhs
-
-  // for (size_t i(1); i<rhs.size()-1; ++i){
-  //   rhs[i] = r[i]*
-  // }
+  // sans epsilon_0
+  rhs[0] = r[0]*rho_lib(r[0])/2*h[0];
+  for (size_t i(1); i<rhs.size()-1; ++i){
+    rhs[i] = r[i]*rho_lib(r[i])/2*(h[i-1]+h[i]);
+  }
 
   //Condition au bord
   diag[diag.size()-1]=1;
@@ -189,8 +189,8 @@ int main(int argc, char* argv[])
   {
     rmid[i] = 0.5*r[i] + 0.5*r[i+1];
     // TODO: Calculer E_r et D_r/epsilon_0 au milieu des intervalles
-    Er[i] = 0.;
-    Dr[i] = 0.;
+    Er[i] = 1/h[i]*(phi[i+1]-phi[i]);
+    Dr[i] = epsilonr(rmid[i],true)*Er[i];
   }
   ofs.open((output+"_Er_Dr.out").c_str());
   ofs.precision(15);
