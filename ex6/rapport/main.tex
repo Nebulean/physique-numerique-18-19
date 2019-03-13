@@ -42,6 +42,12 @@
 \newcommand{\ftplink}[1]{{\href{ftp://#1}{#1}}}
 
 \newcommand{\illabel}[1]{ ~ \refstepcounter{equation}(\theequation)\label{#1}} % Ecrit une équation dans le texte, numérotés.
+\newcommand{\mbf}[1]{\mathbf{#1}} % bold font in math
+\newcommand{\grad}[1]{\nabla#1}
+\newcommand{\Div}[1]{\nabla\cdot\mathbf{#1}}
+\newcommand{\rot}[1]{\nable\cross\mathbf{#1}}
+\newcommand{\bracket}[1]{\left(#1\right)}
+\newcommand{\lapl}[1]{\Delta#1}
 
 %
 % latex SqueletteRapport.tex      % compile la source LaTeX
@@ -72,16 +78,45 @@
 
 %%%% ON COMMENCE A ECRIRE D'ICI
 
-\section{Introduction}
+\section{Introduction} %TODO: Virer cette intro
 
 \section{Differential equation and variationnal form}
-% Mettre des \paragraph
+  \subsection{Establishment of the differential equation for the potential $\phi(\vec{x})$}
+    This section will derive the equation that describes the problem.
 
-\section{Discretisation}
+    \begin{align*}
+      \intertext{First, one of Maxwell's equation is used}
+      \nabla\cdot\mathbf{D} &= \rho\bracket{\mathbf{x}} \\
+      \intertext{where $\mathbf{D}=\epsilon_0\epsilon_r\mathbf{E}$ is the electric displacement field.}
+      \nabla\cdot\bracket{\epsilon_0\epsilon_r\mathbf{E}} &= \rho\bracket{\mathbf{x}} \\
+      \nabla\cdot\bracket{\epsilon_r\mathbf{E}} &= \frac{\rho\bracket{\mathbf{x}}}{\epsilon_0} \\
+      \epsilon_r\Div{E} + \mathbf{E}\cdot\nabla\epsilon_r &= \frac{\rho\bracket{\mbf{x}}}{\epsilon_0} \\
+      \intertext{We know that $\mbf{E}$ derive from a potential $\phi$ such that $\mathbf{E}=-\grad{\phi}$. Thus}
+      -\epsilon_r\lapl{\phi}-\grad{\phi}\grad{\epsilon_r} &= \frac{\rho\bracket{\mbf{x}}}{\epsilon_0}
+      \intertext{This leads to equation \eqref{eq:equa-diff}.}
+    \end{align*}
+    \begin{equation}
+      \centering
+      \boxed{\grad{\phi}\grad{\epsilon_r} + \epsilon_r\lapl{\phi} = -\frac{\rho\bracket{\mbf{x}}}{\epsilon_0}}
+      \label{eq:equa-diff}
+    \end{equation}
 
-\section{Differential equation}
+  \subsection{Variational form}
+    To numerically solve equation \eqref{eq:equa-diff}, the variational form of the problem must be found.
 
-\
-
+    \begin{align*}
+      \intertext{Let $\eta\bracket{\mbf{x}}\subset\mathcal{C}^1\bracket{\Omega}$, $\eta\bracket{\mbf{x}}=0~ \forall \mbf{x}\in\partial\Omega$. Multiply both sides of equation \eqref{eq:equa-diff} by $\eta\bracket{\mbf{x}}$, and integrate over the volume $\Omega$.}
+      \int_\Omega \eta\bracket{\mbf{x}}\grad{\phi}\grad{\epsilon_r}d\mbf{x} + \int_\Omega \eta\bracket{\mbf{x}}\epsilon_r\lapl{\phi}d\mbf{x} &= -\int_\Omega \eta\bracket{\mbf{x}}\frac{\rho\bracket{\mbf{x}}}{\epsilon_0}d\mbf{x}
+      \intertext{By using formula $\nabla\cdot\bracket{f\nabla g} = \grad{f}\cdot\grad{g} + f\lapl{g}$ where $f=\eta\epsilon_r$ et $g=\phi$:}
+      \nabla\cdot\bracket{\eta\epsilon_r\grad{\phi}} &= \grad{\bracket{\eta\epsilon_r}}\cdot\grad{\phi} + \eta\epsilon_r\lapl{\phi} \\
+      &= \epsilon_r\grad{\eta}\cdot\grad{\phi} + \eta\grad{\epsilon_r}\cdot\grad{\phi} + \eta\epsilon_r\lapl{\phi} \\
+      \Rightarrow \int_\Omega\bracket{\eta\bracket{\mbf{x}}\grad{\phi}\cdot\grad{\epsilon_r} + \eta\bracket{\mbf{x}}\epsilon_r\lapl{\phi}}d\mbf{x} &= \int_\Omega\bracket{\underbrace{\nabla\cdot\bracket{\eta\epsilon_r\grad{\phi}}}_* - \epsilon_r\grad{\eta}\cdot\grad{\phi}}d\mbf{x}
+      \intertext{Using Gauss theorem: $*= \int_{\partial\Omega}\eta\epsilon_r\grad{\phi}\cdot d\mbf{\sigma} = 0$ because $\eta\bracket{\mbf{x}}=0~\forall\mbf{x}\in\partial\Omega$ by definition.}
+    \end{align*}
+    \begin{equation}
+      \centering
+      \Rightarrow \boxed{\int_\Omega\epsilon_r\grad{\eta}\cdot\grad{\phi}d\mbf{x} = \int_\Omega\eta\bracket{\mbf{x}}\frac{\rho\bracket{\mbf{x}}}{\epsilon_0}d\mbf{x}}
+      \label{eq:variational-form}
+    \end{equation}
 
 \end{document}
