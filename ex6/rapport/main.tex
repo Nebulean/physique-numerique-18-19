@@ -78,7 +78,7 @@
 
 %%%% ON COMMENCE A ECRIRE D'ICI
 
-\section{Introduction} %TODO: Virer cette intro
+% \section{Introduction} %TODO: Faire une introduction
 
 \section{Differential equation and variationnal form}
   \subsection{Establishment of the differential equation for the potential $\phi(\vec{x})$}
@@ -118,5 +118,41 @@
       \Rightarrow \boxed{\int_\Omega\epsilon_r\grad{\eta}\cdot\grad{\phi}d\mbf{x} = \int_\Omega\eta\bracket{\mbf{x}}\frac{\rho\bracket{\mbf{x}}}{\epsilon_0}d\mbf{x}}
       \label{eq:variational-form}
     \end{equation}
+
+  \subsection{Special case: cylinder} %TODO : Faut changer le titre, il pue.
+    From now, the exercice will focus on a cylinder of radius $R$ and of length $L_z$ long enough to neglect the side-effects.
+    Thus, $\phi\bracket{r}$, $\epsilon_r\bracket{r}$ and $\rho_\text{lib}\bracket{r}$ only depend on the radius of the cylinder, so $\grad{\eta}=\frac{d\eta}{dr}$ and $\grad{\phi}=\frac{d\phi}{dr}$.
+    From equation \eqref{eq:variational-form}, the variational form of the problem can be expressed in cylindrical coordinates, which gives equation \eqref{eq:variational-form-cylindrical}.
+
+    \begin{equation}
+      \centering
+      \boxed{\int_0^R r\epsilon_r\bracket{r}\frac{d\eta\bracket{r}}{dr}\frac{d\phi\bracket{r}}{dr}dr = \frac{1}{\epsilon_0}\int_0^R r\eta\bracket{r}\rho\bracket{r} dr}
+      \label{eq:variational-form-cylindrical}
+    \end{equation}
+
+    Note that $r$ is added to the integral, coming from the change of variable into cylindrical coordinates.
+
+\section{Finite elements}
+  The problem need to be discretized to get a numerical solution.
+  $\phi$ and $\eta$ must be expressed in a discretized way.
+  Consider $\Lambda_i\bracket{r}$, the polynomials as represented on figure \ref{fig:lambda}.
+  These function are used to approximate $\phi$ and $\eta$.
+
+  \begin{equation}
+    \phi\bracket{r}=\Sigma_j\phi_j\Lambda_j\bracket{r}~\text{and}~\eta\bracket{r}=\Sigma_i\eta_i\Lambda_i\bracket{r}
+  \end{equation}
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{graphs/lambda.pdf}
+    \caption{Scheme of the lambda function}
+    \label{fig:lambda}
+  \end{figure}
+
+
+
+  \subsection{Writing matrix $A$ and vector $\mbf{b}$ of the linear system $A\mbf{\phi}=\mbf{b}$} %TODO : Changer le titre, celui-là pue.
+
+
 
 \end{document}

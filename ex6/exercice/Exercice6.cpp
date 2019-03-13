@@ -5,7 +5,10 @@
 #include <cmath>
 #include "ConfigFile.tpp"
 
+
 using namespace std;
+
+void coutBigFatVec(vector<double> const& vec, string name);
 
 // Resolution d'un systeme d'equations lineaires par elimination de Gauss-Jordan:
 template <class T>
@@ -179,6 +182,10 @@ int main(int argc, char* argv[])
   lower[lower.size()-1]=0;
   rhs[rhs.size()-1]=V0;
 
+  // coutBigFatVec(diag,"diag");
+  // coutBigFatVec(lower,"lower");
+  // coutBigFatVec(rhs,"rhs");
+
   //couts
   // for (size_t i=0; i<diag.size(); ++i){
   //   cout << diag[i] << " ";
@@ -204,7 +211,7 @@ int main(int argc, char* argv[])
   {
     rmid[i] = 0.5*r[i] + 0.5*r[i+1];
     // TODO: Calculer E_r et D_r/epsilon_0 au milieu des intervalles
-    Er[i] = (phi[i+1]-phi[i])/h[i];
+    Er[i] = -(phi[i+1]-phi[i])/h[i];
     Dr[i] = epsilonr(rmid[i],true)*Er[i];
   }
   ofs.open((output+"_Er_Dr.out").c_str());
@@ -222,7 +229,7 @@ int main(int argc, char* argv[])
     rmidmid[i] = 0.5*rmid[i] + 0.5*rmid[i+1];
     // TODO: Calculer div(E_r) et div(D_r)/epsilon_0 au milieu des milieu des intervalles
     div_Er[i] = (rmid[i+1]*Er[i+1]-rmid[i]*Er[i])/(rmid[i+1]-rmid[i])/rmidmid[i]; // DF en cylindrique (d'où le 1/r)
-    div_Dr[i] = 0.;
+    div_Dr[i] = epsilonr(rmidmid[i],true)*div_Er[i];
   }
   ofs.open((output+"_rholib_divEr_divDr.out").c_str());
   ofs.precision(15);
@@ -231,4 +238,13 @@ int main(int argc, char* argv[])
   ofs.close();
 
   return 0;
+}
+
+void coutBigFatVec(vector<double> const& vec, string name){
+  cout << name << "=( ";
+  for (size_t i = 0; i < vec.size() - 1; i++) {
+    cout.precision(5);
+    cout << vec[i] << ", ";
+  }
+  cout << vec[vec.size() - 1] << " )" << endl;
 }
