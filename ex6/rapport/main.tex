@@ -136,10 +136,11 @@
   The problem need to be discretized to get a numerical solution.
   $\phi$ and $\eta$ must be expressed in a discretized way.
   Consider $\Lambda_i\bracket{r}$, the polynomials as represented on figure \ref{fig:lambda}.
-  These function are used to approximate $\phi$ and $\eta$.
+  These function are used to approximate $\phi$ and $\eta$, which are given by equation \eqref{eq:approx-phi-eta}.
 
   \begin{equation}
-    \phi\bracket{r}=\Sigma_j\phi_j\Lambda_j\bracket{r}~\text{and}~\eta\bracket{r}=\Sigma_i\eta_i\Lambda_i\bracket{r}
+    \phi\bracket{r}=\sum_j\phi_j\Lambda_j\bracket{r}~\text{and}~\eta\bracket{r}=\sum_i\eta_i\Lambda_i\bracket{r}
+    \label{eq:approx-phi-eta} %TODO : Vérifier les indices. (être cohérant avec la suite surtout)
   \end{equation}
 
   \begin{figure}[h]
@@ -149,9 +150,46 @@
     \label{fig:lambda}
   \end{figure}
 
+  Using equations \eqref{eq:variational-form-cylindrical} and \eqref{eq:approx-phi-eta}, the problem can be discretized as equation \eqref{eq:discret-gen}.
+
+  \begin{equation}
+    \sum_i\eta_i\sum_j\bracket{\int_0^R r\epsilon_r\frac{d\Lambda_i}{dr}\frac{d\Lambda_j}{dr}dr}\phi_j = \sum_i\eta_i\bracket{\int_0^R\Lambda_i\frac{\rho}{\epsilon_0}dr}
+    \label{eq:discret-gen}
+  \end{equation}
+
+  By identification, a system of linear equation $A\mbf{\phi}=\mbf{b}$ can be deduced, as given by equation \eqref{eq:discret-final}.
+
+  \begin{equation}
+    \sum_j\bracket{\underbrace{\int_0^R r\epsilon_r\frac{d\Lambda_i}{dr}\frac{d\Lambda_j}{dr}dr}_{A_{ij}}}\phi_j = \underbrace{\int_0^R \Lambda_i\frac{\rho}{\epsilon_0}dr}_{b_i}
+    \label{eq:discret-final}
+  \end{equation}
+
 
 
   \subsection{Writing matrix $A$ and vector $\mbf{b}$ of the linear system $A\mbf{\phi}=\mbf{b}$} %TODO : Changer le titre, celui-là pue.
+  %TODO : Ecrire le développement pour A.
+
+  %TODO : Mettre explicitement cette equation pour la règle du trapèze. J'en ai besoin pour b, et tu l'utilises pour A.
+  \begin{equation}
+    \int_a^b f\bracket{x}dx = \bracket{b-a}\frac{f\bracket{b} + f\bracket{a}}{2}
+    \label{eq:trapezoidal-rule}
+  \end{equation}
+
+  %TODO : Ecrire le développement pour b.
+  Now, vector $\mbf{b}$ needs to be explicited.
+
+  \begin{align*}
+    b_i &= \int_0^R r\Lambda_i\frac{\rho\bracket{r}}{\epsilon_0}dr = \sum_{k=1}^N \int_{r_{k}}^{r_{k+1}}r\Lambda_i\frac{\rho\bracket{r}}{\epsilon_0}dr
+    \intertext{Knowing that $\Lambda_i\bracket{r_k} = \delta_{ik}$ and using the trapezoidal rule (Eq. \eqref{eq:trapezoidal-rule}):}
+    &= \sum_{k=1}^N \frac{h_k}{2}\bracket{r_{k+1}\Lambda_i\bracket{r_{k+1}}\frac{\rho\bracket{r_{k+1}}}{\epsilon_0} + r_k\Lambda_i\bracket{r_k}\frac{\rho\bracket{r_k}}{\epsilon_0}} \\
+    &= \frac{h_{i-1}}{2}r_i\frac{\rho\bracket{r_i}}{\epsilon_0} + \frac{h_i}{2}r_i\frac{\rho\bracket{r_i}}{\epsilon_0} = \frac{r_i\rho\bracket{r_i}}{2\epsilon_0}\bracket{h_{i-1} + h_i}
+  \end{align*}
+
+  \begin{equation}
+    \Rightarrow \boxed{b_i = \frac{r_i\rho\bracket{r_i}}{2\epsilon_0}\bracket{h_{i-1} + h_i}}
+    \label{eq:b-final}
+  \end{equation}
+
 
 
 
