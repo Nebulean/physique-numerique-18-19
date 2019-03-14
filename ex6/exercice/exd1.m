@@ -1,6 +1,14 @@
 function Analyse
 
 filename='output';
+valb=0.02;
+valR=0.12;
+valN1=40;
+valN2=40;
+param = sprintf("trivial=false b=%f R=%f N1=%i N2=%i",valb,valR,valN1,valN2);
+cmd = sprintf("./Exercice6 configuration.in %s",param);
+disp(cmd);
+system(cmd);
 
 data = load([filename '_Er_Dr.out']);
 rmid = data(:,1);
@@ -21,7 +29,7 @@ set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 
 figure
-plot(r,phi, 'LineWidth',1.5)
+plot(r,phi)
 xlabel('$r$ [m]')
 ylabel('$\phi$ [V]')
 grid on, box on
@@ -30,7 +38,7 @@ set(gca, 'LineWidth',1.5);
 
 figure
 hold on
-plot(rmid,Er, 'LineWidth',1.5)
+plot(rmid,Er)
 xlabel('$r$ [m]')
 ylabel('$E_r$ [V/m]')
 grid on, box on
@@ -39,7 +47,7 @@ set(gca, 'LineWidth',1.5);
 
 figure
 hold on
-plot(rmid,Dr, 'LineWidth',1.5)
+plot(rmid,Dr)
 xlabel('$r$ [m]')
 ylabel('$D_r/\epsilon_0$ [V/m]')
 grid on, box on
@@ -48,9 +56,9 @@ set(gca, 'LineWidth',1.5);
 
 figure
 hold on
-plot(rmidmid,rholib,'DisplayName','$\rho_{lib}/\epsilon_0$', 'LineWidth',1.5)
-plot(rmidmid,divDr,'--','DisplayName','$div(D_r)/\epsilon_0$', 'LineWidth',1.5)
-plot(rmidmid,divEr-divDr,'DisplayName','$\rho_{pol}/\epsilon_0$', 'LineWidth',1.5)
+plot(rmidmid,rholib,'DisplayName','$\rho_{lib}/\epsilon_0$')
+plot(rmidmid,divDr,'--','DisplayName','$div(D_r)/\epsilon_0$')
+plot(rmidmid,divEr-divDr,'DisplayName','$\rho_{pol}/\epsilon_0$')
 xlabel('$r$')
 ylabel('$\rho/\epsilon_0$ [V/m$^2$]')
 legend('show')
