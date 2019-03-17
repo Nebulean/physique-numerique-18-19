@@ -1,6 +1,8 @@
 % debut d'un fichier latex standard
 \documentclass[a4paper,12pt,twoside]{article}
 
+\usepackage{lipsum}
+
 % pour l'inclusion de figures en eps,pdf,jpg
 \usepackage{graphicx}
 \usepackage{subcaption}
@@ -82,7 +84,7 @@
 % \section{Introduction} %TODO: Faire une introduction
 
 \section{Differential equation and variationnal form}
-  \subsection{Establishment of the differential equation for the potential $\phi(\vec{x})$}
+  \subsection{Establishment of the differential equation for the potential $\phi(\vec{x})$} \label{sec:equa-diff-establishment}
     This section will derive the equation that describes the problem.
 
     \begin{align*}
@@ -147,7 +149,7 @@
   \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{graphs/lambda.pdf}
-    \caption{Scheme of the lambda function}
+    \caption{Scheme of the lambda functions}
     \label{fig:lambda}
   \end{figure}
 
@@ -196,31 +198,47 @@
 
   \section{Non-trivial case}
   On this section, $b=\SI{0.02}{\m}$ and $R=\SI{0.12}{\m}$.
+  Furthermore, the number of nodes on the horizontal axis and the vertical axis are linked by this relation: $N_2 = 2N_1$.
 
-  \paragraph{UN EXEMPLE  DE SOLUTION POUR PHI ET ER}
+  \paragraph{UN EXEMPLE  DE SOLUTION POUR PHI ET ER} \lipsum[1-1]
 
   \begin{figure}[h]
     \centering
     \begin{subfigure}{0.45\textwidth}
       \includegraphics[width=\textwidth]{graphs/exd1-evoPhi}
-      \caption{GRAPHE SOL PHI}
-      \label{GRAPHE-SOL-PHI}
+      \caption{Evolution of $\phi\bracket{r}$}
+      \label{fig:d1-evoPhi}
     \end{subfigure}
     ~
     \begin{subfigure}{0.45\textwidth}
       \includegraphics[width=\textwidth]{graphs/exd1-evoEr}
-      \caption{GRAPHE SOL ER}
-      \label{GRAPHE-SOL-ER}
+      \caption{Evolution of $E(r)$}
+      \label{fig:d1-evoEr}
     \end{subfigure}
+    \caption{Evolution of two quantities with respect to the distance $r$ from the center of the cylinder, for four simulations}
+    \label{fig:d1-evo}
   \end{figure}
 
-  \paragraph{CONVERGENCE PHI}
+  \paragraph{CONVERGENCE PHI} \lipsum[1-1]
 
   \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{graphs/exd1-convPhi.eps}
-    \caption{blabla convergence of phi AJOUTER UNITES SUR LE GRAPHE}
-    \label{tmp-convergence-phi}
+    \caption{Convergence of $\phi\bracket{r=b}$ for ten simulations}
+    \label{fig:d1-conv}
   \end{figure}
+
+  \paragraph{VERIFICATION DE DIV(D)=RHOLIB} \lipsum[1-1]
+  % Maxwell's law used at the beginning of section \ref{sec:equa-diff-establishment} states that the divergence of the displacement field is equal to the charge density.
+  % However, this charge density considers every charges of the environment: free charges and polarisation charges.
+
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{graphs/exd2-diff.eps}
+    \caption{Evolution of two quantities with respect to the distance $r$ from the center of the cylinder. Note that $N_2=2N_1=200$ for this simulation.} %TODO : La caption pue, non ?
+    \label{fig:d2}
+  \end{figure}
+
 
 \end{document}

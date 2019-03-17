@@ -234,7 +234,7 @@ int main(int argc, char* argv[])
     rmidmid[i] = 0.5*rmid[i] + 0.5*rmid[i+1];
     // TODO: Calculer div(E_r) et div(D_r)/epsilon_0 au milieu des milieu des intervalles
     div_Er[i] = (rmid[i+1]*Er[i+1]-rmid[i]*Er[i])/(rmid[i+1]-rmid[i])/rmidmid[i]; // DF en cylindrique (d'où le 1/r)
-    div_Dr[i] = epsilonr(rmidmid[i],true)*div_Er[i];
+    div_Dr[i] = (rmid[i+1]*Dr[i+1]-rmid[i]*Dr[i])/(rmid[i+1]-rmid[i])/rmidmid[i];//epsilonr(rmidmid[i],true)*div_Er[i];
   }
   ofs.open((output+"_rholib_divEr_divDr.out").c_str());
   ofs.precision(15);
