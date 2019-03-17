@@ -56,6 +56,7 @@
 % ps2pdf SqueletteRapport.ps      % convertit en pdf
 
 % pdflatex SqueletteRapport.pdf    % compile et produit un pdf
+% \message{================> TAILLE DE LA POLICE EN CM \printinunitsof{cm}\prntlen{\textwidth}}
 
 % ======= Le document commence ici ======
 
@@ -191,7 +192,35 @@
     \label{eq:b-final}
   \end{equation}
 
+  \section{Trivial case}
 
+  \section{Non-trivial case}
+  On this section, $b=\SI{0.02}{\m}$ and $R=\SI{0.12}{\m}$.
 
+  \paragraph{UN EXEMPLE  DE SOLUTION POUR PHI ET ER}
+
+  \begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{graphs/exd1-evoPhi}
+      \caption{GRAPHE SOL PHI}
+      \label{GRAPHE-SOL-PHI}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{graphs/exd1-evoEr}
+      \caption{GRAPHE SOL ER}
+      \label{GRAPHE-SOL-ER}
+    \end{subfigure}
+  \end{figure}
+
+  \paragraph{CONVERGENCE PHI}
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{graphs/exd1-convPhi.eps}
+    \caption{blabla convergence of phi AJOUTER UNITES SUR LE GRAPHE}
+    \label{tmp-convergence-phi}
+  \end{figure}
 
 \end{document}
