@@ -27,7 +27,6 @@ ylabel('$\phi$ [V]')
 grid on, box on
 set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
-legend('numerical result','analytical result');
 
 figure
 hold on
