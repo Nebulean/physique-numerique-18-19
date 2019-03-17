@@ -5,8 +5,6 @@ set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
 set(groot, 'defaultLegendInterpreter', 'latex');
 set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 20);
-% set(gca, 'fontsize', 25);
-% set(gca, 'LineWidth',1.5);
 
 %% Initialisation
 valb=0.02;
@@ -66,13 +64,18 @@ end
 figphi=figure;
 hold on;
 
+set(gca, 'fontsize', 22);
+set(gca, 'LineWidth',1.5);
+
 plot((1./single(N)).^2,phi,'+', 'MarkerSize',10);
 [pn, slope] = poly_approx((1./single(N)).^2,phi,1,2);
 
 plot(pn(:,1), pn(:,2), 'LineWidth',1.2);
 
-xlabel("$1/N^2$");
-ylabel("$\phi(r)$");
+xlabel("$1/N^2~[-]$");
+ylabel("$\phi(r)~[V]$");
+
+legend(["Data", "Linear fit"])
 
 grid on;
 box on;
@@ -93,6 +96,9 @@ for i=1:nsimul
 end
 
 zoomOfPlot(figEvoEr, 0.4, 0.27, 0.3, 0.3, [0.012, 0.021], [48, 55])
+
+set(gca, 'fontsize', 22);
+set(gca, 'LineWidth',1.5);
 
 legend(lgd);
 
@@ -116,6 +122,9 @@ for i=1:nsimul
 end
 
 zoomOfPlot(figEvoPhi, 0.55, 0.35, 0.25, 0.25, [0.015, 0.025], [0.3,0.4]);
+
+set(gca, 'fontsize', 22);
+set(gca, 'LineWidth',1.5);
 
 legend(lgd);
 
