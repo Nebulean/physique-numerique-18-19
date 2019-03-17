@@ -80,8 +80,8 @@
 
 % \section{Introduction} %TODO: Faire une introduction
 
-\section{Differential equation and variationnal form}
-  \subsection{Establishment of the differential equation for the potential $\phi(\vec{x})$}
+\section{Differential equation and variational form}
+  \subsection{Differential equation for the potential $\phi(\vec{x})$}
     This section will derive the equation that describes the problem.
 
     \begin{align*}
@@ -111,7 +111,7 @@
       \nabla\cdot\bracket{\eta\epsilon_r\grad{\phi}} &= \grad{\bracket{\eta\epsilon_r}}\cdot\grad{\phi} + \eta\epsilon_r\lapl{\phi} \\
       &= \epsilon_r\grad{\eta}\cdot\grad{\phi} + \eta\grad{\epsilon_r}\cdot\grad{\phi} + \eta\epsilon_r\lapl{\phi} \\
       \Rightarrow \int_\Omega\bracket{\eta\bracket{\mbf{x}}\grad{\phi}\cdot\grad{\epsilon_r} + \eta\bracket{\mbf{x}}\epsilon_r\lapl{\phi}}d\mbf{x} &= \int_\Omega\bracket{\underbrace{\nabla\cdot\bracket{\eta\epsilon_r\grad{\phi}}}_* - \epsilon_r\grad{\eta}\cdot\grad{\phi}}d\mbf{x}
-      \intertext{Using Gauss theorem: $*= \int_{\partial\Omega}\eta\epsilon_r\grad{\phi}\cdot d\mbf{\sigma} = 0$ because $\eta\bracket{\mbf{x}}=0~\forall\mbf{x}\in\partial\Omega$ by definition.}
+      \intertext{Using Gauss' theorem: $*= \int_{\partial\Omega}\eta\epsilon_r\grad{\phi}\cdot d\mbf{\sigma} = 0$ because $\eta\bracket{\mbf{x}}=0~\forall\mbf{x}\in\partial\Omega$ by definition.}
     \end{align*}
     \begin{equation}
       \centering
@@ -190,6 +190,20 @@
     \Rightarrow \boxed{b_i = \frac{r_i\rho\bracket{r_i}}{2\epsilon_0}\bracket{h_{i-1} + h_i}}
     \label{eq:b-final}
   \end{equation}
+  
+  \subsection{Trivial case}
+  
+  \begin{figure}
+   \centering
+   \includegraphics[width=0.5\textwidth]{graphs/c_phi.eps}
+   \label{cphi}
+  \end{figure}
+  
+  \begin{figure}
+   \centering
+   \includegraphics[width=0.5\textwidth]{graphs/c_Er.eps}
+   \label{cEr}
+  \end{figure}
 
 
 
