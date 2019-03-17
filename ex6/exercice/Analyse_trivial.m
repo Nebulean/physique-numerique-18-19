@@ -26,10 +26,10 @@ phith=(R^2-r.^2)/4;
 
 f1=figure;
 plot(r,phi,r,phith, 'LineWidth',1.5)
-xlabel('$r$ [m]')
-ylabel('$\phi$ [V]')
 grid on, box on
 zoomOfPlot(f1, 0.3, 0.3, 0.25, 0.25, [0.064, 0.0645], [2.558e-3,2.576e-3]);
+xlabel('$r$ [m]')
+ylabel('$\phi$ [V]')
 set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 legend('numerical result','analytical result');
