@@ -216,6 +216,8 @@ int main(int argc, char* argv[])
     Er[i] = -(phi[i+1]-phi[i])/h[i];
     Dr[i] = epsilonr(rmid[i],true)*Er[i];
   }
+  coutBigFatVec(Er, "Er");
+  coutBigFatVec(Dr, "Dr");
   ofs.open((output+"_Er_Dr.out").c_str());
   ofs.precision(15);
   for(int i(0); i<ninters; ++i)
