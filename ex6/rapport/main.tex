@@ -213,7 +213,7 @@
   In this section, $b=\SI{0.02}{\m}$ and $R=\SI{0.12}{\m}$.
   Furthermore, the number of nodes on the horizontal axis and the vertical axis are linked by this relation: $N_2 = 2N_1$.
 
-  \paragraph{UN EXEMPLE  DE SOLUTION POUR PHI ET ER} \lipsum[1-1]
+  \subsection{Comparison of different numerical solutions for $\phi\bracket{r}$ and $E\bracket{r}$} \lipsum[1-1]
 
   \begin{figure}[h]
     \centering
@@ -232,7 +232,7 @@
     \label{fig:d1-evo}
   \end{figure}
 
-  \paragraph{CONVERGENCE PHI} \lipsum[1-1]
+  \subsection{Convergence study of $\phi\bracket{r=b}$} \lipsum[1-1]
 
   \begin{figure}[h]
     \centering
@@ -241,10 +241,9 @@
     \label{fig:d1-conv}
   \end{figure}
 
-  \paragraph{VERIFICATION DE DIV(D)=RHOLIB} \lipsum[1-1]
+  \subsection{Verification of $\Div{\mbf{D}\bracket{\mbf{x}}}$} \lipsum[1-1]
   % Maxwell's law used at the beginning of section \ref{sec:equa-diff-establishment} states that the divergence of the displacement field is equal to the charge density.
-  % However, this charge density considers every charges of the environment: free charges and polarisation charges.
-
+  % However, this charge density considers every charges of the environment: free charges and polarization charges.
 
   \begin{figure}[h]
     \centering
@@ -252,6 +251,46 @@
     \caption{Evolution of two quantities with respect to the distance $r$ from the center of the cylinder. Note that $N_2=2N_1=200$ for this simulation.} %TODO : La caption pue, non ?
     \label{fig:d2}
   \end{figure}
+
+  \subsection{Computation of the polarization charge density $\rho_{pol}$}
+    The goal of this paragraph is to obtain the polarization charge density of the dielectrics.
+    The polarization charges are the charges on the dielectrics that can not move, which forms a multitude of electrical dipoles. \cite{feynman:dielectrics}
+    The density of polarization charges can be found using equations \eqref{eq:def-polarization} and \eqref{eq:def-rhopol}.
+
+    \begin{align}
+      \mbf{P} &= \mbf{D} - \epsilon_0\mbf{E}
+      \label{eq:def-polarization} \\
+      \rho_{pol} &= -\Div{\mbf{P}}
+      \label{eq:def-rhopol}
+    \end{align}
+
+    where $\mbf{P}$ is the polarization.
+    Thus, by combining them, equation \eqref{eq:rhopol-final} follows.
+
+    \begin{align*}
+      \rho_{pol} &= -\Div{\mbf{P}} = -\nabla\cdot\bracket{\mbf{D} - \epsilon_0\mbf{E}}\\
+                 &= \epsilon_0\bracket{\Div{E} - \frac{\Div{D}}{\epsilon_0}}
+    \end{align*}
+
+    \begin{equation}
+      \Rightarrow \boxed{\frac{\rho_{pol}}{\epsilon_0} = \Div{E} - \frac{\Div{D}}{\epsilon_0}}
+      \label{eq:rhopol-final}
+    \end{equation}
+
+    %TODO : Introduire et analyse ce graphe
+
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.5\textwidth]{graphs/exdii-rhopol.eps}
+      \caption{Polarization charge density with respect to the distance $r$ to the center of the cylinder}
+      \label{fig:rhopol}
+    \end{figure}
+
+
+  \subsection{DONNER LA CHARGE EN r=b} \lipsum[1-1]
+
+
+
 
   \section{Supplement} %TODO : Le titre de la section pue.
     \subsection{Combination of the trapezoidal rule and the middle point rule}
@@ -274,12 +313,14 @@
       The vector $b_i$ is described by equation \eqref{eq:b-final2}.
 
       \begin{equation}
-        b_i = \frac{1}{2\epsilon_0}\sqbracket{pr_i\rho\bracket{r_i}\bracket{h_i + h_{i-1}} + \bracket{1-p}\bracket{h_{i-1}\alpha_{i-1}\rho\bracket{\alpha_{i-1}} + h_i\alpha_i\rho\bracket{\alpha_i}}}
+        \boxed{b_i = \frac{1}{2\epsilon_0}\sqbracket{pr_i\rho\bracket{r_i}\bracket{h_i + h_{i-1}} + \bracket{1-p}\bracket{h_{i-1}\alpha_{i-1}\rho\bracket{\alpha_{i-1}} + h_i\alpha_i\rho\bracket{\alpha_i}}}}
         \label{eq:b-final2}
       \end{equation}
 
       with $\alpha_k = \frac{r_k + r_{k+1}}{2}$.
 
-
+  \begin{thebibliography}{99}
+    \bibitem{feynman:dielectrics} Feynman, R. (n.d.). The Feynman Lectures on Physics Vol. II Ch. 10: Dielectrics. [online] Feynmanlectures.caltech.edu. Available at: \url{http://www.feynmanlectures.caltech.edu/II_10.html} [Accessed 18 Mar. 2019].
+  \end{thebibliography}
 
 \end{document}

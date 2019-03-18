@@ -24,6 +24,7 @@ system(cmd);
 data = load("outputdii_rholib_divEr_divDr.out");
 rmidmid = data(:,1);
 rholib = data(:,2);
+divEr = data(:,3);
 divDr = data(:,4);
 
 %% Graphs
@@ -49,7 +50,30 @@ set(gca, 'fontsize',25);
 hold off;
 
 
+figpol=figure;
+hold on;
+
+grid on;
+box on;
+
+plot(rmidmid, divEr - divDr, 'x');% div(eE-D)=ediv(E-d/e) = e[div(E) - div(D)/e]
+
+zoomOfPlot(figpol, 0.45, 0.35, 0.4, 0.4, [0.02001, 0.12], [0, 149])
+
+xlim([0, 0.12]);
+ylim([-13.5e4, 0.5e4])
+
+xlabel("$r~[m]$");
+ylabel("$\rho_{pol}/\epsilon_0~[V/m^2]$")
+
+set(gca, 'LineWidth',1.5);
+set(gca, 'fontsize',25);
+
+hold off;
+
+
 saveas(figdiff, "graphs/exdii-diff", "epsc");
+saveas(figpol, "graphs/exdii-rhopol", "epsc");
 
 
 %% Quelques fonctions annexes
