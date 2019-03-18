@@ -49,6 +49,7 @@
 \newcommand{\Div}[1]{\nabla\cdot\mathbf{#1}}
 \newcommand{\rot}[1]{\nable\cross\mathbf{#1}}
 \newcommand{\bracket}[1]{\left(#1\right)}
+\newcommand{\sqbracket}[1]{\left[#1\right]}
 \newcommand{\lapl}[1]{\Delta#1}
 
 %
@@ -169,7 +170,7 @@
 
 
 
-  \subsection{Writing matrix $A$ and vector $\mbf{b}$ of the linear system $A\mbf{\phi}=\mbf{b}$} %TODO : Changer le titre, celui-là pue.
+  \subsection{Writing matrix $A$ and vector $\mbf{b}$ of the linear system $A\mbf{\phi}=\mbf{b}$}\label{sec:writing-A-b1} %TODO : Changer le titre, celui-là pue.
   %TODO : Ecrire le développement pour A.
   First, the matrix $A$ needs to be explicited.
 
@@ -251,6 +252,34 @@
     \caption{Evolution of two quantities with respect to the distance $r$ from the center of the cylinder. Note that $N_2=2N_1=200$ for this simulation.} %TODO : La caption pue, non ?
     \label{fig:d2}
   \end{figure}
+
+  \section{Supplement} %TODO : Le titre de la section pue.
+    \subsection{Combination of the trapezoidal rule and the middle point rule}
+      Section \ref{sec:writing-A-b1} described a method to describe the elements of the matrix $A$ and the vector $\mbf{b}$.
+      These elements contained integral, which needed to be numerically approximated.
+      To achieve this, the trapezoidal rule was used.
+      An alternative method can be used to compute these integrals, which is a combination of the trapezoidal rule and the middle point rule.
+      Let $f\bracket{x}$ be an integrable function.
+      Then, the trapezoidal-middle point rule is given by equation \eqref{eq:int-trapeze-milieu}, where $p\in[0,1]$ is a parameter. Note that $p=1$ gives the trapezoidal rule.
+
+      \begin{equation}
+        \int_{x_k}^{x_{k+1}}f\bracket{x}dx \approx h_k\bracket{p\frac{f\bracket{x_k} + f\bracket{x_{k+1}}}{2} + \bracket{1-p}f\bracket{\frac{x_k + x_{k+1}}{2}}}
+        \label{eq:int-trapeze-milieu}
+      \end{equation}
+
+      The whole process to obtain $A$ and $\mbf{b}$ will not be described, as it is similar to what was described in section \ref{sec:writing-A-b1}.
+      Only the final results will be given.
+      The matrix $A$ is described by %TODO: Compléter cette phrase et ajouter la matrice A.
+
+      The vector $b_i$ is described by equation \eqref{eq:b-final2}.
+
+      \begin{equation}
+        b_i = \frac{1}{2\epsilon_0}\sqbracket{pr_i\rho\bracket{r_i}\bracket{h_i + h_{i-1}} + \bracket{1-p}\bracket{h_{i-1}\alpha_{i-1}\rho\bracket{\alpha_{i-1}} + h_i\alpha_i\rho\bracket{\alpha_i}}}
+        \label{eq:b-final2}
+      \end{equation}
+
+      with $\alpha_k = \frac{r_k + r_{k+1}}{2}$.
+
 
 
 \end{document}
