@@ -144,7 +144,7 @@
 
   \begin{equation}
     \phi\bracket{r}=\sum_j\phi_j\Lambda_j\bracket{r}~\text{and}~\eta\bracket{r}=\sum_i\eta_i\Lambda_i\bracket{r}
-    \label{eq:approx-phi-eta} %TODO : Vérifier les indices. (être cohérant avec la suite surtout)
+    \label{eq:approx-phi-eta} %TODO : Vérifier les indices. (être cohérent avec la suite surtout)
   \end{equation}
 
   \begin{figure}[h]
@@ -171,15 +171,38 @@
 
 
   \subsection{Writing matrix $A$ and vector $\mbf{b}$ of the linear system $A\mbf{\phi}=\mbf{b}$}\label{sec:writing-A-b1} %TODO : Changer le titre, celui-là pue.
-  %TODO : Ecrire le développement pour A.
-  First, the matrix $A$ needs to be explicited.
-
-  %TODO : Mettre explicitement cette equation pour la règle du trapèze. J'en ai besoin pour b, et tu l'utilises pour A.
+  
+  For both computations, the trapezoidal rule will be needed:
   \begin{equation}
     \int_a^b f\bracket{x}dx = \bracket{b-a}\frac{f\bracket{b} + f\bracket{a}}{2}
     \label{eq:trapezoidal-rule}
   \end{equation}
 
+  First, the matrix $A$ needs to be explicited.
+  
+  \begin{equation*}
+   A_{ij} = \int_0^R r\epsilon_r(r)\frac{d\Lambda_i}{dr}\frac{d\Lambda_j}{dr}dr = \sum_{k=1}^N \int_{r_{k}}^{r_{k+1}}r \epsilon_r(r)\frac{d\Lambda_i}{dr}\frac{d\Lambda_j}{dr}dr
+  \end{equation*}
+  
+  Since:
+  \begin{equation}
+   \frac{d\Lambda_i}{dr}= \begin{cases}
+   \frac{1}{h_{i-1}} \text{ over } [r_{i-1},r_i]\\
+   -\frac{1}{h_{i}} \text{ over } [r_i,r_{i+1}]\\
+   0 \text{ elsewhere}
+                          \end{cases}
+    \label{eq:lambderiv}
+  \end{equation}the last term is non-zero only if $i=j$ or $i=j+1$ or $i=j-1$. Three different cases thus have to be computed: $A_{ii}$ the terms on the diagonal, $A_{i,i+1}$ and $A_{i+1,i}$, respectively under and over the diagonal. Using eq.\eqref{eq:trapezoidal-rule} we get:
+  
+  \begin{align*}
+   A_{ii} &= \int_{r_{i-1}}^{r_i} r\epsilon_r(r) \frac{1}{h_{i-1}^2} dr + \int_{r_i}^{r_{i+1}} r\epsilon_r(r) \frac{1}{h_i^2} dr\\
+   &= \frac{1}{2 h_{i-1}} [r_i \epsilon_r(r_i)+r_{i-1}\epsilon_r(r_{i-1})] + \frac{1}{2 h_i} [r_i \epsilon_r(r_i)+r_{i+1}\epsilon_r(r_{i+1})]\\   
+  \end{align*}
+  and
+  \begin{align*}
+   A_{i+1,i} = A_{i,i+1} &= \int_{r_i}^{r_{i+1}} r\epsilon_r(r) \frac{-1}{h_i^2} dr\\
+   &= -\frac{1}{2 h_i} [r_i \epsilon_r(r_i)+r_{i+1}\epsilon_r(r_{i+1})]\\
+  \end{align*}
 
   Now, vector $\mbf{b}$ needs to be explicited.
 
