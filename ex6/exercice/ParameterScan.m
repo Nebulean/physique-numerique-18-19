@@ -32,7 +32,7 @@ for i = 1:nsimul
     % Execution du programme en lui envoyant la valeur a scanner en argument
     cmd = sprintf('%s%s %s %s=%.15g N2=%.15g output=%s', repertoire, executable, input, paramstr, param(i), param(i), output{i});
     disp(cmd);
-    % system(cmd);
+    system(cmd);
 end
 
 %% Analyse %%

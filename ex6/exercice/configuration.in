@@ -11,4 +11,4 @@ N2 = 20
 output = output
 
 % Facultatif :
-p = .5 %paramètre pour le point milieu-trapèze compris entre 0 et 1
+p = 1. %paramètre pour le point milieu-trapèze compris entre 0 et 1

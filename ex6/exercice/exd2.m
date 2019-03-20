@@ -56,7 +56,7 @@ hold on;
 grid on;
 box on;
 
-plot(rmidmid, divEr - divDr, 'x');% div(eE-D)=ediv(E-d/e) = e[div(E) - div(D)/e]
+plot(rmidmid, divEr - divDr, '-', 'LineWidth', 2);% div(eE-D)=ediv(E-d/e) = e[div(E) - div(D)/e]
 
 zoomOfPlot(figpol, 0.45, 0.35, 0.4, 0.4, [0.02001, 0.12], [0, 149])
 
@@ -74,6 +74,11 @@ hold off;
 
 saveas(figdiff, "graphs/exdii-diff", "epsc");
 saveas(figpol, "graphs/exdii-rhopol", "epsc");
+
+%% Computation of the charge on r=b.
+[M, index] = max(abs(divEr - divDr));
+
+chargePol = 8.85418782e-12*((divEr(index) - divDr(index)) * (rmidmid(index + 1) - rmidmid(index - 1)))/2 % approximation par un triangle 
 
 
 %% Quelques fonctions annexes
