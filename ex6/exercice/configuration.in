@@ -9,3 +9,6 @@ V0 = 0
 N1 = 20
 N2 = 20
 output = output
+
+% Facultatif :
+p = .5 %paramètre pour le point milieu-trapèze compris entre 0 et 1

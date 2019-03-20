@@ -110,6 +110,9 @@ int main(int argc, char* argv[])
   Epsilonr epsilonr(configFile.get<bool>("trivial"), b, R);
   Rho_lib rho_lib(configFile.get<bool>("trivial"), b, configFile.get<double>("a0"));
 
+  // Facultatif
+  double p(configFile.get<double>("p"));
+
   // Discretisation du domaine :
   int N1 = configFile.get<int>("N1");
   int N2 = configFile.get<int>("N2");
@@ -133,17 +136,17 @@ int main(int argc, char* argv[])
 
   //Matrice A
   //diagonale
-  diag[0]=1./(2.*h[0])*(r[1]*epsilonr(r[1], true)+r[0]*epsilonr(r[0], true));
+  diag[0]=1./(2.*h[0])*(p*(r[1]*epsilonr(r[1], true)+r[0]*epsilonr(r[0], true))+(1-p)*(r[0]+r[1])*epsilonr((r[0]+r[1])/2.,true));
   for (size_t i(1); i<diag.size()-1; ++i){
     // if (i==N1-1){
     //   diag[i] = 1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], false)+r[i]*epsilonr(r[i], true)) + 1./(2.*h[i-1])*(r[i-1]*epsilonr(r[i-1], true)+r[i]*epsilonr(r[i], true));
     // } else
     if (i==N1){
-      diag[i] = 1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], false)) + 1./(2.*h[i-1])*(r[i-1]*epsilonr(r[i-1], true)+r[i]*epsilonr(r[i], true));
+      diag[i] = 1./(2.*h[i])*(p*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], false))+(1-p)*(r[i]+r[i+1])*epsilonr((r[i]+r[i+1])/2.,true)) + 1./(2.*h[i-1])*(p*(r[i-1]*epsilonr(r[i-1], true)+r[i]*epsilonr(r[i], true))+(1-p)*(r[i]+r[i-1])*epsilonr((r[i]+r[i-1])/2.,true));
     } else if (i==N1+1){
-      diag[i] = 1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true)) + 1./(2.*h[i-1])*(r[i-1]*epsilonr(r[i-1], false)+r[i]*epsilonr(r[i], true));
+      diag[i] = 1./(2.*h[i])*(p*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true))+(1-p)*(r[i]+r[i+1])*epsilonr((r[i]+r[i+1])/2.,true)) + 1./(2.*h[i-1])*(p*(r[i-1]*epsilonr(r[i-1], false)+r[i]*epsilonr(r[i], true))+(1-p)*(r[i]+r[i-1])*epsilonr((r[i]+r[i-1])/2.,true));
     } else {
-      diag[i] = 1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true)) + 1./(2.*h[i-1])*(r[i-1]*epsilonr(r[i-1], true)+r[i]*epsilonr(r[i], true));
+      diag[i] = 1./(2.*h[i])*(p*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true))+(1-p)*(r[i]+r[i+1])*epsilonr((r[i]+r[i+1])/2.,true)) + 1./(2.*h[i-1])*(p*(r[i-1]*epsilonr(r[i-1], true)+r[i]*epsilonr(r[i], true))+(1-p)*(r[i]+r[i-1])*epsilonr((r[i]+r[i-1])/2.,true));
     }
   };
   //à rk+1=b:
@@ -159,9 +162,9 @@ int main(int argc, char* argv[])
     //   lower[i] = -1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], false)+r[i]*epsilonr(r[i], true));
     // } else
     if (i==N1){
-      lower[i] = -1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], false));
+      lower[i] = -1./(2.*h[i])*(p*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], false))+(1-p)*(r[i]+r[i+1])*epsilonr((r[i]+r[i+1])/2.,true));
     } else {
-      lower[i] = -1./(2.*h[i])*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true));
+      lower[i] = -1./(2.*h[i])*(p*(r[i+1]*epsilonr(r[i+1], true)+r[i]*epsilonr(r[i], true))+(1-p)*(r[i]+r[i+1])*epsilonr((r[i]+r[i+1])/2.,true));
     }
     upper[i] = lower[i];
   }
@@ -175,9 +178,9 @@ int main(int argc, char* argv[])
   // }
 
   // sans epsilon_0
-  rhs[0] = r[0]*rho_lib(r[0])/2*h[0];
+  rhs[0] = .5*(p*r[0]*rho_lib(r[0])*h[0]+(1-p)*h[0]*.5*(r[0]+r[1])*rho_lib(.5*(r[0]+r[1])));
   for (size_t i(1); i<rhs.size()-1; ++i){
-    rhs[i] = r[i]*rho_lib(r[i])/2*(h[i-1]+h[i]);
+    rhs[i] = .5*(p*r[i]*rho_lib(r[i])*(h[i-1]+h[i])+(1-p)*(h[i]*.5*(r[i]+r[i+1])*rho_lib(.5*(r[i]+r[i+1]))+h[i-1]*.5*(r[i]+r[i-1])*rho_lib(.5*(r[i]+r[i-1]))));
   }
 
   //Condition au bord
