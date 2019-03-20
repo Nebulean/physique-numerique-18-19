@@ -2,6 +2,7 @@
 \documentclass[a4paper,12pt,twoside]{article}
 
 \usepackage{lipsum}
+\usepackage{empheq}
 
 % pour l'inclusion de figures en eps,pdf,jpg
 \usepackage{graphicx}
@@ -171,7 +172,7 @@
 
 
   \subsection{Writing matrix $A$ and vector $\mbf{b}$ of the linear system $A\mbf{\phi}=\mbf{b}$}\label{sec:writing-A-b1} %TODO : Changer le titre, celui-là pue.
-  
+
   For both computations, the trapezoidal rule will be needed:
   \begin{equation}
     \int_a^b f\bracket{x}dx = \bracket{b-a}\frac{f\bracket{b} + f\bracket{a}}{2}
@@ -179,11 +180,11 @@
   \end{equation}
 
   First, the matrix $A$ needs to be explicited.
-  
+
   \begin{equation*}
    A_{ij} = \int_0^R r\epsilon_r(r)\frac{d\Lambda_i}{dr}\frac{d\Lambda_j}{dr}dr = \sum_{k=1}^N \int_{r_{k}}^{r_{k+1}}r \epsilon_r(r)\frac{d\Lambda_i}{dr}\frac{d\Lambda_j}{dr}dr
   \end{equation*}
-  
+
   Since:
   \begin{equation}
    \frac{d\Lambda_i}{dr}= \begin{cases}
@@ -192,17 +193,25 @@
    0 \text{ elsewhere}
                           \end{cases}
     \label{eq:lambderiv}
-  \end{equation}the last term is non-zero only if $i=j$ or $i=j+1$ or $i=j-1$. Three different cases thus have to be computed: $A_{ii}$ the terms on the diagonal, $A_{i,i+1}$ and $A_{i+1,i}$, respectively under and over the diagonal. Using eq.\eqref{eq:trapezoidal-rule} we get:
-  
+  \end{equation}the last term is non-zero only if $i=j$ or $i=j+1$ or $i=j-1$. Three different cases thus have to be computed: $A_{ii}$ the terms on the diagonal, $A_{i,i+1}$ and $A_{i+1,i}$, respectively under and over the diagonal. Using equation \eqref{eq:trapezoidal-rule} we get equation \eqref{eq:A-final}
+
   \begin{align*}
    A_{ii} &= \int_{r_{i-1}}^{r_i} r\epsilon_r(r) \frac{1}{h_{i-1}^2} dr + \int_{r_i}^{r_{i+1}} r\epsilon_r(r) \frac{1}{h_i^2} dr\\
-   &= \frac{1}{2 h_{i-1}} [r_i \epsilon_r(r_i)+r_{i-1}\epsilon_r(r_{i-1})] + \frac{1}{2 h_i} [r_i \epsilon_r(r_i)+r_{i+1}\epsilon_r(r_{i+1})]\\   
+   &= \frac{1}{2 h_{i-1}} [r_i \epsilon_r(r_i)+r_{i-1}\epsilon_r(r_{i-1})] + \frac{1}{2 h_i} [r_i \epsilon_r(r_i)+r_{i+1}\epsilon_r(r_{i+1})]\\
   \end{align*}
   and
   \begin{align*}
    A_{i+1,i} = A_{i,i+1} &= \int_{r_i}^{r_{i+1}} r\epsilon_r(r) \frac{-1}{h_i^2} dr\\
    &= -\frac{1}{2 h_i} [r_i \epsilon_r(r_i)+r_{i+1}\epsilon_r(r_{i+1})]\\
-  \end{align*}g
+  \end{align*}
+
+  \begin{empheq}[box=\boxed]{align}
+    \begin{split}
+      A_{ii} &= \frac{1}{2 h_{i-1}} [r_i \epsilon_r(r_i)+r_{i-1}\epsilon_r(r_{i-1})] + \frac{1}{2 h_i} [r_i \epsilon_r(r_i)+r_{i+1}\epsilon_r(r_{i+1})]\\
+      A_{i+1,i} = A_{i,i+1} &= -\frac{1}{2 h_i} [r_i \epsilon_r(r_i)+r_{i+1}\epsilon_r(r_{i+1})]\\
+    \end{split}
+    \label{eq:A-final}
+  \end{empheq}
 
   Now, vector $\mbf{b}$ needs to be explicited.
 
@@ -331,8 +340,18 @@
 
       The whole process to obtain $A$ and $\mbf{b}$ will not be described, as it is similar to what was described in section \ref{sec:writing-A-b1}.
       Only the final results will be given.
-      The matrix $A$ is described by %TODO: Compléter cette phrase et ajouter la matrice A.
+      The matrix $A$ is described by equation \eqref{eq:A-final2}%TODO: Compléter cette phrase et ajouter la matrice A.
 
+      \begin{empheq}[box=\boxed]{align}
+        \begin{split}
+            A_{i,i} = &\frac{1}{h_{i-1}}\sqbracket{ \frac{p}{2}\bracket{r_{i-1}\epsilon_r\bracket{r_{i-1}} + r_i\epsilon_r\bracket{r_i}} + \bracket{1-p}\alpha_{i-1}\epsilon_r\bracket{\alpha_{i-1}}} \\
+            &+ \frac{1}{h_i}\sqbracket{\frac{p}{2}\bracket{r_i\epsilon_r\bracket{r_i} + r_{i+1}\epsilon_r\bracket{r_{i+1}}} +  \bracket{1-p}\alpha_i\epsilon_r\bracket{\alpha_i}}\\
+            A_{i+1, i} = A_{i, i+1} = &-\frac{1}{h_i}\sqbracket{\frac{p}{2}\bracket{r_{i+1}\epsilon_r\bracket{r_{i+1}} + r_{i}\epsilon_r\bracket{r_i}} + \bracket{1-p}\alpha_{i}\epsilon_r\bracket{\alpha_i}}
+        \end{split}
+        \label{eq:A-final2}
+      \end{empheq}
+
+      with $\alpha_k = \frac{r_k + r_{k+1}}{2}$.
       The vector $b_i$ is described by equation \eqref{eq:b-final2}.
 
       \begin{equation}
