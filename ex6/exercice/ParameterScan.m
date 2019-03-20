@@ -38,6 +38,9 @@ end
 %% Analyse %%
 %%%%%%%%%%%%%
 
+R=.12;
+phi_0th=R*R/4;
+
 phi_0=zeros(1,nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     if(strcmp(paramstr,'N1'))
@@ -45,6 +48,8 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
         phi_0(i) = data(1,2);
     end
 end
+
+err = abs(phi_0-phi_0th);
 
 %% Figures %%
 %%%%%%%%%%%%%
@@ -61,11 +66,15 @@ if(strcmp(paramstr,'N1'))
     set(gca, 'LineWidth',1.5);
     
     hold on
-    plot(1./N1.^2,phi_0,'k+');
+    plot(N1,err,'k+');
+    poly_approx(log10(N1), log10(err), 1, 2);
+    fit = 10.^fit;
+    set(gca, 'YScale', 'log');
+    set(gca, 'XScale', 'log');
 %     [P,slope]=poly_approx(dt, Tp, 1, 2);
 %     plot(P(1,:),P(2,:));
-    xlabel('$1/N1^2$')
-    ylabel('$\phi (0)$ [V]')
+    xlabel('$N1$')
+    ylabel('$|\phi(0)-\phi(0)_th|$ [V]')
 %     legend("slope =" +num2str(slope));
     grid on
     hold off;
