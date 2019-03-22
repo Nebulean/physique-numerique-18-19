@@ -67,11 +67,11 @@ if(strcmp(paramstr,'N1'))
     
     hold on
     plot(N1,err,'k+');
-    [fit, slope] = poly_approx(N1, err, 1, 2, true);
-    plot(fit(:,1), fit(:,2), '-');
+%     [fit, slope] = poly_approx(N1, err, 1, 2, true);
+%     plot(fit(:,1), fit(:,2), '-');
     %fit = 10.^fit;
-    set(gca, 'YScale', 'log');
-    set(gca, 'XScale', 'log');
+%     set(gca, 'YScale', 'log');
+%     set(gca, 'XScale', 'log');
     %poly_approx(dt, Tp, 1, 2, true);
 %     [P,slope]=poly_approx(dt, Tp, 1, 2);
 %     plot(P(1,:),P(2,:));
