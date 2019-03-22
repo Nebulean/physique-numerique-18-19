@@ -228,18 +228,39 @@
   \end{equation}
 
   \section{Trivial case}
+  
+  In this section the parameters are $b=0.06$ m, $R=0.12$ m and $N1=N2$. The trivial case $\rho_{lib}(r)=\epsilon_0$ and $\epsilon_r(r)=1$ is studied to test the algorithm.
+  
+  \subsection{Comparison of numerical and analytical results}
 
-  \begin{figure}
+  \begin{figure}[h!]
    \centering
    \includegraphics[width=0.5\textwidth]{graphs/c_phi.eps}
+   \caption{Numerical and analytical potential in function of radius for N=20}
    \label{cphi}
   \end{figure}
+  
+  In fig. \ref{cphi}, the potential curve obtained with the algorithm is compared to the potential curve computed analytically. The difference between the curves is of order $10^{-6}$, and gets smaller as the radius increases, until the boundary of the cylinder, on which both curves reach the boundary condition of $\phi(R)=V_0=0$ V. %TODO: expliciter le développement de la solution analytique
 
-  \begin{figure}
+  \begin{figure}[h!]
    \centering
    \includegraphics[width=0.5\textwidth]{graphs/c_Er.eps}
+   \caption{Electric field in function of radius for N=20}
    \label{cEr}
   \end{figure}
+  
+  Fig. \ref{cEr} shows that the electric field is linear with respect to the radius of the cylinder. This is expected as $E_r = -\grad{\phi(r)} = -\frac{d\phi(r)}{dr}$, and $\phi(r)$ is quadratic. There is however an anomaly, as the curve should pass through the origin $(0,0)$, since the rate of variation of $\phi(r)$ around $r=0$ is null, however the first point is slighlty displaced to the right (at around $r=1.5\times 10^{-3}$). This imprecision might come from a mistake in the matrix equation resolution algorithm, as the other groups had the same problem.
+  
+  \subsection{Convergence of $\phi(0)$}
+  
+  \begin{figure}[h]
+   \centering
+   \includegraphics[width=0.6\textwidth]{graphs/c_convphi.eps}
+   \caption{Convergence of the error on $\phi(0)$ with respect to $N1$}
+   \label{cconv}
+  \end{figure}
+  
+  On the log-log plot of fig. \ref{cconv}, we can see that the error $|\phi(0)-\phi(0)_{th}|$ on the numerical values of $\phi(0)$ converges with order $1.828$ with respect to $N1$.
 
   \section{Non-trivial case}
   In this section, $b=\SI{0.02}{\m}$ and $R=\SI{0.12}{\m}$.
@@ -298,7 +319,7 @@
 
   \subsection{Verification of $\Div{\mbf{D}\bracket{\mbf{x}}}$}
   This section focuses on the verification of a Maxwell's equation, $\Div{D}\bracket{\mbf{x}}$, using a finite difference method for the operator d/dr.
-  Note that the problem is in cylindrical coordinates, thus $\Div{D} = \frac{1}{r}\frac{d}{dr}\bracket{r\mbf{D}}.
+  Note that the problem is in cylindrical coordinates, thus $\Div{D} = \frac{1}{r}\frac{d}{dr}\bracket{r\mbf{D}}$.
   %TODO : Mettre le dev du calcul.
 
   Figure \ref{fig:d2} shows that the solution is exact.
