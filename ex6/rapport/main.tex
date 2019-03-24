@@ -239,7 +239,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
    \caption{Numerical and analytical potential in function of radius for N=20}
    \label{cphi}
   \end{figure}
-  
+
   In fig. \ref{cphi}, the potential curve obtained with the algorithm is compared to the potential curve computed analytically: by applying the trivial case to eq.\eqref{eq:equa-diff} and using the boundary condition $\phi(R)=V_0=0$ V, we get the solution given by equation \eqref{phith}.
   \begin{equation}
    \phi(r)_{th} = \frac{-r^2+R^2}{4}
@@ -347,7 +347,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
     \label{fig:d2}
   \end{figure}
 
-  \subsection{Computation of the polarization charge density $\rho_{pol}$}
+  \subsection{Computation of the polarization charge density $\rho_{pol}$} \label{sec:rhopol}
     The goal of this paragraph is to obtain the polarization charge density of the dielectrics.
     The polarization charges are the charges on the dielectrics that can not move, which forms a multitude of electrical dipoles. \cite{feynman:dielectrics}
     The density of polarization charges can be found using equations \eqref{eq:def-polarization} and \eqref{eq:def-rhopol}.
@@ -374,7 +374,12 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
       \label{eq:rhopol-final}
     \end{equation}
 
-    %TODO : Introduire et analyse ce graphe
+    Using equation \eqref{eq:rhopol-final}, the evolution of the polarization charge density with respect to $r$ can be viewed on figure \ref{fig:rhopol}.
+    The major information of this figure is the discontinuity point at $r=b$.
+    This point tells that the overwhelming majority of the charges are located on the border of the dielectrics.
+    Note that, as $N_1$ and $N_2$ are increased, the discontinuity "triangle" becomes thiner.
+    This shows that the charges are not scattered around the border, but are located exactly on the interface between void and the dielectrics.
+    %TODO : Encore un truc à dire ?
 
     \begin{figure}[h]
       \centering
@@ -384,9 +389,20 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
     \end{figure}
 
 
-  \subsection{Polarization charge} \lipsum[1-1]
+  \subsection{Polarization charge}
+  Using the result from section \ref{sec:rhopol}, it is possible to obtain the polarization charge at $r=b$.
+  The polarization charge is simply the integral of $\rho_{pol}$, which is the area under the curve of figure \ref{fig:rhopol}.
+  The simpliest way to obtain this area is to compute the area of the triangle surrounding $r=b$ in figure \ref{fig:rhopol}.
+  Thus, the polarization charge obtained from figure \ref{fig:rhopol} is given by \SI{-3.858d-10}{\coulomb}.
+  To show that the result indeed converges, a convergence study of this value is shown on figure \ref{fig:exdii-conv-polch}.
+  It shows that the value of the polarization charge converges on a first order convergence.
 
-
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{graphs/exdii-conv-polch.eps}
+    \caption{Convergence study of the polarization charge in $r=b$ with respect to $N$, where $N_2 = 2N_1 =2N$}
+    \label{fig:exdii-conv-polch}
+  \end{figure}
 
 
   \section{Supplement} %TODO : Le titre de la section pue.
