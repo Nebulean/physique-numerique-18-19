@@ -106,7 +106,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
       \label{eq:equa-diff}
     \end{equation}
 
-    with $\phi\bracket{\mbf{x}}=V\bracket{\mbf{x}}~\forall\mbf{x}\in\partial\Omega$.
+    with $\phi\bracket{\mbf{x}}=V_0~\forall\mbf{x}\in\partial\Omega$.
 
   \subsection{Variational form}
     To numerically solve equation \eqref{eq:equa-diff}, the variational form of the problem must be found.
@@ -126,7 +126,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
       \label{eq:variational-form}
     \end{equation}
 
-    with $\phi\bracket{\mbf{x}}=V\bracket{\mbf{x}}~\forall\mbf{x}\in\partial\Omega$.
+    with $\phi\bracket{\mbf{x}}=V_0~\forall\mbf{x}\in\partial\Omega$.
 
   \subsection{Special case: cylinder} %TODO : Faut changer le titre, il pue.
     From now, the exercice will focus on a cylinder of radius $R$ and of length $L_z$ long enough to neglect the side-effects.
@@ -275,8 +275,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   On the log-log plot of fig. \ref{cconv}, we can see that the error $|\phi(0)-\phi(0)_{th}|$ on the numerical values of $\phi(0)$ converges with order $1.828$ with respect to $N1$.
 
   \section{Non-trivial case}
-  In this section, $b=\SI{0.02}{\m}$ and $R=\SI{0.12}{\m}$.
-  Also, $\epsilon_r$ and $\rho_{lib}$ do have a more complexe definition that in the trivial part: $\epsilon_r$ is given by equation \eqref{eq:def-er} and $\rho_{lib}$ is given by equation \eqref{eq:def-rholib}.
+  In this section, $b=\SI{0.02}{\m}$ and $R=\SI{0.12}{\m}$. Moreover, $\epsilon_r$ is given by equation \eqref{eq:def-er} and $\rho_{lib}$ is given by equation \eqref{eq:def-rholib}.
 
   \begin{align}
     \begin{split}
@@ -300,7 +299,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
 
   with $a_0=\SI{d4}{\volt\per\square\meter}$.
 
-  Furthermore, the number of nodes on the horizontal axis and the vertical axis are linked by this relation: $N_2 = 2N_1$.
+  Furthermore, the number of nodes on the horizontal axis and the vertical axis are linked by the relation: $N_2 = 2N_1$.
   Note that on this section, the trapezoidal rule has been used for evaluating the integrals. $\bracket{p=1\text{, see section \ref{sec:trapezoidal-middle-rule}}}$.
 
 
