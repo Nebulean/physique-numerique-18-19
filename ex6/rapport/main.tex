@@ -83,10 +83,12 @@
 
 %%%% ON COMMENCE A ECRIRE D'ICI
 
+%TODO dans tout le document je crois : unités !
+
 \section{Introduction}
 In this report, we consider a dielectric occupying a volume of space $\Omega$ with the potential on the boundary $\partial\Omega$ at $V_0$, variable dielectric constant $\epsilon_r(\mathbf{x})$ and free charges density $\rho_{lib}(\mathbf{x})$.
 
-\section{Differential equation and variational form} %TODO: condition de bord
+\section{Differential equation and variational form}
   \subsection{Differential equation for the potential $\phi(\vec{x})$} \label{sec:equa-diff-phi}
     This section will derive the equation that describes the problem.
     \begin{align*}
@@ -139,7 +141,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
       \label{eq:variational-form-cylindrical}
     \end{equation}
 
-    with $\phi\bracket{R} = V_0$. %TODO : À vérifier.
+    with $\phi\bracket{R} = V_0$.
 
     Note that $r$ is added to the integral, coming from the change of variable into cylindrical coordinates.
 
@@ -310,12 +312,12 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   The first part to analyse is the point $r=b$ which is special on both figure \ref{fig:d1-evoPhi} and \ref{fig:d1-evoEr}.
   On figure \ref{fig:d1-evoPhi}, the point seems to be continuous, but is not differentiable.
   This non-differentiability leads to a discontinuity of $E\bracket{r}$ on figure \ref{fig:d1-evoEr}, as both are linked by the gradient operator.
-  This discontinuity comes from the fact the point represents the junction between the dielectrics and the void. %TODO : On est d'accord que c'est le vide ?
-  Physically, void does not inhibit the electric field, as no opposed electric field is present (supposing no external electric field).
-  On the other hand, dielectrics contains polarisation charges that are polarized when applied to an external electric field. \cite{wiki:dielectrics}
-  This polarization leads to the establishment of an electric field, which opposes to the external one.
-  Thus, the resulting electric field in the dielectric is lower that in the void.
-  The fact is that the interface between the void and the dielectrics is not smooth, as $\lim_{r\rightarrow b^-}\epsilon_r\bracket{r} = 1 \neq 8 = \epsilon_r\bracket{b}$, so neither is the electrical field.\\ %TODO : Il est bon ce calcul ? Le raisonnement tiens la route ou je suis déjà dans la chaussée ?
+  This discontinuity comes from the fact the point represents the interface between the dielectric and the vacuum inside the cylinder (or another medium with $\epsilon_r=1$).
+  Physically, vacuum does not inhibit the electric field, as no opposed electric field is present (supposing no external electric field).
+  On the other hand, dielectrics contains polarization charges that are polarized when applied to an external electric field. \cite{wiki:dielectrics}
+  This polarization leads to the establishment of an electric field, which opposes the external one.
+  Thus, the resulting electric field in the dielectric is lower that in the vacuum.
+  The fact is that the interface between the vacuum and the dielectrics is not smooth, as $\lim_{r\rightarrow b^-}\epsilon_r\bracket{r} = 1 \neq 8 = \lim_{r\rightarrow b^+}\epsilon_r\bracket{r}$, so neither is the electrical field.\\
 
   Regarding the comparison between the meshes, the main point is that the difference between the four case is low regarding the precision.
   On both figures, a zoom is needed to really differentiate the cases.
@@ -343,8 +345,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   This section focuses on the study of the convergence of $\phi\bracket{r}$ at $r=b$.
   Figure \ref{fig:d1-conv} gives the result of this experiment.
   The analytical solution for this problem could not be computed, so this figure does not study the error on the solution, but the final result.
-  What can be seen is that $\phi\bracket{r}$ converges approximately on the 2nd order, as the plot is linear for a $1/N^2$ horizontal axis. %TODO : Ca veut dire quelque chose cette phrase ?
-  This means that the value of $\phi\bracket{b}$ converges to a point quadratically. %TODO : C'est juste ?
+  What can be seen is that $\phi\bracket{r}$ converges approximately to the 2nd order, as the plot is linear for a $1/N^2$ horizontal axis.
 
   \begin{figure}[h]
     \centering
@@ -363,8 +364,8 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
     \label{eq:divDr-DF}
   \end{equation}
 
-  Figure \ref{fig:d2} give the result for this computation.
-  As can be seen, both quantities exactly matches, which is the expected result.
+  Figure \ref{fig:d2} gives the result for this computation.
+  As can be seen, the quantities match exactly, which is the expected result.
   %TODO : T'as encore un truc à dire là dessus ? J'ai rien à dire. :|
 
   % Maxwell's law used at the beginning of section \ref{sec:equa-diff-establishment} states that the divergence of the displacement field is equal to the charge density.
