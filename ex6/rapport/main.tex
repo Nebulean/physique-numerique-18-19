@@ -83,14 +83,14 @@
 
 %%%% ON COMMENCE A ECRIRE D'ICI
 
-% \section{Introduction} %TODO: Faire une introduction
+\section{Introduction}
+In this report, we consider a dielectric occupying a volume of space $\Omega$ with the potential on the boundary $\partial\Omega$ at $V_0$, variable dielectric constant $\epsilon_r(\mathbf{x})$ and free charges density $\rho_{lib}(\mathbf{x})$.
 
-\section{Differential equation and variational form}
+\section{Differential equation and variational form} %TODO: condition de bord
   \subsection{Differential equation for the potential $\phi(\vec{x})$} \label{sec:equa-diff-phi}
     This section will derive the equation that describes the problem.
-
     \begin{align*}
-      \intertext{First, one of Maxwell's equation is used}
+      \intertext{First, one of Maxwell's equations is used}
       \nabla\cdot\mathbf{D} &= \rho\bracket{\mathbf{x}} \\
       \intertext{where $\mathbf{D}=\epsilon_0\epsilon_r\mathbf{E}$ is the electric displacement field.}
       \nabla\cdot\bracket{\epsilon_0\epsilon_r\mathbf{E}} &= \rho\bracket{\mathbf{x}} \\
@@ -240,7 +240,13 @@
    \label{cphi}
   \end{figure}
   
-  In fig. \ref{cphi}, the potential curve obtained with the algorithm is compared to the potential curve computed analytically. The difference between the curves is of order $10^{-6}$, and gets smaller as the radius increases, until the boundary of the cylinder, on which both curves reach the boundary condition of $\phi(R)=V_0=0$ V. %TODO: expliciter le développement de la solution analytique
+  In fig. \ref{cphi}, the potential curve obtained with the algorithm is compared to the potential curve computed analytically: by applying the trivial case to eq.\eqref{eq:equa-diff} and using the boundary condition $\phi(R)=V_0=0$ V, we get the solution given by equation \eqref{phith}.
+  \begin{equation}
+   \phi(r)_{th} = \frac{-r^2+R^2}{4}
+   \label{phith}
+  \end{equation}
+
+  The difference between the curves is of order $10^{-6}$, and gets smaller as the radius increases, until the boundary of the cylinder, on which both curves reach the boundary condition of $\phi(R)=0$ V.
 
   \begin{figure}[h!]
    \centering
