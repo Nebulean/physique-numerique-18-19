@@ -228,9 +228,9 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   \end{equation}
 
   \section{Trivial case}
-  
+
   In this section the parameters are $b=0.06$ m, $R=0.12$ m and $N1=N2$. The trivial case $\rho_{lib}(r)=\epsilon_0$ and $\epsilon_r(r)=1$ is studied to test the algorithm.
-  
+
   \subsection{Comparison of numerical and analytical results}
 
   \begin{figure}[h!]
@@ -254,18 +254,18 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
    \caption{Electric field in function of radius for N=20}
    \label{cEr}
   \end{figure}
-  
+
   Fig. \ref{cEr} shows that the electric field is linear with respect to the radius of the cylinder. This is expected as $E_r = -\grad{\phi(r)} = -\frac{d\phi(r)}{dr}$, and $\phi(r)$ is quadratic. There is however an anomaly, as the curve should pass through the origin $(0,0)$, since the rate of variation of $\phi(r)$ around $r=0$ is null, however the first point is slighlty displaced to the right (at around $r=1.5\times 10^{-3}$). This imprecision might come from a mistake in the matrix equation resolution algorithm, as the other groups had the same problem.
-  
+
   \subsection{Convergence of $\phi(0)$}
-  
+
   \begin{figure}[h]
    \centering
    \includegraphics[width=0.6\textwidth]{graphs/c_convphi.eps}
    \caption{Convergence of the error on $\phi(0)$ with respect to $N1$}
    \label{cconv}
   \end{figure}
-  
+
   On the log-log plot of fig. \ref{cconv}, we can see that the error $|\phi(0)-\phi(0)_{th}|$ on the numerical values of $\phi(0)$ converges with order $1.828$ with respect to $N1$.
   
   \section{Non-trivial case} % TODO: expressions de \epsilon_r et \rho_{lib}
@@ -325,10 +325,17 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
 
   \subsection{Verification of $\Div{\mbf{D}\bracket{\mbf{x}}}$}
   This section focuses on the verification of a Maxwell's equation, $\Div{D}\bracket{\mbf{x}}$, using a finite difference method for the operator d/dr.
-  Note that the problem is in cylindrical coordinates, thus $\Div{D} = \frac{1}{r}\frac{d}{dr}\bracket{r\mbf{D}}$.
-  %TODO : Mettre le dev du calcul.
+  The problem is in cylindrical coordinates, thus $\Div{D} = \frac{1}{r}\frac{d}{dr}\bracket{r\mbf{D}}$.
+  Using the finite difference method, $\Div{D}$ is given by equation \eqref{eq:divDr-DF}.
 
-  Figure \ref{fig:d2} shows that the solution is exact.
+  \begin{equation}
+    \Div{D}\bracket{r_{\text{midmid},i}} = \frac{r_{\text{mid},i+1}\cdot D\bracket{r_\text{mid, i+1}} - r_{\text{mid},i}\cdot D\bracket{r_\text{mid, i}}}{r_{\text{mid},i+1} - r_{\text{mid},i}}\cdot\frac{1}{r_{\text{midmid},i}}
+    \label{eq:divDr-DF}
+  \end{equation}
+
+  Figure \ref{fig:d2} give the result for this computation.
+  As can be seen, both quantities exactly matches, which is the expected result.
+  %TODO : T'as encore un truc à dire là dessus ? J'ai rien à dire. :|
 
   % Maxwell's law used at the beginning of section \ref{sec:equa-diff-establishment} states that the divergence of the displacement field is equal to the charge density.
   % However, this charge density considers every charges of the environment: free charges and polarization charges.
@@ -360,6 +367,8 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
                  &= \epsilon_0\bracket{\Div{E} - \frac{\Div{D}}{\epsilon_0}}
     \end{align*}
 
+
+
     \begin{equation}
       \boxed{\frac{\rho_{pol}}{\epsilon_0} = \Div{E} - \frac{\Div{D}}{\epsilon_0}}
       \label{eq:rhopol-final}
@@ -370,7 +379,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
     \begin{figure}[h]
       \centering
       \includegraphics[width=0.5\textwidth]{graphs/exdii-rhopol.eps}
-      \caption{Polarization charge density with respect to the distance $r$ to the center of the cylinder}
+      \caption{Polarization charge density with respect to the distance $r$ to the center of the cylinder. The simulation used the settings $N_2 = 2N_1 = 200$.}
       \label{fig:rhopol}
     \end{figure}
 
@@ -387,7 +396,8 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
       To achieve this, the trapezoidal rule was used.
       An alternative method can be used to compute these integrals, which is a combination of the trapezoidal rule and the middle point rule.
       Let $f\bracket{x}$ be an integrable function.
-      Then, the trapezoidal-middle point rule is given by equation \eqref{eq:int-trapeze-milieu}, where $p\in[0,1]$ is a parameter. Note that $p=1$ gives the trapezoidal rule.
+      Then, the trapezoidal-middle point rule is given by equation \eqref{eq:int-trapeze-milieu}, where $p\in[0,1]$ is a parameter.
+      Note that $p=1$ gives the trapezoidal rule, so the source file was updated using this new formula.
 
       \begin{equation}
         \int_{x_k}^{x_{k+1}}f\bracket{x}dx \approx h_k\bracket{p\frac{f\bracket{x_k} + f\bracket{x_{k+1}}}{2} + \bracket{1-p}f\bracket{\frac{x_k + x_{k+1}}{2}}}
