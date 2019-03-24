@@ -267,8 +267,8 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   \end{figure}
   
   On the log-log plot of fig. \ref{cconv}, we can see that the error $|\phi(0)-\phi(0)_{th}|$ on the numerical values of $\phi(0)$ converges with order $1.828$ with respect to $N1$.
-
-  \section{Non-trivial case}
+  
+  \section{Non-trivial case} % TODO: expressions de \epsilon_r et \rho_{lib}
   In this section, $b=\SI{0.02}{\m}$ and $R=\SI{0.12}{\m}$.
   Furthermore, the number of nodes on the horizontal axis and the vertical axis are linked by this relation: $N_2 = 2N_1$.
   Note that on this section, the trapezoidal rule has been used for evaluating the integrals. $\bracket{p=1\text{, see section \ref{sec:trapezoidal-middle-rule}}}$.
@@ -416,6 +416,15 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
       \end{equation}
 
       with $\alpha_k = \frac{r_k + r_{k+1}}{2}$.
+      
+      Using this new implementation, with $p=0.5$, the potential for the trivial case was plotted again in figure \ref{ephi} and compared to the analytical result. This time the plots are indistinguishable from each other, no matter how much we zoom in with MATLAB. Therefore this method for finding the elements of the matrix and the vector seems much more precise than the one that was used in previous sections.
+      \begin{figure}[h]
+      \centering
+       \includegraphics[width=0.5\textwidth]{graphs/e_phi.eps}
+       \caption{Numerical and analytical potential in function of radius for N=20}
+       \label{ephi}
+      \end{figure}
+
 
   \begin{thebibliography}{99}
     \bibitem{wiki:dielectrics} Wikipedia contributors, "Dielectric," Wikipedia, The Free Encyclopedia, \url{https://en.wikipedia.org/w/index.php?title=Dielectric&oldid=887928781} (accessed March 22, 2019).
