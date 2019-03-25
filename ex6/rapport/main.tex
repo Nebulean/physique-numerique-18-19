@@ -146,8 +146,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
     Note that $r$ is added to the integral, coming from the change of variable into cylindrical coordinates.
 
 \section{Finite elements}
-  The problem need to be discretized to get a numerical solution.
-  $\phi$ and $\eta$ must be expressed in a discretized way.
+  The problem need to be discretized to get a numerical solution, so $\phi$ and $\eta$ must be expressed in a discretized way.
   Consider $\Lambda_i\bracket{r}$, the polynomials as represented on figure \ref{fig:lambda}.
   These function are used to approximate $\phi$ and $\eta$, which are given by equation \eqref{eq:approx-phi-eta}.
 
@@ -235,9 +234,14 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
     \label{eq:b-final}
   \end{equation}
 
+  Note that equation \eqref{eq:A-final} and \eqref{eq:b-final} are not the one implemented in the c++ source file.
+  Instead of directly implementing the trapezoidal rule, a better approximation for this integral has been used: the trapezoidal-middle point rule.
+  However, this approximation is fully compatible with the trapezoidal rule, as taking parameter $p=1$ gives the trapezoidal rule.
+  See section \ref{sec:trapezoidal-middle-rule} for further informations. %TODO : paragraphe ajouté -D
+
   \section{Trivial case}
 
-  In this section the parameters are $b=0.06$ m, $R=0.12$ m and $N1=N2$. The trivial case $\rho_{lib}(r)=\epsilon_0$ and $\epsilon_r(r)=1$ is studied to test the algorithm.
+  In this section the parameters are $b=0.06$ m, $R=0.12$ m and $N_1=N_2$. The trivial case $\rho_{lib}(r)=\epsilon_0$ and $\epsilon_r(r)=1$ is studied to test the algorithm.
 
   \subsection{Comparison of numerical and analytical results}
 
@@ -250,7 +254,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
 
   In fig. \ref{cphi}, the potential curve obtained with the algorithm is compared to the potential curve computed analytically: by applying the trivial case to eq.\eqref{eq:equa-diff} and using the boundary condition $\phi(R)=V_0=0$ V, we get the solution given by equation \eqref{phith}.
   \begin{equation}
-   \phi(r)_{th} = \frac{-r^2+R^2}{4}
+   \phi(r)_{th} = \frac{R^2-r^2}{4} %TODO : Equation corrigée pour la rendre plus jolie. -D
    \label{phith}
   \end{equation}
 
@@ -263,7 +267,12 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
    \label{cEr}
   \end{figure}
 
-  Fig. \ref{cEr} shows that the electric field is linear with respect to the radius of the cylinder. This is expected as $E_r = -\grad{\phi(r)} = -\frac{d\phi(r)}{dr}$, and $\phi(r)$ is quadratic. There is however an anomaly, as the curve should pass through the origin $(0,0)$, since the rate of variation of $\phi(r)$ around $r=0$ is null, however the first point is slighlty displaced to the right (at around $r=1.5\times 10^{-3}$). This imprecision might come from a mistake in the matrix equation resolution algorithm, as the other groups had the same problem.
+  Fig. \ref{cEr} shows that the electric field is linear with respect to the radius of the cylinder.
+  This is expected as $E_r = -\grad{\phi(r)} = -\frac{d\phi(r)}{dr}$, and $\phi(r)$ is quadratic.
+  There is however an anomaly, as the curve should pass through the origin $(0,0)$, since the rate of variation of $\phi(r)$ around $r=0$ is null, however the first point is slighlty displaced to the right (at around $r=1.5\times 10^{-3}$).
+  % This imprecision might come from a mistake in the matrix equation resolution algorithm, as the other groups had the same problem.
+  This inaccuracy might come from the approximation made by using the trapezoidal rule, or by the discretization of the problem, as both are the only real source of error in this report.
+  Note that some approximations are produced by the numerical rounding, but those are much smaller, so are neglected. %TODO : Phrase corrigée. -D
 
   \subsection{Convergence of $\phi(0)$}
 
@@ -275,6 +284,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   \end{figure}
 
   On the log-log plot of fig. \ref{cconv}, we can see that the error $|\phi(0)-\phi(0)_{th}|$ on the numerical values of $\phi(0)$ converges with order $1.828$ with respect to $N1$.
+  %TODO : Y'a rien à dire de plus ? -D
 
   \section{Non-trivial case}
   In this section, $b=\SI{0.02}{\m}$ and $R=\SI{0.12}{\m}$. Moreover, $\epsilon_r$ is given by equation \eqref{eq:def-er} and $\rho_{lib}$ is given by equation \eqref{eq:def-rholib}.
@@ -316,13 +326,13 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   Physically, vacuum does not inhibit the electric field, as no opposed electric field is present (supposing no external electric field).
   On the other hand, dielectrics contains polarization charges that are polarized when applied to an external electric field. \cite{wiki:dielectrics}
   This polarization leads to the establishment of an electric field, which opposes the external one.
-  Thus, the resulting electric field in the dielectric is lower that in the vacuum.
-  The fact is that the interface between the vacuum and the dielectrics is not smooth, as $\lim_{r\rightarrow b^-}\epsilon_r\bracket{r} = 1 \neq 8 = \lim_{r\rightarrow b^+}\epsilon_r\bracket{r}$, so neither is the electrical field.\\
+  Thus, the resulting electric field in the dielectric is lower than in the vacuum.
+  The fact is that the permittivity transition between the vacuum and the dielectric is not smooth, as $\lim_{r\rightarrow b^-}\epsilon_r\bracket{r} = 1 \neq 8 = \lim_{r\rightarrow b^+}\epsilon_r\bracket{r}$. Thus, the electric field is not smooth.\\ %TODO : Faut faire gaffe, "smooth" est un terme mathématique. -D
 
   Regarding the comparison between the meshes, the main point is that the difference between the four case is low regarding the precision.
   On both figures, a zoom is needed to really differentiate the cases.
   The first simulation ($N_1=10, N_2=20$) is the only one that slightly diverges from the others, as can be seen from the zoom in the plots.
-  Thus, choosing a setting around ($N_1=40, N_2=80$) seems enough regarding the precision, as more does not change significantly the result.\\
+  Thus, choosing a setting around ($N_1=40, N_2=80$) seems enough regarding the precision, as more does not significantly change the result.\\
 
   \begin{figure}[h]
     \centering
@@ -344,7 +354,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   \subsection{Convergence study of $\phi\bracket{r=b}$}
   This section focuses on the study of the convergence of $\phi\bracket{r}$ at $r=b$.
   Figure \ref{fig:d1-conv} gives the result of this experiment.
-  The analytical solution for this problem could not be computed, so this figure does not study the error on the solution, but the final result.
+  The analytical solution for this problem could not be computed, so this figure does not study the error on the solution, but the convergence on a result.
   What can be seen is that $\phi\bracket{r}$ converges approximately to the 2nd order, as the plot is linear for a $1/N^2$ horizontal axis.
 
   \begin{figure}[h]
@@ -381,7 +391,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   \subsection{Computation of the polarization charge density $\rho_{pol}$} \label{sec:rhopol}
     The goal of this paragraph is to obtain the polarization charge density of the dielectrics.
     The polarization charges are the charges on the dielectrics that can not move, which forms a multitude of electrical dipoles. \cite{feynman:dielectrics}
-    The density of polarization charges can be found using equations \eqref{eq:def-polarization} and \eqref{eq:def-rhopol}.
+    The density of polarization charges can be found using equations \eqref{eq:def-polarization} and \eqref{eq:def-rhopol}, coming from Feynman lectures on physics. \cite{feynman:dielectrics}
 
     \begin{align}
       \mbf{P} &= \mbf{D} - \epsilon_0\mbf{E}
@@ -407,9 +417,9 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
 
     Using equation \eqref{eq:rhopol-final}, the evolution of the polarization charge density with respect to $r$ can be viewed on figure \ref{fig:rhopol}.
     The major information of this figure is the discontinuity point at $r=b$.
-    This point tells that the overwhelming majority of the charges are located on the border of the dielectrics.
-    Note that, as $N_1$ and $N_2$ are increased, the discontinuity "triangle" becomes thiner.
-    This shows that the charges are not scattered around the border, but are located exactly on the interface between void and the dielectrics.
+    This point tells that the overwhelming majority of the charges are located on the border of the dielectric.
+    Note that, as $N_1$ and $N_2$ increase, the "discontinuity triangle" becomes thiner.
+    This shows that the charges are not scattered around the border, but are located exactly on the interface between void and the dielectric.
     %TODO : Encore un truc à dire ?
 
     \begin{figure}[h]
@@ -438,7 +448,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
 
   \section{Supplement} %TODO : Le titre de la section pue.
     \subsection{Combination of the trapezoidal rule and the middle point rule} \label{sec:trapezoidal-middle-rule}
-      Section \ref{sec:writing-A-b1} described a method to describe the elements of the matrix $A$ and the vector $\mbf{b}$.
+      Section \ref{sec:writing-A-b1} gives a method to describe the elements of the matrix $A$ and the vector $\mbf{b}$.
       These elements contained integral, which needed to be numerically approximated.
       To achieve this, the trapezoidal rule was used.
       An alternative method can be used to compute these integrals, which is a combination of the trapezoidal rule and the middle point rule.
