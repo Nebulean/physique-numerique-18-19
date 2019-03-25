@@ -143,7 +143,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
 
     with $\phi\bracket{R} = V_0$.
 
-    Note that $r$ is added to the integral, coming from the change of variable into cylindrical coordinates.
+    Note that a factor $r$ appears inside the integral, coming from the change of variable into cylindrical coordinates.
 
 \section{Finite elements}
   The problem need to be discretized to get a numerical solution, so $\phi$ and $\eta$ must be expressed in a discretized way.
@@ -434,12 +434,12 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   \subsection{Polarization charge}
   Using the result from section \ref{sec:rhopol}, it is possible to obtain the polarization charge at $r=b$.
   The polarization charge is simply the integral of $\rho_{pol}$, which is the area under the curve of figure \ref{fig:rhopol}.
-  The simpliest way to obtain this area is to compute the area of the triangle surrounding $r=b$ in figure \ref{fig:rhopol}.
+  The simplest way to obtain this area is to compute the area of the triangle surrounding $r=b$ in figure \ref{fig:rhopol}.
   Thus, the polarization charge obtained from figure \ref{fig:rhopol} is given by \SI{-3.858d-10}{\coulomb}.
   To show that the result indeed converges, a convergence study of this value is shown on figure \ref{fig:exdii-conv-polch}.
-  It shows that the value of the polarization charge converges on a first order convergence.
+  It shows that the value of the polarization charge converges to the first order.
 
-  \begin{figure}
+  \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{graphs/exdii-conv-polch.eps}
     \caption{Convergence study of the polarization charge in $r=b$ with respect to $N$, where $N_2 = 2N_1 =2N$}
@@ -451,7 +451,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
     \subsection{Combination of the trapezoidal rule and the middle point rule} \label{sec:trapezoidal-middle-rule}
       Section \ref{sec:writing-A-b1} gives a method to describe the elements of the matrix $A$ and the vector $\mbf{b}$.
       These elements contained integral, which needed to be numerically approximated.
-      To achieve this, the trapezoidal rule was used.
+      To achieve this, the trapezoidal rule was used up until now.
       An alternative method can be used to compute these integrals, which is a combination of the trapezoidal rule and the middle point rule.
       Let $f\bracket{x}$ be an integrable function.
       Then, the trapezoidal-middle point rule \cite{cours} is given by equation \eqref{eq:int-trapeze-milieu}, where $p\in[0,1]$ is a parameter.
