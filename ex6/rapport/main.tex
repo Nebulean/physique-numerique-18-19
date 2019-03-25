@@ -505,6 +505,8 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
       \subsection{Other functions for $\epsilon_r$ and $\rho_{lib}$}
       
       Other functions were tested for $\epsilon_r$ and $\rho_{lib}$, with the other parameters set on the same values as in section \ref{sec1}. Note that for $r<b$, the default value was not changed.
+      
+      The curve of $\phi(r)$ was plotted for different functions defining $\epsilon_r(r)$ on figure \ref{eepsr}. $\epsilon_r(r)=\exp((r-b)/(R-b))$ does not change the shape of the curve significantly compared to figure \ref{fig:d1-evoPhi}. However $\epsilon_r(r)=\sin(\pi(r-b)/(R-b))$ results in a different evolution of the potential for $r>b$, and $\epsilon_r(r)=1-(r-b)^2/(R-b)$ results in a smooth curve around $r=b$.
 
       \begin{figure}[h]
       \centering
@@ -513,8 +515,8 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
        \label{eepsr}
       \end{figure}
 
-      Figure \ref{fig:facrho} gives the evolution of $\phi$, with different functions defining $\rho_{lib}$.
-      These function do not seem to change a lot the final result.
+      Figure \ref{fig:facrho} gives the evolution of $\phi$, with different functions defining $\rho_{lib}(r)$.
+      These functions do not seem to change significantly the final result, as the overall shape of the curve is similar to that of the curves in figure \ref{fig:d1-evoPhi}.
 
       \begin{figure}[h]
         \centering
