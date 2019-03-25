@@ -75,7 +75,8 @@ public:
       if(r>b)
         return 0.0;
       else
-        return a0*(1.0-pow(r/b,2));
+        return a0*(1.0 - pow(r/b,2));
+        // return a0*sin(M_PI*(1.0 - pow(r/b, 2)));
     }
   }
 
