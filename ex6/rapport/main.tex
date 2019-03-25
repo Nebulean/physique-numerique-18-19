@@ -391,8 +391,8 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
 
   \subsection{Computation of the polarization charge density $\rho_{pol}$} \label{sec:rhopol}
     The goal of this paragraph is to obtain the polarization charge density of the dielectrics.
-    The polarization charges are the charges on the dielectrics that can not move, which forms a multitude of electrical dipoles. \cite{feynman:dielectrics}
-    The density of polarization charges can be found using equations \eqref{eq:def-polarization} and \eqref{eq:def-rhopol}, coming from Feynman lectures on physics. \cite{feynman:dielectrics}
+    The polarization charges are the charges on the dielectrics that can not move, which forms a multitude of electrical dipoles.
+    The density of polarization charges can be found using equations \eqref{eq:def-polarization} and \eqref{eq:def-rhopol}. \cite{feynman:dielectrics}
 
     \begin{align}
       \mbf{P} &= \mbf{D} - \epsilon_0\mbf{E}
@@ -454,7 +454,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
       To achieve this, the trapezoidal rule was used.
       An alternative method can be used to compute these integrals, which is a combination of the trapezoidal rule and the middle point rule.
       Let $f\bracket{x}$ be an integrable function.
-      Then, the trapezoidal-middle point rule is given by equation \eqref{eq:int-trapeze-milieu}, where $p\in[0,1]$ is a parameter.
+      Then, the trapezoidal-middle point rule \cite{cours} is given by equation \eqref{eq:int-trapeze-milieu}, where $p\in[0,1]$ is a parameter.
       Note that $p=1$ gives the trapezoidal rule, so the source file was updated using this new formula.
 
       \begin{equation}
@@ -492,7 +492,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
        \caption{Numerical and analytical potential in function of radius for N=20}
        \label{ephi}
       \end{figure}
-      
+
       In fact, as seen on figure \ref{econv}, the error on $\phi(0)$ is minimal for $p=0.5$, and even seems to be exact, as the point at $p=0.5$ is exactly on $|\phi(0)-\phi(0)_{th}|=0$ no matter how much we zoom in.
       \begin{figure}[h]
       \centering
@@ -500,12 +500,12 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
        \caption{Error on $\phi(0)$ in function of $p$ for N=20}
        \label{econv}
       \end{figure}
-      
-      
+
+
       \subsection{Other functions for $\epsilon_r$ and $\rho_{lib}$}
-      
+
       Other functions were tested for $\epsilon_r$ and $\rho_{lib}$, with the other parameters set on the same values as in section \ref{sec1}. Note that for $r<b$, the default value was not changed.
-      
+
       The curve of $\phi(r)$ was plotted for different functions defining $\epsilon_r(r)$ on figure \ref{eepsr}. $\epsilon_r(r)=\exp((r-b)/(R-b))$ does not change the shape of the curve significantly compared to figure \ref{fig:d1-evoPhi}. However $\epsilon_r(r)=\sin(\pi(r-b)/(R-b))$ results in a different evolution of the potential for $r>b$, and $\epsilon_r(r)=1-(r-b)^2/(R-b)$ results in a smooth curve around $r=b$.
 
       \begin{figure}[h]
@@ -530,6 +530,8 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
     \bibitem{wiki:dielectrics} Wikipedia contributors, "Dielectric," Wikipedia, The Free Encyclopedia, \url{https://en.wikipedia.org/w/index.php?title=Dielectric&oldid=887928781} (accessed March 22, 2019).
 
     \bibitem{feynman:dielectrics} Feynman, R. (n.d.). The Feynman Lectures on Physics Vol. II Ch. 10: Dielectrics. [online] Feynmanlectures.caltech.edu. Available at: \url{http://www.feynmanlectures.caltech.edu/II_10.html} [Accessed 18 Mar. 2019].
+
+    \bibitem{cours} Laurent Villard, Andreas Läuchli, "Physique Numérique I-II", version 17.1.
   \end{thebibliography}
 
 \end{document}
