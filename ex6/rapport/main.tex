@@ -254,7 +254,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
 
   In fig. \ref{cphi}, the potential curve obtained with the algorithm is compared to the potential curve computed analytically: by applying the trivial case to eq.\eqref{eq:equa-diff} and using the boundary condition $\phi(R)=V_0=0$ V, we get the solution given by equation \eqref{phith}.
   \begin{equation}
-   \phi(r)_{th} = \frac{R^2-r^2}{4} %TODO : Equation corrigée pour la rendre plus jolie. -D
+   \phi(r)_{th} = \frac{-r^2+R^2}{4} %TODO : Equation corrigée pour la rendre plus jolie. -D
    \label{phith}
   \end{equation}
 
@@ -270,9 +270,9 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   Fig. \ref{cEr} shows that the electric field is linear with respect to the radius of the cylinder.
   This is expected as $E_r = -\grad{\phi(r)} = -\frac{d\phi(r)}{dr}$, and $\phi(r)$ is quadratic.
   There is however an anomaly, as the curve should pass through the origin $(0,0)$, since the rate of variation of $\phi(r)$ around $r=0$ is null, however the first point is slighlty displaced to the right (at around $r=1.5\times 10^{-3}$).
-  % This imprecision might come from a mistake in the matrix equation resolution algorithm, as the other groups had the same problem.
-  This inaccuracy might come from the approximation made by using the trapezoidal rule, or by the discretization of the problem, as both are the only real source of error in this report.
-  Note that some approximations are produced by the numerical rounding, but those are much smaller, so are neglected. %TODO : Phrase corrigée. -D
+  This imprecision might come from a mistake in the matrix equation resolution algorithm, as the other groups had the same problem.
+  % This inaccuracy might come from the approximation made by using the trapezoidal rule, or by the discretization of the problem, as both are the only real source of error in this report.
+  % Note that some approximations are produced by the numerical rounding, but those are much smaller, so are neglected.
 
   \subsection{Convergence of $\phi(0)$}
 
@@ -364,8 +364,8 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
     \label{fig:d1-conv}
   \end{figure}
 
-  \subsection{Verification of $\Div{\mbf{D}\bracket{\mbf{x}}}$}
-  This section focuses on the verification of a Maxwell's equation, $\Div{D}\bracket{\mbf{x}}$, using a finite difference method for the operator d/dr.
+  \subsection{Verification of $\Div{\mbf{D}\bracket{\mbf{x}}} = \rho_{lib}$}
+  This section focuses on the verification of a Maxwell's equation, $\Div{D}\bracket{\mbf{x}} = \rho_{lib}$, using a finite difference method for the operator d/dr.
   The problem is in cylindrical coordinates, thus $\Div{D} = \frac{1}{r}\frac{d}{dr}\bracket{r\mbf{D}}$.
   Using the finite difference method, $\Div{D}$ is given by equation \eqref{eq:divDr-DF}.
 
@@ -415,7 +415,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
       \label{eq:rhopol-final}
     \end{equation}
 
-    Using equation \eqref{eq:rhopol-final}, the evolution of the polarization charge density with respect to $r$ can be viewed on figure \ref{fig:rhopol}.
+    Using equation \eqref{eq:rhopol-final}, the evolution of the polarization charge density with respect to $r$ is shown on figure \ref{fig:rhopol}.
     The major information of this figure is the discontinuity point at $r=b$.
     This point tells that the overwhelming majority of the charges are located on the border of the dielectric.
     Note that, as $N_1$ and $N_2$ increase, the "discontinuity triangle" becomes thiner.
