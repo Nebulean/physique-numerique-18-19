@@ -240,8 +240,9 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
   See section \ref{sec:trapezoidal-middle-rule} for further informations. %TODO : paragraphe ajouté -D
 
   \section{Trivial case}
+  \label{sec1}
 
-  In this section the parameters are $b=0.06$ m, $R=0.12$ m and $N_1=N_2$. The trivial case $\rho_{lib}(r)=\epsilon_0$ and $\epsilon_r(r)=1$ is studied to test the algorithm.
+  In this section the parameters are $b=0.06$ m, $R=0.12$ m and $N_1=N_2$. The trivial case $\rho_{lib}(r)/\epsilon_0=1$ C/(F$\cdot$m$^2$) and $\epsilon_r(r)=1$ F/m is studied to test the algorithm.
 
   \subsection{Comparison of numerical and analytical results}
 
@@ -254,7 +255,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
 
   In fig. \ref{cphi}, the potential curve obtained with the algorithm is compared to the potential curve computed analytically: by applying the trivial case to eq.\eqref{eq:equa-diff} and using the boundary condition $\phi(R)=V_0=0$ V, we get the solution given by equation \eqref{phith}.
   \begin{equation}
-   \phi(r)_{th} = \frac{-r^2+R^2}{4} %TODO : Equation corrigée pour la rendre plus jolie. -D
+   \phi(r)_{th} = \frac{-r^2+R^2}{4}
    \label{phith}
   \end{equation}
 
@@ -484,20 +485,31 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
 
       with $\alpha_k = \frac{r_k + r_{k+1}}{2}$.
 
-      Using this new implementation, with $p=0.5$, the potential for the trivial case was plotted again in figure \ref{ephi} and compared to the analytical result. This time the plots are indistinguishable from each other, no matter how much we zoom in with MATLAB. Therefore this method for finding the elements of the matrix and the vector seems much more precise than the one that was used in previous sections.
+      Using this new implementation, with $p=0.5$, the potential for the trivial case was plotted again in figure \ref{ephi} and compared to the analytical result, with the same parameters as in section \ref{sec1}. This time the plots are indistinguishable from each other, no matter how much we zoom in with MATLAB. Therefore this method for finding the elements of the matrix and the vector seems much more precise than the one that was used in previous sections.
       \begin{figure}[h]
       \centering
        \includegraphics[width=0.5\textwidth]{graphs/e_phi.eps}
        \caption{Numerical and analytical potential in function of radius for N=20}
        \label{ephi}
       \end{figure}
-
+      
+      In fact, as seen on figure \ref{econv}, the error on $\phi(0)$ is minimal for $p=0.5$, and even seems to be exact, as the point at $p=0.5$ is exactly on $|\phi(0)-\phi(0)_{th}|=0$ no matter how much we zoom in.
+      \begin{figure}[h]
+      \centering
+       \includegraphics[width=0.5\textwidth]{graphs/e_conv.eps}
+       \caption{Error on $\phi(0)$ in function of $p$ for N=20}
+       \label{econv}
+      \end{figure}
+      
+      
       \subsection{Other functions for $\epsilon_r$ and $\rho_{lib}$}
+      
+      Other functions were tested for $\epsilon_r$ and $\rho_{lib}$, with the other parameters set on the same values as in section \ref{sec1}. Note that for $r<b$, the default value was not changed.
 
       \begin{figure}[h]
       \centering
        \includegraphics[width=0.6\textwidth]{graphs/eepsr.eps}
-       \caption{Comparison of different functions for $\epsilon_r$}
+       \caption{Comparison of different functions for $\epsilon_r$ with $p=0.5$}
        \label{eepsr}
       \end{figure}
 
@@ -507,7 +519,7 @@ In this report, we consider a dielectric occupying a volume of space $\Omega$ wi
       \begin{figure}[h]
         \centering
         \includegraphics[width=0.6\textwidth]{graphs/facrho.eps}
-        \caption{Comparison of different function for $\rho_{lib}$. Note that for $r<b$, the default value was not changed.}
+        \caption{Comparison of different function for $\rho_{lib}$ with $p=1$}
         \label{fig:facrho}
       \end{figure}
 
