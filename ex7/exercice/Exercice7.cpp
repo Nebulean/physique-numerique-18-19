@@ -77,13 +77,19 @@ private:
   double g, h_ocean, h_recif, xa, xb, xc, xd;
 };
 
-//
-// TODO : Calcul de l'energie de l'onde
-//
-
+// Calcul de l'énergie
 double energie(vector<double> const& f, double const& dx)
 {
-  return 0.;
+  // size_t N(f.size());
+  double energie(0.0);
+
+  for (size_t i = 0; i < f.size() - 1; i++) {
+    energie += (pow(f[i],2) + pow(f[i+1], 2))/2;
+  }
+
+  energie*=dx;
+
+  return energie;
 }
 
 //
@@ -230,9 +236,9 @@ int main(int argc, char* argv[])
     for(int i(1); i<N-1; ++i)
     {
       if (schema == "A")
-	      fnext[i] = 2*(1-(*u2)(i)*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x)*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]);
+	      fnext[i] = 2*(1-(*u2)(i)*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(i)*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]);
       else if(schema == "B")
-        fnext[i] = 2*(1-(*u2)(i)*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x)*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]) +.5*sqrt((*u2)(i))*pow(dt/dx,2)*(sqrt((*u2)(i+1))-sqrt((*u2)(i-1)))*(fnow[i+1] - fnow[i-1]);
+        fnext[i] = 2*(1-(*u2)(i)*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(i)*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]) +.5*sqrt((*u2)(i))*pow(dt/dx,2)*(sqrt((*u2)(i+1))-sqrt((*u2)(i-1)))*(fnow[i+1] - fnow[i-1]);
       else if(schema=="C")
         fnext[i] = 2*fnow[i] - fpast[i] + pow(dt/dx,2)*( (*u2)(i+1)*fnow[i+1] - 2*(*u2)(i)*fnow[i] + (*u2)(i-1)*fnow[i-1] );
    // Note : La syntaxe pour evaluer u^2 au point x est (*u2)(x)
@@ -254,7 +260,7 @@ int main(int argc, char* argv[])
         break;
 
       case sortie:
-        fnext[0] = 0.; // TODO : Completer la condition au bord gauche "sortie de l'onde"
+        fnext[0] = sqrt((*u2)(0)) * dt/dx * ( fnow[1] - fnow[0] ) + fnow[0];
         break;
     }
 
@@ -273,7 +279,7 @@ int main(int argc, char* argv[])
         break;
 
       case sortie:
-        fnext[N-1] = 0.; // TODO : Completer la condition au bord droit "sortie de l'onde"
+        fnext[N-1] = -sqrt((*u2)(N-1)) * dt/dx * ( fnow[N-1] - fnow[N-2] ) + fnow[N-1];
         break;
     }
 
