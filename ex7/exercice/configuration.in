@@ -9,17 +9,17 @@ xc = 0.0
 xd = 0.0
 
 % Parametres numeriques :
-tfin = 10.
+tfin = 13.5
 L = 20.
-Npoints = 10
+Npoints = 100
 CFL = 1.
 type_u2 = const
-ecrire_f = false
+ecrire_f = true
 schema = A
 cb_gauche = harmonique
-cb_droit = fixe
+cb_droit = libre
 A = 1.
 omega = 5.
-n_stride = 2
+n_stride = 1
 
 output = output
