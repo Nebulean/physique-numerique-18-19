@@ -230,11 +230,11 @@ int main(int argc, char* argv[])
     for(int i(1); i<N-1; ++i)
     {
       if (schema == "A")
-	fnext[i] = 0.;// TODO : Completer le schema A
+	      fnext[i] = 2*(1-(*u2)(i)*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x)*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]);
       else if(schema == "B")
-        fnext[i] = 0.; // TODO : Completer le schema B
+        fnext[i] = 2*(1-(*u2)(i)*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x)*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]) +.5*sqrt((*u2)(i))*pow(dt/dx,2)*(sqrt((*u2)(i+1))-sqrt((*u2)(i-1)))*(fnow[i+1] - fnow[i-1]);
       else if(schema=="C")
-        fnext[i] = 0.; // TODO : Completer le schema C
+        fnext[i] = 2*fnow[i] - fpast[i] + pow(dt/dx,2)*( (*u2)(i+1)*fnow[i+1] - 2*(*u2)(i)*fnow[i] + (*u2)(i-1)*fnow[i-1] );
    // Note : La syntaxe pour evaluer u^2 au point x est (*u2)(x)
     }
 
@@ -242,15 +242,15 @@ int main(int argc, char* argv[])
     switch(cb_gauche)
     {
       case fixe:
-        fnext[0] = 0.; // TODO : Completer la condition au bord gauche fixe
+        fnext[0] = fnow[0];
         break;
 
       case libre:
-        fnext[0] = 0.; // TODO : Completer la condition au bord gauche libre
+        fnext[0] = fnext[1];
         break;
 
       case harmonique:
-        fnext[0] = 0.; // TODO : Completer la condition au bord gauche harmonique
+        fnext[0] = A*sin(omega*(t+dt));
         break;
 
       case sortie:
@@ -261,15 +261,15 @@ int main(int argc, char* argv[])
     switch(cb_droit)
     {
       case fixe:
-      fnext[N-1] = 0; // TODO : Completer la condition au bord droit fixe
+      fnext[N-1] = fnow[N-1];
         break;
 
       case libre:
-        fnext[N-1] = 0.; // TODO : Completer la condition au bord droit libre
+        fnext[N-1] = fnext[N-2];
         break;
 
       case harmonique:
-        fnext[N-1] = 0.; // TODO : Completer la condition au bord droit harmonique
+        fnext[N-1] = A*sin(omega*(t+dt));
         break;
 
       case sortie:
