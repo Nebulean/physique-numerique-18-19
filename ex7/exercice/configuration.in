@@ -11,7 +11,7 @@ xd = 0.0
 % Parametres numeriques :
 tfin = 10.
 L = 20.
-Npoints = 0.0
+Npoints = 10
 CFL = 1.
 type_u2 = const
 ecrire_f = false
