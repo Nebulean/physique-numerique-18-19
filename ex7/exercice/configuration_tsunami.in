@@ -9,7 +9,7 @@ xc = 430000
 xd = 600000
 
 % Parametres numeriques :
-tfin = 900.
+tfin = 20
 L = 800000
 Npoints = 1000
 CFL = 1.

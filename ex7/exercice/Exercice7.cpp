@@ -78,8 +78,7 @@ private:
 };
 
 // Calcul de l'énergie
-double energie(vector<double> const& f, double const& dx)
-{
+double energie(vector<double> const& f, double const& dx) {
   // size_t N(f.size());
   double energie(0.0);
 
@@ -95,8 +94,7 @@ double energie(vector<double> const& f, double const& dx)
 //
 // Surcharge de l'operateur pour ecrire les elements d'un tableau
 //
-template <class T> ostream& operator<< (ostream& o, vector<T> const& v)
-{
+template <class T> ostream& operator<< (ostream& o, vector<T> const& v) {
   unsigned int len(v.size());
 
   for(unsigned int i(0); i < (len - 1); ++i)
@@ -111,8 +109,7 @@ template <class T> ostream& operator<< (ostream& o, vector<T> const& v)
 //
 // Main
 //
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
   string inputPath("configuration.in"); // Fichier d'input par defaut
   if(argc>1) // Fichier d'input specifie par l'utilisateur ("./Exercice7 config_perso.in")
     inputPath = argv[1];
@@ -217,6 +214,10 @@ int main(int argc, char* argv[])
     fnow[i] = 0.;
    }
 
+  // AJOUTÉ - On créé un vecteur des positions.
+  vector<double> x;
+  for(double dist(0.); dist<=L+.5*dx; dist+=dx)
+    x.push_back(dist);
 
   // Boucle temporelle :
   double t;
@@ -236,11 +237,11 @@ int main(int argc, char* argv[])
     for(int i(1); i<N-1; ++i)
     {
       if (schema == "A")
-	      fnext[i] = 2*(1-(*u2)(i)*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(i)*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]);
+	      fnext[i] = 2*(1-(*u2)(x[i])*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x[i])*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]);
       else if(schema == "B")
-        fnext[i] = 2*(1-(*u2)(i)*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(i)*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]) +.5*sqrt((*u2)(i))*pow(dt/dx,2)*(sqrt((*u2)(i+1))-sqrt((*u2)(i-1)))*(fnow[i+1] - fnow[i-1]);
+        fnext[i] = 2*(1-(*u2)(x[i])*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x[i])*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]) +.5*sqrt((*u2)(x[i]))*pow(dt/dx,2)*(sqrt((*u2)(x[i+1]))-sqrt((*u2)(x[i-1])))*(fnow[i+1] - fnow[i-1]);
       else if(schema=="C")
-        fnext[i] = 2*fnow[i] - fpast[i] + pow(dt/dx,2)*( (*u2)(i+1)*fnow[i+1] - 2*(*u2)(i)*fnow[i] + (*u2)(i-1)*fnow[i-1] );
+        fnext[i] = 2*fnow[i] - fpast[i] + pow(dt/dx,2)*( (*u2)(x[i+1])*fnow[i+1] - 2*(*u2)(x[i])*fnow[i] + (*u2)(x[i-1])*fnow[i-1] );
    // Note : La syntaxe pour evaluer u^2 au point x est (*u2)(x)
     }
 
