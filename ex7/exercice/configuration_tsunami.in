@@ -1,0 +1,25 @@
+% Parametres physiques :
+u = 6.
+g = 9.81
+h_ocean = 8000
+h_recif = 20
+xa = 200000
+xb = 370000
+xc = 430000
+xd = 600000
+
+% Parametres numeriques :
+tfin = 900.
+L = 800000
+Npoints = 1000
+CFL = 1.
+type_u2 = tsunami
+ecrire_f = true
+schema = C
+cb_gauche = harmonique
+cb_droit = sortie
+A = 1.
+omega = 5.
+n_stride = 10
+
+output = output
