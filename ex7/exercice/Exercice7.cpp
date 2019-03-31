@@ -219,6 +219,11 @@ int main(int argc, char* argv[]) {
   for(double dist(0.); dist<=L+.5*dx; dist+=dx)
     x.push_back(dist);
 
+//   for (auto pos:x)
+//     cout << pos << " ";
+// cout << endl;
+// cout << x.size();
+
   // Boucle temporelle :
   double t;
   int stride(0);
@@ -241,7 +246,7 @@ int main(int argc, char* argv[]) {
 	      // V1 // fnext[i] = 2*(1-(*u2)(x[i])*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x[i])*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]);
         fnext[i] = 2*fnow[i] - fpast[i] + pow(dt/dx,2)*(*u2)(x[i])*( fnow[i+1] - 2*fnow[i] + fnow[i-1] );
       else if(schema == "B")
-        fnext[i] = 2*(1-(*u2)(x[i])*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x[i])*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]) +.5*sqrt((*u2)(x[i]))*pow(dt/dx,2)*(sqrt((*u2)(x[i+1]))-sqrt((*u2)(x[i-1])))*(fnow[i+1] - fnow[i-1]);
+        fnext[i] = 2*(1-(*u2)(x[i])*pow(dt/dx,2))*fnow[i] - fpast[i] + (*u2)(x[i])*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]) +.5*sqrt((*u2)(x[i]))*pow(dt/dx,2)*(sqrt((*u2)(x[i+1]))-sqrt((*u2)(x[i-1])))*(fnow[i+1] - fnow[i-1]);
       else if(schema=="C")
         fnext[i] = 2*fnow[i] - fpast[i] + pow(dt/dx,2)*( (*u2)(x[i+1])*fnow[i+1] - 2*(*u2)(x[i])*fnow[i] + (*u2)(x[i-1])*fnow[i-1] );
         // Tentative de version alternative // fnext[i] = 2*fnow[i] - fpast[i] + pow(dt,2)*fnow[i]*( (*u2)(x[i+1]) - 4*(*u2)(x[i]) + (*u2)(x[i-1]) + 2*(sqrt((*u2)(x[i]))*sqrt((*u2)(x[i+1])) - sqrt((*u2)(x[i+1]))*sqrt((*u2)(x[i-1])) + 2*sqrt((*u2)(x[i]))*sqrt((*u2)(x[i-1])) ) )/pow(dx,2) + pow(dt,2)*(*u2)(x[i])*(fnow[i+1] - 2*fnow[i] + fnow[i-1])/pow(dx,2);
