@@ -19,3 +19,4 @@ ex7/exercice/Exercice7
 */rapport/graphs/*.pdf
 */rapport/*.fls
 */rapport/*.fdb_latexmk
+.directory
