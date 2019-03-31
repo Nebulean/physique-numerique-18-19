@@ -237,7 +237,8 @@ int main(int argc, char* argv[]) {
     for(int i(1); i<N-1; ++i)
     {
       if (schema == "A")
-	      fnext[i] = 2*(1-(*u2)(x[i])*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x[i])*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]);
+	      // V1 // fnext[i] = 2*(1-(*u2)(x[i])*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x[i])*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]);
+        fnext[i] = 2*fnow[i] - fpast[i] + pow(dt/dx,2)*(*u2)(x[i])*( fnow[i+1] - 2*fnow[i] + fnow[i-1] );
       else if(schema == "B")
         fnext[i] = 2*(1-(*u2)(x[i])*pow(dt/dx,2))*fnext[i] - fpast[i] + (*u2)(x[i])*pow(dt/dx,2)*(fnow[i+1] + fnow[i-1]) +.5*sqrt((*u2)(x[i]))*pow(dt/dx,2)*(sqrt((*u2)(x[i+1]))-sqrt((*u2)(x[i-1])))*(fnow[i+1] - fnow[i-1]);
       else if(schema=="C")

@@ -83,18 +83,56 @@
 
 %%%% ON COMMENCE A ECRIRE D'ICI
 
+%===============================================================================
+%=============================== INTRODUCTION ==================================
+%===============================================================================
 \section{Introduction}
-This report will focus on the study of the behaviour of waves in an unidimensional environment.
-These waves will be governed by equations \eqref{eq:ondes-A}, \eqref{eq:ondes-B} and \eqref{eq:ondes-C}.
+  This report will focus on the study of the behaviour of waves in an unidimensional environment.
+  These waves will be governed by equations \eqref{eq:ondes-ABC}.
 
-\begin{align}
-  \text{Equation A: }&~\frac{\partial^2f}{\partial t^2}=u^2\frac{\partial^2f}{\partial x^2}\label{eq:ondes-A}\\
-  \text{Equation B: }&~\frac{\partial^2f}{\partial t^2}=\frac{\partial}{\partial x}\bracket{u^2\frac{\partial f}{\partial x}}\label{eq:ondes-B}\\
-  \text{Equation C: }&~\frac{\partial^2f}{\partial t^2}=\frac{\partial^2}{\partial x^2}\bracket{u^2f}\label{eq:ondes-C}
-\end{align}
+  \begin{align}
+    \begin{split}
+      \text{Equation A: }&~\frac{\partial^2f}{\partial t^2}=u^2\frac{\partial^2f}{\partial x^2}\\
+      \text{Equation B: }&~\frac{\partial^2f}{\partial t^2}=\frac{\partial}{\partial x}\bracket{u^2\frac{\partial f}{\partial x}}\\
+      \text{Equation C: }&~\frac{\partial^2f}{\partial t^2}=\frac{\partial^2}{\partial x^2}\bracket{u^2f}
+    \end{split}
+    \label{eq:ondes-ABC}
+  \end{align}
 
-The domain considered is $x\in\left[0,L\right]$ with different border condition depending on the situation.
-The initial condition is given by $f(x,t=0)=0$.
+  The domain considered is $x\in\left[0,L\right]$ with different border condition depending on the situation.
+  The initial condition is given by $f(x,t=0)=0~\forall x$.
+
+
+
+
+%===============================================================================
+%=========================== IMPLEMENTATION ====================================
+%===============================================================================
+\section{Implementation}
+  \subsection{Discretization of the waves equations}
+
+  To discretize equations \eqref{eq:ondes-ABC}, an explicit 3-levels numerical method will be used.
+  This means that for any function $g(x)$ twice-differentiable, we get equation \eqref{eq:3-levels-method}.
+
+  \begin{equation}
+    \frac{\partial g}{\partial x}(x_i)\approx\frac{g(x_{i+1}) - g(x_{i-1})}{2h}~\text{ and }~\frac{\partial^2 g}{\partial x^2}(x_i)\approx\frac{g(x_{i+1}) - 2g(x_i) + g(x_{i-1})}{h^2}
+    \label{eq:3-levels-method}
+  \end{equation}
+
+  with $h=x_{i+1} - x_i$.
+  Thus, the resulting discretization of the waves equations gives equations \eqref{eq:onde-A-disc}, \eqref{eq:onde-B-disc} and \eqref{eq:onde-C-disc}.
+  Note that $f_i^n \equiv f(x_i, t_n)$ and $u_i \equiv u(x_i)$.
+
+  \begin{align}
+    \intertext{Equation A:}
+    f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2u^2_i\sqbracket{f^n_{i+1} - 2f^n_i + f^n_{i-1}}\label{eq:onde-A-disc}
+    \intertext{Equation B:}
+    %TODO : Mettre l'équation B.
+    \intertext{Equation C:}
+    f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2\sqbracket{u^2_{i+1}f^n_{i+1} - 2u^2_if^n_i + u^2_{i-1}f^n_{i-1}}\label{eq:onde-C-disc}
+  \end{align}
+
+
 
   % \newpage
   % \begin{thebibliography}{99}
