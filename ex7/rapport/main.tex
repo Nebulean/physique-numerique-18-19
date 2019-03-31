@@ -1,0 +1,104 @@
+% debut d'un fichier latex standard
+\documentclass[a4paper,12pt,twoside]{article}
+
+\usepackage{lipsum}
+\usepackage{empheq}
+
+% pour l'inclusion de figures en eps,pdf,jpg
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+% quelques symboles mathematiques en plus
+\usepackage{amsmath}
+\usepackage{amsthm} % Pour les preuves
+% le tout en langue francaise
+%\usepackage[french]{babel}
+% on peut ecrire directement les caracteres avec l'accent
+% a utiliser sur Linux/Windows
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% a utiliser sur le Mac
+%\usepackage[applemac]{inputenc}
+% pour l'inclusion de links dans le document
+\usepackage[colorlinks,bookmarks=false,linkcolor=blue,urlcolor=blue]{hyperref}
+\usepackage{siunitx}
+% pour les degrés
+\usepackage{textcomp}
+\paperheight=297mm
+\paperwidth=210mm
+
+\setlength{\textheight}{235mm}
+\setlength{\topmargin}{-1.2cm} % pour centrer la page verticalement
+%\setlength{\footskip}{5mm}
+\setlength{\textwidth}{15cm}
+\setlength{\oddsidemargin}{0.56cm}
+\setlength{\evensidemargin}{0.56cm}
+
+\pagestyle{plain}
+
+% quelques abreviations utiles
+\def \be {\begin{equation}}
+\def \ee {\end{equation}}
+\def \dd  {{\rm d}}
+
+\newcommand{\mail}[1]{{\href{mailto:#1}{#1}}}
+\newcommand{\ftplink}[1]{{\href{ftp://#1}{#1}}}
+
+\newcommand{\illabel}[1]{ ~ \refstepcounter{equation}(\theequation)\label{#1}} % Ecrit une équation dans le texte, numérotés.
+\newcommand{\mbf}[1]{\mathbf{#1}} % bold font in math
+\newcommand{\grad}[1]{\nabla#1}
+\newcommand{\Div}[1]{\nabla\cdot\mathbf{#1}}
+\newcommand{\rot}[1]{\nable\cross\mathbf{#1}}
+\newcommand{\bracket}[1]{\left(#1\right)}
+\newcommand{\sqbracket}[1]{\left[#1\right]}
+\newcommand{\lapl}[1]{\Delta#1}
+
+%
+% latex SqueletteRapport.tex      % compile la source LaTeX
+% xdvi SqueletteRapport.dvi &     % visualise le resultat
+% dvips -t a4 -o SqueletteRapport.ps SqueletteRapport % produit un PostScript
+% ps2pdf SqueletteRapport.ps      % convertit en pdf
+
+% pdflatex SqueletteRapport.pdf    % compile et produit un pdf
+% \message{================> TAILLE DE LA POLICE EN CM \printinunitsof{cm}\prntlen{\textwidth}}
+
+% ======= Le document commence ici ======
+
+\begin{document}
+% Le titre, l'auteur et la date
+\title{Wave equation in an inhomogeneous environment\\{\normalsize Normal modes and propagation of the wave of a tsunami}\\{\small Physique Numérique I}\\{\small Rapport 7}}
+\date{\today}
+\author{Delphine Martres and Damien Korber\\{\small \mail{delphine.martres@epfl.ch} and \mail{damien.korber@epfl.ch}}}
+
+\maketitle
+\tableofcontents % Table des matieres
+
+
+% Quelques options pour les espacements entre lignes, l'identation
+% des nouveaux paragraphes, et l'espacement entre paragraphes
+\baselineskip=16pt
+\parindent=15pt
+\parskip=5pt
+\newpage
+
+%%%% ON COMMENCE A ECRIRE D'ICI
+
+\section{Introduction}
+This report will focus on the study of the behaviour of waves in an unidimensional environment.
+These waves will be governed by equations \eqref{eq:ondes-A}, \eqref{eq:ondes-B} and \eqref{eq:ondes-C}.
+
+\begin{align}
+  \text{Equation A: }&~\frac{\partial^2f}{\partial t^2}=u^2\frac{\partial^2f}{\partial x^2}\label{eq:ondes-A}\\
+  \text{Equation B: }&~\frac{\partial^2f}{\partial t^2}=\frac{\partial}{\partial x}\bracket{u^2\frac{\partial f}{\partial x}}\label{eq:ondes-B}\\
+  \text{Equation C: }&~\frac{\partial^2f}{\partial t^2}=\frac{\partial^2}{\partial x^2}\bracket{u^2f}\label{eq:ondes-C}
+\end{align}
+
+The domain considered is $x\in\left[0,L\right]$ with different border condition depending on the situation.
+The initial condition is given by $f(x,t=0)=0$.
+
+  % \newpage
+  % \begin{thebibliography}{99}
+  %
+  % \end{thebibliography}
+
+\end{document}

@@ -1,5 +1,5 @@
 %% Préparation de(s) simulation(s)
-schema = "A";
+schema = "B";
 omega = 2*pi/900;
 n_stride = 100;
 Npoints = 1000;
