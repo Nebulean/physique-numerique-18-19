@@ -125,12 +125,82 @@
 
   \begin{align}
     \intertext{Equation A:}
-    f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2u^2_i\sqbracket{f^n_{i+1} - 2f^n_i + f^n_{i-1}}\label{eq:onde-A-disc}
+    \Aboxed{f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2u^2_i\sqbracket{f^n_{i+1} - 2f^n_i + f^n_{i-1}}}\label{eq:onde-A-disc}
     \intertext{Equation B:}
-    %TODO : Mettre l'équation B.
+    %TODO : Mettre l'équation B. \Aboxed{L'EQUATION ICI}\label{eq:onde-B-disc}
     \intertext{Equation C:}
-    f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2\sqbracket{u^2_{i+1}f^n_{i+1} - 2u^2_if^n_i + u^2_{i-1}f^n_{i-1}}\label{eq:onde-C-disc}
+    \Aboxed{f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2\sqbracket{u^2_{i+1}f^n_{i+1} - 2u^2_if^n_i + u^2_{i-1}f^n_{i-1}}} \label{eq:onde-C-disc}
   \end{align}
+
+  \subsection{Border conditions}
+    Multiple border conditions are given for this exercice.
+    Furthermore, both side must be separated.
+    Note that $u(x) \geq 0~\forall x$ and $f_i^n \equiv f(x_i, t_n)$ and $u_i \equiv u(x_i)$.
+
+    \subsubsection{Left border}
+      \paragraph{Fixed.}
+        The left fixed condition is simply given by $\boxed{f^{n+1}_0 = f^n_0}$.
+      \paragraph{Free.}
+      %TODO : À remplir
+      \paragraph{Harmonic.}
+      %TODO : À remplir
+      \paragraph{Exit.}
+        \begin{align}
+          \intertext{For the left exit, $f$ is given by a strictly backward wave.}
+          f(x,t) &= G(x+ut)~\forall x~\forall t
+          \intertext{Thus:}
+          \frac{\partial f}{\partial t}(x_L, t) &= uG' = u(x_L)\frac{\partial f}{\partial x}(x_L,t) \forall t
+          \intertext{By using a forward finite difference for both $x$ and $t$:}
+          \frac{f_0^{n+1} - f_0^{n}}{\Delta t} &= u_0\frac{f_1^n - f_0^n}{\Delta x}
+          \intertext{Which leads to the left exit border condition.}
+          \Aboxed{ f_0^{n+1} &= u_0\frac{\Delta t}{\Delta x}\sqbracket{f_1^n - f_0^n} + f_0^n}\label{eq:left-exit}
+        \end{align}
+
+    \subsubsection{Right border}
+      \paragraph{Fixed.}
+      The right fixed condition is simply given by $\boxed{f^{n+1}_{N} = f^n_N}$. %TODO : C'est juste ça ?
+      \paragraph{Free.}
+      %TODO : À remplir
+      \paragraph{Harmonic.}
+      %TODO : À remplir
+      \paragraph{Exit.}
+      \begin{align}
+        \intertext{For the right exit, $f$ is given by a strictly forward wave.}
+        f(x,t) &= F(x-ut)~\forall x~\forall t
+        \intertext{Thus:}
+        \frac{\partial f}{\partial t}(x_R, t) &= -uF' = -u(x_R)\frac{\partial f}{\partial x}(x_R,t) \forall t
+        \intertext{By using a forward finite difference for $t$ and a backward finite difference for $x$:}
+        \frac{f_N^{n+1} - f_N^{n}}{\Delta t} &= -u_N\frac{f_N^n - f_{N-1}^n}{\Delta x}
+        \intertext{Which leads to the right exit border condition.}
+        \Aboxed{ f_N^{n+1} &= -u_N\frac{\Delta t}{\Delta x}\sqbracket{f_N^n - f_{N-1}^n} + f_N^n}\label{eq:left-exit}
+      \end{align}
+
+    %TODO : À remplir
+
+
+  \subsection{Energy of the wave}
+    The energy of a wave over a domain $x\in\left[0, L\right]$ is given by equation \eqref{eq:energie-continue}.
+
+    \begin{equation}
+      E(t) = \int_0^L f^2(x,t)dx
+      \label{eq:energie-continue}
+    \end{equation}
+
+    An estimation of the integral of any integrable function $g$ can be found using the trapezoidal rule, which is given by equation \eqref{eq:trapeze-rule}.
+
+    \begin{equation}
+      \int_a^b g(x)dx \approx h\sum_{i=1}^N\bracket{\frac{g(x_i) + g(x_{i+1})}{2}}
+      \label{eq:trapeze-rule}
+    \end{equation}
+
+    with $h = x_{i+1} - x_i$.
+    Thus, the energy is given by equation \eqref{eq:energie-discret}.
+
+    \begin{equation}
+      \boxed{E(t) = (\Delta x)\sum_{k=0}^{N-2}\frac{f^2(x_k) + f^2(x_{k+1})}{2}}\\
+      \label{eq:energie-discret}
+    \end{equation}
+
 
 
 
