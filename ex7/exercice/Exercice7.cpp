@@ -265,7 +265,7 @@ int main(int argc, char* argv[]) {
         break;
 
       case harmonique:
-        if (pulse && omega*(t+dt) > M_PI) {
+        if (pulse && omega*(t+dt) >= M_PI) {
           fnext[0] = 0; // Pour obtenir une seule pulse
           break;
         }
@@ -288,7 +288,7 @@ int main(int argc, char* argv[]) {
         break;
 
       case harmonique:
-        if (pulse && omega*(t+dt) > M_PI) {
+        if (pulse && omega*(t+dt) >= M_PI) {
           fnext[N-1] = 0; // Pour obtenir une seule pulse
           break;
         }

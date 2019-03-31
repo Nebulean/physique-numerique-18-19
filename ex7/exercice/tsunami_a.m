@@ -1,8 +1,8 @@
 %% Préparation de(s) simulation(s)
 schema = ["A", "B", "C"];
 omega = 2*pi/900;
-n_stride = 100;
-Npoints = 1000;
+n_stride = 10;
+Npoints = 5000;
 tfin = 10000;
 pulse = "true";
 
@@ -96,7 +96,7 @@ hold on;
 set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
-plot(x, uth, '-', 'LineWidth', 1.5); % Vitesse théorique
+plot(x(1:end-1), uth, '-', 'LineWidth', 1.5); % Vitesse théorique
 for j=1:3
     plot(x1wave{j}(1:end-1), u_calc{j}, '-.', 'LineWidth', 1.5); % Vitesse expérimentale
 end
