@@ -223,6 +223,7 @@ int main(int argc, char* argv[]) {
   double t;
   int stride(0);
   int n_stride(configFile.get<int>("n_stride"));
+  bool pulse(configFile.get<bool>("pulse"));
   for(t=0.; t<tfin-.5*dt; t+=dt)
   {
     // Ecriture :
@@ -259,6 +260,10 @@ int main(int argc, char* argv[]) {
         break;
 
       case harmonique:
+        if (pulse && omega*(t+dt) > M_PI) {
+          fnext[0] = 0; // Pour obtenir une seule pulse
+          break;
+        }
         fnext[0] = A*sin(omega*(t+dt));
         break;
 
@@ -278,6 +283,10 @@ int main(int argc, char* argv[]) {
         break;
 
       case harmonique:
+        if (pulse && omega*(t+dt) > M_PI) {
+          fnext[N-1] = 0; // Pour obtenir une seule pulse
+          break;
+        }
         fnext[N-1] = A*sin(omega*(t+dt));
         break;
 

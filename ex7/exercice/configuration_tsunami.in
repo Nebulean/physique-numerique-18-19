@@ -7,6 +7,7 @@ xa = 200000
 xb = 370000
 xc = 430000
 xd = 600000
+pulse = true;
 
 % Parametres numeriques :
 tfin = 20

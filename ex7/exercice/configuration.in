@@ -7,6 +7,7 @@ xa = 0.0
 xb = 0.0
 xc = 0.0
 xd = 0.0
+pulse = false;
 
 % Parametres numeriques :
 tfin = 13.5
