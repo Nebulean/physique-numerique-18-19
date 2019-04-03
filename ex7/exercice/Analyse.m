@@ -42,7 +42,7 @@ ylabel('f(x,t) [m]')
 ht = title('t=0 s');
 ylim([min(f(:)),max(f(:))])
 for i=2:length(t)
-    pause(.01)
+    pause(.001)
     if ~ishandle(h)
         break % Arrete l'animation si la fenetre est fermee
     end
