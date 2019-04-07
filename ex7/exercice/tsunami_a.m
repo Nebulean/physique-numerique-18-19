@@ -43,13 +43,16 @@ for j=1:length(schema)
     t = dataf(:,1);
 
     x = datau(:,1);
-
+    
     % On veut suivre une unique vague, du coup, je dois trouver le maximum de
     % la première vague. On selectionne le dernier pic pour chaque instant.
     x1wave{j} = [];
     t1wave{j} = [];
     ampl{j} = [];
     xampl{j} = [];
+    tE{j} = [];
+    E{j} = [];
+    
     
     isFinish = false;
     oldMax = -1.0;
@@ -102,73 +105,15 @@ for j=1:length(schema)
                 if ~isFinish
                     x1wave{j}(i) = interpol(1, idx); 
                     t1wave{j}(i) = t(i);
+                    tE{j}(i) = dataE(i,1);
+                    E{j}(i) = dataE(i,2);
                 end
             end
         end
     end
     
-    
-    
-    
-    % Méthode 1 - maximum locaux (mode pulse et continu)
-%     xbefore = 0;
-%     for i=1:length(f(:,1))
-%         indexes = [];
-%         % On trouve les peaks à un instant
-%         [pks, indexes] = findpeaks(f(i,:));
-%         
-%         % On garde que les trois point autour du maximum afin d'interpoler.
-%         index = [indexes(end) - 1, indexes(end), indexes(end) + 1]
-% 
-% 
-%         if ~isempty(indexes)
-%             disp("Is not empty");
-%             % On check si y'a eu retour en arrière
-%             if (xbefore > x(indexes(end)))
-%                disp("Stopping for");
-%                fprintf("Current x = %f", x(indexes(end)));
-%                break;
-%             else
-%                 disp("Continuing for");
-%                 xbefore = x(indexes(end));
-%             end
-% 
-%             % On note la position à l'instant t.
-%             x1wave{j}(i) = x(indexes(end)); 
-%             t1wave{j}(i) = t(i);
-%         else
-%             disp("Is empty");
-%         end
-%     end
-
-    % Méthode 2 - maximum (mode pulse) -> Marche pas.
-%     for i=1:length(f(:,1))
-%         [M, index] = max(f(i,:));
-%         x1wave{j}(i) = x(index);
-%         t1wave{j}(i) = t(i);
-%     end
-    %u_calc{j} = diffBetweenNPoints(x1wave{j},2)./diffBetweenNPoints(t1wave{j},2);
-    %x1wave{j}(end) = [];
     u_calc{j} = diff(x1wave{j})./diff(t1wave{j});
-    
-    %u_calc{j} = diff3pts(x1wave{j},5)./diff3pts(t1wave{j},5);
     x1wave{j} = x1wave{j}(1:end-1);
-    
-    % Fix temporaire
-%     if j==2
-%        [tmp, r] = max(u_calc{2})
-%         u_calc{2}(r) = [];
-%         x1wave{2}(r) = [];
-% 
-%         u_calc{2}(r+1) = [];
-%         x1wave{2}(r+1) = [];
-% 
-%         u_calc{2}(r+2) = [];
-%         x1wave{2}(r+2) = []; 
-%         
-%         u_calc{2}(r+3) = [];
-%         x1wave{2}(r+3) = []; 
-%     end
 end
 
 
@@ -183,9 +128,7 @@ hold on;
 set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
-if length(x) ~= length(uth)
-    x = x(1:end-1);
-end
+
 plot(x, uth, '-', 'LineWidth', 1.5); % Vitesse théorique
 for j=1:length(schema)
     plot(x1wave{j}(1:end), u_calc{j}, '-.', 'LineWidth', 1.5); % Vitesse expérimentale
@@ -216,16 +159,16 @@ hold off;
 
 
 
-
+%% Figure of amplitude
 fig_f = figure;
 hold on;
 
 set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
-if length(x) ~= length(uth)
-    x = x(1:end-1);
-end
+%if length(x) ~= length(uth)
+%    x = x(1:end-1);
+%end
 %plot(x, uth, '-', 'LineWidth', 1.5); % Amplitude théorique
 for j=1:length(schema)
     plot(xampl{j}, ampl{j}, '-.', 'LineWidth', 1.5); % AMplitude expérimentale
@@ -253,6 +196,7 @@ set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
 X = linspace(0, 800000, 1000);
+
 depth = h(X);
 
 plot(X, depth, '-', 'linewidth', 2);
@@ -270,6 +214,84 @@ hold off;
 saveas(fig_h, "graphs/tsunami_depth", "epsc");
 
 
+%% Fig amp A
+fig_f_A = figure;
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+fA = (g*h(xampl{1})).^(1/4);
+
+plot(xampl{1}, (1/16.74).*fA, '-', 'linewidth', 2)
+plot(xampl{1}, ampl{1} , '-', 'linewidth', 2);
+
+legend(["$A_0\cdot h(x)^{1/4}$", "$f_{num}$"], 'location', 'southeast');
+
+xlabel("$x~[m]$");
+ylabel("$f~[m]$")
+box on;
+grid on;
+
+hold off;
+
+
+%% Fig amp B
+fig_f_B = figure;
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+fB = (g*h(xampl{2})).^(-1/4);
+
+plot(xampl{2}, (1/0.05975).*fB, '-', 'linewidth', 2)
+plot(xampl{2}, ampl{2} , '-', 'linewidth', 2);
+
+legend(["$A_0\cdot h(x)^{-1/4}$", "$f_{num}$"], 'location', 'southeast');
+
+xlabel("$x~[m]$");
+ylabel("$f~[m]$")
+box on;
+grid on;
+
+hold off;
+
+
+%% Fig amp C
+fig_f_C = figure;
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+fC = (h(xampl{3})).^(-3/4);
+
+plot(xampl{3}, (1/0.001195).*fC, '-', 'linewidth', 2)
+plot(xampl{3}, ampl{3} , '-', 'linewidth', 2);
+
+legend(["$A_0\cdot h(x)^{-3/4}$", "$f_{num}$"], 'location', 'southeast');
+
+xlabel("$x~[m]$");
+ylabel("$f~[m]$")
+box on;
+grid on;
+
+hold off;
+
+%% Fig: Energy of B
+fig_E = figure;
+hold on;
+
+plot(tE{2}, E{2}, '-', 'linewidth', 2);
+
+xlabel("$t~[s]$");
+ylabel("$E~[J]$");
+
+box on;
+grid on;
+
+hold off;
 
 %% Quelques fonctions
 function res = diff3pts(vec, order)

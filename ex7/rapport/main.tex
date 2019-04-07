@@ -242,7 +242,8 @@
       The simulation will consider a single sine wave of amplitude \SI{1}{\meter} coming from the left border, which has a period of \SI{15}{\min} and escape on the right border.\\
 
       \subsection{Verifications}
-      This first section focuses on two verifications.
+      This first section focuses on two verifications of the validity of equation A, B and C for this problem.
+      One will study the propagation speed of a wave, and the other will study the amplitude of a wave.
 
       \subsubsection{Propagation speed}
         The goal is to check if the propagation speed of the wave indeed follows equation \eqref{eq:prop-sp-tsunami}.
@@ -277,7 +278,7 @@
         \begin{figure}[h]
           \centering
           \includegraphics[width=\textwidth]{graphs/tsunami_speed.eps}
-          \caption{Comparison between the theorical value of the propagation speed, and the three equations}
+          \caption{Comparison between the theorical value of the propagation speed, and the three equations.}
           \label{fig:tsunami_speed}
         \end{figure}
 
@@ -288,9 +289,57 @@
         Regarding equation A and B, the results are similar, as both closely follow the theorical propagation speed.
         Both stabilize around the theorical value much quicker that equation C, and thus seem suitable for this problem.
 
-  % \newpage
-  % \begin{thebibliography}{99}
-  %
-  % \end{thebibliography}
+      \subsubsection{Amplitude}
+      The amplitude of a wave can be approximated using the WKB method.
+      %TODO : Mettre toute la description du WKB, les 3 solutions, ainsi que le développement pour B.
+
+      Figure \ref{fig:tsunami-amp} gives a comparison between the amplitude of a single wave and the WKB solution for each equations.
+
+      \begin{figure}[h]
+        \centering
+        \begin{subfigure}{0.45\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{graphs/tsunami_amp_A.eps}
+          \caption{Equation A using $A_0 = \num{0.0597}$}
+          \label{fig:tsunami-amp-A}
+        \end{subfigure}
+        ~
+        \begin{subfigure}{0.45\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{graphs/tsunami_amp_B.eps}
+          \caption{Equation B using $A_0 = \num{16.7364}$}
+          \label{fig:tsunami-amp-B}
+        \end{subfigure}\\
+        \centering
+        \begin{subfigure}{0.45\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{graphs/tsunami_amp_C.eps}
+          \caption{Equation C using $A_0 = \num{836.8201}$}
+          \label{fig:tsunami-amp-C}
+        \end{subfigure}
+        \caption{Verification of the WKB solution for all equations} %TODO : C'est vrai que c'est WKB ?
+        \label{fig:tsunami-amp}
+      \end{figure}
+
+      All numerical solutions follow the WKB solution for the first half.
+      But after reaching the reef, all the results differ from the WKB solution in a way that can be compared to a loss of energy.
+      %TODO : EXPLIQUER LA PROVENANCE DE CE PROBLEME.
+      %TODO : DIRE QUE C'EST PLUS LE CAS SUR LES VAGUES SUIVANTES (JOJAL)
+      Aside from this problem, the analysis of the amplitude of the wave also give informations about the validity of the equations.
+      Equation A gives a reduction of the amplitude of a wave when approaching the reefs, which is wrong physically.
+      If it was the case, tsunami would not be the same problem as it is in reality.
+      On the other hand, equation C gives a high wave, which is more that \SI{80}{\meter}.
+      As a comparison, the tsunamis of 2004 in the indian ocean, cause by a magnitude 9 undersea earthquake, had waves up to \SI{30}{\meter}. \cite{wiki:tsunami-2004}
+      Thus, either our wave was created by a much more energetic event, either equation C is unsuitable for this problem.\\
+
+      In a nutshell, the verifications of all three equation by the amplitudes and the propagation speed lead to the following conclusion: equation B is the only suitable scheme for the tsunami problem.
+
+
+  \newpage
+  \begin{thebibliography}{99}
+    \bibitem{wiki:tsunami-2004} Wikipedia contributors. (2019, April 6). 2004 Indian Ocean earthquake and tsunami. In Wikipedia, The Free Encyclopedia. Retrieved 18:57, April 7, 2019, from \url{https://en.wikipedia.org/w/index.php?title=2004_Indian_Ocean_earthquake_and_tsunami&oldid=891255016}
+
+
+  \end{thebibliography}
 
 \end{document}
