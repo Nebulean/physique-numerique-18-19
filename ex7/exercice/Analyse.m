@@ -48,4 +48,5 @@ for i=2:length(t)
     end
     set(h,'YData',f(i,:))
     set(ht,'String',sprintf('t=%0.2f s',t(i)))
+    
 end
