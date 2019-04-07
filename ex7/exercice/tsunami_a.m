@@ -1,4 +1,5 @@
-%% Préparation de(s) simulation(s)
+%% Préparation de(s) simulation(s)w
+warning('off', 'MATLAB:polyfit:RepeatedPointsOrRescale');
 schema = ["A", "B","C"];
 omega = 2*pi/900;
 n_stride = 10;
@@ -243,6 +244,34 @@ box on;
 hold off;
 
 
+
+%% Fig of width
+fig_h = figure;
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+X = linspace(0, 800000, 1000);
+depth = h(X);
+
+plot(X, depth, '-', 'linewidth', 2);
+
+box on;
+grid on;
+
+xlabel("distance $x~[m]$");
+ylabel("depth $h~[m]$");
+
+ylim([-100, 8100])
+
+hold off;
+
+saveas(fig_h, "graphs/tsunami_depth", "epsc");
+
+
+
+%% Quelques fonctions
 function res = diff3pts(vec, order)
     %res = zeros(length(vec) - 2);
 

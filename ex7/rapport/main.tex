@@ -127,7 +127,7 @@
     \intertext{Equation A:}
     \Aboxed{f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2u^2_i\sqbracket{f^n_{i+1} - 2f^n_i + f^n_{i-1}}}\label{eq:onde-A-disc}
     \intertext{Equation B:}
-    \Aboxed{f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2u^2_i\sqbracket{f^n_{i+1} - 2f^n_i + f^n_{i-1}} + \bracket{\frac{\Delta t}{\Delta x}}^2\frac{u^_i}{2}\bracket{u_{i+1}-u_{i-1}}\bracket{f^n_{i+1}-f^n_{i-1}}}\label{eq:onde-B-disc}
+    \Aboxed{f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2u^2_i\sqbracket{f^n_{i+1} - 2f^n_i + f^n_{i-1}} + \bracket{\frac{\Delta t}{\Delta x}}^2\frac{u_i}{2}\bracket{u_{i+1}-u_{i-1}}\bracket{f^n_{i+1}-f^n_{i-1}}}\label{eq:onde-B-disc}
     \intertext{Equation C:}
     \Aboxed{f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2\sqbracket{u^2_{i+1}f^n_{i+1} - 2u^2_if^n_i + u^2_{i-1}f^n_{i-1}}} \label{eq:onde-C-disc}
   \end{align}
@@ -225,11 +225,68 @@
           h_\text{reef} - \bracket{h_\text{reef} - h_\text{ocean}}\sin^2\bracket{\frac{\pi\bracket{x_c - x}}{2\bracket{x_c-x_d}}}, &x\in\sqbracket{x_c,x_d} \\
           h_\text{ocean}, &x\in\sqbracket{x_d, L}
         \end{cases}
+        \label{eq:h(x)}
       \end{align}
 
-      where $h_\text{ocean} = \SI{8000}{\m}$, $h_\text{reef}$
+      where $h_\text{ocean} = \SI{8000}{\m}$, $h_\text{reef} = \SI{20}{\meter}$, $L=\SI{800}{\kilo\meter}$, $x_a = \SI{200}{\kilo\meter}$, $x_b = \SI{370}{\kilo\meter}$, $x_c=\SI{430}{\kilo\meter}$ and $x_d=\SI{600}{\kilo\meter}$.\\
 
+      These conditions leads to figure \ref{fig:tsunami-depth}, which represents the depth $h$ of water with respect to the distance $x$.
 
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{graphs/tsunami_depth.eps}
+        \caption{Depth of water with respect to distance}
+        \label{fig:tsunami-depth}
+      \end{figure}
+
+      The simulation will consider a single sine wave of amplitude \SI{1}{\meter} coming from the left border, which has a period of \SI{15}{\min} and escape on the right border.\\
+
+      \subsection{Verifications}
+      This first section focuses on two verifications.
+
+      \subsubsection{Propagation speed}
+        The goal is to check if the propagation speed of the wave indeed follows equation \eqref{eq:prop-sp-tsunami}.
+        To achieve this, some treatment needs to be done to the signal, and the following method describes the way to identify and follow a single wave, as well as computing its propagation speed.
+        \begin{enumerate}
+          \item Find all the local maxima of the function $f(x)$ where $f$ is the amplitude and $x$ the distance, and only consider the first one.
+          This will give the location of maximum of the of first wave on the discretized system.
+          \item Now, the problem is that the maximum found before is only the one for the discretized system, and not the real maximum.
+          The real maximum is not numerically foundable, thus, it need to be approximated.
+          To do so, take the two points around the discrete maximum and the maximum, and approximate these points with a parabola.
+          The real maximum can be approximated by the maximum of the parabola.
+          Save the $x$ position of the maximum, and the current time.
+          \item Finally, we need to detect the moment when the wave reaches the end of the domain.
+          To do so, consider the three last points of the domain.
+          Find the best line that fits these points, and consider the slope of linear regression.
+          When the slope is null, no movements is detected.
+          When it is negative, a wave is starting its exit.
+          When it is positive, a wave is more that half out of the domain.
+          Thus, the measurements on the first wave need to be stopped when the slope gets positive.
+          \item To compute the value of the propagation speed, simply consider a finite difference method to approximate $u=\dot{x}$.
+          Thus, the speed is given by equation \eqref{eq:DFM-u}.
+        \end{enumerate}
+
+        \begin{equation}
+          u=\frac{dx}{dt}\approx\frac{\Delta x}{\Delta t}=\frac{x_{i+1} - x_i}{t_{i+1} - t_i}
+          \label{eq:DFM-u}
+        \end{equation}
+
+        This process lead to figure \ref{fig:tsunami_speed}, which gives a comparison between the theorical propagation speed of a wave, and the three equations considered.
+        Note that four points were removed, as the clearly came from numerical glitches.
+
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=\textwidth]{graphs/tsunami_speed.eps}
+          \caption{Comparison between the theorical value of the propagation speed, and the three equations}
+          \label{fig:tsunami_speed}
+        \end{figure}
+
+        All equations tends to follow the theorical propagation speed, but they are different from each other.
+        Equation C seems to be the worse equation to consider.
+        It follows the global trend, but when the depth of water changes, the propagation speed directly unsync from the theorical value, before slowly stabilizing around it.
+        This unstability makes it unsuitable for this problem.
+        Regarding equation A and B, the results are similar, as both closely follow the theorical propagation speed.
+        Both stabilize around the theorical value much quicker that equation C, and thus seem suitable for this problem.
 
   % \newpage
   % \begin{thebibliography}{99}
