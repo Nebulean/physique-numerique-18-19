@@ -14,14 +14,14 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice7'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-low=10;
-high=100;
-nsimul=40;
+low=1;
+high=4;
+nsimul=100;
 
-Npoints = logspace(1,3, nsimul);
+omega = linspace(low,high, nsimul);
 
-paramstr = 'Npoints'; % Nom du parametre a scanner
-param = Npoints; % Valeurs du parametre a scanner
+paramstr = 'omega'; % Nom du parametre a scanner
+param = omega; % Valeurs du parametre a scanner
 
 %% Simulations %%
 %%%%%%%%%%%%%%%%%
@@ -30,48 +30,31 @@ output = cell(1, nsimul); % Tableau de cellules contenant le nom des fichiers de
 for i = 1:nsimul
     output{i} = [paramstr, '=', num2str(param(i))];
     % Execution du programme en lui envoyant la valeur a scanner en argument
-    cmd = sprintf('%s%s %s %s=%.15g cb_droit=sortie tfin=2. output=%s', repertoire, executable, input, paramstr, param(i), output{i});
+    cmd = sprintf('%s%s %s %s=%.15g cb_gauche=harmonique cb_droit=fixe tfin=400 ecrire_f=false output=%s', repertoire, executable, input, paramstr, param(i), output{i});
     disp(cmd);
     system(cmd);
 end
 
 %% Analyse %%
 %%%%%%%%%%%%%
-omega=5.;
-tp=1.5;
-xp=5.;
-L=20.;
-u=6.;
-
-
-f=zeros(1,nsimul);
-f_th=-sin((omega/u)*xp-omega*tp);
+maxE=zeros(1,nsimul);
 time=zeros(1,nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
-    if(strcmp(paramstr,'Npoints'))
-        dataf = load([output{i} '_f.out']);
-        datau = load([output{i} '_u.out']);
-        time = dataf(:,1);
-        pos = datau(:,1);
-%         [T,X]=meshgrid(time,pos);
-        func = dataf(:,2:end)
-%         [diff,tid] = min(abs(time-tp));
+    if(strcmp(paramstr,'omega'))
+        data = load([output{i} '_E.out']);
+        time = data(:,1);
+        E = data(:,2);
         
-%         dx=L/(Npoints(i)-1);
-%         xid=round(xp/dx)
+        maxE(i)=max(E);
         
-%         f(i)=griddata(pos,time,func,xp,tp,'cubic')
-        f(i)=interp2(pos,time,func,xp,tp,'spline')
     end
 end
-
-err = abs(f-f_th);
 
 %% Figures %%
 %%%%%%%%%%%%%
 
 
-if(strcmp(paramstr,'Npoints'))
+if(strcmp(paramstr,'omega'))
     f1=figure;
     
     set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
@@ -82,17 +65,17 @@ if(strcmp(paramstr,'Npoints'))
     set(gca, 'LineWidth',1.5);
     
     hold on
-    plot(Npoints,err,'k+');
-%     [fit, slope] = poly_approx(1./Npoints, err, 2, 2, true);
+    plot(omega,maxE);
+%     [fit, slope] = poly_approx(N1, err, 1, 2, true);
 %     plot(fit(:,1), fit(:,2), '-');
     %fit = 10.^fit;
-    set(gca, 'YScale', 'log');
-    set(gca, 'XScale', 'log');
+%     set(gca, 'YScale', 'log');
+%     set(gca, 'XScale', 'log');
     %poly_approx(dt, Tp, 1, 2, true);
 %     [P,slope]=poly_approx(dt, Tp, 1, 2);
 %     plot(P(1,:),P(2,:));
-    xlabel('$N$')
-    ylabel('$|f-f_{th}|$ [m]')
+    xlabel('$omega$')
+    ylabel('$|maxE|$ [J]')
 % 	legend(["Data", "slope ="+num2str(slope)]);
     box on;
     grid on
