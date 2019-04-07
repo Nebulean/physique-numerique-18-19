@@ -127,7 +127,7 @@
     \intertext{Equation A:}
     \Aboxed{f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2u^2_i\sqbracket{f^n_{i+1} - 2f^n_i + f^n_{i-1}}}\label{eq:onde-A-disc}
     \intertext{Equation B:}
-    \Aboxed{f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2u^2_i\sqbracket{f^n_{i+1} - 2f^n_i + f^n_{i-1}} + \bracket{\frac{\Delta t}{\Delta x}}^2\frac{u_i}{2}\bracket{u_{i+1}-u_{i-1}}\bracket{f^n_{i+1}-f^n_{i-1}}}\label{eq:onde-B-disc}
+    \Aboxed{f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2u^2_i\sqbracket{f^n_{i+1} - 2f^n_i + f^n_{i-1}} + \bracket{\frac{\Delta t}{\Delta x}}^2\frac{u_i}{2}(u_{i+1}-u_{i-1})(f^n_{i+1}-f^n_{i-1})}\label{eq:onde-B-disc}
     \intertext{Equation C:}
     \Aboxed{f^{n+1}_i &= 2f^n_i - f^{n-1}_i + \bracket{\frac{\Delta t}{\Delta x}}^2\sqbracket{u^2_{i+1}f^n_{i+1} - 2u^2_if^n_i + u^2_{i-1}f^n_{i-1}}} \label{eq:onde-C-disc}
   \end{align}
