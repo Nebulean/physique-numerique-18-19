@@ -201,6 +201,33 @@
       \label{eq:energie-discret}
     \end{equation}
 
+    \section{Constant propagation speed}
+    %TODO : À remplir
+
+    \section{Tsunami}
+      This section is an application of the initial problem to a tsunami.
+      This time, the propagation speed is not kept constant.
+      When the depth of water is low, the propagation speed of a wave can be approximated by equation \eqref{eq:prop-sp-tsunami}.
+
+      \begin{equation}
+        u\bracket{x} = \sqrt{gh\bracket{x}}
+        \label{eq:prop-sp-tsunami}
+      \end{equation}
+
+      where $g=\SI{9.81}{\meter\per\square\second}$ and $h\bracket{x}$ is the depth of water, given by equation \eqref{eq:h(x)}
+
+      \begin{align}
+        h(x)=
+        \begin{cases}
+          h_\text{ocean}, &x\in\sqbracket{0,x_a} \\
+          h_\text{ocean} + \bracket{h_\text{reef} - h_\text{ocean}}\sin^2\bracket{\frac{\pi\bracket{x-x_a}}{2\bracket{x_b-x_a}}}, &x\in\sqbracket{x_a,x_b} \\
+          h_\text{reef}, &x\in\sqbracket{x_b,x_c} \\
+          h_\text{reef} - \bracket{h_\text{reef} - h_\text{ocean}}\sin^2\bracket{\frac{\pi\bracket{x_c - x}}{2\bracket{x_c-x_d}}}, &x\in\sqbracket{x_c,x_d} \\
+          h_\text{ocean}, &x\in\sqbracket{x_d, L}
+        \end{cases}
+      \end{align}
+
+      where $h_\text{ocean} = \SI{8000}{\m}$, $h_\text{reef}$
 
 
 
