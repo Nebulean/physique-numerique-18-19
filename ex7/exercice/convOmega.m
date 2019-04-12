@@ -14,9 +14,9 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice7'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-low=1;
-high=4;
-nsimul=100;
+low=0;
+high=8;
+nsimul=500;
 
 omega = linspace(low,high, nsimul);
 
@@ -30,13 +30,16 @@ output = cell(1, nsimul); % Tableau de cellules contenant le nom des fichiers de
 for i = 1:nsimul
     output{i} = [paramstr, '=', num2str(param(i))];
     % Execution du programme en lui envoyant la valeur a scanner en argument
-    cmd = sprintf('%s%s %s %s=%.15g cb_gauche=harmonique cb_droit=fixe tfin=400 ecrire_f=false output=%s', repertoire, executable, input, paramstr, param(i), output{i});
+    cmd = sprintf('%s%s %s %s=%.15g cb_gauche=harmonique cb_droit=fixe tfin=400 n_stride=10 ecrire_f=false output=%s', repertoire, executable, input, paramstr, param(i), output{i});
     disp(cmd);
     system(cmd);
 end
 
 %% Analyse %%
 %%%%%%%%%%%%%
+u = 6.
+L = 20.
+
 maxE=zeros(1,nsimul);
 time=zeros(1,nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
@@ -53,6 +56,8 @@ end
 %% Figures %%
 %%%%%%%%%%%%%
 
+u = 6.
+L = 20.
 
 if(strcmp(paramstr,'omega'))
     f1=figure;
@@ -66,14 +71,12 @@ if(strcmp(paramstr,'omega'))
     
     hold on
     plot(omega,maxE);
-%     [fit, slope] = poly_approx(N1, err, 1, 2, true);
-%     plot(fit(:,1), fit(:,2), '-');
-    %fit = 10.^fit;
-%     set(gca, 'YScale', 'log');
-%     set(gca, 'XScale', 'log');
-    %poly_approx(dt, Tp, 1, 2, true);
-%     [P,slope]=poly_approx(dt, Tp, 1, 2);
-%     plot(P(1,:),P(2,:));
+
+    for i=1:8
+        omega0=u/L*i*pi;
+        line([omega0 omega0],[0 15e4], 'color', 'red');
+    end
+    
     xlabel('$omega$')
     ylabel('$|maxE|$ [J]')
 % 	legend(["Data", "slope ="+num2str(slope)]);
