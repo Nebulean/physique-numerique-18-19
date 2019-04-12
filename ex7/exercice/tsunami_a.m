@@ -201,6 +201,21 @@ depth = h(X);
 
 plot(X, depth, '-', 'linewidth', 2);
 
+% xa = 200000;
+% xb = 370000;
+% xc = 430000;
+% xd = 600000;
+
+line([200000 200000], [-100, 8100], 'linestyle', '-.', 'color', 'black', 'linewidth', 1.5);
+line([370000 370000], [-100, 8100], 'linestyle', '-.', 'color', 'black', 'linewidth', 1.5);
+line([430000 430000], [-100, 8100], 'linestyle', '-.', 'color', 'black', 'linewidth', 1.5);
+line([600000 600000], [-100, 8100], 'linestyle', '-.', 'color', 'black', 'linewidth', 1.5);
+
+text(200000-23500, 8450, '$x_a$', 'fontsize', 25);
+text(370000-23500, 8450, '$x_b$', 'fontsize', 25);
+text(430000-23500, 8450, '$x_c$', 'fontsize', 25);
+text(600000-23500, 8450, '$x_d$', 'fontsize', 25);
+
 box on;
 grid on;
 
