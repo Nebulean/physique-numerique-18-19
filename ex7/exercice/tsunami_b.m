@@ -4,10 +4,11 @@ schema = ["B"];
 omega = 2*pi/900;
 n_stride = 10;
 Npoints = 1000;
-tfin = 10000;
+tfin = 15000;
 pulse = "true";
-xa = 100;%Défault: 200000 
-
+%Différents choix de xa.
+%xa = 100;
+xa = 365000;
 for i=1:length(schema)
     param(i) = sprintf("schema=%s n_stride=%i Npoints=%i tfin=%i omega=%f pulse=%s xa=%i", schema(i), n_stride, Npoints, tfin, omega, pulse, xa);
     output(i) = sprintf("tsunami_a_%s", schema(i));
@@ -132,59 +133,18 @@ set(gca, 'LineWidth',1.5);
 
 plot(x, uth, '-', 'LineWidth', 1.5); % Vitesse théorique
 for j=1:length(schema)
-    plot(x1wave{j}(1:end), u_calc{j}, '-.', 'LineWidth', 1.5); % Vitesse expérimentale
+    plot(x1wave{j}(1:end), u_calc{j}, '-', 'LineWidth', 1.5); % Vitesse expérimentale
 end
-
-% Just an animation to find a bug
-% p=plot(x1wave{2}(1), u_calc{j}(1), 'x');
-% for i=2:length(x1wave{2})-1
-%    set(p,'XData', x1wave{2}(1:i), 'YData', u_calc{2}(1:i));
-%    pause(.1)
-% end
 
 xlabel("$x~[m]$");
 ylabel("$u~[m/s]$");
 
-legend(["th", "A", "B", "C"]);
-
-%plot(x, f(indexes(end),:))
-% plot(x(indexes), f(end, indexes),'o')
+legend(["th", "B"]);
 
 grid on;
 box on;
 
 hold off;
-
-
-
-
-
-
-
-%% Fig of width
-fig_h = figure;
-hold on;
-
-set(gca, 'fontsize', 25);
-set(gca, 'LineWidth',1.5);
-
-X = linspace(0, 800000, 1000);
-
-depth = h(X, xa);
-
-plot(X, depth, '-', 'linewidth', 2);
-
-box on;
-grid on;
-
-xlabel("distance $x~[m]$");
-ylabel("depth $h~[m]$");
-
-ylim([-100, 8100])
-
-hold off;
-
-saveas(fig_h, "graphs/tsunami_depth", "epsc");
 
 
 %% Fig amp B
@@ -196,27 +156,17 @@ set(gca, 'LineWidth',1.5);
 
 fA = (g*h(xampl{1}, xa)).^(-1/4);
 
-plot(xampl{1}, (1/16.74).*fA, '-', 'linewidth', 2)
+% Choix de la constante en fonction de l'expérience:
+%A0 = 1/0.05975; % Pour xa = 100
+%A0 = 1/0.05975; % Pour xa = 250000
+A0 = 1/0.05975; % Pour xa = 300000
+plot(xampl{1}, A0.*fA, '-', 'linewidth', 2)
 plot(xampl{1}, ampl{1} , '-', 'linewidth', 2);
 
 legend(["$A_0\cdot h(x)^{-1/4}$", "$f_{num}$"], 'location', 'southeast');
 
 xlabel("$x~[m]$");
-ylabel("$f~[m]$")
-box on;
-grid on;
-
-hold off;
-
-%% Fig: Energy of B
-fig_E = figure;
-hold on;
-
-plot(tE{1}, E{1}, '-', 'linewidth', 2);
-
-xlabel("$t~[s]$");
-ylabel("$E~[J]$");
-
+ylabel("$f~[m]$");
 box on;
 grid on;
 
