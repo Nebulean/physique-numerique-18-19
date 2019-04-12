@@ -1,14 +1,15 @@
 %% Préparation de(s) simulation(s)w
 warning('off', 'MATLAB:polyfit:RepeatedPointsOrRescale');
-schema = ["A", "B","C"];
+schema = ["B"];
 omega = 2*pi/900;
 n_stride = 10;
 Npoints = 1000;
 tfin = 10000;
 pulse = "true";
+xa = 100;%Défault: 200000 
 
 for i=1:length(schema)
-    param(i) = sprintf("schema=%s n_stride=%i Npoints=%i tfin=%i omega=%f pulse=%s", schema(i), n_stride, Npoints, tfin, omega, pulse);
+    param(i) = sprintf("schema=%s n_stride=%i Npoints=%i tfin=%i omega=%f pulse=%s xa=%i", schema(i), n_stride, Npoints, tfin, omega, pulse, xa);
     output(i) = sprintf("tsunami_a_%s", schema(i));
 end
 
@@ -23,7 +24,7 @@ set(groot, 'defaultAxesFontSize', 18);
 for i=1:length(schema)
     cmd = sprintf("./Exercice7 configuration_tsunami.in output=%s %s", output(i), param(i));
     disp(cmd);
-    %system(cmd);
+    system(cmd);
 end
 
 x1wave = {};
@@ -119,7 +120,7 @@ end
 
 % On créé la valeur théorique
 g=9.81;
-uth = sqrt(g*h(x));
+uth = sqrt(g*h(x, xa));
 
 %% On fait des graphes
 fig_u=figure
@@ -159,34 +160,6 @@ hold off;
 
 
 
-%% Figure of amplitude
-fig_f = figure;
-hold on;
-
-set(gca, 'fontsize', 25);
-set(gca, 'LineWidth',1.5);
-
-%if length(x) ~= length(uth)
-%    x = x(1:end-1);
-%end
-%plot(x, uth, '-', 'LineWidth', 1.5); % Amplitude théorique
-for j=1:length(schema)
-    plot(xampl{j}, ampl{j}, '-.', 'LineWidth', 1.5); % AMplitude expérimentale
-end
-
-zoomOfPlot(fig_f, 0.2, 0.6, 0.25, 0.25, [1.5e5, 5.9999e5] , [0.0001, 4.5])
-
-xlabel("$x~[m]$");
-ylabel("$f~[m]$");
-
-legend(["A", "B", "C"]);
-
-grid on;
-box on;
-
-hold off;
-
-
 
 %% Fig of width
 fig_h = figure;
@@ -197,7 +170,7 @@ set(gca, 'LineWidth',1.5);
 
 X = linspace(0, 800000, 1000);
 
-depth = h(X);
+depth = h(X, xa);
 
 plot(X, depth, '-', 'linewidth', 2);
 
@@ -214,28 +187,6 @@ hold off;
 saveas(fig_h, "graphs/tsunami_depth", "epsc");
 
 
-%% Fig amp A
-fig_f_A = figure;
-hold on;
-
-set(gca, 'fontsize', 25);
-set(gca, 'LineWidth',1.5);
-
-fA = (g*h(xampl{1})).^(1/4);
-
-plot(xampl{1}, (1/16.74).*fA, '-', 'linewidth', 2)
-plot(xampl{1}, ampl{1} , '-', 'linewidth', 2);
-
-legend(["$A_0\cdot h(x)^{1/4}$", "$f_{num}$"], 'location', 'southeast');
-
-xlabel("$x~[m]$");
-ylabel("$f~[m]$")
-box on;
-grid on;
-
-hold off;
-
-
 %% Fig amp B
 fig_f_B = figure;
 hold on;
@@ -243,34 +194,12 @@ hold on;
 set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
-fB = (g*h(xampl{2})).^(-1/4);
+fA = (g*h(xampl{1}, xa)).^(-1/4);
 
-plot(xampl{2}, (1/0.05975).*fB, '-', 'linewidth', 2)
-plot(xampl{2}, ampl{2} , '-', 'linewidth', 2);
+plot(xampl{1}, (1/16.74).*fA, '-', 'linewidth', 2)
+plot(xampl{1}, ampl{1} , '-', 'linewidth', 2);
 
 legend(["$A_0\cdot h(x)^{-1/4}$", "$f_{num}$"], 'location', 'southeast');
-
-xlabel("$x~[m]$");
-ylabel("$f~[m]$")
-box on;
-grid on;
-
-hold off;
-
-
-%% Fig amp C
-fig_f_C = figure;
-hold on;
-
-set(gca, 'fontsize', 25);
-set(gca, 'LineWidth',1.5);
-
-fC = (h(xampl{3})).^(-3/4);
-
-plot(xampl{3}, (1/0.001195).*fC, '-', 'linewidth', 2)
-plot(xampl{3}, ampl{3} , '-', 'linewidth', 2);
-
-legend(["$A_0\cdot h(x)^{-3/4}$", "$f_{num}$"], 'location', 'southeast');
 
 xlabel("$x~[m]$");
 ylabel("$f~[m]$")
@@ -283,7 +212,7 @@ hold off;
 fig_E = figure;
 hold on;
 
-plot(tE{2}, E{2}, '-', 'linewidth', 2);
+plot(tE{1}, E{1}, '-', 'linewidth', 2);
 
 xlabel("$t~[s]$");
 ylabel("$E~[J]$");
@@ -355,8 +284,7 @@ function res = ifIndexExists(vec, index)
     end
 end
 
-function res = h(x)
-    xa = 200000;
+function res = h(x, xa)
     xb = 370000;
     xc = 430000;
     xd = 600000;
