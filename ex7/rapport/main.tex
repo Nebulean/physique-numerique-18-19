@@ -11,6 +11,7 @@
 % quelques symboles mathematiques en plus
 \usepackage{amsmath}
 \usepackage{amsthm} % Pour les preuves
+\usepackage{cancel} % Pour barrer des trucs en mode math
 % le tout en langue francaise
 %\usepackage[french]{babel}
 % on peut ecrire directement les caracteres avec l'accent
@@ -244,7 +245,7 @@
     \caption{Illustration of the border reflection for a the free right border condition}
     \label{fig:ex1lib}
     \end{figure}
-    
+
     \begin{figure}[h!]
     \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1fsortie.eps}
@@ -262,7 +263,7 @@
     \caption{Illustration of the border reflection for a the exit right border condition}
     \label{fig:ex1sor}
     \end{figure}
-    
+
     \section{Tsunami}
       This section is an application of the initial problem to a tsunami.
       This time, the propagation speed is not kept constant.
@@ -471,6 +472,46 @@
 
       %TODO : Pour la suite, mettre 2 à 4 graphes en duo contenant: amplitudes et vitesse de propagation, avec comparaison WKB.
       %TODO : Utiliser pour montrer
+
+\section{optional}
+  \subsection{WKB analysis}
+    This section give the WKB analysis for each equations.
+
+    \subsubsection{Equation B}
+      \begin{align*}
+        \intertext{Let f(x,t) be defined by $f(x,t) = \hat{x}e^{-i\omega t}$.}
+        \intertext{Using equation B and the definition of $f$:}
+        \frac{\partial^2 f}{\partial t^2} &= \frac{\partial}{\partial x}\bracket{u^2\frac{\partial f}{\partial x}} \\
+        -\omega^2\hat{f}\cancel{e^{-i\omega t}} &= \frac{\partial}{\partial x}\sqbracket{u^2\frac{\partial}{\partial x}\bracket{\hat{f}\cancel{e^{-i\omega t}}}}\\
+        \Rightarrow -\omega^2\hat{f} &= \frac{\partial}{\partial x}\sqbracket{u^2\frac{\partial}{\partial x}\hat{f}}
+        \intertext{Let $\hat{f}(x) = A(x)e^{iS(x)}$ be an ansatz, where $A(x)$ slowly varies, and $S(x)$ quickly varies. Thus:}
+        -\omega^2 Ae^{iS} = \frac{\partial}{\partial x}\sqbracket{u^2\frac{\partial}{\partial x}\bracket{Ae^{iS}}} &= \frac{\partial}{\partial x}\sqbracket{u^2\bracket{A'e^{iS} + AiS'e^{iS}}}\\
+        = \underbrace{2uu'}_{\bracket{u^2}'}\sqbracket{A'e^{iS} + Ais'e^{iS}} &+ u^2\sqbracket{A''e^{iS} + A'S'ie^{iS} + A'S'ie^{iS} + AS''ie^{iS} + AS'^2e^{iS}}\\
+        \intertext{Now, the elements need to be grouped by "variation order". This variation order $n$ is defined by $\epsilon^n$, and $n$ increases by $1$ each time a derivation occures. Also, note that $\epsilon$ works the same as any real number, which means $\epsilon^n\cdot\epsilon^m = \epsilon^{nm}$. Thus, by hypothesis, let $A(x)\sim\epsilon^0$ and $S'(x)\sim\epsilon^1$. This leads to:}
+        \underbrace{-\omega^2A}_{\epsilon^0} = \underbrace{-(S')^2u^2A}_{\epsilon^0} &+ \underbrace{i\bracket{2u^2A'S'+u^2AS''+(u^2)'AS'}}_{\epsilon^1} + \underbrace{u^2A''+(u^2)'A'}_{\epsilon^2}\\
+        \intertext{By  equalizing the variation order, three equations are obtained.}
+        \intertext{From $\epsilon^0$ and by defining $k(x) = \frac{dS}{dx}$, which is the local wave number:}
+        \cancel{-}\omega^2\cancel{A} &= \cancel{-}(S')^2u^2\cancel{A} \Rightarrow \boxed{S'(x)=k(x)=\frac{\omega}{u(x)}}\\
+        \intertext{From $\epsilon^1$:}
+        2u^2A'S'+u^2AS''+(u^2)'AS' &= 0\\
+        2u^{\cancel{2}}A'\frac{\cancel{\omega}}{\cancel{u}}+u^2A\bracket{\frac{\cancel{\omega}}{u}}'+(u^2)'A\frac{\cancel{\omega}}{u} &= 0\\
+        2uA' + \bracket{u^{\cancel{2}}\frac{1}{\cancel{u}}}'A &= 0 \Rightarrow \boxed{2uA' + u'A = 0}\\
+        \intertext{This differential equation can be solved. Suppose $A\neq0$ and $u\neq0~\forall x$.}
+        2uA' &= - u'A~\Leftrightarrow~\frac{A'}{A} = -\frac{u'}{2u}\\
+        \Leftrightarrow~\bracket{\log A}' &= -\frac{1}{2}\bracket{\log u}'~\Leftrightarrow~\log A+\frac{1}{2}\log u = C\text{, where $C$ is a constant.}\\
+        \intertext{Now, apply $\exp(\cdot)$ on both sides}
+        A\sqrt{u} = e^C &:= A_0\\
+        \intertext{This leads to the result, equation \eqref{eq:WKB-B}.}
+      \end{align*}
+
+      \begin{equation}
+        \boxed{A=\frac{A_0}{\sqrt{u}}}
+        \label{eq:WKB-B}
+      \end{equation}
+
+
+
+
 
 
   \newpage
