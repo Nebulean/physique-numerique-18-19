@@ -142,8 +142,10 @@
       \paragraph{Fixed.}
         The left fixed condition is simply given by $\boxed{f^{n+1}_0 = f^n_0}$.
       \paragraph{Free.}
+      \lipsum[1] %TODO : Virer quand y'a le texte. C'est pour mettre de la structure.
       %TODO : À remplir
       \paragraph{Harmonic.}
+      \lipsum[1] %TODO : Virer quand y'a le texte. C'est pour mettre de la structure.
       %TODO : À remplir
       \paragraph{Exit.}
         \begin{align}
@@ -161,8 +163,10 @@
       \paragraph{Fixed.}
       The right fixed condition is simply given by $\boxed{f^{n+1}_{N} = f^n_N}$. %TODO : C'est juste ça ?
       \paragraph{Free.}
+      \lipsum[1] %TODO : Virer quand y'a le texte. C'est pour mettre de la structure.
       %TODO : À remplir
       \paragraph{Harmonic.}
+      \lipsum[1] %TODO : Virer quand y'a le texte. C'est pour mettre de la structure.
       %TODO : À remplir
       \paragraph{Exit.}
       \begin{align}
@@ -226,7 +230,7 @@
     \label{fig:ex1fix}
     \end{figure}
 
-
+    \lipsum[1-2] %TODO : Virer quand y'a le texte. C'est pour mettre de la structure.
 
     \begin{figure}[h!]
     \begin{subfigure}{0.5\textwidth}
@@ -246,6 +250,8 @@
     \label{fig:ex1lib}
     \end{figure}
 
+    \lipsum[1-2] %TODO : Virer quand y'a le texte. C'est pour mettre de la structure.
+
     \begin{figure}[h!]
     \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1fsortie.eps}
@@ -263,6 +269,8 @@
     \caption{Illustration of the border reflection for a the exit right border condition}
     \label{fig:ex1sor}
     \end{figure}
+
+    \lipsum[1-2] %TODO : Virer quand y'a le texte. C'est pour mettre de la structure.
 
     \section{Tsunami}
       This section is an application of the initial problem to a tsunami.
@@ -299,26 +307,28 @@
         \label{fig:tsunami-depth}
       \end{figure}
 
-      The simulation will consider a single sine wave of amplitude \SI{1}{\meter} coming from the left border, which has a period of \SI{15}{\min} and escape on the right border.\\
+      The simulation will consider a single sine wave of initial amplitude \SI{1}{\meter} coming from the left border, which has a period of \SI{15}{\min} and escapes on the right border.\\
 
-      \subsection{Verifications}
-      This first section focuses on two verifications of the validity of equation A, B and C for this problem.
-      One will study the propagation speed of a wave, and the other will study the amplitude of a wave.
+      Note that, on this section, the methods used to measure propagations speeds and amplitudes are not perfect and induces glitches in the resulting graphes.
+      Thus, to improve their readability, the glitchy points were removed, as they were not useful for the study and not related to the problem.\\
+
+      \subsection{Verifications} %TODO : Le titre est pourri
+      First, the validity of all three equations will be studied through the analysis of the propagation speed of the wave, and then its amplitude.
 
       \subsubsection{Propagation speed}
         The goal is to check if the propagation speed of the wave indeed follows equation \eqref{eq:prop-sp-tsunami}.
         To achieve this, some treatment needs to be done to the signal, and the following method describes the way to identify and follow a single wave, as well as computing its propagation speed.
         \begin{enumerate}
           \item Find all the local maxima of the function $f(x)$ where $f$ is the amplitude and $x$ the distance, and only consider the first one.
-          This will give the location of maximum of the of first wave on the discretized system.
-          \item Now, the problem is that the maximum found before is only the one for the discretized system, and not the real maximum.
-          The real maximum is not numerically foundable, thus, it need to be approximated.
-          To do so, take the two points around the discrete maximum and the maximum, and approximate these points with a parabola.
+          This will give the location of maximum of the first wave on the discretized system.
+          \item Now, the problem is that the found maximum is only the one for the discretized system, and not the real maximum.
+          The real maximum is not numerically foundable, thus, it needs to be approximated, through an interpolation.
+          To do so, take the two points around the discrete maximum, and fit them with a parabola (2nd order interpolation).
           The real maximum can be approximated by the maximum of the parabola.
           Save the $x$ position of the maximum, and the current time.
           \item Finally, we need to detect the moment when the wave reaches the end of the domain.
           To do so, consider the three last points of the domain.
-          Find the best line that fits these points, and consider the slope of linear regression.
+          Find the best line that fits these points, and consider its slope.
           When the slope is null, no movements is detected.
           When it is negative, a wave is starting its exit.
           When it is positive, a wave is more that half out of the domain.
@@ -333,7 +343,6 @@
         \end{equation}
 
         This process lead to figure \ref{fig:tsunami_speed}, which gives a comparison between the theorical propagation speed of a wave, and the three equations considered.
-        Note that four points were removed, as the clearly came from numerical glitches.
 
         \begin{figure}[h]
           \centering
@@ -345,14 +354,13 @@
         All equations tends to follow the theorical propagation speed, but they are different from each other.
         Indeed, equation C seems to be the worst of them.
         It follows the global trend, but when the depth of water changes, the propagation speed moves further apart from the theorical value, before slowly stabilizing around it.
-        % This unstability makes it unsuitable for this problem. %TODO : Je sais pas si on peut dire que c'est inutilisable.
         Regarding equation A and B, the results are similar, as both closely follow the theorical propagation speed.
-        % Both stabilize around the theorical value much quicker that equation C, and thus seem suitable for this problem. %TODO : Je sais pas si on peut dire que c'est plus utilisable.
-        %TODO : Faut peut-être dire un truc en plus, je sais pas.
+        Also, it can be observed that, before reaching the reef, all equations give an oscillation solution.
+        When leaving the reef, all equation are smoother that before. %TODO : Ca vient d'où ça ? Une idée ? Faut dire un truc sinon ça sert à rien.
 
       \subsubsection{Amplitude}
-      The amplitude of a wave can be approximated using the WKB method.
-      %TODO : Mettre toute la description du WKB, les 3 solutions, ainsi que le développement pour B.
+      The analysis of the amplitude allows to check if the numerical solution indeed follows the approximation given by the WKB method.
+      This method is described in depth in section \ref{sec:WKB}, and only the final solutions will be used here.
 
       Figure \ref{fig:tsunami-amp} gives a comparison between the amplitude of a single wave and the WKB solution for each equations.
 
@@ -384,98 +392,78 @@
 
       All numerical solutions follow the WKB solution for the first half.
       But after reaching the reef, all the results differ from the WKB solution in a way that can be compared to a loss of energy.
-      %TODO : EXPLIQUER LA PROVENANCE DE CE PROBLEME.
-      %TODO : DIRE QUE C'EST PLUS LE CAS SUR LES VAGUES SUIVANTES (JOJAL)
-      %TODO : Faire le lien avec (b), WKB est une approximation, donc peut-être qu'elle ne prend pas en compte ça.
+      While on the reef, the amplitude of the wave slowly reduces.
+      This reduction leads to a gap between the numerical solution and the WKB solution when the wave leaves the reef.\\
+
+      The problem may come from the WKB approximation, which makes multiple hypothesis that may not be entirely verified in the case of the tsunami.
+      This method considers a general solution of the problem given by $f(x,t)=e^{-i\omega t}\hat{f}(x)$ with $\hat{f}(x) = A(x)e^{iS(x)}$.
+      Two main hypothesis are therefore considered: $A(x)$ (amplitude) varies slowly, and $S(x)$ (phase) varies quickly.
+      When the wave reaches the beginning of the ascent, the amplitude suddenly changes, following the curvature of the depth of the ocean.
+      Thus, the variation of the amplitude is not as small as expected, which leads to the slight difference between the WKB solution and the numerical solution.
+      A further analysis for the WKB solution will be done in section \ref{sec:var-xa}.
+
+      %TODO : Dire que c'est plus le cas avec les vagues suivantes. (jojal) -> Graphe ? (il est déjà prêt)
       Aside from this problem, the analysis of the amplitude of the wave also give informations about the validity of the equations.
-      Equation A gives a reduction of the amplitude of a wave when approaching the reefs, which is not what happends in reality.
+      Equation A (Fig. \ref{fig:tsunami-amp-A}) gives a reduction of the amplitude of a wave when approaching the reefs, which is not what happends in reality.
       If it was the case, tsunamis would not be the same problem as they are.
-      On the other hand, equation C gives a high wave, which is more that \SI{80}{\meter}.
-      As a comparison, the tsunamis of 2004 in the indian ocean, cause by a magnitude 9 undersea earthquake, had waves up to \SI{30}{\meter}. \cite{wiki:tsunami-2004}
+      On the other hand, equation C (Fig. \ref{fig:tsunami-amp-C}) gives a wave that is more that \SI{80}{\meter} high.
+      As a comparison, the powerful tsunamis of 2004 in the indian ocean, cause by a magnitude 9 undersea earthquake, had waves up to \SI{30}{\meter}. \cite{wiki:tsunami-2004}
       Thus, either our wave was created by a much more energetic event, either equation C is unsuitable for this problem.\\
 
       In a nutshell, the verifications of all three equation by the amplitudes and the propagation speed lead to the following conclusion: equation B is the only equation that gives realistic results.
 
 
-      \subsection{Varying $x_a$}
+      \subsection{Varying $x_a$} \label{sec:var-xa}
       This section will study the behaviour of waves when parameter $x_a$ varies (see fig. \ref{fig:tsunami-depth}), especially when it approaches $x_b$.
+      %TODO : Ajouter une meilleur description de ce qu'on est entrain d'étudier
 
       %TODO : Mettre la note disant que des points ont été éléminés
 
       \begin{figure}[h]
         \centering
-        \begin{subfigure}[t]{0.45\textwidth}
-          \includegraphics[width=\textwidth]{graphs/xa250000_tfin15000_u.eps}
-          \caption{propagation speed}
-          \label{fig:xa250000_u}
-        \end{subfigure}
-        ~
-        \begin{subfigure}[t]{0.45\textwidth}
-          \includegraphics[width=\textwidth]{graphs/xa250000_tfin15000_f.eps}
-          \caption{amplitude}
-          \label{fig:xa250000_f}
-        \end{subfigure}
-        \caption{analysis of a wave for $x_a = \SI{250}{\kilo\meter}$}
-        \label{fig:xa250000}
+        \includegraphics[width=\textwidth]{graphs/xa_u.eps}
+        \caption{blabla}
+        \label{fig:xa-u}
       \end{figure}
+
+      \lipsum[1-2] %TODO : Discuter le graphe des vitesses de propagations en fct de xa.
 
       \begin{figure}[h]
         \centering
-        \begin{subfigure}[t]{0.45\textwidth}
-          \includegraphics[width=\textwidth]{graphs/xa300000_tfin15000_u.eps}
-          \caption{propagation speed}
-          \label{fig:xa300000_u}
-        \end{subfigure}
-        ~
-        \begin{subfigure}[t]{0.45\textwidth}
-          \includegraphics[width=\textwidth]{graphs/xa300000_tfin15000_f.eps}
-          \caption{amplitude}
-          \label{fig:xa300000_f}
-        \end{subfigure}
-        \caption{analysis of a wave for $x_a = \SI{300}{\kilo\meter}$}
-        \label{fig:xa300000}
+        \includegraphics[width=\textwidth]{graphs/xa_f.eps}
+        \caption{blabla}
+        \label{fig:xa-f}
       \end{figure}
 
+      \lipsum[1-2] %TODO : Discuter le graphe des amplitudes en fct de xa.
+
+      %TODO : Mettre deux graphes d'amplitudes avec le WKB.
       \begin{figure}[h]
         \centering
-        \begin{subfigure}[t]{0.45\textwidth}
-          \includegraphics[width=\textwidth]{graphs/xa350000_tfin15000_u.eps}
-          \caption{propagation speed}
-          \label{fig:xa350000_u}
-        \end{subfigure}
-        ~
-        \begin{subfigure}[t]{0.45\textwidth}
-          \includegraphics[width=\textwidth]{graphs/xa350000_tfin15000_f.eps}
-          \caption{amplitude}
-          \label{fig:xa350000_f}
-        \end{subfigure}
-        \caption{analysis of a wave for $x_a = \SI{350}{\kilo\meter}$}
-        \label{fig:xa350000}
+          \begin{subfigure}[t]{0.45\textwidth}
+            \includegraphics[width=\textwidth]{graphs/xa250000_tfin15000_f.eps}
+            \caption{$x_a = \SI{250}{\kilo\meter}$}
+            \label{fig:xa-WKB-250km}
+          \end{subfigure}
+          ~
+          \begin{subfigure}[t]{0.45\textwidth}
+              \includegraphics[width=\textwidth]{graphs/xa350000_tfin15000_f.eps}
+              \caption{$x_a = \SI{350}{\kilo\meter}$}
+              \label{fig:xa-WKB-350km}
+          \end{subfigure}
+          \caption{Comparison between the WKB analysis ($A_0 \approx \num{16.74}$) and the numerical result for equation B using different $x_a$}
+          \label{fig:xa-WKB}
       \end{figure}
 
-      \begin{figure}[h]
-        \centering
-        \begin{subfigure}[t]{0.45\textwidth}
-          \includegraphics[width=\textwidth]{graphs/xa100_tfin15000_u.eps}
-          \caption{propagation speed}
-          \label{fig:xa100_u}
-        \end{subfigure}
-        ~
-        \begin{subfigure}[t]{0.45\textwidth}
-          \includegraphics[width=\textwidth]{graphs/xa100_tfin15000_f.eps}
-          \caption{amplitude}
-          \label{fig:xa100_f}
-        \end{subfigure}
-        \caption{analysis of a wave for $x_a = \SI{100}{\meter}$}
-        \label{fig:xa100}
-      \end{figure}
-
-      %TODO : Pour la suite, mettre 2 à 4 graphes en duo contenant: amplitudes et vitesse de propagation, avec comparaison WKB.
-      %TODO : Utiliser pour montrer
+      \lipsum[1] %TODO : Discuter les graphes.
 
 \section{optional}
-  \subsection{WKB analysis}
+  \subsection{WKB analysis}\label{sec:WKB}
     This section give the WKB analysis for each equations.
+
+    \subsubsection{Equation A}
+      \lipsum[1-2] %TODO : Mettre le développement du WKB pour A.
+
 
     \subsubsection{Equation B}
       \begin{align*}
@@ -505,10 +493,12 @@
       \end{align*}
 
       \begin{equation}
-        \boxed{A=\frac{A_0}{\sqrt{u}}}
+        \boxed{A=\frac{A_0}{\sqrt{u}}} %TODO : Ajouter une égalité en changeamt u avec son approximation.
         \label{eq:WKB-B}
       \end{equation}
 
+    \subsubsection{Equation C}
+        \lipsum[1-2] %TODO : Mettre le développement du WKB pour C.
 
 
 

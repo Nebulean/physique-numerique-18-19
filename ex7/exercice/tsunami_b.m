@@ -1,17 +1,17 @@
 %% Préparation de(s) simulation(s)w
 warning('off', 'MATLAB:polyfit:RepeatedPointsOrRescale');
-schema = ["B"];
+schema = "B";
 omega = 2*pi/900;
 n_stride = 10;
 Npoints = 1000;
 tfin = 15000;
 pulse = "true";
 %Différents choix de xa.
-%xa = 100;
-xa = 365000;
-for i=1:length(schema)
-    param(i) = sprintf("schema=%s n_stride=%i Npoints=%i tfin=%i omega=%f pulse=%s xa=%i", schema(i), n_stride, Npoints, tfin, omega, pulse, xa);
-    output(i) = sprintf("tsunami_a_%s", schema(i));
+nsimul = 6;
+xa = round(linspace(250000, 350000, nsimul));
+for i=1:nsimul
+    param(i) = sprintf("schema=%s n_stride=%i Npoints=%i tfin=%i omega=%f pulse=%s xa=%i", schema, n_stride, Npoints, tfin, omega, pulse, xa(i));
+    output(i) = sprintf("tsunami_b_%s_%i", schema, xa(i));
 end
 
 
@@ -22,7 +22,7 @@ set(groot, 'defaultAxesFontSize', 18);
 
 
 %% Simulations
-for i=1:length(schema)
+for i=1:nsimul
     cmd = sprintf("./Exercice7 configuration_tsunami.in output=%s %s", output(i), param(i));
     disp(cmd);
     system(cmd);
@@ -34,7 +34,7 @@ u_calc = {};
 ampl = {};
 xampl = {};
 
-for j=1:length(schema)
+for j=1:nsimul
     %% Chargement des données
     dataf = load(sprintf("%s_f.out", output(j)));
     datau = load(sprintf("%s_u.out", output(j)));
@@ -131,15 +131,20 @@ set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
 
-plot(x, uth, '-', 'LineWidth', 1.5); % Vitesse théorique
-for j=1:length(schema)
-    plot(x1wave{j}(1:end), u_calc{j}, '-', 'LineWidth', 1.5); % Vitesse expérimentale
+%plot(x, uth, '-', 'LineWidth', 1.5); % Vitesse théorique
+for j=1:nsimul
+    plot(x1wave{j}(1:end), u_calc{j}, ':', 'linewidth', 2); % Vitesse expérimentale
 end
 
 xlabel("$x~[m]$");
 ylabel("$u~[m/s]$");
 
-legend(["th", "B"]);
+lgd = {};
+for j=1:nsimul
+   lgd{j} = sprintf("$x_a=%i km$", xa(j)/1000 ); 
+end
+
+legend(lgd, 'location', 'best');
 
 grid on;
 box on;
@@ -160,10 +165,21 @@ fA = (g*h(xampl{1}, xa)).^(-1/4);
 %A0 = 1/0.05975; % Pour xa = 100
 %A0 = 1/0.05975; % Pour xa = 250000
 A0 = 1/0.05975; % Pour xa = 300000
-plot(xampl{1}, A0.*fA, '-', 'linewidth', 2)
-plot(xampl{1}, ampl{1} , '-', 'linewidth', 2);
+%plot(xampl{1}, A0.*fA, '-', 'linewidth', 2)
+%plot(xampl{1}, ampl{1} , '-', 'linewidth', 2);
 
-legend(["$A_0\cdot h(x)^{-1/4}$", "$f_{num}$"], 'location', 'southeast');
+for j=1:nsimul
+    plot(xampl{j}, ampl{j} , ':', 'linewidth', 2);
+end
+
+lgd = {};
+for j=1:nsimul
+   lgd{j} = sprintf("$x_a=%i km$", xa(j)/1000 ); 
+end
+
+legend(lgd, 'location', 'best');
+
+ylim([-0.5, 4.5]);
 
 xlabel("$x~[m]$");
 ylabel("$f~[m]$");

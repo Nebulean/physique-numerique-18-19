@@ -4,8 +4,8 @@ schema = ["A", "B","C"];
 omega = 2*pi/900;
 n_stride = 10;
 Npoints = 1000;
-tfin = 10000;
-pulse = "true";
+tfin = 15000;
+pulse = "false";
 
 for i=1:length(schema)
     param(i) = sprintf("schema=%s n_stride=%i Npoints=%i tfin=%i omega=%f pulse=%s", schema(i), n_stride, Npoints, tfin, omega, pulse);
@@ -23,7 +23,7 @@ set(groot, 'defaultAxesFontSize', 18);
 for i=1:length(schema)
     cmd = sprintf("./Exercice7 configuration_tsunami.in output=%s %s", output(i), param(i));
     disp(cmd);
-    %system(cmd);
+    system(cmd);
 end
 
 x1wave = {};
@@ -298,6 +298,9 @@ hold off;
 fig_E = figure;
 hold on;
 
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
 plot(tE{2}, E{2}, '-', 'linewidth', 2);
 
 xlabel("$t~[s]$");
@@ -305,6 +308,35 @@ ylabel("$E~[J]$");
 
 box on;
 grid on;
+
+hold off;
+
+%% Fig: Vagues suivantes (pulse: false)
+fig_next = figure;
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+% Chargement des données
+dataf = load(sprintf("%s_f.out", output(2)));
+datau = load(sprintf("%s_u.out", output(2)));
+dataE = load(sprintf("%s_E.out", output(2)));
+
+% Traitement des données
+f = dataf(:,2:end);
+t = dataf(:,1);
+x = datau(:,1);
+
+pcolor(x,t,f)
+shading interp
+colormap jet
+c = colorbar;
+box on;
+grid on;
+xlabel('$x$ [m]')
+ylabel('$t$ [s]')
+ylabel(c,'f(x,t) [m]')
 
 hold off;
 
