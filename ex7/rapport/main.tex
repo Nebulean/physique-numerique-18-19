@@ -488,22 +488,19 @@
 \section{optional}
   \subsection{WKB analysis}\label{sec:WKB}
     This section give the WKB analysis for each equations.
+    Let $f(x,t)$ be defined by $f(x,t) = \hat{f}(x)e^{-i\omega t}$, with $\hat{f}(x) = A(x)e^{iS(x)}$, where $A(x)$ slowly varies, and $S(x)$ quickly varies.
+    Note that the development for equation B (Sec. \ref{sec:WKB-B}) is the more detailed, as it is the most important equation for the report.
 
-    \subsubsection{Equation A}
-      \lipsum[1-2] %TODO : Mettre le développement du WKB pour A.
-
-
-    \subsubsection{Equation B}
+    \subsubsection{Equation B}\label{sec:WKB-B}
       \begin{align*}
-        \intertext{Let f(x,t) be defined by $f(x,t) = \hat{x}e^{-i\omega t}$.}
         \intertext{Using equation B and the definition of $f$:}
         \frac{\partial^2 f}{\partial t^2} &= \frac{\partial}{\partial x}\bracket{u^2\frac{\partial f}{\partial x}} \\
         -\omega^2\hat{f}\cancel{e^{-i\omega t}} &= \frac{\partial}{\partial x}\sqbracket{u^2\frac{\partial}{\partial x}\bracket{\hat{f}\cancel{e^{-i\omega t}}}}\\
         \Rightarrow -\omega^2\hat{f} &= \frac{\partial}{\partial x}\sqbracket{u^2\frac{\partial}{\partial x}\hat{f}}
-        \intertext{Let $\hat{f}(x) = A(x)e^{iS(x)}$ be an ansatz, where $A(x)$ slowly varies, and $S(x)$ quickly varies. Thus:}
+        \intertext{Thus:}
         -\omega^2 Ae^{iS} = \frac{\partial}{\partial x}\sqbracket{u^2\frac{\partial}{\partial x}\bracket{Ae^{iS}}} &= \frac{\partial}{\partial x}\sqbracket{u^2\bracket{A'e^{iS} + AiS'e^{iS}}}\\
         = \underbrace{2uu'}_{\bracket{u^2}'}\sqbracket{A'e^{iS} + Ais'e^{iS}} &+ u^2\sqbracket{A''e^{iS} + A'S'ie^{iS} + A'S'ie^{iS} + AS''ie^{iS} + AS'^2e^{iS}}\\
-        \intertext{Now, the elements need to be grouped by "variation order". This variation order $n$ is defined by $\epsilon^n$, and $n$ increases by $1$ each time a derivation occures. Also, note that $\epsilon$ works the same as any real number, which means $\epsilon^n\cdot\epsilon^m = \epsilon^{nm}$. Thus, by hypothesis, let $A(x)\sim\epsilon^0$ and $S'(x)\sim\epsilon^1$. This leads to:}
+        \intertext{Now, the elements need to be grouped by "variation order". This variation order $n$ is defined by $\epsilon^n$, and $n$ increases by $1$ each time a derivation occures. Also, note that $\epsilon$ works the same as any real number, which means $\epsilon^n\cdot\epsilon^m = \epsilon^{nm}$. Thus, by hypothesis, let $A(x)\sim\epsilon^0$ and $S'(x)\sim\epsilon^0$. This leads to:}
         \underbrace{-\omega^2A}_{\epsilon^0} = \underbrace{-(S')^2u^2A}_{\epsilon^0} &+ \underbrace{i\bracket{2u^2A'S'+u^2AS''+(u^2)'AS'}}_{\epsilon^1} + \underbrace{u^2A''+(u^2)'A'}_{\epsilon^2}\\
         \intertext{By  equalizing the variation order, three equations are obtained.}
         \intertext{From $\epsilon^0$ and by defining $k(x) = \frac{dS}{dx}$, which is the local wave number:}
@@ -515,7 +512,7 @@
         \intertext{This differential equation can be solved. Suppose $A\neq0$ and $u\neq0~\forall x$.}
         2uA' &= - u'A~\Leftrightarrow~\frac{A'}{A} = -\frac{u'}{2u}\\
         \Leftrightarrow~\bracket{\log A}' &= -\frac{1}{2}\bracket{\log u}'~\Leftrightarrow~\log A+\frac{1}{2}\log u = C\text{, where $C$ is a constant.}\\
-        \intertext{Now, apply $\exp(\cdot)$ on both sides}
+        \intertext{Now, apply $\exp(\cdot)$ on both sides.}
         A\sqrt{u} = e^C &:= A_0\\
         \intertext{This leads to the result, equation \eqref{eq:WKB-B}.}
       \end{align*}
@@ -525,8 +522,25 @@
         \label{eq:WKB-B}
       \end{equation}
 
+    \subsubsection{Equation A}
+      \begin{align*}
+        \intertext{By applying the same for equation A, this equation follows.}
+        \underbrace{-\omega^2 A}_{\epsilon^0} &= \underbrace{-u^2 A(S')^2}_{\epsilon^0} + \underbrace{u^2\bracket{2iA'S'+iAS''}}_{\epsilon^1} + \underbrace{u^2A''}_{\epsilon^2}
+        \intertext{From $\epsilon^0$, we obtain the same relation.}
+        k(x) &= S'(x) = \frac{\omega}{u(x)}
+        \intertext{From $\epsilon^1$:}
+        2A'S'+AS'' &= 0 \Leftrightarrow 2\frac{A'}{A} = -\frac{S''}{S'}\\
+        \Leftrightarrow 2(\log A)' &= -(\log S')' \Leftrightarrow 2\log A + \log S' = C\\
+        \Leftrightarrow \log(A^2k) &= C \Leftrightarrow A=\sqrt{u}A_0
+        \intertext{This leads to the result, equation \eqref{eq:WKB-A}.}
+      \end{align*}
+      \begin{equation}
+        \boxed{A=\sqrt{u}A_0}
+        \label{eq:WKB-A}
+      \end{equation}
+
     \subsubsection{Equation C}
-        \lipsum[1-2] %TODO : Mettre le développement du WKB pour C.
+        %TODO : Mettre le développement du WKB pour C.
 
 
 
