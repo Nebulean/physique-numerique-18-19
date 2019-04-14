@@ -207,71 +207,95 @@
     \end{equation}
 
     \section{Constant propagation speed}
-    In this section, $u(x)=const=6$ (which implies equations \eqref{eq:ondes-ABC} are equal) m/s and $L=20$ m.
+    In this section, $u(x)=const=6$ m/s (which implies equations \eqref{eq:ondes-ABC} are equal), $L=20$ m and $CFL=1$.
 
     \subsection{Border reflection}
-    The left border condition is $f(0,t)=A\sin(\omega t)$ with $A=1$ m and $\omega=5$ rad/s.
+    The left border condition is $f(0,t)=A\sin(\omega t)$ with $A=1$ m and $\omega=5$ rad/s. Simulations are done for $N=100$ and $t_{fin}=14$ s, such that the wave completes two round trips in the cases where it is reflected.
 
     \begin{figure}[h!]
     \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1ffixe.eps}
+    \caption{Shape of the wave at $t_{fin}$}
+    \label{fig:ex1fixf}
     \end{subfigure}
     ~
     \begin{subfigure}{0.55\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1xtfixe.eps}
+    \caption{Amplitude of the wave throughout the simulation}
+    \label{fig:ex1fixxt}
     \end{subfigure}\
 
     \centering
     \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1Efixe.eps}
+    \caption{Energy of the wave}
     \end{subfigure}
 
     \caption{Illustration of the border reflection for a the fixed right border condition}
     \label{fig:ex1fix}
     \end{figure}
 
-    \lipsum[1-2] %TODO : Virer quand y'a le texte. C'est pour mettre de la structure.
+    The result for the \textbf{fixed} right border condition is represented on figure \ref{fig:ex1fix}. In this case the wave reflected off both sides and superposed itself to the wave coming from the left, such that the maximum energy of the resulting wave kept growing slowly. When reflecting on the right side, the wave turned ``upside-down'', such that it had a phase of $\phi=\pi$ compared to the original wave. The sharp corner visible on the shape of the wave at $t_{fin} = 14.01$ s (Fig. \ref{fig:ex1fixf}), around $x=4$ m is the front of the wave, which keeps propagating as the waves coming from both directions are not in phase, and thus don't interfer completely constructively or destructively. This is because the frequency of excitation $\omega=5$ rad/s is not an eigenfrequency of the system. This is also why the maximum amplitude of the wave does not grow a lot after the first round trip is completed, as seen on figure \ref{fig:ex1fixxt}.
 
     \begin{figure}[h!]
     \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1flibre.eps}
+    \caption{Shape of the wave at $t_{fin}$}
+    \label{fig:ex1libf}
     \end{subfigure}
     ~
     \begin{subfigure}{0.55\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1xtlibre.eps}
+    \caption{Amplitude of the wave throughout the simulation}
+    \label{fig:ex1libxt}
     \end{subfigure}\
 
     \centering
     \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1Elibre.eps}
+    \caption{Energy of the wave}
     \end{subfigure}
 
     \caption{Illustration of the border reflection for a the free right border condition}
     \label{fig:ex1lib}
     \end{figure}
 
-    \lipsum[1-2] %TODO : Virer quand y'a le texte. C'est pour mettre de la structure.
+    The result for the \textbf{free} right border condition is represented on figure \ref{fig:ex1lib}. In this case, upon reaching the right border, the wave is reflected off with the same side up as it came, so when superposing with the wave coming from the left, its maximum energy grows much more quickly than in the previous simulation. The steady growth in amplitude after the first reflection is also visible on figure \ref{fig:ex1libxt}. The sharp corner of the front of the wave is again visible on figure \ref{fig:ex1libf}, although less noticeable than in the previous case.
 
     \begin{figure}[h!]
     \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1fsortie.eps}
+    \caption{Shape of the wave at $t_{fin}$}
+    \label{fig:ex1sorf}
     \end{subfigure}
     ~
     \begin{subfigure}{0.55\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1xtsortie.eps}
+    \caption{Amplitude of the wave throughout the simulation}
+    \label{fig:ex1sorxt}
     \end{subfigure}\
 
     \centering
     \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{graphs/ex1Esortie.eps}
+    \caption{Energy of the wave}
     \end{subfigure}
 
     \caption{Illustration of the border reflection for a the exit right border condition}
     \label{fig:ex1sor}
     \end{figure}
+    
+    The result for the \textbf{exit} right border condition is represented on figure \ref{fig:ex1sor}. Here the wave is not reflected off the right side, so the maximum amplitude and maximum energy do not change after the wave has propagated through the whole length of the system. A convergence study with respect to $N \propto 1/\Delta x \propto 1/\Delta t$ for this case is represented on figure \ref{fig:convN}.
+    
+    \begin{figure}[h!]
+     \centering
+     \includegraphics[width=0.6\textwidth]{graphs/convN.eps}
+     \caption{Convergence study of the error at $x=5$ m, $t=1.5$ s. The outlier was not used in the linear fit.}
+     \label{fig:convN}
+    \end{figure}
 
-    \lipsum[1-2] %TODO : Virer quand y'a le texte. C'est pour mettre de la structure.
-
+    The error of the interpolated numerical result converges linearly with order 2, as is expected from the scheme. The outlier at $|f-f_{th}|<10^{-15}$ is the result of a simulation for which interpolation was not needed, as $f(5 \text{m},1.5\text{s})$ precisely was included in the output file. We can thus conclude that the error due to the interpolation is much greater than that of the simulation itself. As the interpolation error is constant, the slope of the linear fit using only the results which contain an interpolation error indeed corresponds to the order of convergence of the scheme. %TODO: Faire une convergence uniquement sur les points qui n'ont pas d'erreur d'interpolation.
+    
     \section{Tsunami}
       This section is an application of the initial problem to a tsunami.
       This time, the propagation speed is not kept constant.

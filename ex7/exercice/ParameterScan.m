@@ -14,11 +14,11 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice7'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-low=10;
-high=100;
-nsimul=40;
+% low=10;
+% high=100;
+nsimul=60;
 
-Npoints = logspace(1,3, nsimul);
+Npoints = round(logspace(1,3, nsimul));
 
 paramstr = 'Npoints'; % Nom du parametre a scanner
 param = Npoints; % Valeurs du parametre a scanner
@@ -60,8 +60,8 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
 %         dx=L/(Npoints(i)-1);
 %         xid=round(xp/dx)
         
-%         f(i)=griddata(pos,time,func,xp,tp,'cubic')
-        f(i)=interp2(pos,time,func,xp,tp,'spline')
+        f(i)=griddata(pos,time,func,xp,tp,'linear')
+%         f(i)=interp2(pos,time,func,xp,tp,'spline')
     end
 end
 
@@ -83,23 +83,30 @@ if(strcmp(paramstr,'Npoints'))
     
     hold on
     plot(Npoints,err,'k+');
-%     [fit, slope] = poly_approx(1./Npoints, err, 2, 2, true);
-%     plot(fit(:,1), fit(:,2), '-');
-    %fit = 10.^fit;
+    
+    %resulto pimpagu no jutsu
+    errfit=err;
+    Nfit=Npoints
+    for i=1:length(err);
+        if err(i)<1e-10
+            errfit(i)=[];
+            Nfit(i)=[];
+        end
+    end
+    
+    [fit, slope] = poly_approx(Nfit, errfit, 1, 2, true);
+    plot(fit(:,1), fit(:,2), '-');
     set(gca, 'YScale', 'log');
     set(gca, 'XScale', 'log');
-    %poly_approx(dt, Tp, 1, 2, true);
-%     [P,slope]=poly_approx(dt, Tp, 1, 2);
-%     plot(P(1,:),P(2,:));
     xlabel('$N$')
     ylabel('$|f-f_{th}|$ [m]')
-% 	legend(["Data", "slope ="+num2str(slope)]);
+	legend(["Data", "slope ="+num2str(slope)],'Location','southeast');
     box on;
     grid on
     hold off;
 end
 
-% saveas(f, "graphs/","epsc");
+saveas(f1, "graphs/convN","epsc");
 
 %% Fonction
 
