@@ -206,6 +206,8 @@
       \label{eq:energie-discret}
     \end{equation}
 
+    \newpage
+
     \section{Constant propagation speed}
     In this section, $u(x)=const=6$ m/s (which implies equations \eqref{eq:ondes-ABC} are equal), $L=20$ m and $CFL=1$.
 
@@ -371,7 +373,7 @@
         \begin{figure}[h]
           \centering
           \includegraphics[width=\textwidth]{graphs/tsunami_speed.eps}
-          \caption{Comparison between the theorical value of the propagation speed, and the three equations.}
+          \caption{Comparison between the theorical value of the propagation speed, and the three equations for $t_\text{fin} = \SI{10000}{\s}$ and $N_\text{points} = \num{1000}$.}
           \label{fig:tsunami_speed}
         \end{figure}
 
@@ -410,7 +412,7 @@
           \caption{Equation C using $A_0 = \num{836.8201}$}
           \label{fig:tsunami-amp-C}
         \end{subfigure}
-        \caption{Verification of the WKB solution for all equations} %TODO : C'est vrai que c'est WKB ?
+        \caption{Verification of the WKB solution for all equations for $t_\text{fin} = \SI{10000}{\s}$ and $N_\text{points} = \num{1000}$} %TODO : C'est vrai que c'est WKB ?
         \label{fig:tsunami-amp}
       \end{figure}
 
@@ -438,68 +440,89 @@
 
 
       \subsection{Varying $x_a$} \label{sec:var-xa}
-      This section will study the behaviour of waves when parameter $x_a$ varies (see fig. \ref{fig:tsunami-depth}), especially when it approaches $x_b$.
-      %TODO : Ajouter une meilleur description de ce qu'on est entrain d'étudier
+      This section will study the behaviour of a single wave when parameter $x_a$ varies (see fig. \ref{fig:tsunami-depth}), in particular when it approaches $x_b$.
+      All of this study is done using equation B.
 
-      %TODO : Mettre la note disant que des points ont été éléminés
+      \subsubsection{Propagation speed}
+        Figure \ref{fig:xa-u} gives a comparison between multiple simulations regarding the propagation speed of the wave.
+        Approaching $x_a$ from $x_b$ increase the peak of speed around $x_a$.
+        This problem probably comes from the multiple numerical derivative computed, using finite differences.
+        At $x_a$, the curvature of the depth of ocean changes, which is not much of a problem for the cases where the slope of the depth is low.
+        But when $x_a$ approaches $x_b$, the slope of the depth gets higher, which suddenly increases the variation, and causes the derivative to explode.
+        This comes from the fact that the finite difference method relies on a discrete system, which here makes the gap, between one step and the next one, to explode.
+        This problem can be reduced by increasing the number of points considered, which will reduce this gap at this moment, but also drastically increases the computation time of each simulation.
+        %TODO : AJOUTER LA REF VERS L'ORDRE DE CONVERGENCE EN DX.
 
-      \begin{figure}[h]
-        \centering
-        \includegraphics[width=\textwidth]{graphs/xa_u.eps}
-        \caption{blabla}
-        \label{fig:xa-u}
-      \end{figure}
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=\textwidth]{graphs/xa_u.eps}
+          \caption{Comparison of propagation speeds for $t_\text{fin} = \SI{15000}{\s}$ and $N_\text{points} = \num{1000}$}
+          \label{fig:xa-u}
+        \end{figure}
 
-      \lipsum[1-2] %TODO : Discuter le graphe des vitesses de propagations en fct de xa.
 
-      \begin{figure}[h]
-        \centering
-        \includegraphics[width=\textwidth]{graphs/xa_f.eps}
-        \caption{blabla}
-        \label{fig:xa-f}
-      \end{figure}
+      \subsubsection{Amplitude}
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=\textwidth]{graphs/xa_f.eps}
+          \caption{Comparison of amplitudes for $t_\text{fin} = \SI{15000}{\s}$ and $N_\text{points} = \num{1000}$}
+          \label{fig:xa-f}
+        \end{figure}
 
-      \lipsum[1-2] %TODO : Discuter le graphe des amplitudes en fct de xa.
+        Figure \ref{fig:xa-f} gives a comparison between multiple simulations regarding the amplitude of the wave.
+        The main information here is the decrease of the maximum amplitude when $x_a$ gets closer to $x_b$.
+        This result suggests that a steeper reef decreases the amplitude of a tsunami.
+        This does not seem to be caused by a numerical error, as experiments showed that the difference is small between $N_\text{points}=\num{1000}$ and $N_\text{points}=\num{10000}$. %TODO : On est d'accord que y'a pas besoin de mettre le graphe ? (il est prêt, mais il montre juste que y'a peu de différences...)
+        %TODO : Du coup, ça vient d'où ? Que dire de plus ?
 
-      %TODO : Mettre deux graphes d'amplitudes avec le WKB.
-      \begin{figure}[h]
-        \centering
-          \begin{subfigure}[t]{0.45\textwidth}
-            \includegraphics[width=\textwidth]{graphs/xa250000_tfin15000_f.eps}
-            \caption{$x_a = \SI{250}{\kilo\meter}$}
-            \label{fig:xa-WKB-250km}
-          \end{subfigure}
-          ~
-          \begin{subfigure}[t]{0.45\textwidth}
-              \includegraphics[width=\textwidth]{graphs/xa350000_tfin15000_f.eps}
-              \caption{$x_a = \SI{350}{\kilo\meter}$}
-              \label{fig:xa-WKB-350km}
-          \end{subfigure}
-          \caption{Comparison between the WKB analysis ($A_0 \approx \num{16.74}$) and the numerical result for equation B using different $x_a$}
+        Figure \ref{fig:xa-WKB} gives two of the previous simulations with their WKB approximation.
+        The main point here is to show that the WKB approximation is only valid for small variation of amplitude.
+        Figure \ref{fig:xa-WKB-250km} shows that the numerical and the WKB solutions are not so far from each other, but figure \ref{fig:xa-WKB-350km} shows that the WKB solution is not a good approximation anymore, as its maximum is almost two times bigger than the numerical solution.
+        Figure \ref{fig:xa-WKB-100m} shows that, by moving $x_a$ away from $x_b$, which reduces the variation of the amplitude, the WKB solution get really close to the numerical solution.
+        Thus, this shows that the WKB solution is only valid for low-varying amplitudes.
+
+        \begin{figure}[h]
+          \centering
+            \begin{subfigure}[t]{0.45\textwidth}
+              \includegraphics[width=\textwidth]{graphs/xa250000_tfin15000_f.eps}
+              \caption{$x_a = \SI{250}{\kilo\meter}$}
+              \label{fig:xa-WKB-250km}
+            \end{subfigure}
+            ~
+            \begin{subfigure}[t]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphs/xa350000_tfin15000_f.eps}
+                \caption{$x_a = \SI{350}{\kilo\meter}$}
+                \label{fig:xa-WKB-350km}
+            \end{subfigure}
+            \\ \centering
+            \begin{subfigure}[t]{0.45\textwidth}
+              \includegraphics[width=\textwidth]{graphs/xa100_tfin15000_f.eps}
+              \caption{$x_a = \SI{100}{\meter}$}
+              \label{fig:xa-WKB-100m}
+            \end{subfigure}
+
+          \caption{Comparison between the WKB analysis ($A_0 \approx \num{16.74}$) and the numerical result for equation B using different $x_a$, for $t_\text{fin} = \SI{15000}{\s}$ and $N_\text{points} = 1000$}
           \label{fig:xa-WKB}
-      \end{figure}
+        \end{figure}
 
-      \lipsum[1] %TODO : Discuter les graphes.
+\newpage
 
 \section{optional}
   \subsection{WKB analysis}\label{sec:WKB}
     This section give the WKB analysis for each equations.
+    Let $f(x,t)$ be defined by $f(x,t) = \hat{f}(x)e^{-i\omega t}$, with $\hat{f}(x) = A(x)e^{iS(x)}$, where $A(x)$ slowly varies, and $S(x)$ quickly varies.
+    Note that the development for equation B (Sec. \ref{sec:WKB-B}) is the more detailed, as it is the most important equation for the report.
 
-    \subsubsection{Equation A}
-      \lipsum[1-2] %TODO : Mettre le développement du WKB pour A.
-
-
-    \subsubsection{Equation B}
+    \subsubsection{Equation B}\label{sec:WKB-B}
       \begin{align*}
-        \intertext{Let f(x,t) be defined by $f(x,t) = \hat{x}e^{-i\omega t}$.}
         \intertext{Using equation B and the definition of $f$:}
         \frac{\partial^2 f}{\partial t^2} &= \frac{\partial}{\partial x}\bracket{u^2\frac{\partial f}{\partial x}} \\
         -\omega^2\hat{f}\cancel{e^{-i\omega t}} &= \frac{\partial}{\partial x}\sqbracket{u^2\frac{\partial}{\partial x}\bracket{\hat{f}\cancel{e^{-i\omega t}}}}\\
         \Rightarrow -\omega^2\hat{f} &= \frac{\partial}{\partial x}\sqbracket{u^2\frac{\partial}{\partial x}\hat{f}}
-        \intertext{Let $\hat{f}(x) = A(x)e^{iS(x)}$ be an ansatz, where $A(x)$ slowly varies, and $S(x)$ quickly varies. Thus:}
+        \intertext{Thus:}
         -\omega^2 Ae^{iS} = \frac{\partial}{\partial x}\sqbracket{u^2\frac{\partial}{\partial x}\bracket{Ae^{iS}}} &= \frac{\partial}{\partial x}\sqbracket{u^2\bracket{A'e^{iS} + AiS'e^{iS}}}\\
         = \underbrace{2uu'}_{\bracket{u^2}'}\sqbracket{A'e^{iS} + Ais'e^{iS}} &+ u^2\sqbracket{A''e^{iS} + A'S'ie^{iS} + A'S'ie^{iS} + AS''ie^{iS} + AS'^2e^{iS}}\\
-        \intertext{Now, the elements need to be grouped by "variation order". This variation order $n$ is defined by $\epsilon^n$, and $n$ increases by $1$ each time a derivation occures. Also, note that $\epsilon$ works the same as any real number, which means $\epsilon^n\cdot\epsilon^m = \epsilon^{nm}$. Thus, by hypothesis, let $A(x)\sim\epsilon^0$ and $S'(x)\sim\epsilon^1$. This leads to:}
+        \intertext{Now, the elements need to be grouped by "variation order". This variation order $n$ is defined by $\epsilon^n$, and $n$ increases by $1$ each time a derivation occures. Also, note that $\epsilon$ works the same as any real number, which means $\epsilon^n\cdot\epsilon^m = \epsilon^{nm}$. Thus, by hypothesis, let $A(x)\sim\epsilon^0$ and $S'(x)\sim\epsilon^0$. This leads to:}
         \underbrace{-\omega^2A}_{\epsilon^0} = \underbrace{-(S')^2u^2A}_{\epsilon^0} &+ \underbrace{i\bracket{2u^2A'S'+u^2AS''+(u^2)'AS'}}_{\epsilon^1} + \underbrace{u^2A''+(u^2)'A'}_{\epsilon^2}\\
         \intertext{By  equalizing the variation order, three equations are obtained.}
         \intertext{From $\epsilon^0$ and by defining $k(x) = \frac{dS}{dx}$, which is the local wave number:}
@@ -511,7 +534,7 @@
         \intertext{This differential equation can be solved. Suppose $A\neq0$ and $u\neq0~\forall x$.}
         2uA' &= - u'A~\Leftrightarrow~\frac{A'}{A} = -\frac{u'}{2u}\\
         \Leftrightarrow~\bracket{\log A}' &= -\frac{1}{2}\bracket{\log u}'~\Leftrightarrow~\log A+\frac{1}{2}\log u = C\text{, where $C$ is a constant.}\\
-        \intertext{Now, apply $\exp(\cdot)$ on both sides}
+        \intertext{Now, apply $\exp(\cdot)$ on both sides.}
         A\sqrt{u} = e^C &:= A_0\\
         \intertext{This leads to the result, equation \eqref{eq:WKB-B}.}
       \end{align*}
@@ -521,8 +544,25 @@
         \label{eq:WKB-B}
       \end{equation}
 
+    \subsubsection{Equation A}
+      \begin{align*}
+        \intertext{By applying the same for equation A, this equation follows.}
+        \underbrace{-\omega^2 A}_{\epsilon^0} &= \underbrace{-u^2 A(S')^2}_{\epsilon^0} + \underbrace{u^2\bracket{2iA'S'+iAS''}}_{\epsilon^1} + \underbrace{u^2A''}_{\epsilon^2}
+        \intertext{From $\epsilon^0$, we obtain the same relation.}
+        k(x) &= S'(x) = \frac{\omega}{u(x)}
+        \intertext{From $\epsilon^1$:}
+        2A'S'+AS'' &= 0 \Leftrightarrow 2\frac{A'}{A} = -\frac{S''}{S'}\\
+        \Leftrightarrow 2(\log A)' &= -(\log S')' \Leftrightarrow 2\log A + \log S' = C\\
+        \Leftrightarrow \log(A^2k) &= C \Leftrightarrow A=\sqrt{u}A_0
+        \intertext{This leads to the result, equation \eqref{eq:WKB-A}.}
+      \end{align*}
+      \begin{equation}
+        \boxed{A=\sqrt{u}A_0}
+        \label{eq:WKB-A}
+      \end{equation}
+
     \subsubsection{Equation C}
-        \lipsum[1-2] %TODO : Mettre le développement du WKB pour C.
+        %TODO : Mettre le développement du WKB pour C.
 
 
 
