@@ -5,11 +5,14 @@ executable = 'Exercice7'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
 output='outpute';
+
+n=5.
 u=6.
 L=20.
-omega=u*pi/L;
+tfin=142.
+omega=u*n*pi/L;
 
-cmd = sprintf('%s%s %s omega=%.15g cb_droit=fixe tfin=100 output=%s', repertoire, executable, input, omega, output);
+cmd = sprintf('%s%s %s omega=%.15g cb_droit=fixe tfin=%g output=%s', repertoire, executable, input, omega, tfin, output);
     disp(cmd);
     system(cmd);
 
@@ -23,7 +26,7 @@ t = data(:,1);
 data = load([fichier,'_f.out']);
 f = data(:,2:end);
 
-fth=sin(omega/u.*x)*sin(omega*t(end))
+fth=tfin*u/L*sin(-omega/u.*x+omega*t(end))
 
 figue=figure;
 hold on;
