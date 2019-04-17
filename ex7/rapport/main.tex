@@ -180,9 +180,6 @@
         \Aboxed{ f_N^{n+1} &= -u_N\frac{\Delta t}{\Delta x}\sqbracket{f_N^n - f_{N-1}^n} + f_N^n}\label{eq:left-exit}
       \end{align}
 
-    %TODO : À remplir
-
-
   \subsection{Energy of the wave}
     The energy of a wave over a domain $x\in\left[0, L\right]$ is given by equation \eqref{eq:energie-continue}.
 
@@ -286,9 +283,9 @@
     \caption{Illustration of the border reflection for a the exit right border condition}
     \label{fig:ex1sor}
     \end{figure}
-    
+
     The result for the \textbf{exit} right border condition is represented on figure \ref{fig:ex1sor}. Here the wave is not reflected off the right side, so the maximum amplitude and maximum energy do not change after the wave has propagated through the whole length of the system. A convergence study with respect to $N \propto 1/\Delta x \propto 1/\Delta t$ for this case is represented on figure \ref{fig:convN}.
-    
+
     \begin{figure}[h!]
      \centering
      \includegraphics[width=0.6\textwidth]{graphs/convN.eps}
@@ -297,7 +294,7 @@
     \end{figure}
 
     The error of the interpolated numerical result converges linearly with order 2, as is expected from the scheme. The outlier at $|f-f_{th}|<10^{-15}$ is the result of a simulation for which interpolation was not needed, as $f(5 \text{m},1.5\text{s})$ precisely was included in the output file. We can thus conclude that the error due to the interpolation is much greater than that of the simulation itself. As the interpolation error is constant, the slope of the linear fit using only the results which contain an interpolation error indeed corresponds to the order of convergence of the scheme. %TODO: Faire une convergence uniquement sur les points qui n'ont pas d'erreur d'interpolation.
-    
+
     \section{Tsunami}
       This section is an application of the initial problem to a tsunami.
       This time, the propagation speed is not kept constant.
@@ -382,7 +379,7 @@
         It follows the global trend, but when the depth of water changes, the propagation speed moves further apart from the theorical value, before slowly stabilizing around it.
         Regarding equation A and B, the results are similar, as both closely follow the theorical propagation speed.
         Also, it can be observed that, before reaching the reef, all equations give an oscillation solution.
-        When leaving the reef, all equation are smoother that before. %TODO : Ca vient d'où ça ? Une idée ? Faut dire un truc sinon ça sert à rien.
+        When leaving the reef, all equation are smoother that before. %TODO : Ca vient d'où ça ? Une idée ? Faut dire un truc sinon ça sert à rien. -> ASSISTANT
 
       \subsubsection{Amplitude}
       The analysis of the amplitude allows to check if the numerical solution indeed follows the approximation given by the WKB method.
@@ -412,7 +409,7 @@
           \caption{Equation C using $A_0 = \num{836.8201}$}
           \label{fig:tsunami-amp-C}
         \end{subfigure}
-        \caption{Verification of the WKB solution for all equations for $t_\text{fin} = \SI{10000}{\s}$ and $N_\text{points} = \num{1000}$} %TODO : C'est vrai que c'est WKB ?
+        \caption{Verification of the WKB solution for all equations for $t_\text{fin} = \SI{10000}{\s}$ and $N_\text{points} = \num{1000}$}
         \label{fig:tsunami-amp}
       \end{figure}
 
@@ -507,7 +504,7 @@
 
 \newpage
 
-\section{optional}
+\section{Optional}
   \subsection{WKB analysis}\label{sec:WKB}
     This section give the WKB analysis for each equations.
     Let $f(x,t)$ be defined by $f(x,t) = \hat{f}(x)e^{-i\omega t}$, with $\hat{f}(x) = A(x)e^{iS(x)}$, where $A(x)$ slowly varies, and $S(x)$ quickly varies.
@@ -562,7 +559,27 @@
       \end{equation}
 
     \subsubsection{Equation C}
-        %TODO : Mettre le développement du WKB pour C.
+      \begin{align*}
+        \intertext{By applying the same for equation C, this equation follows.}
+        \underbrace{-A\omega^2}_{\epsilon^0} = - \underbrace{u^2 A(S')^2}_{\epsilon^0} &+ \underbrace{2(u^2)'A' + i\sqbracket{2(u^2)'AS' + 2u^2A'S' + u^2AS''}}_{\epsilon^1} + \underbrace{u^2 A'' + (u^2)''A}_{\epsilon^2}
+        \intertext{From $\epsilon^0$, we obtain the same relation.}
+        k(x) &= S'(x) = \frac{\omega}{u(x)}
+        \intertext{From $\epsilon^1$:}
+          0 &= \sqbracket{2(u^2)'A'} + i\sqbracket{2(u^2)'AS' + u^2(2A'S' + AS'')}
+        \intertext{By taking the imaginary part and by substituting $S'=\omega/u$ and $S''=-u'\omega/u^2$:}
+        0 &= 2(u^2)'A\frac{\cancel{\omega}}{u} + 2u^{\cancel{2}}A'\frac{\cancel{\omega}}{\cancel{u}} - \cancel{u^2}A\frac{\cancel{\omega}}{\cancel{u^2}}u' \\
+        \Leftrightarrow 0 &= 2\frac{(u^2)'}{u}A + 2uA' - Au' \\
+        \Leftrightarrow 2uA' &= A(u' - \frac{2(u^2)'}{u}) \\
+        \Leftrightarrow \frac{A'}{A} &= \frac{u' - \frac{2\overbrace{(u^2)'}^{2uu'}}{u}}{2u} = \frac{u' - \frac{4\cancel{u}u'}{\cancel{u}}}{2u} = -\frac{3}{2}\frac{u'}{u}\\
+        \Leftrightarrow (\log{A})' &+ (\frac{3}{2}\log{u})' = 0
+        \intertext{By integrating and applying $\exp(\cdot)$:}
+        \Leftrightarrow Au^{\frac{3}{2}} &= e^C := A_0 \\
+        \intertext{This leads to the result, equation \eqref{eq:WKB-C}.}
+      \end{align*}
+      \begin{equation}
+        \boxed{A=\frac{A_0}{\sqrt{u^3}}}
+        \label{eq:WKB-C}
+      \end{equation}
 
 
 
