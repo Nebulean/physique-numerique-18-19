@@ -14,14 +14,14 @@ repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Wind
 executable = 'Exercice7'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base
 
-low=0.;
-high=6;
-nsimul=600;
+% low=10;
+% high=100;
+nsimul=1000;
 
-omega = linspace(low,high, nsimul);
+CFL = linspace(0.7,1.,nsimul);
 
-paramstr = 'omega'; % Nom du parametre a scanner
-param = omega; % Valeurs du parametre a scanner
+paramstr = 'CFL'; % Nom du parametre a scanner
+param = CFL; % Valeurs du parametre a scanner
 
 %% Simulations %%
 %%%%%%%%%%%%%%%%%
@@ -30,36 +30,48 @@ output = cell(1, nsimul); % Tableau de cellules contenant le nom des fichiers de
 for i = 1:nsimul
     output{i} = [paramstr, '=', num2str(param(i))];
     % Execution du programme en lui envoyant la valeur a scanner en argument
-    cmd = sprintf('%s%s %s %s=%.15g cb_gauche=harmonique cb_droit=fixe tfin=400 n_stride=10 ecrire_f=false output=%s', repertoire, executable, input, paramstr, param(i), output{i});
+    cmd = sprintf('%s%s %s %s=%.15g cb_droit=sortie tfin=2. output=%s', repertoire, executable, input, paramstr, param(i), output{i});
     disp(cmd);
     system(cmd);
 end
 
 %% Analyse %%
 %%%%%%%%%%%%%
-u = 6.
-L = 20.
+omega=5.;
+tp=1.5;
+xp=5.;
+L=20.;
+u=6.;
 
-maxE=zeros(1,nsimul);
+
+f=zeros(1,nsimul);
+f_th=-sin((omega/u)*xp-omega*tp);
 time=zeros(1,nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
-    if(strcmp(paramstr,'omega'))
-        data = load([output{i} '_E.out']);
-        time = data(:,1);
-        E = data(:,2);
+    if(strcmp(paramstr,'CFL'))
+        dataf = load([output{i} '_f.out']);
+        datau = load([output{i} '_u.out']);
+        time = dataf(:,1);
+        pos = datau(:,1);
+%         [T,X]=meshgrid(time,pos);
+        func = dataf(:,2:end)
+%         [diff,tid] = min(abs(time-tp));
         
-        maxE(i)=max(E);
+%         dx=L/(Npoints(i)-1);
+%         xid=round(xp/dx)
         
+        f(i)=griddata(pos,time,func,xp,tp,'linear')
+%         f(i)=interp2(pos,time,func,xp,tp,'spline')
     end
 end
+
+err = abs(f-f_th);
 
 %% Figures %%
 %%%%%%%%%%%%%
 
-u = 6.
-L = 20.
 
-if(strcmp(paramstr,'omega'))
+if(strcmp(paramstr,'CFL'))
     f1=figure;
     
     set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
@@ -70,42 +82,31 @@ if(strcmp(paramstr,'omega'))
     set(gca, 'LineWidth',1.5);
     
     hold on
-    plot(omega,maxE);
-
-    for i=1:6
-        omega0=u/L*i*pi;
-        line([omega0 omega0],[0 15e4], 'color', 'red');
+    plot(CFL,err,'k+');
+    
+    %resulto pimpagu no jutsu
+    errfit=err;
+    Nfit=CFL
+    for i=1:length(err);
+        if err(i)<1e-10
+            errfit(i)=[];
+            Nfit(i)=[];
+        end
     end
     
-    xlabel('Frequency of excitation [rad/s]')
-    ylabel('$E_{max}$ [$m^3$]')
-	legend("Simulations", "$\omega_n$");
+%     [fit, slope] = poly_approx(Nfit, errfit, 1, 2, true);
+%     plot(fit(:,1), fit(:,2), '-');
+    set(gca, 'YScale', 'log');
+    set(gca, 'XScale', 'log');
+    xlabel('$CFL$')
+    ylabel('$|f-f_{th}|$ [m]')
+% 	legend(["Data", "slope ="+num2str(slope)],'Location','southeast');
     box on;
     grid on
     hold off;
-    
-%     f2=figure;
-%     
-%     set(gca, 'fontsize', 25);
-%     set(gca, 'LineWidth',1.5);
-%     hold on
-%     plot(omega(1:end/9),maxE(1:end/9));
-% 
-% %     for i=1:3
-%         omega0=u/L*pi;
-%         line([omega0 omega0],[0 15e4], 'color', 'red');
-% %     end
-%     
-%     xlabel('$\omega$')
-%     ylabel('$E_{max}$ [$m^3$]')
-%     legend("Simulations", "Analytical eigenfrequencies");
-%     box on;
-%     grid on
-%     hold off;
 end
 
-saveas(f1, "graphs/Eom","epsc");
-% saveas(f1, "graphs/Eomzoom","epsc");
+saveas(f1, "graphs/convCFL01zoom","epsc");
 
 %% Fonction
 
