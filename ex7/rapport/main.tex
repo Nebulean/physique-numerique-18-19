@@ -206,10 +206,10 @@
     \newpage
 
     \section{Constant propagation speed}
-    In this section, $u(x)=const=6$ m/s (which implies equations \eqref{eq:ondes-ABC} are equal), $L=20$ m and $CFL=1$.
+    In this section, $u(x)=const=6$ m/s (which implies equations \eqref{eq:ondes-ABC} are equal), $L=20$ m and $CFL=1$. Moreover, $N=100$ is used for every simulation in this section, except for the convergence study.
 
     \subsection{Border reflection}
-    The left border condition is $f(0,t)=A\sin(\omega t)$ with $A=1$ m and $\omega=5$ rad/s. Simulations are done for $N=100$ and $t_{fin}=14$ s, such that the wave completes two round trips in the cases where it is reflected.
+    The left border condition is $f(0,t)=A\sin(\omega t)$ with $A=1$ m and $\omega=5$ rad/s. Simulations are done for $t_{fin}=14$ s, such that the wave completes two round trips in the cases where it is reflected.
 
     \begin{figure}[h!]
     \begin{subfigure}{0.5\textwidth}
@@ -293,7 +293,85 @@
      \label{fig:convN}
     \end{figure}
 
+    To get a convergence on the numerical error, the theoretical solution for $f(x,t)$ is computed using the equation for a progressive wave $f(x,t)=\psi \sin(kx-\omega t)$ with $\psi$ a constant coefficient and $k=\omega/u$ the wave number, and the left border condition $f(0,t)=\sin(\omega t)$. We can thus compute $\psi=-1$. The resulting solution is given by equation \eqref{eq:fth}
+    \begin{equation}
+    f(x,t)=-\sin(kx-\omega t)
+     \label{eq:fth}
+    \end{equation}
+    
     The error of the interpolated numerical result converges linearly with order 2, as is expected from the scheme. The outlier at $|f-f_{th}|<10^{-15}$ is the result of a simulation for which interpolation was not needed, as $f(5 \text{m},1.5\text{s})$ precisely was included in the output file. We can thus conclude that the error due to the interpolation is much greater than that of the simulation itself. As the interpolation error is constant, the slope of the linear fit using only the results which contain an interpolation error indeed corresponds to the order of convergence of the scheme. %TODO: Faire une convergence uniquement sur les points qui n'ont pas d'erreur d'interpolation.
+    
+    \subsection{Eigenmodes}
+    To compute the eigenmodes of the system without excitation, one must solve the d'Alembert equation \eqref{eq:ondes-ABC} with the fixed border conditions:
+    \begin{equation}
+     f(0,t) = f(L,t) = 0
+     \label{eq:bc}
+    \end{equation}
+    Here we use the variable separation method by taking the ansatz:
+    \begin{equation*}
+     f(x,t) = \phi(x)e^{-i\omega t}
+    \end{equation*}
+    Plugging it into equation \eqref{eq:ondes-ABC} we get:
+    \begin{align*}
+     &-\omega^2 \phi(x)e^{-i\omega t} = u^2 \phi''(x)e^{-i\omega t}\\
+     &\phi''(x)=-\frac{\omega^2}{u^2}\phi(x)
+    \end{align*}
+    which is the equation for a harmonic oscillator. From this we get an ansatz for $\phi(x)$:
+    \begin{equation*}
+     \phi(x)=C_1\cos(kx)+C_2\sin(kx)
+    \end{equation*}
+    with $C_1$, $C_2$ constant coefficients and $k=\omega/u$ the wave number. From the border conditions \eqref{eq:bc} we get:
+    \begin{align*}
+     &\phi(0)=C_1=0\\
+     &\phi(L)=C_2\sin(kL)=0
+    \end{align*}
+    Hence the non-trivial solution:
+    \begin{equation*}
+     k_n=\frac{n}{L}\pi
+    \end{equation*}
+    with $n$ a non-zero integer. From this we get the eigenfrequencies:
+    \begin{equation}
+     \boxed{\omega_n = \frac{n\cdot u}{L}\pi}
+    \end{equation}
+    and the eigenmodes:
+    \begin{equation}
+     \boxed{\phi_n(x)=C_n\sin\left(\frac{n}{L}\pi x\right)}
+    \end{equation}
+    with $C_n$ a constant coefficient.
+    
+    \subsection{Eigenmode excitation}
+    Here the left border condition is harmonic ($f(0,t)=sin(\omega t)$) and the right border condition is fixed.
+    
+    A series of simulations was realized to determine the dependency of the maximum of the energy on the frequency of excitation $\omega$. Figure \ref{fig:Eom_o} displays such a series of 600 simulations for $t_{fin}=400$ s (such that the wave completes around 30 round trips) as well as the first six eigenfrequencies $\omega_n$. As expected, the maximum of the energy spikes at frequencies around $\omega_n$. This is because when the system is excited at one of its eigenfrequencies, the wave that is reflected on the right side superposes constructively with the wave coming from the left, such that the amplitudes of both waves get added together. This process is repeated for every round trip so the energy keeps increasing.
+    
+    The height of the peaks is different for every peak but stays around the same order of magnitude of $10^5$. The height of each individual peak varies with the number of simulations, which is why a high number of simulations was chosen. Figure \ref{fig:Eom_z} shows the maximum of the energy around the first eigenfrequency (over 600 simulations) to get a better look at the shape of the spike. By zooming we can see that the highest point on the spike does not exactly match up with the position of the theoretical eigenfrequency $\omega_1$. The difference between them is of order $10^{-5}$ and can be attributed to the numerical approximations.
+    
+    \begin{figure}[h!]
+     \begin{subfigure}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{graphs/Eom.eps}
+      \caption{First 6 eigenfrequencies}
+      \label{fig:Eom_o}
+     \end{subfigure}
+     ~
+     \begin{subfigure}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{graphs/Eomzoom.eps}
+      \caption{First eigenfrequency}
+      \label{fig:Eom_z}
+     \end{subfigure}
+     \caption{Maximum of the energy with respect to the frequency}
+     \label{fig:Eom}
+    \end{figure}
+    
+    The dependency of the maximum of the energy on the frequency around the first eigenfrequency was compared for 3 different values of $t_{fin}$ on figure \ref{fig:Eomcomp}. The energy spike is higher when the simulations are longer, because as the wave reflects back and forth, it superposes with itself many times, thus its maximum amplitude increases the more it gets reflected.
+    
+    \begin{figure}[h!]
+     \centering
+     \includegraphics[width=0.5\textwidth]{graphs/Eomcomp}
+     \caption{Comparison of the energy maximum around the first eigenfrequency for different $tfin$}
+     \label{fig:Eomcomp}
+    \end{figure}
+
+
 
     \section{Tsunami}
       This section is an application of the initial problem to a tsunami.

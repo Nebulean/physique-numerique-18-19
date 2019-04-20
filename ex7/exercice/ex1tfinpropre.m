@@ -27,7 +27,8 @@ data = load([fichier,'_f.out']);
 f = data(:,2:end);
 
 % fth=tfin*u/L*sin(-omega/u.*x+omega*t(end))
-fth=-tfin*u/L.*cos(omega*t(end)).*sin(omega/u.*x)
+% fth=-tfin*u/L.*cos(omega*t(end)).*sin(omega/u.*x)
+fth=tfin*u/L.*sin(omega/u.*x);
 
 figue=figure;
 hold on;
