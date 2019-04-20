@@ -20,3 +20,4 @@ ex7/exercice/Exercice7
 */rapport/*.fls
 */rapport/*.fdb_latexmk
 .directory
+*kate-swp*
