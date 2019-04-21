@@ -45,7 +45,7 @@ u=6.;
 
 
 f=zeros(1,nsimul);
-% f_th=-sin((omega/u)*xp-omega*tp);
+f_th=-sin((omega/u)*xp-omega*tp);
 time=zeros(1,nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     if(strcmp(paramstr,'CFL'))
@@ -59,12 +59,12 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
 %         dx=L/(Npoints(i)-1);
 %         xid=round(xp/dx)
         
-        f(i)=abs(griddata(pos,time,func,xp,tp,'linear'))
+        f(i)=griddata(pos,time,func,xp,tp,'linear')
 %         f(i)=interp2(pos,time,func,xp,tp,'spline')
     end
 end
 
-% err = abs(f-f_th);
+err = abs(f-f_th);
 
 %% Figures %%
 %%%%%%%%%%%%%
@@ -81,7 +81,8 @@ if(strcmp(paramstr,'CFL'))
     set(gca, 'LineWidth',1.5);
     
     hold on
-    plot(CFL,f,'x','MarkerSize',10.);
+%     plot(CFL,f,'x','MarkerSize',10.);
+    plot(CFL,err,'x','MarkerSize',10.);
     
     %resulto pimpagu no jutsu
 %     errfit=err;
@@ -98,7 +99,7 @@ if(strcmp(paramstr,'CFL'))
     set(gca, 'YScale', 'log');
     set(gca, 'XScale', 'log');
     xlabel('$CFL$')
-    ylabel('$f$ [m]')
+    ylabel('$|f-f_{th}|$ [m]')
 % 	legend(["Data", "slope ="+num2str(slope)],'Location','southeast');
     box on;
     grid on

@@ -674,6 +674,36 @@
         \label{eq:WKB-C}
       \end{equation}
 
+    \subsection{Convergence and stability with respect to $\beta_{CFL}$}
+    
+    In this section, the effect of a varying $\beta_{CFL}$ (with a constant $u=6 m/s$ and $N=100$) on the numerical results will be studied. From the course, we have:
+    \begin{equation*}
+     \beta_{CFL} = u \frac{\Delta t}{\Delta x}
+    \end{equation*}
+    and we know that the scheme is stable for $\beta_{CFL} \leq 1$ \cite{cours}. This is illustrated on figure \ref{fig:unstable}, wherein the numerical error on $f(x,t)$ at $x=5$ m, $t=1.5$ s, $\omega=5$ rad/s explodes for $\beta_{CFL} \geq 1$.
+
+
+    \begin{figure}
+     \centering
+     \includegraphics[width=0.5\textwidth]{graphs/convCFL.eps}
+     \caption{Numerical erro for $f(5\text{m},1.5\text{s})$ with respect to $\beta_{CFL}$ for values inside and outside of the limits of stability}
+     \label{fig:unstable}
+    \end{figure}
+    
+    The numerical error was further studied for $\beta_{CFL}$ within its limits of stability on figure \ref{fig:stable}. The value of the error seems to oscillate quite a lot depending on $\beta_{CFL}$, and there is no visible convergence. Since $u$ and $\Delta x$ are constant, varying $\beta_{CFL}$ means varying $\Delta t=\beta_{CFL}\cdot \Delta x/u$. Thus, the numerical scheme oscillates with respect to $\Delta t$. It seems to oscillate more when $\beta_{CFL}$ is closer to 1, i.e. when $\Delta t$ is closer to $\Delta x/ u$ (from below).
+    
+    \begin{figure}
+     \begin{subfigure}{0.5\textwidth}
+     \includegraphics[width=\textwidth]{graphs/convCFL01.eps}
+     \end{subfigure}
+     ~
+     \begin{subfigure}{0.5\textwidth}
+     \includegraphics[width=\textwidth]{graphs/convCFL01zoom.eps}
+     \end{subfigure}
+     \caption{Numerical error for $f(5\text{m},1.5\text{s})$ with respect to $\beta_{CFL}$ for values inside of the limits of stability}
+     \label{fig:stable}
+
+    \end{figure}
 
 
 
@@ -681,6 +711,8 @@
   \newpage
   \begin{thebibliography}{99}
     \bibitem{wiki:tsunami-2004} Wikipedia contributors. (2019, April 6). 2004 Indian Ocean earthquake and tsunami. In Wikipedia, The Free Encyclopedia. Retrieved 18:57, April 7, 2019, from \url{https://en.wikipedia.org/w/index.php?title=2004_Indian_Ocean_earthquake_and_tsunami&oldid=891255016}
+    
+    \bibitem{cours} Laurent Villard, Andreas Läuchli, "Physique Numérique I-II", version 17.1.
 
 
   \end{thebibliography}
