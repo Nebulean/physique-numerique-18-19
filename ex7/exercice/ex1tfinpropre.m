@@ -6,10 +6,10 @@ input = 'configuration.in'; % Nom du fichier d'entree de base
 
 output='outpute';
 
-n=5.
+n=4.
 u=6.
 L=20.
-tfin=400.
+tfin=70.
 omega=u*n*pi/L;
 
 cmd = sprintf('%s%s %s omega=%.15g cb_droit=fixe tfin=%g output=%s', repertoire, executable, input, omega, tfin, output);
@@ -28,13 +28,25 @@ f = data(:,2:end);
 
 % fth=tfin*u/L*sin(-omega/u.*x+omega*t(end))
 % fth=-tfin*u/L.*cos(omega*t(end)).*sin(omega/u.*x)
-fth=tfin*u/L.*sin(omega/u.*x);
+fth=-tfin*u/L.*sin(omega/u.*x);
 
 figue=figure;
+
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesFontSize', 18);
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
 hold on;
 plot(x,f(end,:));
 plot(x,fth);
 grid on;
 box on
-legend('Numerical solution','Analytical solution');
+legend('Numerical solution','Analytical eigenmode');
+xlabel('$x$ [m]')
+ylabel('$f(x,t_{fin})$ [m]')
 hold off;
+
+saveas(figue,'graphs/eigenmode','epsc')

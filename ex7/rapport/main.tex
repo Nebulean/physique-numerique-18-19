@@ -293,7 +293,7 @@
      \label{fig:convN}
     \end{figure}
 
-    To get a convergence on the numerical error, the theoretical solution for $f(x,t)$ is computed using the equation for a progressive wave $f(x,t)=\psi \sin(kx-\omega t)$ with $\psi$ a constant coefficient and $k=\omega/u$ the wave number, and the left border condition $f(0,t)=\sin(\omega t)$. We can thus compute $\psi=-1$. The resulting solution is given by equation \eqref{eq:fth}
+    To get a convergence on the numerical error, the theoretical solution for $f(x,t)$ is computed using the equation for a progressive wave $f(x,t)=\psi \sin(kx-\omega t)$ with $\psi$ a constant coefficient and $k=\omega/u$ the wave number, and the left border condition $f(0,t)=\sin(\omega t)$. We can thus compute $\psi=-1$. The resulting solution is given by equation \eqref{eq:fth}:
     \begin{equation}
     f(x,t)=-\sin(kx-\omega t)
      \label{eq:fth}
@@ -332,17 +332,19 @@
     with $n$ a non-zero integer. From this we get the eigenfrequencies:
     \begin{equation}
      \boxed{\omega_n = \frac{n\cdot u}{L}\pi}
+     \label{eq:eigenfreq}
     \end{equation}
     and the eigenmodes:
     \begin{equation}
      \boxed{\phi_n(x)=C_n\sin\left(\frac{n}{L}\pi x\right)}
+     \label{eq:eigenmode}
     \end{equation}
     with $C_n$ a constant coefficient.
     
     \subsection{Eigenmode excitation}
     Here the left border condition is harmonic ($f(0,t)=sin(\omega t)$) and the right border condition is fixed.
     
-    A series of simulations was realized to determine the dependency of the maximum of the energy on the frequency of excitation $\omega$. Figure \ref{fig:Eom_o} displays such a series of 600 simulations for $t_{fin}=400$ s (such that the wave completes around 30 round trips) as well as the first six eigenfrequencies $\omega_n$. As expected, the maximum of the energy spikes at frequencies around $\omega_n$. This is because when the system is excited at one of its eigenfrequencies, the wave that is reflected on the right side superposes constructively with the wave coming from the left, such that the amplitudes of both waves get added together. This process is repeated for every round trip so the energy keeps increasing.
+    A series of simulations was realized to determine the dependency of the maximum of the energy on the frequency of excitation $\omega$. Figure \ref{fig:Eom_o} displays such a series of 600 simulations for $t_{fin}=400$ s (such that the wave completes exactly 60 round trips) as well as the first six eigenfrequencies $\omega_n$. As expected, the maximum of the energy spikes at frequencies around $\omega_n$. This is because when the system is excited at one of its eigenfrequencies, the wave that is reflected on the right side superposes constructively with the wave coming from the left, such that the amplitudes of both waves get added together. This process is repeated for every round trip so the energy keeps increasing linearly.
     
     The height of the peaks is different for every peak but stays around the same order of magnitude of $10^5$. The height of each individual peak varies with the number of simulations, which is why a high number of simulations was chosen. Figure \ref{fig:Eom_z} shows the maximum of the energy around the first eigenfrequency (over 600 simulations) to get a better look at the shape of the spike. By zooming we can see that the highest point on the spike does not exactly match up with the position of the theoretical eigenfrequency $\omega_1$. The difference between them is of order $10^{-5}$ and can be attributed to the numerical approximations.
     
@@ -366,12 +368,25 @@
     
     \begin{figure}[h!]
      \centering
-     \includegraphics[width=0.5\textwidth]{graphs/Eomcomp}
-     \caption{Comparison of the energy maximum around the first eigenfrequency for different $tfin$}
+     \includegraphics[width=0.5\textwidth]{graphs/Eomcomp.eps}
+     \caption{Comparison of the energy maximum around the first eigenfrequency for different $t_{fin}$}
      \label{fig:Eomcomp}
     \end{figure}
+    
+    The numerical solution for $f(x,t)$ at $t\approx t_{fin} = 400$ s with a frequency $\omega\approx \omega_4$ calculated with equation \eqref{eq:eigenfreq} is compared to the analytical eigenmode $\phi_4(x)$ calculated with equation \eqref{eq:eigenmode} on figure \ref{fig:eigenmode}. The coefficient $C_n$ from equation \eqref{eq:eigenmode} is calculated as follows: the amplitude of the wave increases linearly each time it is reflected on the right or left border, so if $t_{fin}$ is such that the wave at $t_{fin}$ has traveled a distance equal to an integer multiple of $L$, i.e. $u\cdot t_{fin}/L=m$ with $m$ an integer, the amplitude at $t_{fin}$ is $C=A\cdot u\cdot t_{fin}/L$. Additionally, we know from equation \eqref{eq:fth} that the theoretical solution of $f(x,t)$ has a negative sign, hence the resulting eigenmode for $A=1$:
+    \begin{equation*}
+     \phi_{n,~t=f_{fin}}=\frac{u\cdot t_{fin}}{L} \sin\left(\frac{\omega_n}{u}x\right)
+    \end{equation*}
 
-
+    
+    \begin{figure}[h!]
+     \centering
+     \includegraphics[width=0.5\textwidth]{graphs/eigenmode.eps}
+     \caption{Comparison of $f(x,t_{fin})$ for a frequency $\omega\approx \omega_4$ with the analytical eigenmode $\phi_4(x)$}
+     \label{fig:eigenmode}
+    \end{figure}
+    
+    The resulting plots for the numerical and analytical solutions on figure \ref{fig:eigenmode} are identical no matter how much we zoom in with MATLAB (precision of $10^-9$). The numerical scheme for calculating $f(x,t)$ is seemingly very precise for $N=100$ in this configuration.
 
     \section{Tsunami}
       This section is an application of the initial problem to a tsunami.
