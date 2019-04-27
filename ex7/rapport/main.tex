@@ -294,9 +294,9 @@
     f(x,t)=-\sin(kx-\omega t)
      \label{eq:fth}
     \end{equation}
-    
+
     The error of the interpolated numerical result converges linearly with order 2, as is expected from the scheme. The outlier at $|f-f_{th}|<10^{-15}$ is the result of a simulation for which interpolation was not needed, as $f(5 \text{m},1.5\text{s})$ precisely was included in the output file. We can thus conclude that the error due to the interpolation is much greater than that of the simulation itself. As the interpolation error is constant, the slope of the linear fit using only the results which contain an interpolation error indeed corresponds to the order of convergence of the scheme. %TODO: Faire une convergence uniquement sur les points qui n'ont pas d'erreur d'interpolation.
-    
+
     \subsection{Eigenmodes}
     To compute the eigenmodes of the system without excitation, one must solve the d'Alembert equation \eqref{eq:ondes-ABC} with the fixed border conditions:
     \begin{equation}
@@ -336,14 +336,14 @@
      \label{eq:eigenmode}
     \end{equation}
     with $C_n$ a constant coefficient.
-    
+
     \subsection{Eigenmode excitation}
-    Here the left border condition is harmonic ($f(0,t)=sin(\omega t)$) and the right border condition is fixed.
-    
+    Here the left border condition is harmonic ($f(0,t)=\sin(\omega t)$) and the right border condition is fixed.
+
     A series of simulations was realized to determine the dependency of the maximum of the energy on the frequency of excitation $\omega$. Figure \ref{fig:Eom_o} displays such a series of 600 simulations for $t_{fin}=400$ s (such that the wave completes exactly 60 round trips) as well as the first six eigenfrequencies $\omega_n$. As expected, the maximum of the energy spikes at frequencies around $\omega_n$. This is because when the system is excited at one of its eigenfrequencies, the wave that is reflected on the right side superposes constructively with the wave coming from the left, such that the amplitudes of both waves get added together. This process is repeated for every round trip so the energy keeps increasing linearly.
-    
+
     The height of the peaks is different for every peak but stays around the same order of magnitude of $10^5$. The height of each individual peak varies with the number of simulations, which is why a high number of simulations was chosen. Figure \ref{fig:Eom_z} shows the maximum of the energy around the first eigenfrequency (over 600 simulations) to get a better look at the shape of the spike. By zooming we can see that the highest point on the spike does not exactly match up with the position of the theoretical eigenfrequency $\omega_1$. The difference between them is of order $10^{-5}$ and can be attributed to the numerical approximations.
-    
+
     \begin{figure}[h!]
      \begin{subfigure}{0.5\textwidth}
       \includegraphics[width=\textwidth]{graphs/Eom.eps}
@@ -359,29 +359,29 @@
      \caption{Maximum of the energy with respect to the frequency}
      \label{fig:Eom}
     \end{figure}
-    
+
     The dependency of the maximum of the energy on the frequency around the first eigenfrequency was compared for 3 different values of $t_{fin}$ on figure \ref{fig:Eomcomp}. The energy spike is higher when the simulations are longer, because as the wave reflects back and forth, it superposes with itself many times, thus its maximum amplitude increases the more it gets reflected.
-    
+
     \begin{figure}[h!]
      \centering
      \includegraphics[width=0.5\textwidth]{graphs/Eomcomp.eps}
      \caption{Comparison of the energy maximum around the first eigenfrequency for different $t_{fin}$}
      \label{fig:Eomcomp}
     \end{figure}
-    
+
     The numerical solution for $f(x,t)$ at $t\approx t_{fin} = 400$ s with a frequency $\omega\approx \omega_4$ calculated with equation \eqref{eq:eigenfreq} is compared to the analytical eigenmode $\phi_4(x)$ calculated with equation \eqref{eq:eigenmode} on figure \ref{fig:eigenmode}. The coefficient $C_n$ from equation \eqref{eq:eigenmode} is calculated as follows: the amplitude of the wave increases linearly each time it is reflected on the right or left border, so if $t_{fin}$ is such that the wave at $t_{fin}$ has traveled a distance equal to an integer multiple of $L$, i.e. $u\cdot t_{fin}/L=m$ with $m$ an integer, the amplitude at $t_{fin}$ is $C=A\cdot u\cdot t_{fin}/L$. Additionally, we know from equation \eqref{eq:fth} that the theoretical solution of $f(x,t)$ has a negative sign, hence the resulting eigenmode for $A=1$:
     \begin{equation*}
      \phi_{n,~t=f_{fin}}=\frac{u\cdot t_{fin}}{L} \sin\left(\frac{\omega_n}{u}x\right)
     \end{equation*}
 
-    
+
     \begin{figure}[h!]
      \centering
      \includegraphics[width=0.5\textwidth]{graphs/eigenmode.eps}
      \caption{Comparison of $f(x,t_{fin})$ for a frequency $\omega\approx \omega_4$ with the analytical eigenmode $\phi_4(x)$}
      \label{fig:eigenmode}
     \end{figure}
-    
+
     The resulting plots for the numerical and analytical solutions on figure \ref{fig:eigenmode} are identical no matter how much we zoom in with MATLAB (precision of $10^-9$). The numerical scheme for calculating $f(x,t)$ is seemingly very precise for $N=100$ in this configuration.
 
     \section{Tsunami}
@@ -671,7 +671,7 @@
       \end{equation}
 
     \subsection{Convergence and stability with respect to $\beta_{CFL}$}
-    
+
     In this section, the effect of a varying $\beta_{CFL}$ (with a constant $u=6 m/s$ and $N=100$) on the numerical results will be studied. From the course, we have:
     \begin{equation*}
      \beta_{CFL} = u \frac{\Delta t}{\Delta x}
@@ -679,16 +679,16 @@
     and we know that the scheme is stable for $\beta_{CFL} \leq 1$ \cite{cours}. This is illustrated on figure \ref{fig:unstable}, wherein the numerical error on $f(x,t)$ at $x=5$ m, $t=1.5$ s, $\omega=5$ rad/s explodes for $\beta_{CFL} \geq 1$.
 
 
-    \begin{figure}
+    \begin{figure}[h]
      \centering
      \includegraphics[width=0.5\textwidth]{graphs/convCFL.eps}
      \caption{Numerical erro for $f(5\text{m},1.5\text{s})$ with respect to $\beta_{CFL}$ for values inside and outside of the limits of stability}
      \label{fig:unstable}
     \end{figure}
-    
+
     The numerical error was further studied for $\beta_{CFL}$ within its limits of stability on figure \ref{fig:stable}. The value of the error seems to oscillate quite a lot depending on $\beta_{CFL}$, and there is no visible convergence. Since $u$ and $\Delta x$ are constant, varying $\beta_{CFL}$ means varying $\Delta t=\beta_{CFL}\cdot \Delta x/u$. Thus, the numerical scheme oscillates with respect to $\Delta t$. It seems to oscillate more when $\beta_{CFL}$ is closer to 1, i.e. when $\Delta t$ is closer to $\Delta x/ u$ (from below).
-    
-    \begin{figure}
+
+    \begin{figure}[h]
      \begin{subfigure}{0.5\textwidth}
      \includegraphics[width=\textwidth]{graphs/convCFL01.eps}
      \end{subfigure}
@@ -707,7 +707,7 @@
   \newpage
   \begin{thebibliography}{99}
     \bibitem{wiki:tsunami-2004} Wikipedia contributors. (2019, April 6). 2004 Indian Ocean earthquake and tsunami. In Wikipedia, The Free Encyclopedia. Retrieved 18:57, April 7, 2019, from \url{https://en.wikipedia.org/w/index.php?title=2004_Indian_Ocean_earthquake_and_tsunami&oldid=891255016}
-    
+
     \bibitem{cours} Laurent Villard, Andreas Läuchli, "Physique Numérique I-II", version 17.1.
 
 
