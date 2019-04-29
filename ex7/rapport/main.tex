@@ -230,7 +230,7 @@
     \label{fig:ex1fix}
     \end{figure}
 
-    The result for the \textbf{fixed} right border condition is represented on figure \ref{fig:ex1fix}. In this case the wave reflected off both sides and superposed itself to the wave coming from the left, such that the maximum energy of the resulting wave kept growing slowly. When reflecting on the right side, the wave turned ``upside-down'', such that it had a phase of $\phi=\pi$ compared to the original wave. The sharp corner visible on the shape of the wave at $t_{fin} = 14.01$ s (Fig. \ref{fig:ex1fixf}), around $x=4$ m is the front of the wave, which keeps propagating as the waves coming from both directions are not in phase, and thus don't interfer completely constructively or destructively. This is because the frequency of excitation $\omega=5$ rad/s is not an eigenfrequency of the system. This is also why the maximum amplitude of the wave does not grow a lot after the first round trip is completed, as seen on figure \ref{fig:ex1fixxt}.
+    The result for the \textbf{fixed} right border condition is represented on figure \ref{fig:ex1fix}. In this case the wave reflected off both sides and superposed with the wave coming from the left, such that the maximum energy of the resulting wave kept growing slowly. When reflecting on the right side, the wave turned ``upside-down'', such that it had a phase of $\phi=\pi$ compared to the original wave. The sharp corner visible on the shape of the wave at $t_{fin} = 14.01$ s (Fig. \ref{fig:ex1fixf}), around $x=4$ m is the front of the wave, which keeps propagating as the waves coming from both directions are not in phase, and thus don't interfere completely constructively or destructively. This is because the frequency of excitation $\omega=5$ rad/s is not an eigenfrequency of the system. This is also why the maximum amplitude of the wave does not grow very much after the first round trip is completed, as seen on figure \ref{fig:ex1fixxt}.
 
     \begin{figure}[h!]
     \begin{subfigure}{0.5\textwidth}
@@ -371,7 +371,7 @@
 
     The numerical solution for $f(x,t)$ at $t\approx t_{fin} = 400$ s with a frequency $\omega\approx \omega_4$ calculated with equation \eqref{eq:eigenfreq} is compared to the analytical eigenmode $\phi_4(x)$ calculated with equation \eqref{eq:eigenmode} on figure \ref{fig:eigenmode}. The coefficient $C_n$ from equation \eqref{eq:eigenmode} is calculated as follows: the amplitude of the wave increases linearly each time it is reflected on the right or left border, so if $t_{fin}$ is such that the wave at $t_{fin}$ has traveled a distance equal to an integer multiple of $L$, i.e. $u\cdot t_{fin}/L=m$ with $m$ an integer, the amplitude at $t_{fin}$ is $C=A\cdot u\cdot t_{fin}/L$. Additionally, we know from equation \eqref{eq:fth} that the theoretical solution of $f(x,t)$ has a negative sign, hence the resulting eigenmode for $A=1$:
     \begin{equation*}
-     \phi_{n,~t=f_{fin}}=\frac{u\cdot t_{fin}}{L} \sin\left(\frac{\omega_n}{u}x\right)
+     \phi_{n,~t=f_{fin}}=-\frac{u\cdot t_{fin}}{L} \sin\left(\frac{\omega_n}{u}x\right)
     \end{equation*}
 
 
@@ -419,7 +419,7 @@
         \label{fig:tsunami-depth}
       \end{figure}
 
-      The simulation will consider a single sine wave of initial amplitude \SI{1}{\meter} coming from the left border, which has a period of \SI{15}{\min} and escapes on the right border.\\
+      The simulation will consider a single sine wave of initial amplitude \SI{1}{\meter} coming from the left border, which has a period of \SI{15}{\min} and exits on the right border.\\
 
       Note that, on this section, the methods used to measure propagations speeds and amplitudes are not perfect and induces glitches in the resulting graphes.
       Thus, to improve their readability, the glitchy points were removed, as they were not useful for the study and not related to the problem.\\
@@ -432,19 +432,19 @@
         To achieve this, some treatment needs to be done to the signal, and the following method describes the way to identify and follow a single wave, as well as computing its propagation speed.
         \begin{enumerate}
           \item Find all the local maxima of the function $f(x)$ where $f$ is the amplitude and $x$ the distance, and only consider the first one.
-          This will give the location of maximum of the first wave on the discretized system.
-          \item Now, the problem is that the found maximum is only the one for the discretized system, and not the real maximum.
-          The real maximum is not numerically foundable, thus, it needs to be approximated, through an interpolation.
+          This will give the location of the maximum of the first wave on the discretized system.
+          \item Now, the problem is that the found maximum is only that of the the discretized system, and not the real maximum.
+          The real maximum is not numerically findable, thus it needs to be approximated through an interpolation.
           To do so, take the two points around the discrete maximum, and fit them with a parabola (2nd order interpolation).
           The real maximum can be approximated by the maximum of the parabola.
           Save the $x$ position of the maximum, and the current time.
           \item Finally, we need to detect the moment when the wave reaches the end of the domain.
-          To do so, consider the three last points of the domain.
+          To do so, consider the last three points of the domain.
           Find the best line that fits these points, and consider its slope.
-          When the slope is null, no movements is detected.
+          When the slope is null, no movement is detected.
           When it is negative, a wave is starting its exit.
-          When it is positive, a wave is more that half out of the domain.
-          Thus, the measurements on the first wave need to be stopped when the slope gets positive.
+          When it is positive, a wave is more that halfway out of the domain.
+          Thus, the measurements on the first wave need to be stopped when the slope becomes positive.
           \item To compute the value of the propagation speed, simply consider a finite difference method to approximate $u=\dot{x}$.
           Thus, the speed is given by equation \eqref{eq:DFM-u}.
         \end{enumerate}
@@ -454,21 +454,21 @@
           \label{eq:DFM-u}
         \end{equation}
 
-        This process lead to figure \ref{fig:tsunami_speed}, which gives a comparison between the theorical propagation speed of a wave, and the three equations considered.
+        This process leads to figure \ref{fig:tsunami_speed}, which gives a comparison between the theoretical propagation speed of a wave, and the three equations considered.
 
         \begin{figure}[h]
           \centering
           \includegraphics[width=\textwidth]{graphs/tsunami_speed.eps}
-          \caption{Comparison between the theorical value of the propagation speed, and the three equations for $t_\text{fin} = \SI{10000}{\s}$ and $N_\text{points} = \num{1000}$.}
+          \caption{Comparison between the theoretical value of the propagation speed, and the three equations for $t_\text{fin} = \SI{10000}{\s}$ and $N_\text{points} = \num{1000}$.}
           \label{fig:tsunami_speed}
         \end{figure}
 
-        All equations tends to follow the theorical propagation speed, but they are different from each other.
-        Indeed, equation C seems to be the worst of them.
-        It follows the global trend, but when the depth of water changes, the propagation speed moves further apart from the theorical value, before slowly stabilizing around it.
-        Regarding equation A and B, the results are similar, as both closely follow the theorical propagation speed.
-        Also, it can be observed that, before reaching the reef, all equations give an oscillation solution.
-        When leaving the reef, all equation are smoother that before. %TODO : Ca vient d'où ça ? Une idée ? Faut dire un truc sinon ça sert à rien. -> ASSISTANT
+        All equations tends to follow the theoretical propagation speed, but they are different from each other.
+        Indeed, equation C seems to be the least well-suited of them.
+        It follows the global trend, but when the depth of water changes, the propagation speed moves further apart from the theoretical value, before slowly stabilizing around it.
+        Regarding equations A and B, the results are similar, as both closely follow the theoretical propagation speed.
+        It can be also observed that, before reaching the reef, all equations give an oscillation solution.
+        When leaving the reef, all equations give a smoother result than before. %TODO : Ca vient d'où ça ? Une idée ? Faut dire un truc sinon ça sert à rien. -> ASSISTANT
 
       \subsubsection{Amplitude}
       The analysis of the amplitude allows to check if the numerical solution indeed follows the approximation given by the WKB method.
@@ -504,25 +504,24 @@
 
       All numerical solutions follow the WKB solution for the first half.
       But after reaching the reef, all the results differ from the WKB solution in a way that can be compared to a loss of energy.
-      While on the reef, the amplitude of the wave slowly reduces.
-      This reduction leads to a gap between the numerical solution and the WKB solution when the wave leaves the reef.\\
+      While on the reef, the amplitude of the wave slowly decreases.
+      This decrease leads to a gap between the numerical solution and the WKB solution when the wave leaves the reef.\\
 
-      The problem may come from the WKB approximation, which makes multiple hypothesis that may not be entirely verified in the case of the tsunami.
+      The problem may come from the WKB approximation, which makes multiple hypotheses that may not be entirely verified in the case of the tsunami.
       This method considers a general solution of the problem given by $f(x,t)=e^{-i\omega t}\hat{f}(x)$ with $\hat{f}(x) = A(x)e^{iS(x)}$.
-      Two main hypothesis are therefore considered: $A(x)$ (amplitude) varies slowly, and $S(x)$ (phase) varies quickly.
+      Two main hypotheses are therefore considered: $A(x)$ (amplitude) varies slowly, and $S(x)$ (phase) varies quickly.
       When the wave reaches the beginning of the ascent, the amplitude suddenly changes, following the curvature of the depth of the ocean.
       Thus, the variation of the amplitude is not as small as expected, which leads to the slight difference between the WKB solution and the numerical solution.
       A further analysis for the WKB solution will be done in section \ref{sec:var-xa}.
 
       %TODO : Dire que c'est plus le cas avec les vagues suivantes. (jojal) -> Graphe ? (il est déjà prêt)
       Aside from this problem, the analysis of the amplitude of the wave also give informations about the validity of the equations.
-      Equation A (Fig. \ref{fig:tsunami-amp-A}) gives a reduction of the amplitude of a wave when approaching the reefs, which is not what happends in reality.
-      If it was the case, tsunamis would not be the same problem as they are.
+      Equation A (Fig. \ref{fig:tsunami-amp-A}) gives a reduction of the amplitude of a wave when approaching the reefs, which is not what happens for real tsunamis.
       On the other hand, equation C (Fig. \ref{fig:tsunami-amp-C}) gives a wave that is more that \SI{80}{\meter} high.
       As a comparison, the powerful tsunamis of 2004 in the indian ocean, cause by a magnitude 9 undersea earthquake, had waves up to \SI{30}{\meter}. \cite{wiki:tsunami-2004}
-      Thus, either our wave was created by a much more energetic event, either equation C is unsuitable for this problem.\\
+      Thus, either our wave was created by a much more energetic event, or equation C is unsuitable for this problem.\\
 
-      In a nutshell, the verifications of all three equation by the amplitudes and the propagation speed lead to the following conclusion: equation B is the only equation that gives realistic results.
+      To summarize, the verifications of all three equations by the amplitudes and the propagation speed lead to the following conclusion: equation B is the only equation that gives realistic results.
 
 
       \subsection{Varying $x_a$} \label{sec:var-xa}
@@ -531,12 +530,11 @@
 
       \subsubsection{Propagation speed}
         Figure \ref{fig:xa-u} gives a comparison between multiple simulations regarding the propagation speed of the wave.
-        Approaching $x_a$ from $x_b$ increase the peak of speed around $x_a$.
+        Approaching $x_a$ to $x_b$ increase the peak of speed around $x_a$.
         This problem probably comes from the multiple numerical derivative computed, using finite differences.
         At $x_a$, the curvature of the depth of ocean changes, which is not much of a problem for the cases where the slope of the depth is low.
         But when $x_a$ approaches $x_b$, the slope of the depth gets higher, which suddenly increases the variation, and causes the derivative to explode.
-        This comes from the fact that the finite difference method relies on a discrete system, which here makes the gap, between one step and the next one, to explode.
-        This problem can be reduced by increasing the number of points considered, which will reduce this gap at this moment, but also drastically increases the computation time of each simulation.
+        This imprecision can be reduced by increasing the number of points considered, which will reduce the distance and time step, but also drastically increase the computation time of each simulation.
         %TODO : AJOUTER LA REF VERS L'ORDRE DE CONVERGENCE EN DX.
 
         \begin{figure}[h]
@@ -563,8 +561,8 @@
 
         Figure \ref{fig:xa-WKB} gives two of the previous simulations with their WKB approximation.
         The main point here is to show that the WKB approximation is only valid for small variation of amplitude.
-        Figure \ref{fig:xa-WKB-250km} shows that the numerical and the WKB solutions are not so far from each other, but figure \ref{fig:xa-WKB-350km} shows that the WKB solution is not a good approximation anymore, as its maximum is almost two times bigger than the numerical solution.
-        Figure \ref{fig:xa-WKB-100m} shows that, by moving $x_a$ away from $x_b$, which reduces the variation of the amplitude, the WKB solution get really close to the numerical solution.
+        Figure \ref{fig:xa-WKB-250km} shows that the numerical and the WKB solutions are not so far from each other, but figure \ref{fig:xa-WKB-350km} shows that the WKB solution is not a good approximation anymore, as its maximum is almost twice as big as the numerical solution.
+        Figure \ref{fig:xa-WKB-100m} shows that, by moving $x_a$ away from $x_b$, which reduces the variation of the amplitude, the WKB solution gets really close to the numerical solution.
         Thus, this shows that the WKB solution is only valid for low-varying amplitudes.
 
         \begin{figure}[h]
@@ -595,9 +593,9 @@
 
 \section{Optional}
   \subsection{WKB analysis}\label{sec:WKB}
-    This section give the WKB analysis for each equations.
-    Let $f(x,t)$ be defined by $f(x,t) = \hat{f}(x)e^{-i\omega t}$, with $\hat{f}(x) = A(x)e^{iS(x)}$, where $A(x)$ slowly varies, and $S(x)$ quickly varies.
-    Note that the development for equation B (Sec. \ref{sec:WKB-B}) is the more detailed, as it is the most important equation for the report.
+    This section give the WKB analysis for each equation.
+    Let $f(x,t)$ be defined by $f(x,t) = \hat{f}(x)e^{-i\omega t}$, with $\hat{f}(x) = A(x)e^{iS(x)}$, where $A(x)$ varies slowly, and $S(x)$ varies quickly.
+    Note that the development for equation B (Sec. \ref{sec:WKB-B}) is more detailed, as it is the most important equation for the report.
 
     \subsubsection{Equation B}\label{sec:WKB-B}
       \begin{align*}
@@ -608,7 +606,7 @@
         \intertext{Thus:}
         -\omega^2 Ae^{iS} = \frac{\partial}{\partial x}\sqbracket{u^2\frac{\partial}{\partial x}\bracket{Ae^{iS}}} &= \frac{\partial}{\partial x}\sqbracket{u^2\bracket{A'e^{iS} + AiS'e^{iS}}}\\
         = \underbrace{2uu'}_{\bracket{u^2}'}\sqbracket{A'e^{iS} + Ais'e^{iS}} &+ u^2\sqbracket{A''e^{iS} + A'S'ie^{iS} + A'S'ie^{iS} + AS''ie^{iS} + AS'^2e^{iS}}\\
-        \intertext{Now, the elements need to be grouped by "variation order". This variation order $n$ is defined by $\epsilon^n$, and $n$ increases by $1$ each time a derivation occures. Also, note that $\epsilon$ works the same as any real number, which means $\epsilon^n\cdot\epsilon^m = \epsilon^{nm}$. Thus, by hypothesis, let $A(x)\sim\epsilon^0$ and $S'(x)\sim\epsilon^0$. This leads to:}
+        \intertext{Now, the elements need to be grouped by "variation order". This variation order $n$ is defined by $\epsilon^n$, and $n$ increases by $1$ each time a derivation occurs. Also, note that $\epsilon$ works the same as any real number, which means $\epsilon^n\cdot\epsilon^m = \epsilon^{n+m}$. Thus, by hypothesis, let $A(x)\sim\epsilon^0$ and $S'(x)\sim\epsilon^0$. This leads to:}
         \underbrace{-\omega^2A}_{\epsilon^0} = \underbrace{-(S')^2u^2A}_{\epsilon^0} &+ \underbrace{i\bracket{2u^2A'S'+u^2AS''+(u^2)'AS'}}_{\epsilon^1} + \underbrace{u^2A''+(u^2)'A'}_{\epsilon^2}\\
         \intertext{By  equalizing the variation order, three equations are obtained.}
         \intertext{From $\epsilon^0$ and by defining $k(x) = \frac{dS}{dx}$, which is the local wave number:}
@@ -672,7 +670,7 @@
 
     \subsection{Convergence and stability with respect to $\beta_{CFL}$}
 
-    In this section, the effect of a varying $\beta_{CFL}$ (with a constant $u=6 m/s$ and $N=100$) on the numerical results will be studied. From the course, we have:
+    In this section, the effect of a varying $\beta_{CFL}$ (with a constant $u=6$ m/s and $N=100$) on the numerical results will be studied. From the course, we have:
     \begin{equation*}
      \beta_{CFL} = u \frac{\Delta t}{\Delta x}
     \end{equation*}
@@ -682,7 +680,7 @@
     \begin{figure}[h]
      \centering
      \includegraphics[width=0.5\textwidth]{graphs/convCFL.eps}
-     \caption{Numerical erro for $f(5\text{m},1.5\text{s})$ with respect to $\beta_{CFL}$ for values inside and outside of the limits of stability}
+     \caption{Numerical error for $f(5\text{m},1.5\text{s})$ with respect to $\beta_{CFL}$ for values inside and outside of the limits of stability}
      \label{fig:unstable}
     \end{figure}
 
