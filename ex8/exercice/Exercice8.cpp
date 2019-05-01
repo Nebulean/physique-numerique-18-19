@@ -48,7 +48,7 @@ double V(double const& x, double const& omega, double const& delta)
 }
 
 
-// Declaration des diagnostiques de la particule d'apres sa fonction d'onde psi :
+// Declaration des diagnostics de la particule d'apres sa fonction d'onde psi :
 //  - prob calcule la probabilite de trouver la particule entre les points nL.dx et nR.dx,
 //  - E calcule son energie,
 //  - xmoy calcule sa position moyenne,
@@ -61,6 +61,9 @@ double xmoy(vec_cmplx const& psi, const vector<double>& x, double const& dx);
 double x2moy(vec_cmplx const& psi, const vector<double>& x, double const& dx);
 double pmoy(vec_cmplx const& psi, double const& dx);
 double p2moy(vec_cmplx const& psi, double const& dx);
+
+// - conj calcule le conjugué de tous les complexes dans un vecteur
+// vec_cmplx conj(vec_cmplx const& psi);
 
 // Fonction pour normaliser une fonction d'onde :
 vec_cmplx normalize(vec_cmplx const& psi, double const& dx);
@@ -106,14 +109,17 @@ int main(int argc,char **argv)
 
   // Initialisation de la fonction d'onde :
   vec_cmplx psi(Npoints);
-  // TODO: initialiser le paquet d'onde, equation (4.109) du cours
   for(int i(0); i<Npoints; ++i)
-    psi[i] = 0.;
+    psi[i] = exp(complex_i*k0*x[i])*exp(-(x[i]-x0)*(x[i]-x0)/(2*sigma0*sigma0));
   // Modifications des valeurs aux bords :
   psi[0] = complex<double> (0.,0.);
   psi[Npoints-1] = complex<double> (0.,0.);
   // Normalisation :
   psi = normalize(psi, dx);
+
+  // Incertitudes de la position et qu. de mouvement
+  double delx(sqrt(x2moy(psi,x,dx)-xmoy(psi,x,dx)*xmoy(psi,x,dx)));
+  double delp(sqrt(p2moy(psi,dx)-pmoy(psi,dx)*pmoy(psi,dx)));
 
   // Matrices (d: diagonale, a: sous-diagonale, c: sur-diagonale) :
   vec_cmplx dH(Npoints), aH(Ninters), cH(Ninters); // matrice Hamiltonienne
@@ -199,8 +205,14 @@ int main(int argc,char **argv)
 
 double prob(vec_cmplx const& psi, int nL, int nR, double dx)
 {
-  // TODO: calculer la probabilite de trouver la particule entre les points nL.dx et nR.dx
-  return 0.;
+  //calcule la probabilite de trouver la particule entre les points nL.dx et nR.dx
+  double pr(0.);
+  //max nR = Npoints-2
+  for (size_t i = nL; i < nR; i++) {
+    pr+=abs(psi[i])*abs(psi[i])+abs(psi[i+1])*abs(psi[i+1]);
+  }
+  pr*=dx/2.;
+  return pr;
 }
 
 
@@ -222,29 +234,51 @@ double E(vec_cmplx const& psi, vec_cmplx const& diagH, vec_cmplx const& lowerH, 
 
 double xmoy(vec_cmplx const& psi, const vector<double>& x, double const& dx)
 {
-  //TODO: calculer la moyenne de la position
-  return 0.;
+  //calcule la moyenne de la position
+  double res(0.);
+  for (size_t i = 0; i < psi.size()-1; i++) {
+    res+=real(psi[i]*x[i]*conj(psi[i])+psi[i+1]*x[i+1]*conj(psi[i+1]));
+  }
+  return res*dx/2.;
 }
 
 
 double x2moy(vec_cmplx const& psi, const vector<double>& x, double const& dx)
 {
-  //TODO: calculer la moyenne du x^2
-  return 0.;
+  //calcule la moyenne du x^2
+  double res(0.);
+  for (size_t i = 0; i < psi.size()-1; i++) {
+    res+=real(psi[i]*x[i]*x[i]*conj(psi[i])+psi[i+1]*x[i+1]*x[i+1]*conj(psi[i+1]));
+  }
+  return res*dx/2.;
 }
 
 
 double pmoy(vec_cmplx const& psi, double const& dx)
 {
-  //TODO: calculer la moyenne de p
-  return 0.;
+  //calcule la moyenne de p
+  int Npoints(psi.size());
+  double hbar(1.);
+  double res(0.);
+  res+=imag(conj(psi[0])*2.*(psi[1]+psi[0])+conj(psi[1])*(psi[2]-psi[0]));
+  res+=imag(conj(psi[Npoints-2])*(psi[Npoints-1]+psi[Npoints-3])+conj(psi[Npoints-1])*2.*(psi[Npoints-1]-psi[Npoints-2]));
+
+  for (size_t i = 1; i < psi.size()-2; i++) {
+    res+=imag(conj(psi[i])*(psi[i+1]+psi[i-1])+conj(psi[i+1])*(psi[i+2]-psi[i]));
+  }
+  return res*hbar/4.;
 }
 
 
 double p2moy(vec_cmplx const& psi, double const& dx)
 {
-  // TODO: calculer la moyenne du p^2
-  return 0.;
+  //calcule la moyenne du p^2
+  double hbar(1.);
+  double res(0.);
+  for (size_t i = 1; i < psi.size()-2; i++) {
+    res+=real(conj(psi[i])*(psi[i+1]-2.*psi[i]+psi[i-1])+conj(psi[i+1])*(psi[i+2]-2.*psi[i+1]+psi[i]));
+  }
+  return -res*hbar*hbar/(2.*dx);
 }
 
 vec_cmplx normalize(vec_cmplx const& psi, double const& dx)
@@ -256,7 +290,10 @@ vec_cmplx normalize(vec_cmplx const& psi, double const& dx)
   return psi_norm;
 }
 
-
-
-
-
+// vec_cmplx conj(vec_cmplx const& psi)
+// {
+//   vec_cmplx res(Npoints,0.);
+//   for (size_t i = 0; i < Npoints; i++) {
+//     res[i]=conj(psi[i]);
+//   }
+// }
