@@ -140,8 +140,8 @@ int main(int argc,char **argv)
     cH[i] = -pow(hbar, 2)/(2.0*m*pow(dx, 2));
     aA[i] = complex_i*dt/(2.0*pow(hbar, 2)) * aH[i];
     cA[i] = complex_i*dt/(2.0*pow(hbar, 2)) * cH[i];
-    aB[i] = complex_i*dt/(2.0*pow(hbar, 2)) * aH[i];
-    cB[i] = complex_i*dt/(2.0*pow(hbar, 2)) * cH[i];
+    aB[i] = -complex_i*dt/(2.0*pow(hbar, 2)) * aH[i];
+    cB[i] = -complex_i*dt/(2.0*pow(hbar, 2)) * cH[i];
   }
 
   // Conditions aux limites: psi nulle aux deux bords
@@ -149,12 +149,15 @@ int main(int argc,char **argv)
   dA[0] = 1;
   cA[0] = 0;
   cB[0] = 0;
-
+  cout << "size";
   // Bord droit
-  dA[Npoints - 1] = 1;
-  aA[Ninters - 1] = 0;
-  aB[Ninters - 1] = 0;
+  dA[Npoints-1] = 1;
+  aA[Ninters-1] = 0;
+  aB[Ninters-1] = 0;
 
+  // cout << "size2" << dA.size() << endl;
+
+  // coutBigFatVec(aA, "dA");
   // Fichiers de sortie :
   string output = configFile.get<string>("output");
 
@@ -255,16 +258,14 @@ double E(vec_cmplx const& psi, vec_cmplx const& diagH, vec_cmplx const& lowerH, 
   psiH[0] = diagH[0]*psi[0] + upperH[0]*psi[1];
   psiH[Npoints - 1] = lowerH[Npoints - 2]*psi[Npoints - 2] + diagH[Npoints - 1]*psi[Npoints - 1];
 
-  coutBigFatVec(psi, "psi");
+  // coutBigFatVec(psi, "psi");
 
   // Integrale de psi* H(psi) dx
   for (size_t i = 0; i < Npoints - 1; i++) {
     E += conj(psi[i])*psiH[i] + conj(psi[i+1])*psiH[i+1];
   }
   E *= dx/2.0;
-  // if (imag(E) != 0.0) {
-    // cout << "E = " << real(E) << " " << imag(E) << endl;
-  // }
+  // cout << "E = " << real(E) << " " << imag(E) << endl;
   return real(E);
 }
 
@@ -272,22 +273,24 @@ double E(vec_cmplx const& psi, vec_cmplx const& diagH, vec_cmplx const& lowerH, 
 double xmoy(vec_cmplx const& psi, const vector<double>& x, double const& dx)
 {
   //calcule la moyenne de la position
-  double res(0.);
+  complex<double> res(0.0, 0.0);
   for (size_t i = 0; i < psi.size()-1; i++) {
-    res+=real(psi[i]*x[i]*conj(psi[i])+psi[i+1]*x[i+1]*conj(psi[i+1]));
+    res+=psi[i]*x[i]*conj(psi[i])+psi[i+1]*x[i+1]*conj(psi[i+1]);
   }
-  return res*dx/2.;
+  // cout << "res = " << real(res) << " " << imag(res) << endl;
+  return real(res*dx/2.0);
 }
 
 
 double x2moy(vec_cmplx const& psi, const vector<double>& x, double const& dx)
 {
   //calcule la moyenne du x^2
-  double res(0.);
+  complex<double> res(0.0, 0.0);
   for (size_t i = 0; i < psi.size()-1; i++) {
-    res+=real(psi[i]*x[i]*x[i]*conj(psi[i])+psi[i+1]*x[i+1]*x[i+1]*conj(psi[i+1]));
+    res+=psi[i]*x[i]*x[i]*conj(psi[i])+psi[i+1]*x[i+1]*x[i+1]*conj(psi[i+1]);
   }
-  return res*dx/2.;
+  // cout << "res = " << real(res) << " " << imag(res) << endl;
+  return real(res*dx/2.0);
 }
 
 
