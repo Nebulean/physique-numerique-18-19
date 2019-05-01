@@ -296,14 +296,18 @@ double pmoy(vec_cmplx const& psi, double const& dx)
   //calcule la moyenne de p
   int Npoints(psi.size());
   double hbar(1.);
-  double res(0.);
-  res+=imag(conj(psi[0])*2.*(psi[1]+psi[0])+conj(psi[1])*(psi[2]-psi[0]));
-  res+=imag(conj(psi[Npoints-2])*(psi[Npoints-1]+psi[Npoints-3])+conj(psi[Npoints-1])*2.*(psi[Npoints-1]-psi[Npoints-2]));
+  complex<double> res(0,0);
+  res+=conj(psi[0])*2.*(psi[1]+psi[0])+conj(psi[1])*(psi[2]-psi[0]);
+  res+=conj(psi[Npoints-2])*(psi[Npoints-1]+psi[Npoints-3])+conj(psi[Npoints-1])*2.*(psi[Npoints-1]-psi[Npoints-2]);
 
   for (size_t i = 1; i < psi.size()-2; i++) {
-    res+=imag(conj(psi[i])*(psi[i+1]+psi[i-1])+conj(psi[i+1])*(psi[i+2]-psi[i]));
+    res+=conj(psi[i])*(psi[i+1]+psi[i-1])+conj(psi[i+1])*(psi[i+2]-psi[i]);
   }
-  return res*hbar/4.;
+
+  cout << "pm= " << res;
+
+  double pm(imag(res));
+  return pm*hbar/4.;
 }
 
 
@@ -311,11 +315,12 @@ double p2moy(vec_cmplx const& psi, double const& dx)
 {
   //calcule la moyenne du p^2
   double hbar(1.);
-  double res(0.);
+  complex<double> res(0,0);
   for (size_t i = 1; i < psi.size()-2; i++) {
-    res+=real(conj(psi[i])*(psi[i+1]-2.*psi[i]+psi[i-1])+conj(psi[i+1])*(psi[i+2]-2.*psi[i+1]+psi[i]));
+    res+=conj(psi[i])*(psi[i+1]-2.*psi[i]+psi[i-1])+conj(psi[i+1])*(psi[i+2]-2.*psi[i+1]+psi[i]);
   }
-  return -res*hbar*hbar/(2.*dx);
+  double p2m(imag(res));
+  return -p2m*hbar*hbar/(2.*dx);
 }
 
 vec_cmplx normalize(vec_cmplx const& psi, double const& dx)
