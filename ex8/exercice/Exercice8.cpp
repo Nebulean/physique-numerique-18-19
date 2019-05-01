@@ -300,8 +300,8 @@ double pmoy(vec_cmplx const& psi, double const& dx)
   int Npoints(psi.size());
   double hbar(1.);
   complex<double> res(0,0);
-  res+=conj(psi[0])*2.*(psi[1]+psi[0])+conj(psi[1])*(psi[2]-psi[0]);
-  res+=conj(psi[Npoints-2])*(psi[Npoints-1]+psi[Npoints-3])+conj(psi[Npoints-1])*2.*(psi[Npoints-1]-psi[Npoints-2]);
+  res+=conj(psi[0])*2.*(psi[1]+psi[0])+conj(psi[1])*(psi[2]-psi[1]);
+  res+=conj(psi[Npoints-2])*(psi[Npoints-2]+psi[Npoints-3])+conj(psi[Npoints-1])*2.*(psi[Npoints-1]-psi[Npoints-2]);
 
   for (size_t i = 1; i < psi.size()-2; i++) {
     res+=conj(psi[i])*(psi[i+1]+psi[i-1])+conj(psi[i+1])*(psi[i+2]-psi[i]);
@@ -322,6 +322,9 @@ double p2moy(vec_cmplx const& psi, double const& dx)
   for (size_t i = 1; i < psi.size()-2; i++) {
     res+=conj(psi[i])*(psi[i+1]-2.*psi[i]+psi[i-1])+conj(psi[i+1])*(psi[i+2]-2.*psi[i+1]+psi[i]);
   }
+
+  // cout << "p2m= " << res;
+
   double p2m(imag(res));
   return -p2m*hbar*hbar/(2.*dx);
 }
