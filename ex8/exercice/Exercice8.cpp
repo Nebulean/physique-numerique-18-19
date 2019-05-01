@@ -9,6 +9,10 @@
 using namespace std;
 typedef vector<complex<double> > vec_cmplx;
 
+template <class T>
+void coutBigFatVec(vector<T> const& vec, string name);
+
+
 // Fonction resolvant le systeme d'equations A * solution = rhs
 // ou A est une matrice tridiagonale
 template <class T> void triangular_solve(vector<T> const& diag,
@@ -61,9 +65,6 @@ double xmoy(vec_cmplx const& psi, const vector<double>& x, double const& dx);
 double x2moy(vec_cmplx const& psi, const vector<double>& x, double const& dx);
 double pmoy(vec_cmplx const& psi, double const& dx);
 double p2moy(vec_cmplx const& psi, double const& dx);
-
-// - conj calcule le conjugué de tous les complexes dans un vecteur
-// vec_cmplx conj(vec_cmplx const& psi);
 
 // Fonction pour normaliser une fonction d'onde :
 vec_cmplx normalize(vec_cmplx const& psi, double const& dx);
@@ -128,11 +129,31 @@ int main(int argc,char **argv)
 
   complex<double> a, b;
 
-  // TODO: calculer les elements des matrices A, B et H.
   // Ces matrices sont stockees sous forme tridiagonale, d:diagonale, c et a: diagonales superieures et inferieures
+  for (size_t i = 0; i < Npoints; i++) {
+    dH[i] = pow(hbar, 2)/( m*pow(dx, 2) ) + V(x[i], omega, delta);
+    dA[i] = 1.0 + complex_i*dt/(2.0*pow(hbar, 2)) * dH[i];
+    dB[i] = 1.0 - complex_i*dt/(2.0*pow(hbar, 2)) * dH[i];
+  }
+  for (size_t i = 0; i < Ninters; i++) {
+    aH[i] = -pow(hbar, 2)/(2.0*m*pow(dx, 2));
+    cH[i] = -pow(hbar, 2)/(2.0*m*pow(dx, 2));
+    aA[i] = complex_i*dt/(2.0*pow(hbar, 2)) * aH[i];
+    cA[i] = complex_i*dt/(2.0*pow(hbar, 2)) * cH[i];
+    aB[i] = complex_i*dt/(2.0*pow(hbar, 2)) * aH[i];
+    cB[i] = complex_i*dt/(2.0*pow(hbar, 2)) * cH[i];
+  }
 
   // Conditions aux limites: psi nulle aux deux bords
-  // TODO: Modifier les matrices A et B pour satisfaire les conditions aux limites
+  // Bord gauche
+  dA[0] = 1;
+  cA[0] = 0;
+  cB[0] = 0;
+
+  // Bord droit
+  dA[Npoints - 1] = 1;
+  aA[Ninters - 1] = 0;
+  aB[Ninters - 1] = 0;
 
   // Fichiers de sortie :
   string output = configFile.get<string>("output");
@@ -218,17 +239,33 @@ double prob(vec_cmplx const& psi, int nL, int nR, double dx)
 
 double E(vec_cmplx const& psi, vec_cmplx const& diagH, vec_cmplx const& lowerH, vec_cmplx const& upperH, double const& dx)
 {
-  vec_cmplx psi_tmp(psi.size());
+  // vec_cmplx psi_tmp(psi.size());
+  complex<double> E(0.0, 0.0);
+  size_t Npoints = psi.size();
 
   // TODO: calculer la moyenne de l'Hamiltonien
 
   // H(psi)
   // On utilise la matrice H calculée plus haut
-  //...
-  // Integrale de psi* H(psi) dx
-  //...
+  vec_cmplx psiH(Npoints, 0.0); // H*psi
+  for (size_t i = 1; i < Npoints - 1; i++) {
+    psiH[i] = lowerH[i-1]*psi[i-1] + diagH[i]*psi[i] + upperH[i]*psi[i+1];
+  }
+  // Bords
+  psiH[0] = diagH[0]*psi[0] + upperH[0]*psi[1];
+  psiH[Npoints - 1] = lowerH[Npoints - 2]*psi[Npoints - 2] + diagH[Npoints - 1]*psi[Npoints - 1];
 
-  return 0.;
+  coutBigFatVec(psi, "psi");
+
+  // Integrale de psi* H(psi) dx
+  for (size_t i = 0; i < Npoints - 1; i++) {
+    E += conj(psi[i])*psiH[i] + conj(psi[i+1])*psiH[i+1];
+  }
+  E *= dx/2.0;
+  // if (imag(E) != 0.0) {
+    // cout << "E = " << real(E) << " " << imag(E) << endl;
+  // }
+  return real(E);
 }
 
 
@@ -290,10 +327,12 @@ vec_cmplx normalize(vec_cmplx const& psi, double const& dx)
   return psi_norm;
 }
 
-// vec_cmplx conj(vec_cmplx const& psi)
-// {
-//   vec_cmplx res(Npoints,0.);
-//   for (size_t i = 0; i < Npoints; i++) {
-//     res[i]=conj(psi[i]);
-//   }
-// }
+template <class T>
+void coutBigFatVec(vector<T> const& vec, string name){
+  cout << name << "=( ";
+  for (size_t i = 0; i < vec.size() - 1; i++) {
+    cout.precision(5);
+    cout << vec[i] << ", ";
+  }
+  cout << vec[vec.size() - 1] << " )" << endl;
+}
