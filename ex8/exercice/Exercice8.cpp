@@ -65,6 +65,8 @@ double xmoy(vec_cmplx const& psi, const vector<double>& x, double const& dx);
 double x2moy(vec_cmplx const& psi, const vector<double>& x, double const& dx);
 double pmoy(vec_cmplx const& psi, double const& dx);
 double p2moy(vec_cmplx const& psi, double const& dx);
+double delx(vec_cmplx const& psi, vector<double> const& x, double const& dx);
+double delp(vec_cmplx const& psi, double const& dx);
 
 // Fonction pour normaliser une fonction d'onde :
 vec_cmplx normalize(vec_cmplx const& psi, double const& dx);
@@ -119,8 +121,8 @@ int main(int argc,char **argv)
   psi = normalize(psi, dx);
 
   // Incertitudes de la position et qu. de mouvement
-  double delx(sqrt(x2moy(psi,x,dx)-xmoy(psi,x,dx)*xmoy(psi,x,dx)));
-  double delp(sqrt(p2moy(psi,dx)-pmoy(psi,dx)*pmoy(psi,dx)));
+  // double delx(sqrt(x2moy(psi,x,dx)-xmoy(psi,x,dx)*xmoy(psi,x,dx)));
+  // double delp(sqrt(p2moy(psi,dx)-pmoy(psi,dx)*pmoy(psi,dx)));
   // cout << p2moy(psi,dx)-pmoy(psi,dx)*pmoy(psi,dx) << endl;
   // Matrices (d: diagonale, a: sous-diagonale, c: sur-diagonale) :
   vec_cmplx dH(Npoints), aH(Ninters), cH(Ninters); // matrice Hamiltonienne
@@ -191,8 +193,8 @@ int main(int argc,char **argv)
                         << x2moy(psi,x,dx) << " "                         // Position^2 moyenne
                         << pmoy(psi,dx) << " "                            // Quantite de mouvement moyenne
                         << p2moy(psi,dx) << " "                         // (Quantite de mouvement)^2 moyenne
-                        << sqrt(x2moy(psi,x,dx)-xmoy(psi,x,dx)*xmoy(psi,x,dx)) << " "
-                        << delp << endl;
+                        << delx(psi, x, dx) << " "
+                        << delp(psi, dx) << endl;
 
     // Calcul du membre de droite :
     vec_cmplx psi_tmp(Npoints,0.);
@@ -222,8 +224,8 @@ int main(int argc,char **argv)
                       << x2moy(psi,x,dx) << " "
                       << pmoy(psi,dx) << " "
                       << p2moy(psi,dx) << " "                         // (Quantite de mouvement)^2 moyenne
-                      << sqrt(x2moy(psi,x,dx)-xmoy(psi,x,dx)*xmoy(psi,x,dx)) << " "
-                      << delp << endl;
+                      << delx(psi, x, dx) << " "
+                      << delp(psi, dx) << endl;
 
   fichier_observables.close();
   fichier_psi.close();
@@ -340,6 +342,16 @@ vec_cmplx normalize(vec_cmplx const& psi, double const& dx)
   for(unsigned int i(0); i<psi.size(); ++i)
     psi_norm[i] = psi[i]/norm;
   return psi_norm;
+}
+
+double delx(vec_cmplx const& psi, vector<double> const& x, double const& dx)
+{
+  return sqrt(x2moy(psi,x,dx)-xmoy(psi,x,dx)*xmoy(psi,x,dx));
+}
+
+double delp(vec_cmplx const& psi, double const& dx)
+{
+  return sqrt(p2moy(psi,dx)-pmoy(psi,dx)*pmoy(psi,dx));
 }
 
 template <class T>

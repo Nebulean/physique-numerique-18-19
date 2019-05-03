@@ -10,7 +10,7 @@ tfin = 5000;
 Ninters = 300;
 
 init2 = 7;
-end2 = 12;
+end2 = 15;
 dt = tfin./2.^(init2:end2);
 
 nsimul = length(dt);
@@ -147,6 +147,36 @@ set(gca, 'yscale', 'log');
 
 xlabel("$N~[-]$");
 ylabel("$|\langle \Delta x \rangle - \langle \Delta x_{best}\rangle|~[m]$");
+
+legend(["data", sprintf("slope = %0.5f", slope)]);
+grid on;
+box on;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+figP = figure;
+hold on;
+
+X = N;
+Y = abs(delp-delp(end));
+X(end) = [];
+Y(end) = [];
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+plot(X, Y, 'x', 'markersize', 10, 'linewidth', 1.5);
+
+[fit, slope] = poly_approx(X, Y, 1, 2, true);
+
+plot(fit(:,1), fit(:,2), '-', 'linewidth', 1.5);
+
+set(gca, 'xscale', 'log');
+set(gca, 'yscale', 'log');
+
+xlabel("$N~[-]$");
+ylabel("$|\langle \Delta p \rangle - \langle \Delta p_{best}\rangle|~[$kg m s$^{-1}]$");
 
 legend(["data", sprintf("slope = %0.5f", slope)]);
 grid on;
