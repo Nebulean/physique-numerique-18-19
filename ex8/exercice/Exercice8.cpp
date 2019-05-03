@@ -149,7 +149,7 @@ int main(int argc,char **argv)
   dA[0] = 1;
   cA[0] = 0;
   cB[0] = 0;
-  cout << "size";
+  // cout << "size"; //TODO : Pourquoi y'a pas de seg. fault si on change les bord droits avec +10 au lieu de -1 par exemple ?
   // Bord droit
   dA[Npoints-1] = 1;
   aA[Ninters-1] = 0;
@@ -213,8 +213,8 @@ int main(int argc,char **argv)
     fichier_psi << abs(psi[i]) * abs(psi[i]) << " ";
 
   fichier_observables << t << " "
-                      << prob(psi,0,Ninters*xL/(xL-xR),dx) << " "
-                      << prob(psi,Ninters*xL/(xL-xR),Ninters,dx) << " "
+                      << prob(psi,0,Ninters*xL/(xL-xR),dx) << " " // Proba pour la partie droite
+                      << prob(psi,Ninters*xL/(xL-xR),Ninters,dx) << " " // proba pour la partie gauche.
                       << E(psi,dH,aH,cH,dx) << " "
                       << xmoy(psi,x,dx) << " "
                       << x2moy(psi,x,dx) << " "
@@ -307,7 +307,7 @@ double pmoy(vec_cmplx const& psi, double const& dx)
     res+=conj(psi[i])*(psi[i+1]-psi[i-1])+conj(psi[i+1])*(psi[i+2]-psi[i]);
   }
 
-  cout << "pm= " << res;
+  // cout << "pm= " << res;
 
   double pm(imag(res));
   return pm*hbar/4.;
