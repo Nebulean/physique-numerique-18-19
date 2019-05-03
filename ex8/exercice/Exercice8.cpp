@@ -121,7 +121,7 @@ int main(int argc,char **argv)
   // Incertitudes de la position et qu. de mouvement
   double delx(sqrt(x2moy(psi,x,dx)-xmoy(psi,x,dx)*xmoy(psi,x,dx)));
   double delp(sqrt(p2moy(psi,dx)-pmoy(psi,dx)*pmoy(psi,dx)));
-
+  // cout << p2moy(psi,dx)-pmoy(psi,dx)*pmoy(psi,dx) << endl;
   // Matrices (d: diagonale, a: sous-diagonale, c: sur-diagonale) :
   vec_cmplx dH(Npoints), aH(Ninters), cH(Ninters); // matrice Hamiltonienne
   vec_cmplx dA(Npoints), aA(Ninters), cA(Ninters); // matrice du membre de gauche de l'equation (4.90)
@@ -190,7 +190,9 @@ int main(int argc,char **argv)
                         << xmoy(psi,x,dx) << " "                          // Position moyenne
                         << x2moy(psi,x,dx) << " "                         // Position^2 moyenne
                         << pmoy(psi,dx) << " "                            // Quantite de mouvement moyenne
-                        << p2moy(psi,dx) << endl;                         // (Quantite de mouvement)^2 moyenne
+                        << p2moy(psi,dx) << " "                         // (Quantite de mouvement)^2 moyenne
+                        << sqrt(x2moy(psi,x,dx)-xmoy(psi,x,dx)*xmoy(psi,x,dx)) << " "
+                        << delp << endl;
 
     // Calcul du membre de droite :
     vec_cmplx psi_tmp(Npoints,0.);
@@ -219,7 +221,9 @@ int main(int argc,char **argv)
                       << xmoy(psi,x,dx) << " "
                       << x2moy(psi,x,dx) << " "
                       << pmoy(psi,dx) << " "
-                      << p2moy(psi,dx) << endl;
+                      << p2moy(psi,dx) << " "                         // (Quantite de mouvement)^2 moyenne
+                      << sqrt(x2moy(psi,x,dx)-xmoy(psi,x,dx)*xmoy(psi,x,dx)) << " "
+                      << delp << endl;
 
   fichier_observables.close();
   fichier_psi.close();

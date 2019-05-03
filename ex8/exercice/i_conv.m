@@ -10,7 +10,7 @@ tfin = 5000;
 Ninters = 300;
 
 init2 = 7;
-end2 = 20;
+end2 = 12;
 dt = tfin./2.^(init2:end2);
 
 nsimul = length(dt);
@@ -42,11 +42,16 @@ end
 % osb: t, probD, probG, E, xmoy, x2moy, pmoy, p2moy
 for i=1:nsimul
     data = load(sprintf("%s_obs.out", output{i}));
-
+    
     N(i) = length(data(:,1));
     xmoy(i) = data(end, 5);
     pmoy(i) = data(end, 7);
+    delx(i) = data(end, 9);
+    delp(i) = data(end, 10);
 end
+
+%
+
 
 
 %% Figures
@@ -66,26 +71,89 @@ Y(end) = [];
 set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
-plot(X, Y, 'x', 'markersize', 10);
+plot(X, Y, 'x', 'markersize', 10, 'linewidth', 1.5);
 
 [fit, slope] = poly_approx(X, Y, 1, 2, true);
 
-plot(fit(:,1), fit(:,2), '-');
+plot(fit(:,1), fit(:,2), '-', 'linewidth', 1.5);
 
 set(gca, 'xscale', 'log');
 set(gca, 'yscale', 'log');
 
 xlabel("$N~[-]$");
-ylabel("$|x_{moy} - x_{moy, best}|$");
+ylabel("$|\langle x \rangle - \langle x_{best}\rangle|~[m]$");
 
 legend(["data", sprintf("slope = %0.5f", slope)]);
 grid on;
 box on;
 
+
+hold off;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+figP = figure;
+hold on;
+
+X = N;
+Y = abs(pmoy-pmoy(end));
+X(end) = [];
+Y(end) = [];
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+plot(X, Y, 'x', 'markersize', 10, 'linewidth', 1.5);
+
+[fit, slope] = poly_approx(X, Y, 1, 2, true);
+
+plot(fit(:,1), fit(:,2), '-', 'linewidth', 1.5);
+
+set(gca, 'xscale', 'log');
+set(gca, 'yscale', 'log');
+
+xlabel("$N~[-]$");
+ylabel("$|\langle p \rangle - \langle p_{best}\rangle|~[$kg m s$^{-1}]$");
+
+legend(["data", sprintf("slope = %0.5f", slope)]);
+grid on;
+box on;
+
+
 hold off;
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+figP = figure;
+hold on;
+
+X = N;
+Y = abs(delx-delx(end));
+X(end) = [];
+Y(end) = [];
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+plot(X, Y, 'x', 'markersize', 10, 'linewidth', 1.5);
+
+[fit, slope] = poly_approx(X, Y, 1, 2, true);
+
+plot(fit(:,1), fit(:,2), '-', 'linewidth', 1.5);
+
+set(gca, 'xscale', 'log');
+set(gca, 'yscale', 'log');
+
+xlabel("$N~[-]$");
+ylabel("$|\langle \Delta x \rangle - \langle \Delta x_{best}\rangle|~[m]$");
+
+legend(["data", sprintf("slope = %0.5f", slope)]);
+grid on;
+box on;
+
+
+hold off;
 
 
 
