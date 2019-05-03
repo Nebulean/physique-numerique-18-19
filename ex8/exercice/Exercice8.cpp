@@ -325,7 +325,7 @@ double p2moy(vec_cmplx const& psi, double const& dx)
 
   // cout << "p2m= " << res;
 
-  double p2m(imag(res));
+  double p2m(real(res));
   return -p2m*hbar*hbar/(2.*dx);
 }
 
