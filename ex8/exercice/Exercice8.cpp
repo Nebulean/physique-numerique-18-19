@@ -134,16 +134,16 @@ int main(int argc,char **argv)
   // Ces matrices sont stockees sous forme tridiagonale, d:diagonale, c et a: diagonales superieures et inferieures
   for (size_t i = 0; i < Npoints; i++) {
     dH[i] = pow(hbar, 2)/( m*pow(dx, 2) ) + V(x[i], omega, delta);
-    dA[i] = 1.0 + complex_i*dt/(2.0*pow(hbar, 2)) * dH[i];
-    dB[i] = 1.0 - complex_i*dt/(2.0*pow(hbar, 2)) * dH[i];
+    dA[i] = 1.0 + complex_i*dt/(2.0*hbar) * dH[i]; // 1.0 + complex_i*dt/(2.0*pow(hbar, 2)) * dH[i];
+    dB[i] = 1.0 - complex_i*dt/(2.0*hbar) * dH[i]; // 1.0 - complex_i*dt/(2.0*pow(hbar, 2)) * dH[i];
   }
   for (size_t i = 0; i < Ninters; i++) {
     aH[i] = -pow(hbar, 2)/(2.0*m*pow(dx, 2));
     cH[i] = -pow(hbar, 2)/(2.0*m*pow(dx, 2));
-    aA[i] = complex_i*dt/(2.0*pow(hbar, 2)) * aH[i];
-    cA[i] = complex_i*dt/(2.0*pow(hbar, 2)) * cH[i];
-    aB[i] = -complex_i*dt/(2.0*pow(hbar, 2)) * aH[i];
-    cB[i] = -complex_i*dt/(2.0*pow(hbar, 2)) * cH[i];
+    aA[i] = complex_i*dt/(2.0*hbar) * aH[i]; // complex_i*dt/(2.0*pow(hbar, 2)) * aH[i];
+    cA[i] = complex_i*dt/(2.0*hbar) * cH[i]; // complex_i*dt/(2.0*pow(hbar, 2)) * cH[i];
+    aB[i] = -complex_i*dt/(2.0*hbar) * aH[i]; // -complex_i*dt/(2.0*pow(hbar, 2)) * aH[i];
+    cB[i] = -complex_i*dt/(2.0*hbar) * cH[i]; // -complex_i*dt/(2.0*pow(hbar, 2)) * cH[i];
   }
 
   // Conditions aux limites: psi nulle aux deux bords

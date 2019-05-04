@@ -88,9 +88,108 @@
 %=============================== INTRODUCTION ==================================
 %===============================================================================
 \section{Introduction}
-
+%TODO : Mettre l'équation de Schrödinger (\label{eq:schrödinger_eq}) et sa solution (\label{eq:schrödinger_sol}).
 
 \section{Implementation}\label{sec:impl}
+  This first section will focus on the numerical implementation of the problem.
+
+  \subsection{Semi-implicit Crank-Nicholson's numerical method}
+    First, the time needs to be discretized: $t_j = t_0 + j\Delta t$.
+    Now, apply this discretization to the solution of Schrödinger's equation (Eq. \eqref{eq:schrödinger_sol}), which leads to equation \eqref{eq:schrödinger_sol_disc}.
+
+    \begin{equation}
+      \psi(\mbf{x}, t + \Delta t) = \exp\bracket{-\frac{i}{\hbar}\Delta t H}\psi(\mbf{x}, t)
+      \label{eq:schrödinger_sol_disc}
+    \end{equation}
+
+    By multiplying both sides by $\exp\bracket{\frac{i}{\hbar}\frac{\Delta t}{2}H}$, and by using a limited development, equation \eqref{eq:crank-nicholson} follows, which is Crank-Nicholson's semi-implicite numerical method.
+
+    \begin{equation}
+      \bracket{1 + \frac{i}{\hbar}\frac{\Delta t}{2}H}\psi(\mbf{x}, t + \Delta t) = \bracket{1 - \frac{i}{\hbar}\frac{\Delta t}{2}H}\psi(\mbf{x}, t)
+      \label{eq:crank_nicholson}
+    \end{equation}
+
+
+
+  \subsection{Construction of matrices H, A and B and implementation of the border conditions}
+    \subsubsection{Construction of H}\label{sec:constr_H}
+      The hamiltonian $H(\psi)$ is given by equation \eqref{eq:hamiltonian_cont}.
+
+      \begin{equation}
+        H(\psi) = -\frac{\hbar^2}{2m}\nabla^2\psi + V(\mbf{x})\psi
+        \label{eq:hamiltonian_cont}
+      \end{equation}
+
+      By discretizing the space using a finite difference method (Eq. \eqref{eq:disc_space}), the hamiltonian can be rewritten as a tridiagonal matrix given by \eqref{eq:hamiltonian_matrix}, where $d_i$ is the diagonal, $a_i$ is the subdiagonal and $c_i$ is the overdiagonal.
+
+      \begin{equation}
+        \bracket{\frac{\partial^2\psi}{\partial x^2}}_j = \frac{\psi_{j-1} - 2\psi_j + \psi_{j+1}}{\bracket{\Delta x}^2}
+        \label{eq:disc_space}
+      \end{equation}
+
+      \begin{equation}
+        H: \begin{cases}
+          a_i &= -\frac{\hbar^2}{2m(\Delta x)^2}\\
+          d_i &= \frac{\hbar^2}{m(\Delta x)^2} + V(x)\\
+          c_i &= -\frac{\hbar^2}{2m(\Delta x)^2}\\
+        \end{cases}
+        \label{eq:hamiltonian_matrix}
+      \end{equation}
+
+    \subsubsection{Construction of A and B}
+      In Crank-Nicholson's semi-implicite method (Eq. \eqref{eq:crank_nicholson}), and by using the matrix H, matrices A and B can be identified as the left hand side respectively the right hand side.
+      Matrices A and B are both tridiagonal matrices, where $d_i^A$ and $d_i^B$ are the diagonals, $a_i^A$ and $a_i^B$ are the subdiagonals and $c_i^A$ and $c_i^B$ are the overdiagonals.
+      To summary, A and B are identified as given by equation \eqref{eq:A_B_identification}.
+
+      \begin{equation}
+        \begin{cases}
+          A = I + \frac{i}{\hbar}\frac{\Delta t}{2}H \\
+          B = I - \frac{i}{\hbar}\frac{\Delta t}{2}H
+        \end{cases}
+        \label{eq:A_B_identification}
+      \end{equation}
+
+      where $I$ is the identity matrix.
+      All the terms of A and B are expressed as given by equation \eqref{eq:terms_A_B}.
+
+      \begin{equation}
+        \begin{cases}
+          a_i^A &= \frac{i\Delta t}{2\hbar} a_i\\
+          a_i^B &= -\frac{i\Delta t}{2\hbar} a_i\\
+          d_i^A &= 1 + \frac{i\Delta t}{2\hbar} d_i\\
+          d_i^B &= 1 - \frac{i\Delta t}{2\hbar} d_i\\
+          c_i^A &= \frac{i\Delta t}{2\hbar} c_i\\
+          c_i^B &= -\frac{i\Delta t}{2\hbar} c_i\\
+        \end{cases}
+        \label{eq:terms_A_B}
+      \end{equation}
+
+      with $d_i$, $a_i$ and $c_i$ defined by equation \eqref{eq:hamiltonian_matrix}.
+      By defining the vector ($\mbf{\psi}^k(\mbf{x}))_i = \mbf{\psi}_i^k = \psi(x_i, t_k)$, equation \eqref{eq:crank_nicholson_matrix} follows.
+
+      \begin{equation}
+        A\mbf{\psi}^{k+1}(\mbf{x}) = B\mbf{\psi}^k(\mbf{x})
+        \label{eq:crank_nicholson_matrix}
+      \end{equation}
+
+
+    \subsubsection{Border conditions}
+      The border condition is given by $\psi(x_1 = x_L, t_k) = \psi(x_N = x_R, t_k) = 0$.
+      The implementation used does not allow a modification of $\psi$, which implies that the conditions must be applied to matrices A and B.
+      By computing the first and last equation obtain from equation \eqref{eq:crank_nicholson_matrix} at $t=t_k$, equation \eqref{eq:border_cond_eq} follows.
+
+      \begin{equation}
+        \begin{cases}
+          d_1^A\psi_1^{k+1} +c_1^A\psi_2^{k+1} = \overbrace{d_1^B\psi_1^k}^\text{=0 from border condition} + c_1^B\psi_2^k\\
+          a_{N-1}^A\psi_{N-1}^{k+1} + d_N^A\psi_N^{k+1} = a_{N-1}^B\psi_{N-1}^k + \underbrace{d_N^B\psi_N^k}_\text{=0 from border condition}
+        \end{cases}
+        \label{eq:border_cond_eq}
+      \end{equation}
+
+      Thus, to obtain $\psi_1^{k+1} = \psi_N^{k+1} = 0$, simply set $c_1^A = c_1^B = a_{N-1}^A = a_{N-1}^B = 0$ and $d_1^A = d_N^A = 1$, which leads to the border conditions.
+
+
+
 
 
 \section{Algorithm test with an harmonic oscillator}\label{sec:har_osc} %TODO : Dans TOUTE cette section, il faut changer la légende des graphes. Elles sont plus ou moins toutes fausses. Genre y'a les unités et tout le bordel qui match pas.
