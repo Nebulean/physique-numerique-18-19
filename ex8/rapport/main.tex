@@ -188,6 +188,43 @@
 
       Thus, to obtain $\psi_1^{k+1} = \psi_N^{k+1} = 0$, simply set $c_1^A = c_1^B = a_{N-1}^A = a_{N-1}^B = 0$ and $d_1^A = d_N^A = 1$, which leads to the border conditions.
 
+  \subsection{Energy}
+    The computation of the energy of a particle is given by the mean of the Hamiltonian, which is given by equation \eqref{eq:energy_def}.
+
+    \begin{equation}
+      E(t) = \langle H \rangle(t) = \int_{x_L}^{x_R}\psi^*(x,t)H(x)\psi(x,t)dx
+      \label{eq:energy_def}
+    \end{equation}
+
+    To compute this energy, the trapezoidal rule will be used.\\
+
+    An estimation of the integral of any integrable function $g$ can be found using the trapezoidal rule, which is given by equation \eqref{eq:trapeze-rule}.
+
+    \begin{equation}
+      \int_a^b g(x)dx \approx h\sum_{i=1}^N\bracket{\frac{g(x_i) + g(x_{i+1})}{2}}
+      \label{eq:trapeze-rule}
+    \end{equation}
+
+    with $h = \Delta x$.
+    Thus, by using the results from equation \eqref{eq:hamiltonian_matrix}, the vector definition of $\psi$ and the trapezoidal rule, the energy can be computed.
+
+    First, we need to compute $H\psi$, which is given by equation \eqref{eq:H*psi}.
+
+    \begin{align}
+      \begin{split}
+        (H\mbf{\psi})_i &= a_{i-1}\psi_{i-1} + d_i\psi_i + c_i\psi_{i+1} \text{ for } i\in[2, N-1]\\
+        (H\mbf{\psi})_1 &= d_1\psi_1 + c_1\psi_2 \\
+        (H\mbf{\psi})_N &= a_{N-1}\psi_{N-1} + d_N\psi_N
+      \end{split}
+      \label{eq:H*psi}
+    \end{align}
+
+    Then, the energy is given by equation \eqref{eq:energy}.
+
+    \begin{equation}
+      E(t) = \frac{\Delta x}{2}\sum_{i=1}^{N-1} (\mbf{\psi}_i^k)^*(H\mbf{\psi})_i + (\mbf{\psi}_{i+1}^k)^*(H\mbf{\psi})_{i+1}
+      \label{eq:energy}
+    \end{equation}
 
 
 
