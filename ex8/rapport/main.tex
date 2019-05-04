@@ -89,6 +89,108 @@
 %===============================================================================
 \section{Introduction}
 
+
+\section{Implementation}\label{sec:impl}
+
+
+\section{Algorithm test with an harmonic oscillator}\label{sec:har_osc} %TODO : Dans TOUTE cette section, il faut changer la légende des graphes. Elles sont plus ou moins toutes fausses. Genre y'a les unités et tout le bordel qui match pas.
+  In this section, the implementation detailed on section \ref{sec:impl} will be tested on a simple harmonic oscillator.
+  The parameters are $x_L=\num{-200}$, $x_R=\num{200}$, $\omega = \num{0.003}$, $\Delta = 0$, $x_0 = 0$, $\sigma_\text{norm} = 0.06$, $n=14$ and $t_\text{fin} = 5000$. %TODO : C'est quoi les unités dans ce projet ? Y'a rien qu'est décrit et j'ai l'impression que c'est pas clair.
+
+  \subsection{Convergence studies}
+    By taking $N_\text{inters} = 300$, multiple convergence studies will be done.\\
+
+    The results are given by figure \ref{fig:i_conv}.
+
+    \begin{figure}[h]
+      \centering
+      \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{graphs/i_conv_x.eps}
+        \caption{$\langle x \rangle (t)$}
+        \label{fig:i_conv_x}
+      \end{subfigure}
+      ~
+      \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{graphs/i_conv_p.eps}
+        \caption{$\langle p \rangle (t)$}
+        \label{fig:i_conv_p}
+      \end{subfigure}
+      ~
+      \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{graphs/i_conv_dx.eps}
+        \caption{$\langle \Delta x \rangle (t)$}
+        \label{fig:i_conv_dx}
+      \end{subfigure}
+      ~
+      \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{graphs/i_conv_dp.eps}
+        \caption{$\langle \Delta p \rangle (t)$}
+        \label{fig:i_conv_dp}
+      \end{subfigure}
+      \caption{Convergence study on multiple quantities with respect to $\Delta t$, with $N\in[\num{129}, \num{16380}]$ and $\Delta t = \num{5000}/N$.}
+      \label{fig:i_conv}
+    \end{figure}
+
+    Figure \ref{fig:i_conv} gives the convergence study on the mean position $\langle x \rangle$ (Fig. \ref{fig:i_conv_x}), the mean momentum $\langle p \rangle$ (Fig. \ref{fig:i_conv_p}), the mean position uncertainty $\langle \Delta x \rangle$ (Fig. \ref{fig:i_conv_dx}) and the mean momentum uncertainty $\langle \Delta p \rangle$ (Fig. \ref{fig:i_conv_dp}).
+    These resuts show that the numerical method approximately converges on the 2nd order.
+    %TODO : Je sais pas quoi dire. :|
+
+
+  \subsection{Total probability}
+    The second verification is that the total probability verifies $\Sigma_i P_i(t) = 1~\forall t$.\\
+
+    Figure \ref{fig:i_ptot} indeed shows that the sum of the left side probability and the right side probability equals 1.
+    This figures also shows how the probability of both sides evolve over time, and it can be seen that the position oscillates on both sides.
+
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.6\textwidth]{graphs/i_ptot.eps}
+      \caption{sum of probabilities over time, $\Delta t = 1$}
+      \label{fig:i_ptot}
+    \end{figure}
+
+
+  \subsection{Conservation of mean energy}
+    The third verification is that the mean energy is conserved over time.\\
+
+    Figure \ref{fig:i_E} shows that the mean energy is more or less conserved.
+    However, it can be observed that it slightly reduces over time, but this is neglectable, as the difference is too small to be shown on the y-axis. This is probably the result of numerical roundings, which always appears when using numerical methods.
+
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=\textwidth]{graphs/i_E.eps}
+      \caption{mean energy over time, $\Delta t = 1$}
+      \label{fig:i_E}
+    \end{figure}
+
+  \subsection{Heisenberg's uncertainty principle}
+    This last part focuses on the verification of the correctness of Heisenberg's uncertainty principle which states that $\forall t:~\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t) \geq \frac{\hbar}{2}$. Note that, as stated before, a normalized $\hbar$ has been taken, which gives $\hbar=1$.\\
+
+    The result is given by figure \ref{fig:i_heisenberg} and shows that the principle is overall verified.
+    %TODO : Parler du fait que le théorème est plus ou moins vérifié, mais que y'a quand même des parties qui posent problème.
+
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.6\textwidth]{graphs/i_heisenberg.eps}
+      \caption{CAPTION A METTRE TUT}
+      \label{fig:i_heisenberg}
+    \end{figure}
+
+
+
+
+\section{Mean movement analysis for a particle and comparison with the classic case}
+
+
+\section{Tunnel effect}
+
+
+\section{Detection of a particle}
+
+
+
+
+
   % \newpage
   % \begin{thebibliography}{99}
   % \end{thebibliography}
