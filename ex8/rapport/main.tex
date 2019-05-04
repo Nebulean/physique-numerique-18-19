@@ -102,7 +102,7 @@
       \label{eq:schrödinger_sol_disc}
     \end{equation}
 
-    By multiplying both sides by $\exp\bracket{\frac{i}{\hbar}\frac{\Delta t}{2}H}$, and by using a limited development, equation \eqref{eq:crank-nicholson} follows, which is Crank-Nicholson's semi-implicite numerical method.
+    By multiplying both sides by $\exp\bracket{\frac{i}{\hbar}\frac{\Delta t}{2}H}$, and by using a limited development, equation \eqref{eq:crank-nicholson} follows, which is Crank-Nicholson's semi-implicit numerical method.
 
     \begin{equation}
       \bracket{1 + \frac{i}{\hbar}\frac{\Delta t}{2}H}\psi(\mbf{x}, t + \Delta t) = \bracket{1 - \frac{i}{\hbar}\frac{\Delta t}{2}H}\psi(\mbf{x}, t)
@@ -120,7 +120,7 @@
         \label{eq:hamiltonian_cont}
       \end{equation}
 
-      By discretizing the space using a finite difference method (Eq. \eqref{eq:disc_space}), the hamiltonian can be rewritten as a tridiagonal matrix given by \eqref{eq:hamiltonian_matrix}, where $d_i$ is the diagonal, $a_i$ is the subdiagonal and $c_i$ is the overdiagonal.
+      By discretizing the space using a finite difference method (Eq. \eqref{eq:disc_space}), the hamiltonian can be rewritten as a tridiagonal matrix given by \eqref{eq:hamiltonian_matrix}, where $d_i$ is the diagonal, $a_i$ is the subdiagonal and $c_i$ is the superdiagonal.
 
       \begin{equation}
         \bracket{\frac{\partial^2\psi}{\partial x^2}}_j = \frac{\psi_{j-1} - 2\psi_j + \psi_{j+1}}{\bracket{\Delta x}^2}
@@ -137,7 +137,7 @@
       \end{equation}
 
     \subsubsection{Construction of A and B}
-      In Crank-Nicholson's semi-implicite method (Eq. \eqref{eq:crank_nicholson}), and by using the matrix H, matrices A and B can be identified as the left hand side respectively the right hand side.
+      In Crank-Nicholson's semi-implicit method (Eq. \eqref{eq:crank_nicholson}), and by using the matrix H, matrices A and B can be identified as the left hand side respectively the right hand side.
       Matrices A and B are both tridiagonal matrices, where $d_i^A$ and $d_i^B$ are the diagonals, $a_i^A$ and $a_i^B$ are the subdiagonals and $c_i^A$ and $c_i^B$ are the overdiagonals.
       To summary, A and B are identified as given by equation \eqref{eq:A_B_identification}.
 
@@ -187,6 +187,39 @@
       \end{equation}
 
       Thus, to obtain $\psi_1^{k+1} = \psi_N^{k+1} = 0$, simply set $c_1^A = c_1^B = a_{N-1}^A = a_{N-1}^B = 0$ and $d_1^A = d_N^A = 1$, which leads to the border conditions.
+      
+  \subsection{Initial wave function}
+    The equation for the initial wave function is given by:
+    \begin{equation}
+     \psi(x,0)=\exp(ik_0x)\exp\left[-(x-x_0)^2/(2\sigma_0^2)\right]
+     \label{eq:psiinit}
+    \end{equation}
+    with $k_0=2\pi n/(x_R-x_L)$, $\sigma_0=\sigma_{norm}(x_R-x_L)$. $x_0$, $n$ and $\sigma_{norm}$ are given. In the algorithm, it is simply written as:
+    \begin{equation}
+     \psi_j=\exp(ik_0x_j)\exp\left[-(x_j-x_0)^2/(2\sigma_0^2)\right]
+     \label{eq:psiinitdis}
+    \end{equation}
+    
+  \subsection{Probability function}
+    The probability that the particle is situated between points $n_L\Delta x$ and $n_R\Delta x$ is given by the following integral:
+    \begin{equation}
+     P_{nL,nR} = \int_{n_L\Delta x}^{n_R\Delta x} |\psi(x,t)|^2 dx
+    \end{equation}
+
+    To compute this probability and all following integrals with respect to $x$, the trapezoidal rule will be used.\\
+    An estimation of the integral of any integrable function $g$ can be found using the trapezoidal rule, which is given by equation \eqref{eq:trapeze-rule}.
+
+    \begin{equation}
+      \int_a^b g(x)dx \approx h\sum_{i=1}^N\bracket{\frac{g(x_i) + g(x_{i+1})}{2}}
+      \label{eq:trapeze-rule}
+    \end{equation}
+    with $h = \Delta x$.
+    
+    In this case, we get:
+    \begin{equation}
+     P_{nL,nR}=\frac{\Delta x}{2}\sum_{i=n_L}^{n_R-1} |\psi_i|^2+|\psi_{i+1}|^2
+    \end{equation}
+
 
   \subsection{Energy}
     The computation of the energy of a particle is given by the mean of the Hamiltonian, which is given by equation \eqref{eq:energy_def}.
@@ -196,17 +229,7 @@
       \label{eq:energy_def}
     \end{equation}
 
-    To compute this energy, the trapezoidal rule will be used.\\
-
-    An estimation of the integral of any integrable function $g$ can be found using the trapezoidal rule, which is given by equation \eqref{eq:trapeze-rule}.
-
-    \begin{equation}
-      \int_a^b g(x)dx \approx h\sum_{i=1}^N\bracket{\frac{g(x_i) + g(x_{i+1})}{2}}
-      \label{eq:trapeze-rule}
-    \end{equation}
-
-    with $h = \Delta x$.
-    Thus, by using the results from equation \eqref{eq:hamiltonian_matrix}, the vector definition of $\psi$ and the trapezoidal rule, the energy can be computed.
+    By using the results from equation \eqref{eq:hamiltonian_matrix}, the vector definition of $\psi$ and the trapezoidal rule (eq. \eqref{eq:trapeze-rule}), the energy can be computed.
 
     First, we need to compute $H\psi$, which is given by equation \eqref{eq:H*psi}.
 
@@ -226,7 +249,7 @@
       \label{eq:energy}
     \end{equation}
 
-
+    
 
 
 \section{Algorithm test with an harmonic oscillator}\label{sec:har_osc} %TODO : Dans TOUTE cette section, il faut changer la légende des graphes. Elles sont plus ou moins toutes fausses. Genre y'a les unités et tout le bordel qui match pas.
