@@ -217,13 +217,13 @@ int main(int argc,char **argv)
     fichier_psi << abs(psi[i]) * abs(psi[i]) << " ";
 
   fichier_observables << t << " "
-                      << prob(psi,0,Ninters*xL/(xL-xR),dx) << " " // Proba pour la partie droite
-                      << prob(psi,Ninters*xL/(xL-xR),Ninters,dx) << " " // proba pour la partie gauche.
+                      << prob(psi,0,Ninters*xL/(xL-xR),dx) << " "
+                      << prob(psi,Ninters*xL/(xL-xR),Ninters,dx) << " "
                       << E(psi,dH,aH,cH,dx) << " "
                       << xmoy(psi,x,dx) << " "
                       << x2moy(psi,x,dx) << " "
                       << pmoy(psi,dx) << " "
-                      << p2moy(psi,dx) << " "                         // (Quantite de mouvement)^2 moyenne
+                      << p2moy(psi,dx) << " "                         
                       << delx(psi, x, dx) << " "
                       << delp(psi, dx) << endl;
 
@@ -237,6 +237,7 @@ double prob(vec_cmplx const& psi, int nL, int nR, double dx)
 {
   //calcule la probabilite de trouver la particule entre les points nL.dx et nR.dx
   double pr(0.);
+  cout << "nL" << nL << "nR" << nR << endl;
   //max nR = Npoints-2
   for (size_t i = nL; i < nR; i++) {
     pr+=abs(psi[i])*abs(psi[i])+abs(psi[i+1])*abs(psi[i+1]);

@@ -20,13 +20,26 @@ system(cmd);
 
 
 %% Traitement des données.
-data = load("i_ptot_obs.out");
+
+psi2 = load("i_ptot_psi2.out");
+
+data = load("i_ptot_obs.out")
 t = data(:,1);
-probD = data(:,2);
-probG = data(:,3);
+probG = data(:,2);
+probD = data(:,3);
 E = data(:,4);
+xmoy = data(:,5);
+x2moy = data(:,6);
+pmoy = data(:,7);
+p2moy = data(:,8);
 delx = data(:,9);
 delp = data(:,10);
+
+data = load("i_ptot_pot.out");
+x = data(:,1);
+V = data(:,2);
+
+[X, T] = meshgrid(x,t);
 
 
 %% Figures
@@ -47,7 +60,7 @@ test = [probG, probD];
 area(t, test);
 
 xlabel("$t~[s]$");
-ylabel("$P(t)~[-]$");
+ylabel("$P(t)$");
 
 legend("$\Sigma P(t)$", "$P_{x<0}$", "$P_{x>0}$")
 
@@ -69,7 +82,7 @@ set(gca, 'LineWidth',1.5);
 plot(t, E, '-', 'linewidth', 2);
 
 xlabel("$t~[s]$");
-ylabel("$E(t)~[J]$");
+ylabel("$E(t)~[UNIT]$");
 
 grid on;
 box on;
@@ -92,11 +105,32 @@ box on;
 zoomOfPlot(figHeisenberg, 0.3, 0.7, 0.18, 0.18, [501, 549], [0.4991, 0.5009]);
 
 xlabel("$t~[s]$");
-ylabel("$~[E_p t_p]$");
+ylabel("$NOM D'AXE~[UNIT]$");
 
 legend(["$\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t)$", "$\hbar/2$"])
 
 ylim([0.48, 0.95]);
+
+hold off;
+
+
+%%%%%%%%%%%%
+
+figEvo=figure;
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+pcolor(X, T, psi2);
+colbar=colorbar;
+shading interp;
+
+box on
+
+xlabel("$x~[UNIT]$");
+ylabel("$t~[s]$");
+ylabel(colbar, "$|\psi^2(x,t)|$", 'interpreter', 'latex', 'fontsize', 25);
 
 hold off;
 
