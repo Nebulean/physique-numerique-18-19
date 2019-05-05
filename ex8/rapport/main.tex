@@ -249,7 +249,40 @@
       \label{eq:energy}
     \end{equation}
 
-
+  \subsection{Average position}
+  The average position of the particle is given by:
+  \begin{equation}
+   \langle x \rangle(t) = \int_{x_L}^{x_R}\psi^*(x,t)x\psi(x,t)dx
+  \end{equation}
+  and in its dicretized form:
+  \begin{equation}
+   \langle x \rangle(t) = \frac{\Delta x}{2} \sum_{i=1}^{N} \psi_i^*x_i\psi_i + \psi_{i+1}^*x_{i+1}\psi_{i+1}
+  \end{equation}\\
+  The average $x^2$ of the particle is given by:
+  \begin{equation}
+   \langle x^2 \rangle(t) = \int_{x_L}^{x_R}\psi^*(x,t)x^2\psi(x,t)dx
+  \end{equation}
+  and in its dicretized form:
+  \begin{equation}
+   \langle x^2 \rangle(t) = \frac{\Delta x}{2} \sum_{i=1}^{N} \psi_i^*x_i^2\psi_i + \psi_{i+1}^*x_{i+1}^2\psi_{i+1}
+  \end{equation}
+  
+  \subsection{Average momentum}
+  The average momentum of the particle is given by:
+  \begin{equation}
+   \langle p \rangle(t) = \int_{x_L}^{x_R}\psi^*(x,t)\left(-i\hbar\frac{\partial\psi(x,t)}{\partial x}\right)dx
+  \end{equation}
+  and by using the finite central differences for the derivative
+  \begin{equation*}
+   \left(\frac{\partial\psi}{\partial x}\right)_i = \frac{\psi_{i+1}-\psi_{i-1}}{2\Delta x}
+  \end{equation*}%TODO: clarifier la consigne sur les pts de maillage aux extrémités.
+  
+  \subsection{Uncertainty calculation}
+  The uncertainties on the position and the momentum are respectively given by:
+  \begin{align}
+   &\langle \Delta x\rangle(t) = \sqrt{\langle x^2 \rangle - \langle x \rangle^2}\\
+   &\langle \Delta p\rangle(t) = \sqrt{\langle p^2 \rangle - \langle p \rangle^2}
+  \end{align}
 
 
 \section{Algorithm test with an harmonic oscillator}\label{sec:har_osc} %TODO : Dans TOUTE cette section, il faut changer la légende des graphes. Elles sont plus ou moins toutes fausses. Genre y'a les unités et tout le bordel qui match pas.
