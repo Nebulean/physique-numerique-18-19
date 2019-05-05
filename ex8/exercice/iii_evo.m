@@ -14,7 +14,9 @@ Etmp=0.0257; % Marche que dans un cas. Changer si les paramètres changement.
 % delta = 10 % E > v0
 % delta = sqrt(2*Etmp/(omega^2)); % E = V0
 delta = 150 % E < v0
-%delta = 64;
+% delta = 64;
+
+% n = 30% test
 
 x0 = -delta;
 
@@ -80,7 +82,7 @@ box on
 
 xlabel("$x~[UNIT]$");
 ylabel("$t~[s]$");
-ylabel(colbar, "$|\psi^2(x,t)|$", 'interpreter', 'latex', 'fontsize', 25);
+ylabel(colbar, "$|\psi(x,t)|^2$", 'interpreter', 'latex', 'fontsize', 25);
 
 hold off;
 

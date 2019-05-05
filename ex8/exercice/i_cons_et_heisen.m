@@ -130,7 +130,7 @@ box on
 
 xlabel("$x~[UNIT]$");
 ylabel("$t~[s]$");
-ylabel(colbar, "$|\psi^2(x,t)|$", 'interpreter', 'latex', 'fontsize', 25);
+ylabel(colbar, "$|\psi(x,t)|^2$", 'interpreter', 'latex', 'fontsize', 25);
 
 hold off;
 

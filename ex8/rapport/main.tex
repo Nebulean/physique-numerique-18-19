@@ -187,7 +187,7 @@
       \end{equation}
 
       Thus, to obtain $\psi_1^{k+1} = \psi_N^{k+1} = 0$, simply set $c_1^A = c_1^B = a_{N-1}^A = a_{N-1}^B = 0$ and $d_1^A = d_N^A = 1$, which leads to the border conditions.
-      
+
   \subsection{Initial wave function}
     The equation for the initial wave function is given by:
     \begin{equation}
@@ -199,7 +199,7 @@
      \psi_j=\exp(ik_0x_j)\exp\left[-(x_j-x_0)^2/(2\sigma_0^2)\right]
      \label{eq:psiinitdis}
     \end{equation}
-    
+
   \subsection{Probability function}
     The probability that the particle is situated between points $n_L\Delta x$ and $n_R\Delta x$ is given by the following integral:
     \begin{equation}
@@ -214,7 +214,7 @@
       \label{eq:trapeze-rule}
     \end{equation}
     with $h = \Delta x$.
-    
+
     In this case, we get:
     \begin{equation}
      P_{nL,nR}=\frac{\Delta x}{2}\sum_{i=n_L}^{n_R-1} |\psi_i|^2+|\psi_{i+1}|^2
@@ -249,7 +249,7 @@
       \label{eq:energy}
     \end{equation}
 
-    
+
 
 
 \section{Algorithm test with an harmonic oscillator}\label{sec:har_osc} %TODO : Dans TOUTE cette section, il faut changer la légende des graphes. Elles sont plus ou moins toutes fausses. Genre y'a les unités et tout le bordel qui match pas.
@@ -303,7 +303,7 @@
 
     \begin{figure}[h]
       \centering
-      \includegraphics[width=0.6\textwidth]{graphs/i_ptot.eps}
+      \includegraphics[width=0.5\textwidth]{graphs/i_ptot.eps}
       \caption{sum of probabilities over time, $\Delta t = 1$}
       \label{fig:i_ptot}
     \end{figure}
@@ -317,7 +317,7 @@
 
     \begin{figure}[h]
       \centering
-      \includegraphics[width=\textwidth]{graphs/i_E.eps}
+      \includegraphics[width=0.8\textwidth]{graphs/i_E.eps}
       \caption{mean energy over time, $\Delta t = 1$}
       \label{fig:i_E}
     \end{figure}
@@ -330,7 +330,7 @@
 
     \begin{figure}[h]
       \centering
-      \includegraphics[width=0.6\textwidth]{graphs/i_heisenberg.eps}
+      \includegraphics[width=0.5\textwidth]{graphs/i_heisenberg.eps}
       \caption{CAPTION A METTRE TUT}
       \label{fig:i_heisenberg}
     \end{figure}
@@ -342,6 +342,87 @@
 
 
 \section{Tunnel effect}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_E>v0_psi.eps}
+    \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+    \label{fig:iii_evo_E>v0_psi}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_E>v0_prob.eps}
+    \caption{$P(t)$ with respect to t}
+    \label{fig:iii_evo_E>v0_prob}
+  \end{subfigure}
+  \caption{Evolution of the particle for $\Delta = 10$, which gives $E > V_0$}
+  \label{fig:iii_evo_E>v0}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_E=v0_psi.eps}
+    \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+    \label{fig:iii_evo_E=v0_psi}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_E=v0_prob.eps}
+    \caption{$P(t)$ with respect to t}
+    \label{fig:iii_evo_E=v0_prob}
+  \end{subfigure}
+  \caption{Evolution of the particle for $\Delta \approx 75.57$, which gives $E \approx V_0$}
+  \label{fig:iii_evo_E=v0}
+\end{figure}
+
+
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_E<v0_psi.eps}
+    \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+    \label{fig:iii_evo_E<v0_psi}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_E<v0_prob.eps}
+    \caption{$P(t)$ with respect to t}
+    \label{fig:iii_evo_E<v0_prob}
+  \end{subfigure}
+  \caption{Evolution of the particle for $\Delta = 150$, which gives $E < V_0$}
+  \label{fig:iii_evo_E<v0}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphs/iii_findn_n.eps}
+  \caption{Difference of probabilities with respect to n}
+  \label{fig:iii_findn_n}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/iii_findn_prob.eps}
+    \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+    \label{fig:iii_findn_prob}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{graphs/iii_findn_psi.eps}
+    \caption{$P(t)$ with respect to t}
+    \label{fig:iii_findn_psi}
+  \end{subfigure}
+  \caption{Evolution of the particle for $\Delta = 64$ with $n=11$}
+  \label{fig:iii_findn}
+\end{figure}
+
 
 
 \section{Detection of a particle}
