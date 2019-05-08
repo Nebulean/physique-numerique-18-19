@@ -237,7 +237,7 @@ double prob(vec_cmplx const& psi, int nL, int nR, double dx)
 {
   //calcule la probabilite de trouver la particule entre les points nL.dx et nR.dx
   double pr(0.);
-  cout << "nL" << nL << "nR" << nR << endl;
+  // cout << "nL" << nL << "nR" << nR << endl;
   //max nR = Npoints-2
   for (size_t i = nL; i < nR; i++) {
     pr+=abs(psi[i])*abs(psi[i])+abs(psi[i+1])*abs(psi[i+1]);
