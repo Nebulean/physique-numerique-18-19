@@ -31,7 +31,7 @@ end
 
 for i=1:nsimul
     disp(cmd{i});
-    system(cmd{i});
+    %system(cmd{i});
 end
 
 
@@ -94,7 +94,7 @@ set(gca, 'LineWidth',1.5);
 plot(n, diffProb, 'x', 'linewidth', 1.5, 'markersize', 10);
 
 xlabel("$n$");
-ylabel("$|P_{x<0} - P_{x>0}|$ at $t=1000$");
+ylabel("$|P_{x<0} - P_{x>0}|$ at $t=1000~t_P$");
 
 grid on;
 box on;
@@ -112,7 +112,7 @@ set(gca, 'LineWidth',1.5);
 plot(t, probG, '-', 'linewidth', 1.5);
 plot(t, probD, '-', 'linewidth', 1.5);
 
-xlabel("t~[UNIT]");
+xlabel("$t~[t_P]$");
 ylabel("P(t)");
 
 box on;
@@ -136,8 +136,8 @@ shading interp;
 
 box on
 
-xlabel("$x~[UNIT]$");
-ylabel("$t~[s]$");
+xlabel("$x~[\ell_P]$");
+ylabel("$t~[t_P]$");
 ylabel(colbar, "$|\psi(x,t)|^2$", 'interpreter', 'latex', 'fontsize', 25);
 
 hold off;

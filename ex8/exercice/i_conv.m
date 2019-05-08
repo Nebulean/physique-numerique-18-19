@@ -31,7 +31,7 @@ end
 %% Simulations
 for i=1:nsimul
     disp(cmd{i});
-    system(cmd{i});
+    %system(cmd{i});
 end
 
 
@@ -81,7 +81,7 @@ set(gca, 'xscale', 'log');
 set(gca, 'yscale', 'log');
 
 xlabel("$N~[-]$");
-ylabel("$|\langle x \rangle - \langle x_{best}\rangle|~[m]$");
+ylabel("$|\langle x \rangle - \langle x_{best}\rangle|~[\ell_P]$");
 
 legend(["data", sprintf("slope = %0.5f", slope)]);
 grid on;
@@ -113,7 +113,7 @@ set(gca, 'xscale', 'log');
 set(gca, 'yscale', 'log');
 
 xlabel("$N~[-]$");
-ylabel("$|\langle p \rangle - \langle p_{best}\rangle|~[$kg m s$^{-1}]$");
+ylabel("$|\langle p \rangle - \langle p_{best}\rangle|~[m_P~c]$");
 
 legend(["data", sprintf("slope = %0.5f", slope)]);
 grid on;
@@ -146,7 +146,7 @@ set(gca, 'xscale', 'log');
 set(gca, 'yscale', 'log');
 
 xlabel("$N~[-]$");
-ylabel("$|\langle \Delta x \rangle - \langle \Delta x_{best}\rangle|~[m]$");
+ylabel("$|\langle \Delta x \rangle - \langle \Delta x_{best}\rangle|~[\ell_P]$");
 
 legend(["data", sprintf("slope = %0.5f", slope)]);
 grid on;
@@ -176,7 +176,7 @@ set(gca, 'xscale', 'log');
 set(gca, 'yscale', 'log');
 
 xlabel("$N~[-]$");
-ylabel("$|\langle \Delta p \rangle - \langle \Delta p_{best}\rangle|~[$kg m s$^{-1}]$");
+ylabel("$|\langle \Delta p \rangle - \langle \Delta p_{best}\rangle|~[m_P~c]$");
 
 legend(["data", sprintf("slope = %0.5f", slope)]);
 grid on;

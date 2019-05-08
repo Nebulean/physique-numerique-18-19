@@ -59,7 +59,7 @@ plot(t, probD + probG, '-', 'linewidth', 5);
 test = [probG, probD];
 area(t, test);
 
-xlabel("$t~[s]$");
+xlabel("$t~[t_P]$");
 ylabel("$P(t)$");
 
 legend("$\Sigma P(t)$", "$P_{x<0}$", "$P_{x>0}$")
@@ -81,8 +81,8 @@ set(gca, 'LineWidth',1.5);
 
 plot(t, E, '-', 'linewidth', 2);
 
-xlabel("$t~[s]$");
-ylabel("$E(t)~[UNIT]$");
+xlabel("$t~[t_P]$");
+ylabel("$E(t)~[E_P]$");
 
 grid on;
 box on;
@@ -102,12 +102,12 @@ line([0, 5000], [1/2 1/2], 'linewidth', 2, 'color', [0.8, 0.2, 0.2]);
 grid on;
 box on;
 
-zoomOfPlot(figHeisenberg, 0.3, 0.7, 0.18, 0.18, [501, 549], [0.4991, 0.5009]);
+% zoomOfPlot(figHeisenberg, 0.3, 0.7, 0.18, 0.18, [501, 549], [0.4991, 0.5009]);
 
-xlabel("$t~[s]$");
-ylabel("$NOM D'AXE~[UNIT]$");
+xlabel("$t~[t_P]$");
+ylabel("$\langle \Delta x \rangle(t) \langle \Delta p \rangle(t)~[\ell_P~m_P~c]$");
 
-legend(["$\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t)$", "$\hbar/2$"])
+legend(["$\langle \Delta x \rangle(t) \langle \Delta p \rangle(t)$", "$\hbar/2$"])
 
 ylim([0.48, 0.95]);
 
@@ -128,8 +128,8 @@ shading interp;
 
 box on
 
-xlabel("$x~[UNIT]$");
-ylabel("$t~[s]$");
+xlabel("$x~[\ell_P]$");
+ylabel("$t~[t_P]$");
 ylabel(colbar, "$|\psi(x,t)|^2$", 'interpreter', 'latex', 'fontsize', 25);
 
 hold off;

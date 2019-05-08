@@ -9,14 +9,13 @@ Ninters = 300;
 
 dt = 2;
 
-Etmp=0.0257; % Marche que dans un cas. Changer si les paramètres changement.
+
 % Choisir le bon delta
 % delta = 10 % E > v0
-% delta = sqrt(2*Etmp/(omega^2)); % E = V0
-delta = 150 % E < v0
+Etmp=0.0257;
+delta = sqrt(2*Etmp/(omega^2)); % E = V0
+% delta = 150 % E < v0
 % delta = 64;
-
-% n = 30% test
 
 x0 = -delta;
 
@@ -80,8 +79,8 @@ shading interp;
 
 box on
 
-xlabel("$x~[UNIT]$");
-ylabel("$t~[s]$");
+xlabel("$x~[\ell_P]$");
+ylabel("$t~[t_P]$");
 ylabel(colbar, "$|\psi(x,t)|^2$", 'interpreter', 'latex', 'fontsize', 25);
 
 hold off;
@@ -99,12 +98,30 @@ plot(t, probD, '-', 'linewidth', 2);
 box on
 grid on;
 
-xlabel("$t~[s]$");
+xlabel("$t~[t_P]$");
 ylabel("$P(t)$");
 
 legend(["$P_{x<0}(t)$", "$P_{x>0}(t)$"])
 
 hold off;
+
+% figpot=figure; % Pas dans le rapport
+% hold on;
+% 
+% set(gca, 'fontsize', 25);
+% set(gca, 'LineWidth',1.5);
+% 
+% plot(x, V, '-');
+% 
+% xlabel("x~[\ell_P]");
+% ylabel("V~[E_P]");
+% 
+% legend("$\Delta = 150$");
+% 
+% box on;
+% grid on;
+% 
+% hold off;
 
 
 % figEV=figure; % Pas dans le rapport
@@ -117,14 +134,6 @@ hold off;
 % %ylim([0, max(E)+max(E)/100]);
 % 
 % hold off;
-% 
-% figpot=figure; % Pas dans le rapport
-% hold on;
-% 
-% plot(x, V, '-');
-% 
-% box on;
-% grid on;
-% 
-% hold off;
+
+
 
