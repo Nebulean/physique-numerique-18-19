@@ -71,6 +71,8 @@ double delp(vec_cmplx const& psi, double const& dx);
 // Fonction pour normaliser une fonction d'onde :
 vec_cmplx normalize(vec_cmplx const& psi, double const& dx);
 
+// Fonction de détecteur de particules
+void detect(double const& t_detect, double const& t, vec_cmplx& psi, double const& dx, double const& xL, double const& xR);
 // Les definitions de ces fonctions sont en dessous du main.
 
 
@@ -98,6 +100,7 @@ int main(int argc,char **argv)
   double x0      = configFile.get<double>("x0");
   double k0      = 2. * M_PI * configFile.get<int>("n") / (xR-xL);
   double sigma0  = configFile.get<double>("sigma_norm") * (xR-xL);
+  double t_detect = configFile.get<double>("t_detect");
 
   // Parametres numeriques :
   double dt      = configFile.get<double>("dt");
@@ -179,6 +182,7 @@ int main(int argc,char **argv)
   double t;
   for(t=0.; t+dt/2.<tfin; t+=dt)
   {
+    detect(t_detect,t,psi,dx,xL,xR);
     // Ecriture de |psi|^2 :
     for(int i(0); i<Npoints; ++i)
       fichier_psi << abs(psi[i]) * abs(psi[i]) << " ";
@@ -357,6 +361,16 @@ double delx(vec_cmplx const& psi, vector<double> const& x, double const& dx)
 double delp(vec_cmplx const& psi, double const& dx)
 {
   return sqrt(p2moy(psi,dx)-pmoy(psi,dx)*pmoy(psi,dx));
+}
+
+void detect(double const& t_detect, double const& t, vec_cmplx& psi, double const& dx, double const& xL, double const& xR)
+{
+  if (t==t_detect){
+    for (size_t i = 0; i < psi.size()*xL/(xL-xR); i++) {
+      psi[i]=0.;
+    }
+    psi = normalize(psi, dx);
+  }
 }
 
 template <class T>
