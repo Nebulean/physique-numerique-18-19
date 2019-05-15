@@ -1,4 +1,5 @@
 %% Paramètres et initialisation
+% default
 xL = -200;
 xR = 200;
 omega = 0.003;
@@ -10,6 +11,9 @@ tfin = 5000;
 Ninters = 300;
 
 dt = 1;
+
+%BONUS 3
+%delta = 50;
 
 cmd = sprintf("./Exercice8 configuration.in output=i_ptot xL=%0.15f xR=%0.15f omega=%0.15f delta=%0.15f x0=%0.15f sigma_norm=%0.15f n=%0.15f tfin=%0.15f Ninters=%0.15f dt=%0.15f", xL, xR, omega, delta, x0, sigma_norm, n, tfin, Ninters, dt);
 
@@ -48,6 +52,31 @@ set(groot, 'defaultLegendInterpreter', 'latex');
 set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 
+
+figPtotCool = figure;
+hold on;
+%dt = 5, bonne droite.
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+% Old version
+plot(t, probD + probG, '-', 'linewidth', 5);
+test = [probG, probD];
+area(t, test);
+
+xlabel("$t~[t_P]$");
+ylabel("$P(t)$");
+
+legend("$\Sigma P(t)$", "$P_{x<0}$", "$P_{x>0}$")
+
+ylim([0, 1.5]);
+
+grid on;
+box on;
+
+hold off;
+
+%%%%%%%
 
 figPtot = figure;
 hold on;
@@ -129,16 +158,37 @@ set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
 pcolor(X, T, psi2);
-colbar=colorbar;
+%colbar=colorbar;
 shading interp;
 
 box on
 
 xlabel("$x~[\ell_P]$");
 ylabel("$t~[t_P]$");
-ylabel(colbar, "$|\psi(x,t)|^2$", 'interpreter', 'latex', 'fontsize', 25);
+%ylabel(colbar, "$|\psi(x,t)|^2$", 'interpreter', 'latex', 'fontsize', 25);
+colbar=colorbar('TickLabelInterpreter', 'latex', 'fontsize', 25);
+colbar.Label.String = '$|\psi(x,t)|^2$';
+colbar.Label.Interpreter = 'latex';
+mmax = max(max(psi2));
+mmin = min(min(psi2));
+div10 = (mmax-mmin)/4;
+div2 = (mmax-mmin)/2;
+colbar.Label.Position = [3, mmin+div2, 0];
+tick1 = changePrecision(mmin, 2);
+tick2 = changePrecision(mmin+div10, 2);
+tick3 = changePrecision(mmax-div10, 2);
+tick4 = changePrecision(mmax, 2);
+set(colbar, 'ytick', [tick1, tick2, tick3, tick4]);
 
 hold off;
+
+
+%% save
+saveas(figE, "graphs/i_E", "epsc");
+saveas(figEvo, "graphs/i_evo", "epsc");
+saveas(figHeisenberg, "graphs/i_heisenberg", "epsc");
+saveas(figPtot, "graphs/i_ptot", "epsc");
+saveas(figPtotCool, "graphs/i_ptotcool", "epsc");
 
 
 
@@ -175,4 +225,14 @@ function zoomOfPlot(fig, originx, originy, lengthx, lengthy, limx, limy)
     set(g, 'XLim', limx);
     set(g, 'YLim', limy);
     set(g, 'LineWidth', 1);
+end
+
+
+function n = changePrecision(value, digits)
+    if value ~= 0
+        order = floor(log(abs(value))./log(10)) - digits + 1; % inspired by https://ch.mathworks.com/matlabcentral/fileexchange/28559-order-of-magnitude-of-number
+        n = floor(value*10^-order)*10^order;
+    else
+        n = 0;
+    end
 end
