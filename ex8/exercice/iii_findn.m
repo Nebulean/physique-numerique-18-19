@@ -31,7 +31,7 @@ end
 
 for i=1:nsimul
     disp(cmd{i});
-    %system(cmd{i});
+    system(cmd{i});
 end
 
 

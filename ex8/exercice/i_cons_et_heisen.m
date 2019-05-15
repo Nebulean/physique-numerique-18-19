@@ -55,16 +55,22 @@ hold on;
 set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
-plot(t, probD + probG, '-', 'linewidth', 5);
-test = [probG, probD];
-area(t, test);
+plot(t, probD + probG, '-', 'linewidth', 2);
 
 xlabel("$t~[t_P]$");
-ylabel("$P(t)$");
+ylabel("$\sum P(t)$");
 
-legend("$\Sigma P(t)$", "$P_{x<0}$", "$P_{x>0}$")
-
-ylim([0, 1.5]);
+% Old version
+% plot(t, probD + probG, '-', 'linewidth', 5);
+% test = [probG, probD];
+% area(t, test);
+% 
+% xlabel("$t~[t_P]$");
+% ylabel("$P(t)$");
+% 
+% legend("$\Sigma P(t)$", "$P_{x<0}$", "$P_{x>0}$")
+% 
+% ylim([0, 1.5]);
 
 grid on;
 box on;
@@ -79,10 +85,10 @@ hold on;
 set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
-plot(t, E, '-', 'linewidth', 2);
+plot(t, E./E(1), '-', 'linewidth', 2);
 
 xlabel("$t~[t_P]$");
-ylabel("$E(t)~[E_P]$");
+ylabel("$E(t)/E(0)~[-]$");
 
 grid on;
 box on;

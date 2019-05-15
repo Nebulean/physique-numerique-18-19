@@ -13,10 +13,10 @@ dt = 2;
 % Choisir le bon delta
 % delta = 10 % E > v0
 Etmp=0.0257;
-delta = sqrt(2*Etmp/(omega^2)); % E = V0
+% delta = sqrt(2*Etmp/(omega^2)); % E = V0
 % delta = 150 % E < v0
 % delta = 64;
-
+delta = 60;
 x0 = -delta;
 
 nsimul = 1;
