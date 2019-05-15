@@ -285,9 +285,13 @@
   \end{align}
 
 
-\section{Algorithm test with an harmonic oscillator}\label{sec:har_osc} %TODO : Dans TOUTE cette section, il faut changer la légende des graphes. Elles sont plus ou moins toutes fausses. Genre y'a les unités et tout le bordel qui match pas.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newpage
+\section{Algorithm test with an harmonic oscillator}\label{sec:har_osc}
   In this section, the implementation detailed in section \ref{sec:impl} will be tested on a simple harmonic oscillator.
-  The parameters are $x_L=\num{-200}$, $x_R=\num{200}$, $\omega = \num{0.003}$, $\Delta = 0$, $x_0 = 0$, $\sigma_\text{norm} = 0.06$, $n=14$, $t_\text{fin} = 5000$ and $N_\text{inters} = 300$. %TODO : C'est quoi les unités dans ce projet ? Y'a rien qu'est décrit et j'ai l'impression que c'est pas clair.
+  The parameters are $x_L=\num{-200}$, $x_R=\num{200}$, $\omega = \num{0.003}$, $\Delta = 0$, $x_0 = 0$, $\sigma_\text{norm} = 0.06$, $n=14$, $t_\text{fin} = 5000$ and $N_\text{inters} = 300$. %TODO : Mettre les unités de Plank partout.
 
 
   \subsection{Evolution of the system}
@@ -340,7 +344,7 @@
 
 
   \subsection{Total probability}
-    Next, the total probability must verify $P_\text{tot} = \Sigma_i P_i(t) = 1~\forall t$.\\
+    Next, the total probability must verify $P_\text{tot} = \Sigma_i P_i(t) = 1~\forall t$.
 
     Figure \ref{fig:i_ptot} gives this result, and is divided in two graphs.
     Figure \ref{fig:i_ptot_cool} gives the general behavious of both the probability on the left and the right sides of the system.
@@ -371,10 +375,12 @@
 
   \subsection{Conservation of mean energy}
     % Next verification is that the mean energy is conserved over time.\\
-    Next, the mean energy must be verified as conserved.\\
+    Next, the mean energy must be conserved.
 
     Figure \ref{fig:i_E} shows that the mean energy is more or less conserved.
-    However, it can be observed that it slightly reduces over time, but this is neglectable, as the difference is too small to be shown on the y-axis. This is probably the result of numerical roundings, which always appears when using numerical methods.
+    However, it can be observed that it slightly reduces over time, which is neglectable, as the difference is too small to be shown on the vertical axis.
+    These are the result of numerical roundings, which occures each time a value is numerically computed.
+    Therefore, the mean energy can be considered as exactly conserved.
 
     \begin{figure}[h]
       \centering
@@ -384,7 +390,9 @@
     \end{figure}
 
   \subsection{Heisenberg's uncertainty principle}
-    This last part focuses on the verification of the correctness of Heisenberg's uncertainty principle which states that $\forall t:~\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t) \geq \frac{\hbar}{2}$. Note that, as stated before, a normalized $\hbar$ has been taken, which gives $\hbar=1$.\\
+    This last part focuses on the correctness of Heisenberg's uncertainty principle, which states that $\forall t:~\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t) \geq \frac{\hbar}{2}$.
+    Alternatively, it states that the mean position and velocity cannot be precisely determined at the same time.
+    Note that, as stated before, a normalized $\hbar$ has been taken, which gives $\hbar=1$.\\ %TODO : Mettre les unités de hbar.
 
     The result is given by figure \ref{fig:i_heisenberg} and shows that the principle is overall verified.
     %TODO : Parler du fait que le théorème est plus ou moins vérifié, mais que y'a quand même des parties qui posent problème.
@@ -396,13 +404,18 @@
       \label{fig:i_heisenberg}
     \end{figure}
 
-    \subsection{summary}
-    %TODO : À faire.
+    \subsection{Summary}
+    Therefore, the conditions stated at the beginning of section \ref{sec:har_osc} describe an harmonic oscillator and the implementation from section \ref{sec:impl} works as expected.
+    Further studies can thus be carried out.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \section{Mean movement analysis for a particle and comparison with the classic case}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \section{Tunnel effect}
 
 \begin{figure}[h]
@@ -486,7 +499,9 @@
 \end{figure}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \section{Detection of a particle}
 
 
