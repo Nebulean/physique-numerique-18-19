@@ -266,7 +266,7 @@
   \begin{equation}
    \langle x^2 \rangle(t) = \frac{\Delta x}{2} \sum_{i=1}^{N} \psi_i^*x_i^2\psi_i + \psi_{i+1}^*x_{i+1}^2\psi_{i+1}
   \end{equation}
-  
+
   \subsection{Average momentum}
   The average momentum of the particle is given by:
   \begin{equation}
@@ -276,7 +276,7 @@
   \begin{equation*}
    \left(\frac{\partial\psi}{\partial x}\right)_i = \frac{\psi_{i+1}-\psi_{i-1}}{2\Delta x}
   \end{equation*}%TODO: clarifier la consigne sur les pts de maillage aux extrémités.
-  
+
   \subsection{Uncertainty calculation}
   The uncertainties on the position and the momentum are respectively given by:
   \begin{align}
@@ -285,13 +285,28 @@
   \end{align}
 
 
-\section{Algorithm test with an harmonic oscillator}\label{sec:har_osc} %TODO : Dans TOUTE cette section, il faut changer la légende des graphes. Elles sont plus ou moins toutes fausses. Genre y'a les unités et tout le bordel qui match pas.
-  In this section, the implementation detailed on section \ref{sec:impl} will be tested on a simple harmonic oscillator.
-  The parameters are $x_L=\num{-200}$, $x_R=\num{200}$, $\omega = \num{0.003}$, $\Delta = 0$, $x_0 = 0$, $\sigma_\text{norm} = 0.06$, $n=14$ and $t_\text{fin} = 5000$. %TODO : C'est quoi les unités dans ce projet ? Y'a rien qu'est décrit et j'ai l'impression que c'est pas clair.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newpage
+\section{Algorithm test with an harmonic oscillator}\label{sec:har_osc}
+  In this section, the implementation detailed in section \ref{sec:impl} will be tested on a simple harmonic oscillator.
+  The parameters are $x_L=\num{-200}$, $x_R=\num{200}$, $\omega = \num{0.003}$, $\Delta = 0$, $x_0 = 0$, $\sigma_\text{norm} = 0.06$, $n=14$, $t_\text{fin} = 5000$ and $N_\text{inters} = 300$. %TODO : Mettre les unités de Plank partout.
+
+
+  \subsection{Evolution of the system}
+  The first point to verify is the evolution of the system, which is given by figure \ref{fig:i_evo}.
+  One can verify that the system follows an harmonic oscillator behavious.
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{graphs/i_evo.eps}
+    \caption{evolution of the system, $\Delta t = 1$}
+    \label{fig:i_evo}
+  \end{figure}
 
   \subsection{Convergence studies}
-    By taking $N_\text{inters} = 300$, multiple convergence studies will be done.\\
-
+    To see if the scheme works, a convergence study on multiple variables is done.
     The results are given by figure \ref{fig:i_conv}.
 
     \begin{figure}[h]
@@ -329,86 +344,113 @@
 
 
   \subsection{Total probability}
-    The second verification is that the total probability verifies $\Sigma_i P_i(t) = 1~\forall t$.\\
+    Next, the total probability must verify $P_\text{tot} = \Sigma_i P_i(t) = 1~\forall t$.
 
-    Figure \ref{fig:i_ptot} indeed shows that the sum of the left side probability and the right side probability equals 1.
-    This figures also shows how the probability of both sides evolve over time, and it can be seen that the position oscillates on both sides.
+    Figure \ref{fig:i_ptot} gives this result, and is divided in two graphs.
+    Figure \ref{fig:i_ptot_cool} gives the general behavious of both the probability on the left and the right sides of the system.
+    Their sum is approximately equal to 1, and the periodicity of the system is again shown.
+    Figure \ref{fig:i_ptot_ugly} gives a close look to the total probability.
+    It suggests that the total probability is not exactly conserved.
+    However, the vertical labels only slightly changes on a rounding error order of magnitude.
+    Thus, the total probability can be considered as exactly conserved.
 
     \begin{figure}[h]
-      \centering
-      \includegraphics[width=0.5\textwidth]{graphs/i_ptot.eps}
+      \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/i_ptotcool.eps}
+        \caption{general behavious}
+        \label{fig:i_ptot_cool}
+      \end{subfigure}
+      ~
+      \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphs/i_ptot.eps}
+        \caption{close look}
+        \label{fig:i_ptot_ugly}
+      \end{subfigure}
       \caption{sum of probabilities over time, $\Delta t = 1$}
       \label{fig:i_ptot}
     \end{figure}
 
 
   \subsection{Conservation of mean energy}
-    The third verification is that the mean energy is conserved over time.\\
+    % Next verification is that the mean energy is conserved over time.\\
+    Next, the mean energy must be conserved.
 
     Figure \ref{fig:i_E} shows that the mean energy is more or less conserved.
-    However, it can be observed that it slightly reduces over time, but this is neglectable, as the difference is too small to be shown on the y-axis. This is probably the result of numerical roundings, which always appears when using numerical methods.
+    However, it can be observed that it slightly reduces over time, which is neglectable, as the difference is too small to be shown on the vertical axis.
+    These are the result of numerical roundings, which occures each time a value is numerically computed.
+    Therefore, the mean energy can be considered as exactly conserved.
 
     \begin{figure}[h]
       \centering
-      \includegraphics[width=0.8\textwidth]{graphs/i_E.eps}
+      \includegraphics[width=0.45\textwidth]{graphs/i_E.eps}
       \caption{mean energy over time, $\Delta t = 1$}
       \label{fig:i_E}
     \end{figure}
 
   \subsection{Heisenberg's uncertainty principle}
-    This last part focuses on the verification of the correctness of Heisenberg's uncertainty principle which states that $\forall t:~\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t) \geq \frac{\hbar}{2}$. Note that, as stated before, a normalized $\hbar$ has been taken, which gives $\hbar=1$.\\
+    This last part focuses on the correctness of Heisenberg's uncertainty principle, which states that $\forall t:~\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t) \geq \frac{\hbar}{2}$.
+    Alternatively, it states that the mean position and velocity cannot be precisely determined at the same time.
+    Note that, as stated before, a normalized $\hbar$ has been taken, which gives $\hbar=1$.\\ %TODO : Mettre les unités de hbar.
 
     The result is given by figure \ref{fig:i_heisenberg} and shows that the principle is overall verified.
     %TODO : Parler du fait que le théorème est plus ou moins vérifié, mais que y'a quand même des parties qui posent problème.
 
     \begin{figure}[h]
       \centering
-      \includegraphics[width=0.5\textwidth]{graphs/i_heisenberg.eps}
-      \caption{CAPTION A METTRE TUT}
+      \includegraphics[width=0.45\textwidth]{graphs/i_heisenberg.eps}
+      \caption{verification of Heisenberg's principle, $\Delta t = 1$}
       \label{fig:i_heisenberg}
     \end{figure}
 
+    \subsection{Summary}
+    Therefore, the conditions stated at the beginning of section \ref{sec:har_osc} describe an harmonic oscillator and the implementation from section \ref{sec:impl} works as expected.
+    Further studies can thus be carried out.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\newpage
 \section{Mean movement analysis for a particle and comparison with the classic case}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \section{Tunnel effect}
 
 \begin{figure}[h]
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_E>v0_psi.eps}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_Egeqv0_evo.eps}
     \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
-    \label{fig:iii_evo_E>v0_psi}
+    \label{fig:iii_evo_Egeqv0_evo}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_E>v0_prob.eps}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_Egeqv0_prob.eps}
     \caption{$P(t)$ with respect to t}
-    \label{fig:iii_evo_E>v0_prob}
+    \label{fig:iii_evo_Egeqv0_prob}
   \end{subfigure}
   \caption{Evolution of the particle for $\Delta = 10$, which gives $E > V_0$}
-  \label{fig:iii_evo_E>v0}
+  \label{fig:iii_evo_Egeqv0}
 \end{figure}
 
 
 \begin{figure}[h]
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_E=v0_psi.eps}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_Eeqv0_evo.eps}
     \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
-    \label{fig:iii_evo_E=v0_psi}
+    \label{fig:iii_evo_Eeqv0_evo}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_E=v0_prob.eps}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_Eeqv0_prob.eps}
     \caption{$P(t)$ with respect to t}
-    \label{fig:iii_evo_E=v0_prob}
+    \label{fig:iii_evo_Eeqv0_prob}
   \end{subfigure}
   \caption{Evolution of the particle for $\Delta \approx 75.57$, which gives $E \approx V_0$}
-  \label{fig:iii_evo_E=v0}
+  \label{fig:iii_evo_Eeqv0}
 \end{figure}
 
 
@@ -416,24 +458,24 @@
 \begin{figure}[h]
   \centering
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_E<v0_psi.eps}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_Eleqv0_evo.eps}
     \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
-    \label{fig:iii_evo_E<v0_psi}
+    \label{fig:iii_evo_Eleqv0_evo}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_E<v0_prob.eps}
+    \includegraphics[width=\textwidth]{graphs/iii_evo_Eleqv0_prob.eps}
     \caption{$P(t)$ with respect to t}
-    \label{fig:iii_evo_E<v0_prob}
+    \label{fig:iii_evo_Eleqv0_prob}
   \end{subfigure}
   \caption{Evolution of the particle for $\Delta = 150$, which gives $E < V_0$}
-  \label{fig:iii_evo_E<v0}
+  \label{fig:iii_evo_Eleqv0}
 \end{figure}
 
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{graphs/iii_findn_n.eps}
+  \includegraphics[width=0.45\textwidth]{graphs/iii_findn_n.eps}
   \caption{Difference of probabilities with respect to n}
   \label{fig:iii_findn_n}
 \end{figure}
@@ -448,7 +490,7 @@
   \end{subfigure}
   ~
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_findn_psi.eps}
+    \includegraphics[width=\textwidth]{graphs/iii_findn_evo.eps}
     \caption{$P(t)$ with respect to t}
     \label{fig:iii_findn_psi}
   \end{subfigure}
@@ -457,7 +499,9 @@
 \end{figure}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \section{Detection of a particle}
 
 

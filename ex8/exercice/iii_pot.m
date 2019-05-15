@@ -7,14 +7,14 @@ n = 14;
 tfin = 5000;
 Ninters = 300;
 
-dt = 2;
+dt = 1;
 
 Etmp=0.0257; % Marche que dans un cas. Changer si les paramètres changement.
 % Choisir le bon delta
 % delta = 10 % E > v0
 % delta = sqrt(2*Etmp/(omega^2)); % E = V0
 delta = [10, sqrt(2*Etmp/(omega^2)), 150] % E < v0
-% delta = 64;
+%delta = 100;
 
 % n = 30% test
 

@@ -103,7 +103,7 @@ hold off;
 
 %%%%%%%%%
 
-figTMP=figure;
+figProb=figure;
 hold on;
 
 set(gca, 'fontsize', 25);
@@ -131,7 +131,21 @@ set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
 pcolor(X, T, psi2);
-colbar=colorbar;
+
+colbar=colorbar('TickLabelInterpreter', 'latex', 'fontsize', 25);
+colbar.Label.String = '$|\psi(x,t)|^2$';
+colbar.Label.Interpreter = 'latex';
+mmax = max(max(psi2));
+mmin = min(min(psi2));
+div10 = (mmax-mmin)/4;
+div2 = (mmax-mmin)/2;
+colbar.Label.Position = [3, mmin+div2, 0];
+tick1 = changePrecision(mmin, 2);
+tick2 = changePrecision(mmin+div10, 1);
+tick3 = changePrecision(mmax-div10, 2);
+tick4 = changePrecision(mmax, 2);
+set(colbar, 'ytick', [tick1, tick2, tick3, tick4]);
+
 shading interp;
 
 box on
@@ -141,3 +155,18 @@ ylabel("$t~[t_P]$");
 ylabel(colbar, "$|\psi(x,t)|^2$", 'interpreter', 'latex', 'fontsize', 25);
 
 hold off;
+
+%% saves
+saveas(figFindN, "graphs/iii_findn_n", "epsc");
+saveas(figEvo, "graphs/iii_findn_evo", "epsc");
+saveas(figProb, "graphs/iii_findn_prob", "epsc");
+
+%% Function
+function n = changePrecision(value, digits)
+    if value ~= 0
+        order = floor(log(abs(value))./log(10)) - digits + 1; % inspired by https://ch.mathworks.com/matlabcentral/fileexchange/28559-order-of-magnitude-of-number
+        n = floor(value*10^-order)*10^order;
+    else
+        n = 0;
+    end
+end
