@@ -72,7 +72,7 @@ double delp(vec_cmplx const& psi, double const& dx);
 vec_cmplx normalize(vec_cmplx const& psi, double const& dx);
 
 // Fonction de détecteur de particules
-void detect(double const& t_detect, double const& t, vec_cmplx& psi, double const& dx, double const& xL, double const& xR);
+void detect(double const& t_detect, double const& t, vec_cmplx& psi, double const& dx, int const& dL, int const& dR);
 // Les definitions de ces fonctions sont en dessous du main.
 
 
@@ -101,6 +101,8 @@ int main(int argc,char **argv)
   double k0      = 2. * M_PI * configFile.get<int>("n") / (xR-xL);
   double sigma0  = configFile.get<double>("sigma_norm") * (xR-xL);
   double t_detect = configFile.get<double>("t_detect");
+  int dL = configFile.get<int>("dL");
+  int dR = configFile.get<int>("dR");
 
   // Parametres numeriques :
   double dt      = configFile.get<double>("dt");
@@ -182,7 +184,9 @@ int main(int argc,char **argv)
   double t;
   for(t=0.; t+dt/2.<tfin; t+=dt)
   {
-    detect(t_detect,t,psi,dx,xL,xR);
+    if(t==t_detect){
+      detect(t_detect,t,psi,dx,dL,dR);
+    }
     // Ecriture de |psi|^2 :
     for(int i(0); i<Npoints; ++i)
       fichier_psi << abs(psi[i]) * abs(psi[i]) << " ";
@@ -256,8 +260,6 @@ double E(vec_cmplx const& psi, vec_cmplx const& diagH, vec_cmplx const& lowerH, 
   // vec_cmplx psi_tmp(psi.size());
   complex<double> E(0.0, 0.0);
   size_t Npoints = psi.size();
-
-  // TODO: calculer la moyenne de l'Hamiltonien
 
   // H(psi)
   // On utilise la matrice H calculée plus haut
@@ -363,13 +365,13 @@ double delp(vec_cmplx const& psi, double const& dx)
   return sqrt(p2moy(psi,dx)-pmoy(psi,dx)*pmoy(psi,dx));
 }
 
-void detect(double const& t_detect, double const& t, vec_cmplx& psi, double const& dx, double const& xL, double const& xR)
+void detect(double const& t_detect, double const& t, vec_cmplx& psi, double const& dx, int const& dL, int const& dR)
 {
-  if (t==t_detect){
-    for (size_t i = 0; i < psi.size()*xL/(xL-xR); i++) {
-      psi[i]=0.;
-    }
-    psi = normalize(psi, dx);
+  for (size_t i = 0; i <= dL; i++) {
+    psi[i]=0.;
+  for (size_t i = dR; i < psi.size()-1; i++)
+    psi[i]=0.;
+  psi = normalize(psi, dx);
   }
 }
 

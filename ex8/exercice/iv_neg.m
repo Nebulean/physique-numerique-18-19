@@ -7,7 +7,7 @@ n = 11;
 tfin = 5000;
 Ninters = 300;
 
-dt = 2;
+dt = 1;
 
 
 % Choisir le bon delta
@@ -103,4 +103,20 @@ ylabel("$P(t)$");
 
 legend(["$P_{x<0}(t)$", "$P_{x>0}(t)$"])
 
+hold off;
+
+%psi2
+
+figpsi=figure;
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+plot(x,psi2(3000, :),'linewidth',1.2);
+box on;
+grid on;
+
+xlabel("$x~[\ell_P]$");
+ylabel("$|\psi(x,t=3000)|^2$");
 hold off;

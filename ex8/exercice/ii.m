@@ -13,6 +13,8 @@ h = 1.;
 
 dt = 1;
 
+k0=2*pi*n/(xR-xL);
+
 cmd = sprintf("./Exercice8 configuration.in output=ii xL=%0.15f xR=%0.15f omega=%0.15f delta=%0.15f x0=%0.15f sigma_norm=%0.15f n=%0.15f tfin=%0.15f Ninters=%0.15f dt=%0.15f", xL, xR, omega, delta, x0, sigma_norm, n, tfin, Ninters, dt);
 
 
@@ -26,8 +28,11 @@ t=data(:,1);
 xmoy = data(:,5);
 pmoy = data(:,7);
 
-xth=x0*cos(omega.*t)+sqrt(2*h/(m*omega))*sin(omega.*t);
-pth=m*(-x0*sin(omega.*t)+sqrt(2*h*omega/m)*cos(omega.*t));
+% xth=x0*cos(omega.*t)+sqrt(2*h/(m*omega))*sin(omega.*t);
+% pth=m*(-x0*sin(omega.*t)+sqrt(2*h*omega/m)*cos(omega.*t));
+
+xth=x0*cos(omega.*t)+k0/omega*sin(omega.*t);
+pth=m*(-x0*sin(omega.*t)+k0*cos(omega.*t));
 
 %% Figures
 set(groot, 'defaultAxesTickLabelInterpreter', 'latex');

@@ -8,7 +8,10 @@ tfin = 5000;
 Ninters = 300;
 tdetect = 1000;
 
-dt = 2;
+dt = 1.;
+
+dL = Ninters*xL/(xL-xR);
+dR = Ninters;
 
 
 % Choisir le bon delta
@@ -27,7 +30,7 @@ output = sprintf("iv_det");
 
 
 
-cmd = sprintf("./Exercice8 configuration.in output=%s xL=%0.15f xR=%0.15f omega=%0.15f delta=%0.15f x0=%0.15f sigma_norm=%0.15f t_detect=%0.15f n=%0.15f tfin=%0.15f Ninters=%0.15f dt=%0.15f", output, xL, xR, omega, delta, x0, sigma_norm, tdetect, n, tfin, Ninters, dt);
+cmd = sprintf("./Exercice8 configuration.in output=%s xL=%0.15f xR=%0.15f omega=%0.15f delta=%0.15f x0=%0.15f sigma_norm=%0.15f t_detect=%0.15f n=%0.15f tfin=%0.15f Ninters=%0.15f dt=%0.15f dL=%0.15f dR=%0.15f", output, xL, xR, omega, delta, x0, sigma_norm, tdetect, n, tfin, Ninters, dt, dL, dR);
 
 
 
@@ -197,4 +200,20 @@ grid on;
 xlabel("$t~[t_P]$");
 ylabel("$\langle \Delta p \rangle (t)~[m_P~c]$");
 
+hold off;
+
+%psi2
+
+figpsi=figure;
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+plot(x,psi2(3000, :),'linewidth',1.2);
+box on;
+grid on;
+
+xlabel("$x~[\ell_P]$");
+ylabel("$|\psi(x,t=3000)|^2$");
 hold off;

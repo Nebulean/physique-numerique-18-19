@@ -9,6 +9,10 @@ n = 14
 sigma_norm = 0.06
 t_detect = -1
 
+% position du détecteur :
+dL = 150;
+dR = 300;
+
 % Numérique :
 dt = 1
 Ninters = 300
