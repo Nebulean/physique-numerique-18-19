@@ -104,7 +104,7 @@ int main(int argc,char **argv)
   double omega   = configFile.get<double>("omega");
   double delta   = configFile.get<double>("delta");
   double x0      = configFile.get<double>("x0");
-  double k0      = 2. * M_PI * configFile.get<int>("n") / (xR-xL);
+  double k0      = 2. * M_PI * configFile.get<double>("n") / (xR-xL); // changes: int -> double
   double sigma0  = configFile.get<double>("sigma_norm") * (xR-xL);
   double t_detect = configFile.get<double>("t_detect");
   int dL = configFile.get<int>("dL");
