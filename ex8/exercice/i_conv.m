@@ -60,7 +60,7 @@ set(groot, 'defaultLegendInterpreter', 'latex');
 set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 
-figX = figure;
+figx = figure;
 hold on;
 
 X = N;
@@ -80,7 +80,7 @@ plot(fit(:,1), fit(:,2), '-', 'linewidth', 1.5);
 set(gca, 'xscale', 'log');
 set(gca, 'yscale', 'log');
 
-xlabel("$N~[-]$");
+xlabel("$N$");
 ylabel("$|\langle x \rangle - \langle x_{best}\rangle|~[\ell_P]$");
 
 legend(["data", sprintf("slope = %0.5f", slope)]);
@@ -92,7 +92,7 @@ hold off;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-figP = figure;
+figp = figure;
 hold on;
 
 X = N;
@@ -112,7 +112,7 @@ plot(fit(:,1), fit(:,2), '-', 'linewidth', 1.5);
 set(gca, 'xscale', 'log');
 set(gca, 'yscale', 'log');
 
-xlabel("$N~[-]$");
+xlabel("$N$");
 ylabel("$|\langle p \rangle - \langle p_{best}\rangle|~[m_P~c]$");
 
 legend(["data", sprintf("slope = %0.5f", slope)]);
@@ -125,7 +125,7 @@ hold off;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-figP = figure;
+figdx = figure;
 hold on;
 
 X = N;
@@ -145,7 +145,7 @@ plot(fit(:,1), fit(:,2), '-', 'linewidth', 1.5);
 set(gca, 'xscale', 'log');
 set(gca, 'yscale', 'log');
 
-xlabel("$N~[-]$");
+xlabel("$N$");
 ylabel("$|\langle \Delta x \rangle - \langle \Delta x_{best}\rangle|~[\ell_P]$");
 
 legend(["data", sprintf("slope = %0.5f", slope)]);
@@ -155,7 +155,7 @@ box on;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-figP = figure;
+figdp = figure;
 hold on;
 
 X = N;
@@ -175,7 +175,7 @@ plot(fit(:,1), fit(:,2), '-', 'linewidth', 1.5);
 set(gca, 'xscale', 'log');
 set(gca, 'yscale', 'log');
 
-xlabel("$N~[-]$");
+xlabel("$N$");
 ylabel("$|\langle \Delta p \rangle - \langle \Delta p_{best}\rangle|~[m_P~c]$");
 
 legend(["data", sprintf("slope = %0.5f", slope)]);
@@ -186,7 +186,11 @@ box on;
 hold off;
 
 
-
+%% Saves
+saveas(figx, "graphs/i_conv_x", "epsc");
+saveas(figp, "graphs/i_conv_p", "epsc");
+saveas(figdx, "graphs/i_conv_dx", "epsc");
+saveas(figdp, "graphs/i_conv_dp", "epsc");
 
 %% Fonctions
 function [polynome, slope] = poly_approx(x, y, ordre, steps, isLog)

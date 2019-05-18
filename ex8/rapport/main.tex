@@ -54,6 +54,40 @@
 \newcommand{\sqbracket}[1]{\left[#1\right]}
 \newcommand{\lapl}[1]{\Delta#1}
 
+% Définition des unités de Plank
+\DeclareSIUnit \Plength {\ell_P}
+\DeclareSIUnit \Pmass {\mbox{$m$}_P}
+\DeclareSIUnit \Ptime {\mbox{$t$}_P}
+\DeclareSIUnit \Pcharge {\mbox{$q$}_P}
+\DeclareSIUnit \Ptemperature {\mbox{$T$}_P}
+\DeclareSIUnit \Pspeed {\mbox{$c$}}
+\DeclareSIUnit \Parea {\Plength^2}
+\DeclareSIUnit \Pvolume {\Plength^3}
+\DeclareSIUnit \Pmomentum {\Pmass\Pspeed}
+\DeclareSIUnit \Penergy {\mbox{$E$}_P}
+\DeclareSIUnit \Pforce {\mbox{$F$}_P}
+\DeclareSIUnit \Ppower {\mbox{$P$}_P}
+\DeclareSIUnit \Pdensity {\rho_P}
+\DeclareSIUnit \Penergydensity {\rho_P^E}
+\DeclareSIUnit \Pintensity {\mbox{$I$}_P}
+\DeclareSIUnit \Pangularfrequency {\omega_P}
+\DeclareSIUnit \Ppressure {\mbox{$p$}_P}
+\DeclareSIUnit \Pcurrent {\mbox{$I$}_P}
+\DeclareSIUnit \Pvoltage {\mbox{$V$}_P}
+\DeclareSIUnit \Pimpedance {\mbox{$Z$}_P}
+\DeclareSIUnit \Pmagneticinductance {\mbox{$B$}_P}
+\DeclareSIUnit \Pelectricalinductance {\mbox{$L$}_P}
+\DeclareSIUnit \Pvolumetricflowrate {\mbox{$Q$}_P}
+\DeclareSIUnit \Pviscosity {\mu_P}
+\DeclareSIUnit \Pacceleration {\mbox{$a$}_P}
+% \DeclareSIUnit \ {}
+% \DeclareSIUnit \ {}
+% \DeclareSIUnit \ {}
+% \DeclareSIUnit \ {}
+% \DeclareSIUnit \ {}
+% \DeclareSIUnit \ {}
+% \DeclareSIUnit \ {}
+
 %
 % latex SqueletteRapport.tex      % compile la source LaTeX
 % xdvi SqueletteRapport.dvi &     % visualise le resultat
@@ -291,7 +325,9 @@
 \newpage
 \section{Algorithm test with an harmonic oscillator}\label{sec:har_osc}
   In this section, the implementation detailed in section \ref{sec:impl} will be tested on a simple harmonic oscillator.
-  The parameters are $x_L=\num{-200}$, $x_R=\num{200}$, $\omega = \num{0.003}$, $\Delta = 0$, $x_0 = 0$, $\sigma_\text{norm} = 0.06$, $n=14$, $t_\text{fin} = 5000$ and $N_\text{inters} = 300$. %TODO : Mettre les unités de Plank partout.
+  The parameters are $x_L=\SI{-200}{\Plength}$, $x_R=\SI{200}{\Plength}$, $\omega = \SI{0.003}{\Pangularfrequency}$, $\Delta = \SI{0}{\Plength}$, $x_0 = \SI{0}{\Plength}$, $\sigma_\text{norm} = \SI{0.06}{\Plength}$, $n=14$, $t_\text{fin} = \SI{5000}{\Ptime}$ and $N_\text{inters} = 300$.
+  %TODO : Vérifier que les unités de Plank soient correcte. Surtout sigma et n
+  Note that all the values are described in Plank's units, as required by the normalization of $\hbar$ and $m$.
 
 
   \subsection{Evolution of the system}
@@ -301,7 +337,7 @@
   \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{graphs/i_evo.eps}
-    \caption{evolution of the system, $\Delta t = 1$}
+    \caption{evolution of the system, $\Delta t = \SI{1}{\Ptime}$}
     \label{fig:i_evo}
   \end{figure}
 
@@ -334,7 +370,7 @@
         \caption{$\langle \Delta p \rangle (t)$}
         \label{fig:i_conv_dp}
       \end{subfigure}
-      \caption{Convergence study on multiple quantities with respect to $\Delta t$, with $N\in[\num{129}, \num{16380}]$ and $\Delta t = \num{5000}/N$. All the values are taken at t=5000.}
+      \caption{Convergence study on multiple quantities with respect to $\Delta t$, with $N\in[\num{129}, \num{16380}]$ and $\Delta t = (\num{5000}/N) \si{\Ptime}$. All the values are taken at t=\SI{5000}{\Ptime}.}
       \label{fig:i_conv}
     \end{figure}
 
@@ -368,7 +404,7 @@
         \caption{close look}
         \label{fig:i_ptot_ugly}
       \end{subfigure}
-      \caption{sum of probabilities over time, $\Delta t = 1$}
+      \caption{sum of probabilities over time, $\Delta t = \SI{1}{\Ptime}$}
       \label{fig:i_ptot}
     \end{figure}
 
@@ -385,7 +421,7 @@
     \begin{figure}[h]
       \centering
       \includegraphics[width=0.45\textwidth]{graphs/i_E.eps}
-      \caption{mean energy over time, $\Delta t = 1$}
+      \caption{mean energy divided by the initial energy over time, $\Delta t = \SI{1}{\Ptime}$}
       \label{fig:i_E}
     \end{figure}
 
@@ -400,7 +436,7 @@
     \begin{figure}[h]
       \centering
       \includegraphics[width=0.45\textwidth]{graphs/i_heisenberg.eps}
-      \caption{verification of Heisenberg's principle, $\Delta t = 1$}
+      \caption{verification of Heisenberg's principle, $\Delta t = \SI{1}{\Ptime}$}
       \label{fig:i_heisenberg}
     \end{figure}
 
@@ -416,7 +452,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
-\section{Tunnel effect}
+\section{Quantum tunnelling}\label{sec:quantum_tunnelling}
+  Quantum tunnelling is an effect of quantum physics where particles overcome potential barriers. \cite{wiki:quantum_tunnelling}
+  This section will thus focus on the study of this effect by means of the implementation described in section \ref{sec:impl}.\\
+
+  \subsection{Emphasis of quantum tunnelling}
+  To emphasis this effect, the height of the potential barrier $V_0 = V(x=0)$ will be changed to three different values: $V_0<E$, $V_0 \approx E$ and $V_0>E$.
+  This barrier can be change using $\Delta$ and $x_0 = -\Delta$.
+  The other parameters for this section are given by $x_L=$
 
 \begin{figure}[h]
   \centering
@@ -537,8 +580,11 @@
 
 
 
-  % \newpage
-  % \begin{thebibliography}{99}
-  % \end{thebibliography}
+  \newpage
+  \begin{thebibliography}{99}
+    \bibitem{wiki:quantum_tunnelling} Wikipedia contributors. (2019, May 6). Quantum tunnelling. In Wikipedia, The Free Encyclopedia. Retrieved 17:01, May 18, 2019, from \url{https://en.wikipedia.org/w/index.php?title=Quantum_tunnelling&oldid=895805434}
+
+
+  \end{thebibliography}
 
 \end{document}

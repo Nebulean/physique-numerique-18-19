@@ -117,7 +117,7 @@ set(gca, 'LineWidth',1.5);
 plot(t, E./E(1), '-', 'linewidth', 2);
 
 xlabel("$t~[t_P]$");
-ylabel("$E(t)/E(0)~[-]$");
+ylabel("$E(t)/E(0)$");
 
 grid on;
 box on;
