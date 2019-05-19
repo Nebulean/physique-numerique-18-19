@@ -123,8 +123,39 @@
 %=============================== INTRODUCTION ==================================
 %===============================================================================
 \section{Introduction}
-%TODO : Mettre l'équation de Schrödinger (\label{eq:schrödinger_eq}) et sa solution (\label{eq:schrödinger_sol}).
+  This report will study the evolution of a particle of mass $m=1$ in a potential $V$ given by equation \eqref{eq:potential}, from the view of quantum mechanics.
 
+  \begin{equation}
+    V(x) = \min\bracket{\frac{1}{2}m\omega^2(x-\Delta)^2, \frac{1}{2}m\omega^2(x+\Delta)^2}
+    \label{eq:potential}
+  \end{equation}
+
+  The particle will evolve in a domain $x\in\sqbracket{x_L, x_R}$ with fixed border conditions.
+  During this report, $\hbar$ and $m$ are normalized to simplify the study.
+  Note that this normalization implies that all values are considered in Planck units.\\
+
+  The particle is initially given by a Gaussian envlopped wave packet given by equation \eqref{eq:wave_packet}, centered around $x=x_0$ of standard deviation $\sigma_0 = \sigma_{norm}(x_R - x_L)$, with a central wavenumber $k_0 = 2\pi n/(x_R - x_L)$.
+
+  \begin{equation}
+    \psi(x,0) = C\exp(ik_0x)\exp(-(x-x_0)^2/(2\sigma^2))
+    \label{eq:wave_packet}
+  \end{equation}
+
+  The particles are described by Schrödinger's equation (Eq. \eqref{eq:schrödinger_eq}) and a solution is given by equation \eqref{eq:schrödinger_sol}.
+
+  \begin{equation}
+    i\hbar\frac{\partial\psi}{\partial t} = -\frac{\hbar^2}{2m}\lapl{\psi} + V(x)\psi
+    \label{eq:schrödinger_eq}
+  \end{equation}
+
+  \begin{equation}
+    \psi(x,t) = \exp\bracket{-\frac{i}{\hbar}tH}\psi(x,0)\text{ with }H=-\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2} + V(x)
+    \label{eq:schrödinger_sol}
+  \end{equation}
+
+  The report will numerically solve this equation using the semi-implicite numerical method of Crank-Nicholson, test it on a simple harmonic case, compare the movement of the particle with the classic case, study the quantum tunnelling and finally the detection (or not) of a particle.
+
+\newpage
 \section{Implementation}\label{sec:impl}
   This first section will focus on the numerical implementation of the problem.
 
@@ -327,8 +358,6 @@
 \section{Algorithm test with an harmonic oscillator}\label{sec:har_osc}
   In this section, the implementation detailed in section \ref{sec:impl} will be tested on a simple harmonic oscillator.
   The parameters are $x_L=\SI{-200}{\Plength}$, $x_R=\SI{200}{\Plength}$, $\omega = \SI{0.003}{\Pangularfrequency}$, $\Delta = \SI{0}{\Plength}$, $x_0 = \SI{0}{\Plength}$, $\sigma_\text{norm} = \SI{0.06}{\Plength}$, $n=14$, $t_\text{fin} = \SI{5000}{\Ptime}$ and $N_\text{inters} = 300$.
-  %TODO : Vérifier que les unités de Plank soient correcte. Surtout sigma et n
-  Note that all the values are described in Plank's units, as required by the normalization of $\hbar$ and $m$.
 
 
   \subsection{Evolution of the system}
