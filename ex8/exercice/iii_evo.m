@@ -11,13 +11,13 @@ dt = 2;
 
 
 % Choisir le bon delta
-delta = 10 % E > v0
-output = sprintf("iii_evo_Egeqv0");
+% delta = 10 % E > v0
+% output = sprintf("iii_evo_Egeqv0");
 Etmp=0.0257;
 % delta = sqrt(2*Etmp/(omega^2)); % E = V0
 % output = sprintf("iii_evo_Eeqv0");
-% delta = 150 % E < v0
-% output = sprintf("iii_evo_Eleqv0");
+delta = 100 % E < v0
+output = sprintf("iii_evo_Eleqv0");
 
 
 % delta = 64;

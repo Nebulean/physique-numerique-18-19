@@ -98,7 +98,7 @@ set(gca, 'LineWidth',1.5);
 plot(n, diffProb, 'x', 'linewidth', 1.5, 'markersize', 10);
 
 xlabel("$n$");
-ylabel("$|P_{x<0} - P_{x>0}|$ at $t=1000~t_P$");
+ylabel("$|P_{x<0} - P_{x>0}|$");
 
 set(gca, 'xscale', 'log');
 set(gca, 'yscale', 'log');

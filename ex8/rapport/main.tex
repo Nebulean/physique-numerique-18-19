@@ -53,6 +53,7 @@
 \newcommand{\bracket}[1]{\left(#1\right)}
 \newcommand{\sqbracket}[1]{\left[#1\right]}
 \newcommand{\lapl}[1]{\Delta#1}
+\newcommand{\abs}[1]{\left|#1\right|}
 
 % Définition des unités de Plank
 \DeclareSIUnit \Plength {\ell_P}
@@ -457,119 +458,161 @@
   This section will thus focus on the study of this effect by means of the implementation described in section \ref{sec:impl}.\\
 
   \subsection{Emphasis of quantum tunnelling}
-  To emphasis this effect, the height of the potential barrier $V_0 = V(x=0)$ will be changed to three different values: $V_0<E$, $V_0 \approx E$ and $V_0>E$.
-  This barrier can be change using $\Delta$ and $x_0 = -\Delta$.
-  The other parameters for this section are given by $x_L=\SI{-200}{\Plength}$, $x_R=\SI{200}{\Plength}$, $\omega = \SI{0.003}{\Pangularfrequency}$, $\sigma_\text{norm} = \SI{0.06}{\Plength}$, $n=14$, $t_\text{fin} = \SI{5000}{\Ptime}$, $N_\text{inters} = 300$ and $\Delta t = \SI{2}{\Ptime}$.
+    To emphasis this effect, the height of the potential barrier $V_0 = V(x=0)$ will be changed to three different values: $V_0<E$, $V_0 \approx E$ and $V_0>E$.
+    This barrier can be change using $\Delta$ and $x_0 = -\Delta$.
+    The other parameters for this section are given by $x_L=\SI{-200}{\Plength}$, $x_R=\SI{200}{\Plength}$, $\omega = \SI{0.003}{\Pangularfrequency}$, $\sigma_\text{norm} = \SI{0.06}{\Plength}$, $n=14$, $t_\text{fin} = \SI{5000}{\Ptime}$, $N_\text{inters} = 300$ and $\Delta t = \SI{2}{\Ptime}$.\\
 
-\begin{figure}[h]
-  \centering
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_Egeqv0_evo.eps}
-    \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
-    \label{fig:iii_evo_Egeqv0_evo}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_Egeqv0_prob.eps}
-    \caption{$P(t)$ with respect to t}
-    \label{fig:iii_evo_Egeqv0_prob}
-  \end{subfigure}
-  \caption{Evolution of the particle for $\Delta = \SI{10}{\Plength}$, which gives $E > V_0$}
-  \label{fig:iii_evo_Egeqv0}
-\end{figure}
+    Figure \ref{fig:iii_evo_Egeqv0} gives the evolution of the system when $E > V_0$.
+    As the potential barrier is smaller than the total energy, the particle freely flows from one side to the other, as shows by figure \ref{fig:iii_evo_Egeqv0_evo}.
+    Figure \ref{fig:iii_evo_Egeqv0_prob} shows that the probability for the particle to be each side is periodically inverted, which again shows that the barrier potential is not a problem in this case.
+    No quantum tunnelling takes place in this case.\\
 
+    \begin{figure}[h]
+      \centering
+      \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{graphs/iii_evo_Egeqv0_evo.eps}
+        \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+        \label{fig:iii_evo_Egeqv0_evo}
+      \end{subfigure}
+      ~
+      \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{graphs/iii_evo_Egeqv0_prob.eps}
+        \caption{$P(t)$ with respect to t}
+        \label{fig:iii_evo_Egeqv0_prob}
+      \end{subfigure}
+      \caption{Evolution of the particle for $\Delta = \SI{10}{\Plength}$, which gives $E > V_0$}
+      \label{fig:iii_evo_Egeqv0}
+    \end{figure}
 
-\begin{figure}[h]
-  \centering
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_Eeqv0_evo.eps}
-    \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
-    \label{fig:iii_evo_Eeqv0_evo}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_Eeqv0_prob.eps}
-    \caption{$P(t)$ with respect to t}
-    \label{fig:iii_evo_Eeqv0_prob}
-  \end{subfigure}
-  \caption{Evolution of the particle for $\Delta \approx \SI{75.57}{\Plength}$, which gives $E \approx V_0$}
-  \label{fig:iii_evo_Eeqv0}
-\end{figure}
+    Figure \ref{fig:iii_evo_Eeqv0} gives the evolution of the system when $E \approx V_0$.
+    This time, the particle should not be able to overcome the potential barrier without taking the quantum tunnelling into account.
+    What can be observed on figure \ref{fig:iii_evo_Eeqv0_evo} is the fact that the particle still has a probability to reach the other side of the potentiel barrier.
+    Figure \ref{fig:iii_evo_Eeqv0_prob} strengthens this observation.
+    This is a great evidence of quantum tunnelling, as it is the only explaination why particles have a probability of overcoming the potential barrier.\\
 
 
+    \begin{figure}[h]
+      \centering
+      \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{graphs/iii_evo_Eeqv0_evo.eps}
+        \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+        \label{fig:iii_evo_Eeqv0_evo}
+      \end{subfigure}
+      ~
+      \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{graphs/iii_evo_Eeqv0_prob.eps}
+        \caption{$P(t)$ with respect to t}
+        \label{fig:iii_evo_Eeqv0_prob}
+      \end{subfigure}
+      \caption{Evolution of the particle for $\Delta \approx \SI{75.57}{\Plength}$, which gives $E \approx V_0$}
+      \label{fig:iii_evo_Eeqv0}
+    \end{figure}
 
-\begin{figure}[h]
-  \centering
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_Eleqv0_evo.eps}
-    \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
-    \label{fig:iii_evo_Eleqv0_evo}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_evo_Eleqv0_prob.eps}
-    \caption{$P(t)$ with respect to t}
-    \label{fig:iii_evo_Eleqv0_prob}
-  \end{subfigure}
-  \caption{Evolution of the particle for $\Delta = \SI{150}{\Plength}$, which gives $E < V_0$}
-  \label{fig:iii_evo_Eleqv0}
-\end{figure}
+    Finally, figure \ref{fig:iii_evo_Eleqv0} gives the evolution of the system when $E<V_0$.
+    This time, the potential barrier is to high compared to the energy, which results with a particle stuck in a side with no probability of being on the other side.
+    Figures \ref{fig:iii_evo_Eleqv0_evo} and \ref{fig:iii_evo_Eleqv0_prob} shows this fact, as the probability for the particle to be on the right side is approximately null.\\
+
+    \begin{figure}[h]
+      \centering
+      \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{graphs/iii_evo_Eleqv0_evo.eps}
+        \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+        \label{fig:iii_evo_Eleqv0_evo}
+      \end{subfigure}
+      ~
+      \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{graphs/iii_evo_Eleqv0_prob.eps}
+        \caption{$P(t)$ with respect to t}
+        \label{fig:iii_evo_Eleqv0_prob}
+      \end{subfigure}
+      \caption{Evolution of the particle for $\Delta = \SI{150}{\Plength}$, which gives $E < V_0$}
+      \label{fig:iii_evo_Eleqv0}
+    \end{figure}
+
+    Thus, this section has shown that quantum tunnelling is a notable effect of quantum physics and much be taken into account when the potential barrier is around the total energy.
+    However, when the potential barrier is \textit{significantly} higher than the total energy, this effect becomes neglectable.\\
+
+  \subsection{\SI{50}{\percent} tunnelling probability} %TODO : Le titre est claqué au sol. Faut changer.
+    This second section focuses on finding the right value for $n$ that gives a tunnelling probability of \SI{50}{\percent} for $\Delta = \SI{64}{\Plength}$.
+    To obtain this value, the difference of probabilities between both side at \SI{850}{\Ptime} (when the probability in both sides are clearly separated) has been plotted with respect to $n$.
+    This gives the values $n$ where the probability on both sides are the closest, which is \SI{50}{\percent}.
+    The parameter $n$ is initially an integer used to define the wavenumber, which is given by $k_0 = 2\pi n/(x_R-x_L)$.
+    However, the best result is still far from an exact \SI{50}{\percent}, so the implementation has been modified to allow a real $n$.
+    Both version are analysed in the following sections.\\
+
+    \subsubsection{$n$ as an integer}
+      First, $n$ is considered as an integer.
+      Figure \ref{fig:iii_findn_n} shows the study of the difference of probabilities with respect to $n$.
+      The value the closest to a \SI{50}{\percent} tunnelling probability is given by $n = 11$, with a difference of $\abs{P_{x<0} - P_{x>0}} \approx \SI{2.3}{\percent}$.\\
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.45\textwidth]{graphs/iii_findn_n.eps}
+        \caption{Difference of probabilities with respect to integer n for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$}
+        \label{fig:iii_findn_n}
+      \end{figure}
+
+      The evolution of the system with $n=11$ is given by figure \ref{fig:iii_findn}.
+      Figure \ref{fig:iii_findn_evo} gives the evolution of the density of probability $\abs{\psi(x,t)}^2$ over time and space.
+      It shows that the particle has almost the same probability of being on both sides.
+      This result is reinforced by figure \ref{fig:iii_findn_prob}, which shows the evolution of probability over time.
+      It can be seen that around $\SI{850}{\Ptime}$, which is the beginning of the first stable section, the probability of being on each side is approximately the same, as expected.\\
+
+      However, this result is limited by the fact that $n$ is integer.
+      Thus, the following section will apply the same study to a real $n$, in order to improve the result.\\
+
+      \begin{figure}[h]
+        \centering
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iii_findn_evo.eps}
+          \caption{$P(t)$ with respect to t}
+          \label{fig:iii_findn_evo}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iii_findn_prob.eps}
+          \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+          \label{fig:iii_findn_prob}
+        \end{subfigure}
+        \caption{Evolution of the particle for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$ with $n=11$}
+        \label{fig:iii_findn}
+      \end{figure}
 
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.45\textwidth]{graphs/iii_findn_n.eps}
-  \caption{Difference of probabilities with respect to integer n for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$}
-  \label{fig:iii_findn_n}
-\end{figure}
+    \subsubsection{$n$ as real value}
+      This time, $n$ is considered as real.
+      The same process is applied that the previous section, with the exception that the final result is interpolated from the best computation, in order to get an even better value of $n$.\\
 
+      Figure \ref{fig:iii_findn_cont_n} gives the difference of probabilities with respect to $n$.
+      By interpolating the smallest value with the two surround values with a curve of second order, the final result is given by $n=\num{1.0665}$ with a difference of probabilities at $t=\SI{850}{\Ptime}$ given by $\abs{P_{x<0} - P_{x>0}} \approx \SI{0.02}{\percent}$, which is better than the integer result.\\
 
-\begin{figure}[h]
-  \centering
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_findn_prob.eps}
-    \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
-    \label{fig:iii_findn_prob}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_findn_evo.eps}
-    \caption{$P(t)$ with respect to t}
-    \label{fig:iii_findn_psi}
-  \end{subfigure}
-  \caption{Evolution of the particle for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$ with $n=11$}
-  \label{fig:iii_findn}
-\end{figure}
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.45\textwidth]{graphs/iii_findn_cont_n.eps}
+        \caption{Difference of probabilities for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$ with respect to real n}
+        \label{fig:iii_findn_cont_n}
+      \end{figure}
 
+      The evolution of the system is given by figure \ref{fig:iii_findn_cont} with figure \ref{fig:iii_findn_cont_evo}, the evolution of the density of probability $\abs{\psi(x,t)}^2$ with respect to space and time, giving again a clear separation between both sides, and figure \ref{fig:iii_findn_cont_prob}, the evolution of both probabilities, giving an overlapping result for $t=\SI{850}{\Ptime}$.\\
 
+      \begin{figure}[h]
+        \centering
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iii_findn_cont_evo.eps}
+          \caption{$P(t)$ with respect to t}
+          \label{fig:iii_findn_cont_evo}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iii_findn_cont_prob.eps}
+          \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+          \label{fig:iii_findn_cont_prob}
+        \end{subfigure}
+        \caption{Evolution of the particle for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$ with $n=\num{11.0665}$}
+        \label{fig:iii_findn_cont}
+      \end{figure}
 
-
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.45\textwidth]{graphs/iii_findn_cont_n.eps}
-  \caption{Difference of probabilities for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$ with respect to real n}
-  \label{fig:iii_findn_n}
-\end{figure}
-
-
-\begin{figure}[h]
-  \centering
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_findn_cont_prob.eps}
-    \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
-    \label{fig:iii_findn_prob}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{graphs/iii_findn_cont_evo.eps}
-    \caption{$P(t)$ with respect to t}
-    \label{fig:iii_findn_psi}
-  \end{subfigure}
-  \caption{Evolution of the particle for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$ with $n=\num{11.0665}$}
-  \label{fig:iii_findn}
-\end{figure}
-
+      This way, a good $n$ to find a tunnelling probability of \SI{50}{\percent} has been found.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
