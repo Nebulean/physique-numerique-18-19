@@ -17,3 +17,17 @@ dR = 300;
 dt = 1
 Ninters = 300
 output = output
+
+% autres détecteurs
+t_detect2 = -1
+t_detect3 = -1
+t_detect4 = -1
+
+dL2 = 0
+dR2 = 70
+
+dL3 = 140
+dR3 = 160
+
+dL4 = 100
+dR4 = 150

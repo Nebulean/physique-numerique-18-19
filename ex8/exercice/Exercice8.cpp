@@ -106,9 +106,12 @@ int main(int argc,char **argv)
   double x0      = configFile.get<double>("x0");
   double k0      = 2. * M_PI * configFile.get<double>("n") / (xR-xL); // changes: int -> double
   double sigma0  = configFile.get<double>("sigma_norm") * (xR-xL);
-  double t_detect = configFile.get<double>("t_detect");
-  int dL = configFile.get<int>("dL");
-  int dR = configFile.get<int>("dR");
+  // double t_detect = configFile.get<double>("t_detect");
+  // int dL = configFile.get<int>("dL");
+  // int dR = configFile.get<int>("dR");
+  vector<double> t_detect = {configFile.get<double>("t_detect"), configFile.get<double>("t_detect2"),  configFile.get<double>("t_detect3"), configFile.get<double>("t_detect4")};
+  vector<int> dL = {configFile.get<int>("dL"), configFile.get<int>("dL2"), configFile.get<int>("dL3"), configFile.get<int>("dL4")};
+  vector<int> dR = {configFile.get<int>("dR"), configFile.get<int>("dR2"), configFile.get<int>("dR3"), configFile.get<int>("dR4")};
 
   // Parametres numeriques :
   double dt      = configFile.get<double>("dt");
@@ -190,9 +193,11 @@ int main(int argc,char **argv)
   double t;
   for(t=0.; t+dt/2.<tfin; t+=dt)
   {
-    if(t==t_detect){
-      detect(t_detect,t,psi,dx,dL,dR);
-    }
+    for (size_t i(0); i<t_detect.size(); ++i){
+      if(t==t_detect[i]){
+      detect(t_detect[i],t,psi,dx,dL[i],dR[i]);
+     }
+   }
     // Ecriture de |psi|^2 :
     for(int i(0); i<Npoints; ++i)
       fichier_psi << abs(psi[i]) * abs(psi[i]) << " ";
