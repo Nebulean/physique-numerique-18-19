@@ -478,7 +478,66 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
-\section{Average movement analysis for a particle and comparison with the classic case}
+\section{Average movement analysis for a particle and comparison with the classical case}
+
+With the same parameters as in section \ref{sec:har_osc}, the average position and momentum of the particle is analysed and compared to the analytical solution, which is found using the ansatz for a harmonic oscillator with potential $V(x)=\frac{1}{2}m\omega^2x^2$:
+\begin{equation}
+ x(t)=A \cos(\omega t) + B \sin(\omega t)
+ \label{eq:ansatz}
+\end{equation}
+where $A$ and $B$ are constants found with the initial conditions: since $x(0)=x_0$, we have $A=x_0$, and from $\dot{x}(t)=p_0/m$ and $p_0=\hbar k_0$, by taking the derivative of eq. \eqref{eq:ansatz}, we get $B=\hbar k_0/m\omega$. The solution is thus:
+\begin{align}
+ &x(t)=x_0\cos(\omega t) + \frac{\hbar k_0}{m \omega} \sin(\omega t)\\
+ &p(t)=m\dot{x}(t)=-m\omega x_0\sin(\omega t) + \hbar k_0 \cos(\omega t)
+\end{align}
+Here, $x_0=0$, $m=1$ and $\hbar=1$. The results of these comparisons are displayed in figure \ref{fig:ii}.
+
+
+\begin{figure}[h!]
+\begin{subfigure}[t]{0.46\textwidth}
+ \includegraphics[width=\textwidth]{graphs/ii_x.eps}
+ \caption{Particle movement}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.46\textwidth}
+ \includegraphics[width=\textwidth]{graphs/ii_p.eps}
+ \caption{Particle momentum}
+\end{subfigure}
+\caption{Comparison of the simulated position and momentum of the particle with their respective classical analytical solutions}
+\label{fig:ii}
+\end{figure}
+
+The general behavior for both the average position and the average momentum of the particle is that of a harmonic oscillator. For these parameters, the simulations follow the classical solution quite closely. $\langle x \rangle (t)$ and $x(t)$ both start out at 0 at $t=0$, while $\langle p \rangle (t)$ and $p(t)$ start out with a small difference at $t=0$. A more detailed analysis of the differences between the simulations and the classical solutions is displayed on figures \ref{fig:ii_diffx} and \ref{fig:ii_diffp}.
+
+\begin{figure}[h!]
+ \begin{subfigure}[t]{0.45\textwidth}
+ \includegraphics[width=\textwidth]{graphs/ii_diffx.eps}
+  \caption{Difference over the total time of the simulation}
+ \end{subfigure}
+ ~
+ \begin{subfigure}[t]{0.45\textwidth}
+ \includegraphics[width=\textwidth]{graphs/ii_diffxsl.eps}
+  \caption{Maxima of the absolute difference}
+ \end{subfigure}
+\caption{Evolution of the difference between the simulated position and its classical solution}
+\label{fig:ii_diffx}
+\end{figure}
+
+\begin{figure}[h!]
+ \begin{subfigure}[t]{0.45\textwidth}
+ \includegraphics[width=\textwidth]{graphs/ii_diffp.eps}
+  \caption{Difference over the total time of the simulation}
+ \end{subfigure}
+ ~
+ \begin{subfigure}[t]{0.45\textwidth}
+ \includegraphics[width=\textwidth]{graphs/ii_diffpsl.eps}
+ \caption{Maxima of the absolute difference}
+ \end{subfigure}
+\caption{Evolution of the difference between the simulated momentum and its classical solution}
+\label{fig:ii_diffp}
+\end{figure}
+
+In both cases the difference oscillates around zero with linearly increasing amplitude. The oscillations for the difference on the position seem quite regular, while the curve for the difference on the momentum is more misshapen. Moreover the rate of the increase in amplitude of the oscillations for the difference on the position is around 3 orders of magnitude higher than that of the momentum.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -727,7 +786,7 @@
         \end{equation}
 
         Figure \ref{fig:v_pot_Bb_evo} shows the evolution of the system with this potential.
-        
+
 
         \begin{figure}[h]
           \centering
