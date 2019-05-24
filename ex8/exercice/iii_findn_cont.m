@@ -45,7 +45,7 @@ for i=1:nsimul
     probD = data(:,3);
     
     % On trouve la position après le premier passage.
-    [time, Tidx] = min(abs(t-850));
+    [time, Tidx] = min(abs(t-1000));
     
     % On calcul la distance entre les deux proba
     diffProb(i) = abs(probG(Tidx) - probD(Tidx));
@@ -54,15 +54,17 @@ end
 % Maintenant qu'on a l'ensemble des distances, on choisi la plus faible et
 % les deux qui l'entour, et on fait une interpolation du 2e ordre.
 [minval, idx] = min(diffProb);
+realn = n(idx);
 
+% On ne fait pas d'interpolation, vu que le résultat est un triangle.
 % On suppose que le min est pas sur les bords, sinon y'a une erreur.
-y_diff = diffProb(idx-1:idx+1);
-x_diff = n(idx-1:idx+1);
+% y_diff = diffProb(idx-1:idx+1);
+% x_diff = n(idx-1:idx+1);
 
-polyapprox = poly_approx(x_diff, y_diff, 2, 100, false);
+% polyapprox = poly_approx(x_diff, y_diff, 2, 100, false);
 
-[realmin, nidx] = min(polyapprox(:,2));
-realn = polyapprox(nidx,1);
+% [realmin, nidx] = min(polyapprox(:,2));
+% realn = polyapprox(nidx,1);
 
 %% Maintenant qu'on a le "véritable" n, on va plot le résultat à cet endroit.
 newoutput = sprintf("iii_evo_n=%0.5f", realn);
@@ -100,8 +102,8 @@ plot(n, diffProb, 'x', 'linewidth', 1.5, 'markersize', 10);
 xlabel("$n$");
 ylabel("$|P_{x<0} - P_{x>0}|$");
 
-set(gca, 'xscale', 'log');
-set(gca, 'yscale', 'log');
+%set(gca, 'xscale', 'log');
+%set(gca, 'yscale', 'log');
 
 grid on;
 box on;

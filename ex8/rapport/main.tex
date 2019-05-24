@@ -168,7 +168,7 @@
       \label{eq:schrödinger_sol_disc}
     \end{equation}
 
-    By multiplying both sides by $\exp\bracket{\frac{i}{\hbar}\frac{\Delta t}{2}H}$, and by using a limited development, equation \eqref{eq:crank-nicholson} follows, which is Crank-Nicholson's semi-implicit numerical method.
+    By multiplying both sides by $\exp\bracket{\frac{i}{\hbar}\frac{\Delta t}{2}H}$, and by using a limited development, equation \eqref{eq:crank_nicholson} follows, which is Crank-Nicholson's semi-implicit numerical method.
 
     \begin{equation}
       \bracket{1 + \frac{i}{\hbar}\frac{\Delta t}{2}H}\psi(\mbf{x}, t + \Delta t) = \bracket{1 - \frac{i}{\hbar}\frac{\Delta t}{2}H}\psi(\mbf{x}, t)
@@ -288,7 +288,7 @@
 
 
   \subsection{Energy}
-    The computation of the energy of a particle is given by the mean of the Hamiltonian, which is given by equation \eqref{eq:energy_def}.
+    The computation of the energy of a particle is given by the average Hamiltonian, which is given by equation \eqref{eq:energy_def}.
 
     \begin{equation}
       E(t) = \langle H \rangle(t) = \int_{x_L}^{x_R}\psi^*(x,t)H(x)\psi(x,t)dx
@@ -404,7 +404,7 @@
       \label{fig:i_conv}
     \end{figure}
 
-    Figure \ref{fig:i_conv} gives the convergence study on the mean position $\langle x \rangle$ (Fig. \ref{fig:i_conv_x}), the mean momentum $\langle p \rangle$ (Fig. \ref{fig:i_conv_p}), the mean position uncertainty $\langle \Delta x \rangle$ (Fig. \ref{fig:i_conv_dx}) and the mean momentum uncertainty $\langle \Delta p \rangle$ (Fig. \ref{fig:i_conv_dp}).
+    Figure \ref{fig:i_conv} gives the convergence study on the average position $\langle x \rangle$ (Fig. \ref{fig:i_conv_x}), the average momentum $\langle p \rangle$ (Fig. \ref{fig:i_conv_p}), the average position uncertainty $\langle \Delta x \rangle$ (Fig. \ref{fig:i_conv_dx}) and the average momentum uncertainty $\langle \Delta p \rangle$ (Fig. \ref{fig:i_conv_dp}).
     These resuts show that the numerical method approximately converges on the 2nd order.
     %TODO : Je sais pas quoi dire. :|
 
@@ -439,29 +439,30 @@
     \end{figure}
 
 
-  \subsection{Conservation of mean energy}
-    % Next verification is that the mean energy is conserved over time.\\
-    Next, the mean energy must be conserved.
+  \subsection{Conservation of average energy}
+    % Next verification is that the average energy is conserved over time.\\
+    Next, the average energy must be conserved.
 
-    Figure \ref{fig:i_E} shows that the mean energy is more or less conserved.
+    Figure \ref{fig:i_E} shows that the average energy is more or less conserved.
     However, it can be observed that it slightly reduces over time, which is neglectable, as the difference is too small to be shown on the vertical axis.
     These are the result of numerical roundings, which occures each time a value is numerically computed.
-    Therefore, the mean energy can be considered as exactly conserved.
+    Therefore, the average energy can be considered as exactly conserved.
 
     \begin{figure}[h]
       \centering
       \includegraphics[width=0.45\textwidth]{graphs/i_E.eps}
-      \caption{mean energy divided by the initial energy over time, $\Delta t = \SI{1}{\Ptime}$}
+      \caption{average energy divided by the initial energy over time, $\Delta t = \SI{1}{\Ptime}$}
       \label{fig:i_E}
     \end{figure}
 
   \subsection{Heisenberg's uncertainty principle}
     This last part focuses on the correctness of Heisenberg's uncertainty principle, which states that $\forall t:~\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t) \geq \frac{\hbar}{2}$.
-    Alternatively, it states that the mean position and velocity cannot be precisely determined at the same time.
-    Note that, as stated before, a normalized $\hbar$ has been taken, which gives $\hbar=1$.\\ %TODO : Mettre les unités de hbar.
+    Alternatively, it states that the average position and velocity cannot be precisely determined at the same time.
+    Note that, as stated before, a normalized $\hbar$ has been taken, which gives $\hbar=\SI{1}{\Penergy\Ptime}$.\\
 
     The result is given by figure \ref{fig:i_heisenberg} and shows that the principle is overall verified.
-    %TODO : Parler du fait que le théorème est plus ou moins vérifié, mais que y'a quand même des parties qui posent problème.
+    However, the firsts minimums of $\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t)$ are slightly under $\frac{\hbar}{2}$, which is explained by truncation error caused by the integral.
+    But this error is vanishing over time, so it is neglectable.
 
     \begin{figure}[h]
       \centering
@@ -477,7 +478,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
-\section{Mean movement analysis for a particle and comparison with the classic case}
+\section{Average movement analysis for a particle and comparison with the classic case}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -500,7 +501,7 @@
       \centering
       \begin{subfigure}[t]{0.45\textwidth}
         \includegraphics[width=\textwidth]{graphs/iii_evo_Egeqv0_evo.eps}
-        \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+        \caption{$|\psi(x, t)|^2$ with respect to $x$ and t}
         \label{fig:iii_evo_Egeqv0_evo}
       \end{subfigure}
       ~
@@ -524,7 +525,7 @@
       \centering
       \begin{subfigure}[t]{0.45\textwidth}
         \includegraphics[width=\textwidth]{graphs/iii_evo_Eeqv0_evo.eps}
-        \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+        \caption{$|\psi(x, t)|^2$ with respect to $x$ and t}
         \label{fig:iii_evo_Eeqv0_evo}
       \end{subfigure}
       ~
@@ -545,7 +546,7 @@
       \centering
       \begin{subfigure}[t]{0.45\textwidth}
         \includegraphics[width=\textwidth]{graphs/iii_evo_Eleqv0_evo.eps}
-        \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+        \caption{$|\psi(x, t)|^2$ with respect to $x$ and t}
         \label{fig:iii_evo_Eleqv0_evo}
       \end{subfigure}
       ~
@@ -561,9 +562,9 @@
     Thus, this section has shown that quantum tunnelling is a notable effect of quantum physics and much be taken into account when the potential barrier is around the total energy.
     However, when the potential barrier is \textit{significantly} higher than the total energy, this effect becomes neglectable.\\
 
-  \subsection{\SI{50}{\percent} tunnelling probability} %TODO : Le titre est claqué au sol. Faut changer.
+  \subsection{\SI{50}{\percent} tunnelling probability}
     This second section focuses on finding the right value for $n$ that gives a tunnelling probability of \SI{50}{\percent} for $\Delta = \SI{64}{\Plength}$.
-    To obtain this value, the difference of probabilities between both side at \SI{850}{\Ptime} (when the probability in both sides are clearly separated) has been plotted with respect to $n$.
+    To obtain this value, the difference of probabilities between both side at \SI{1000}{\Ptime} (when the probability in both sides are clearly separated) has been plotted with respect to $n$.
     This gives the values $n$ where the probability on both sides are the closest, which is \SI{50}{\percent}.
     The parameter $n$ is initially an integer used to define the wavenumber, which is given by $k_0 = 2\pi n/(x_R-x_L)$.
     However, the best result is still far from an exact \SI{50}{\percent}, so the implementation has been modified to allow a real $n$.
@@ -572,12 +573,12 @@
     \subsubsection{$n$ as an integer}
       First, $n$ is considered as an integer.
       Figure \ref{fig:iii_findn_n} shows the study of the difference of probabilities with respect to $n$.
-      The value the closest to a \SI{50}{\percent} tunnelling probability is given by $n = 11$, with a difference of $\abs{P_{x<0} - P_{x>0}} \approx \SI{2.3}{\percent}$.\\
+      The value the closest to a \SI{50}{\percent} tunnelling probability is given by $n = 11$, with a difference of $\abs{P_{x<0} - P_{x>0}} \approx \SI{2.1}{\percent}$.\\
 
       \begin{figure}[h]
         \centering
-        \includegraphics[width=0.45\textwidth]{graphs/iii_findn_n.eps}
-        \caption{Difference of probabilities with respect to integer n for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$}
+        \includegraphics[width=0.45\textwidth]{graphs/iii_findn_n_approx.eps}
+        \caption{Difference of probabilities with respect to integer n for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$, with a 2nd order fit for the best values}
         \label{fig:iii_findn_n}
       \end{figure}
 
@@ -585,22 +586,25 @@
       Figure \ref{fig:iii_findn_evo} gives the evolution of the density of probability $\abs{\psi(x,t)}^2$ over time and space.
       It shows that the particle has almost the same probability of being on both sides.
       This result is reinforced by figure \ref{fig:iii_findn_prob}, which shows the evolution of probability over time.
-      It can be seen that around $\SI{850}{\Ptime}$, which is the beginning of the first stable section, the probability of being on each side is approximately the same, as expected.\\
+      It can be seen that around $\SI{1000}{\Ptime}$, which is the beginning of the first stable section, the probability of being on each side is approximately the same, as expected.\\
 
       However, this result is limited by the fact that $n$ is integer.
-      Thus, the following section will apply the same study to a real $n$, in order to improve the result.\\
+      To improve the result, the best resuls can be interpolated by a second order curve, as shown by figure \ref{fig:iii_findn_n}.
+      This way, a more accurate value of $n$, based on the current result can be approximated, and is given by $n\approx\num{11.04}$.
+      To further improve this result, it is also possible to change the implementation, and consider $n$ as a real number.
+      Thus, the next section will apply the same study to a real $n$, in order to improve the result.\\
 
       \begin{figure}[h]
         \centering
         \begin{subfigure}[t]{0.45\textwidth}
           \includegraphics[width=\textwidth]{graphs/iii_findn_evo.eps}
-          \caption{$P(t)$ with respect to t}
+          \caption{$|\psi(x, t)|^2$ with respect to $x$ and t}
           \label{fig:iii_findn_evo}
         \end{subfigure}
         ~
         \begin{subfigure}[t]{0.45\textwidth}
           \includegraphics[width=\textwidth]{graphs/iii_findn_prob.eps}
-          \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+          \caption{$P(t)$ with respect to t}
           \label{fig:iii_findn_prob}
         \end{subfigure}
         \caption{Evolution of the particle for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$ with $n=11$}
@@ -610,10 +614,11 @@
 
     \subsubsection{$n$ as real value}
       This time, $n$ is considered as real.
-      The same process is applied that the previous section, with the exception that the final result is interpolated from the best computation, in order to get an even better value of $n$.\\
+      The same process is applied that the previous section.
+      Note that interpolating the result from the best values as a parabola does not make sense, as figure \ref{fig:iii_findn_cont_n} shows that the curve is straight.\\
 
       Figure \ref{fig:iii_findn_cont_n} gives the difference of probabilities with respect to $n$.
-      By interpolating the smallest value with the two surround values with a curve of second order, the final result is given by $n=\num{1.0665}$ with a difference of probabilities at $t=\SI{850}{\Ptime}$ given by $\abs{P_{x<0} - P_{x>0}} \approx \SI{0.02}{\percent}$, which is better than the integer result.\\
+      The best value of $n$ is given by $n=\num{11.06}$ with a difference of probabilities at $t=\SI{1000}{\Ptime}$ given by $\abs{P_{x<0} - P_{x>0}} \approx \SI{5.13e-3}{\percent}$, which is much better than the integer result.\\
 
       \begin{figure}[h]
         \centering
@@ -622,22 +627,22 @@
         \label{fig:iii_findn_cont_n}
       \end{figure}
 
-      The evolution of the system is given by figure \ref{fig:iii_findn_cont} with figure \ref{fig:iii_findn_cont_evo}, the evolution of the density of probability $\abs{\psi(x,t)}^2$ with respect to space and time, giving again a clear separation between both sides, and figure \ref{fig:iii_findn_cont_prob}, the evolution of both probabilities, giving an overlapping result for $t=\SI{850}{\Ptime}$.\\
+      The evolution of the system is given by figure \ref{fig:iii_findn_cont} with figure \ref{fig:iii_findn_cont_evo}, the evolution of the density of probability $\abs{\psi(x,t)}^2$ with respect to space and time, giving again a clear separation between both sides, and figure \ref{fig:iii_findn_cont_prob}, the evolution of both probabilities, giving an overlapping result for $t=\SI{1000}{\Ptime}$.\\
 
       \begin{figure}[h]
         \centering
         \begin{subfigure}[t]{0.45\textwidth}
           \includegraphics[width=\textwidth]{graphs/iii_findn_cont_evo.eps}
-          \caption{$P(t)$ with respect to t}
+          \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
           \label{fig:iii_findn_cont_evo}
         \end{subfigure}
         ~
         \begin{subfigure}[t]{0.45\textwidth}
           \includegraphics[width=\textwidth]{graphs/iii_findn_cont_prob.eps}
-          \caption{$|\psi(\mbf{x}, t)|^2$ with respect to $\mbf{x}$ and t}
+          \caption{$P(t)$ with respect to $t$}
           \label{fig:iii_findn_cont_prob}
         \end{subfigure}
-        \caption{Evolution of the particle for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$ with $n=\num{11.0665}$}
+        \caption{Evolution of the particle for $\Delta = \SI{64}{\Plength}$ and $\Delta t = \SI{5}{\Ptime}$ with $n=\num{11.06}$}
         \label{fig:iii_findn_cont}
       \end{figure}
 
@@ -648,15 +653,104 @@
 \newpage
 \section{Detection of a particle}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Bonus}
+  This section will present some additionnal studies to the report.\\
+
+  \subsection{Alternative potential energy}
+    This section presents the evolution of the system given by the following parameters, using some alternative definitions for the potential energy.
+    The parameters are given by $x_L=\SI{-200}{\Plength}$, $x_R=\SI{200}{\Plength}$, $\omega = \SI{0.003}{\Pangularfrequency}$, $\Delta = \SI{64}{\Plength}$, $x_0 = -\Delta$, $\sigma_\text{norm} = \SI{0.06}{\Plength}$, $n=14$, $t_\text{fin} = \SI{5000}{\Ptime}$, $N_\text{inters} = 300$ and $\Delta t = \SI{2}{\Ptime}$.\\
+
+      \subsubsection{Embed wave with a centered barrier}
+        The potential is given by equation \eqref{eq:pot_A_pot}, represented as figure \ref{fig:v_pot_A_pot}.
+        Note that numerically, $+\infty$ is simply given by a sufficiently high number.
+
+        \begin{equation}
+          V(x) =
+          \begin{cases}
+            0.025,~\text{if $|x| \leq 5$}\\
+            0,~\text{if $5 < |x| < 200$}\\
+            +\infty,~\text{if $|x| < 200$}
+          \end{cases}
+          \label{eq:pot_A_pot}
+        \end{equation}
+
+        \begin{figure}[h]
+          \centering
+          \begin{subfigure}[t]{0.45\textwidth}
+            \includegraphics[width=\textwidth]{graphs/v_pot_A_evo.eps}
+            \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
+            \label{fig:v_pot_A_evo}
+          \end{subfigure}
+          ~
+          \begin{subfigure}[t]{0.45\textwidth}
+            \includegraphics[width=\textwidth]{graphs/v_pot_A_pot.eps}
+            \caption{potential energy $V$ with respect to $x$}
+            \label{fig:v_pot_A_pot}
+          \end{subfigure}
+          \caption{Evolution of the system for the potential energy given by equation \eqref{eq:pot_A_pot}}
+          \label{fig:v_pot_A}
+        \end{figure}
+
+      \subsubsection{Periodic potential}
+      The potential is given by equation \eqref{eq:pot_Ba_pot}, represented as figure \ref{fig:v_pot_Ba_pot}
+        \begin{equation}
+          V(x) = 0.09\abs{\sin\bracket{\frac{x}{10}}}
+          \label{eq:pot_Ba_pot}
+        \end{equation}
+
+        \begin{figure}[h]
+          \centering
+          \begin{subfigure}[t]{0.45\textwidth}
+            \includegraphics[width=\textwidth]{graphs/v_pot_Ba_evo.eps}
+            \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
+            \label{fig:v_pot_Ba_evo}
+          \end{subfigure}
+          ~
+          \begin{subfigure}[t]{0.45\textwidth}
+            \includegraphics[width=\textwidth]{graphs/v_pot_Ba_pot.eps}
+            \caption{potential energy $V$ with respect to $x$}
+            \label{fig:v_pot_Ba_pot}
+          \end{subfigure}
+          \caption{Evolution of the system for the potential energy given by equation \eqref{eq:pot_Ba_pot}}
+          \label{fig:v_pot_Ba}
+        \end{figure}
+
+      \subsubsection{\textit{The Pineapple}}
+        The potential is given by equation \eqref{eq:pot_Bb_pot}, represented as figure \ref{fig:v_pot_Bb_pot}.
+
+        \begin{equation}
+          V(x) = \abs{\sin\bracket{\frac{x}{100}}}
+          \label{eq:pot_Bb_pot}
+        \end{equation}
+
+        Figure \ref{fig:v_pot_Bb_evo} shows the evolution of the system with this potential.
+        
+
+        \begin{figure}[h]
+          \centering
+          \begin{subfigure}[t]{0.45\textwidth}
+            \includegraphics[width=\textwidth]{graphs/v_pot_Bb_evo.eps}
+            \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
+            \label{fig:v_pot_Bb_evo}
+          \end{subfigure}
+          ~
+          \begin{subfigure}[t]{0.45\textwidth}
+            \includegraphics[width=\textwidth]{graphs/v_pot_Bb_pot.eps}
+            \caption{potential energy $V$ with respect to $x$}
+            \label{fig:v_pot_Bb_pot}
+          \end{subfigure}
+          \caption{Evolution of the system for the potential energy given by equation \eqref{eq:pot_Bb_pot}}
+          \label{fig:v_pot_Bb}
+        \end{figure}
 
 
 
-
-  \newpage
-  \begin{thebibliography}{99}
-    \bibitem{wiki:quantum_tunnelling} Wikipedia contributors. (2019, May 6). Quantum tunnelling. In Wikipedia, The Free Encyclopedia. Retrieved 17:01, May 18, 2019, from \url{https://en.wikipedia.org/w/index.php?title=Quantum_tunnelling&oldid=895805434}
-
-
-  \end{thebibliography}
+\newpage
+\begin{thebibliography}{99}
+  \bibitem{wiki:quantum_tunnelling} Wikipedia contributors. (2019, May 6). Quantum tunnelling. In Wikipedia, The Free Encyclopedia. Retrieved 17:01, May 18, 2019, from \url{https://en.wikipedia.org/w/index.php?title=Quantum_tunnelling&oldid=895805434}
+\end{thebibliography}
 
 \end{document}

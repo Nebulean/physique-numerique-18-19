@@ -31,7 +31,7 @@ end
 
 for i=1:nsimul
     disp(cmd{i});
-    %system(cmd{i});
+%     % system(cmd{i});
 end
 
 
@@ -45,11 +45,24 @@ for i=1:nsimul
     probD = data(:,3);
     
     % On trouve la position après le premier passage.
-    [time, Tidx] = min(abs(t-850));
+    [time, Tidx] = min(abs(t-1000));
     
     % On calcul la distance entre les deux proba
     diffProb(i) = abs(probG(Tidx) - probD(Tidx));
 end
+
+% On veut trouver un meilleur n à l'aide d'une interpolation du 2e ordre.
+[minval, idx] = min(diffProb);
+
+% On suppose que le min est pas sur les bords, sinon y'a une erreur.
+y_diff = diffProb(idx-1:idx+1);
+x_diff = n(idx-1:idx+1);
+
+polyapprox = poly_approx(x_diff, y_diff, 2, 1000, false);
+
+[realmin, nidx] = min(polyapprox(:,2));
+realn = polyapprox(nidx,1);
+
 
 data = load(sprintf("%s_pot.out", output{11}));
 x = data(:,1);
@@ -80,6 +93,27 @@ plot(n, diffProb, 'x', 'linewidth', 1.5, 'markersize', 10);
 
 xlabel("$n$");
 ylabel("$|P_{x<0} - P_{x>0}|$");
+
+grid on;
+box on;
+
+hold off;
+
+
+%%%%%%%%%
+
+figFindNApprox = figure;
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+plot(n, diffProb, 'x', 'linewidth', 1.5, 'markersize', 10);
+plot(polyapprox(:,1), polyapprox(:,2), 'linewidth', 1.5);
+xlabel("$n$");
+ylabel("$|P_{x<0} - P_{x>0}|$");
+
+legend(["data", "2nd order fit"], 'location', 'southeast')
 
 grid on;
 box on;
@@ -145,6 +179,7 @@ hold off;
 saveas(figFindN, "graphs/iii_findn_n", "epsc");
 saveas(figEvo, "graphs/iii_findn_evo", "epsc");
 saveas(figProb, "graphs/iii_findn_prob", "epsc");
+saveas(figFindNApprox, "graphs/iii_findn_n_approx", "epsc")
 
 %% Function
 function n = changePrecision(value, digits)
@@ -153,5 +188,45 @@ function n = changePrecision(value, digits)
         n = floor(value*10^-order)*10^order;
     else
         n = 0;
+    end
+end
+
+function [polynome, slope] = poly_approx(x, y, ordre, steps, isLog)
+    % =================== POLY_APPROX ===================================
+    % RESUMÉ: Permet de faire une approximation d'ordre n d'un set de
+    % données.
+    %
+    % USAGE: Il suffit d'appeller la fonction.
+    %
+    % PARAMETRES:
+    %   - (x/y): Set de donnée de même longueur.
+    %   - order: L'ordre du fit.
+    %          Valeurs acceptables: Tous les entiers plus grand que 0.
+    %   - steps: Nombre de points à sortir. Pour une approximation d'ordre
+    %   1, il est suffisant de prendre 2 points.
+    %          Valeurs acceptables: Tout nombre entier supérieur à 2.
+    %   - isLog: Switch permettant de choisir entre un graphe linéaire et un
+    %   graphe log. 'true' si graphe log, 'false' si graphe linéaire.
+    % ==================================================================
+    if isLog == true
+        x=log10(x);
+        y=log10(y);
+    end
+    
+    % Compute the fit
+    pf = polyfit(x, y, ordre);
+    slope = pf(1);
+    T = linspace(min(x), max(x), steps);
+    n = ordre + 1;
+    polynome = zeros(2,length(T));
+    for i=1:n
+       polynome(2,:) = polynome(2,:) + pf(i)*T.^(n-i);
+    end
+    polynome(1,:) = T;
+
+    polynome=polynome.'; % transposition pour améliorer l'utilisation.
+    
+    if isLog == true
+       polynome = 10.^polynome; 
     end
 end
