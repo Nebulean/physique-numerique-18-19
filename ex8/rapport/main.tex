@@ -720,11 +720,13 @@ In both cases the difference oscillates around zero with linearly increasing amp
 
   \subsection{Alternative potential energy}
     This section presents the evolution of the system given by the following parameters, using some alternative definitions for the potential energy.
-    The parameters are given by $x_L=\SI{-200}{\Plength}$, $x_R=\SI{200}{\Plength}$, $\omega = \SI{0.003}{\Pangularfrequency}$, $\Delta = \SI{64}{\Plength}$, $x_0 = -\Delta$, $\sigma_\text{norm} = \SI{0.06}{\Plength}$, $n=14$, $t_\text{fin} = \SI{5000}{\Ptime}$, $N_\text{inters} = 300$ and $\Delta t = \SI{2}{\Ptime}$.\\
+    The parameters are given by $x_L=\SI{-200}{\Plength}$, $x_R=\SI{200}{\Plength}$, $\omega = \SI{0.003}{\Pangularfrequency}$, $\Delta = \SI{64}{\Plength}$, $x_0 = -\Delta$, $\sigma_\text{norm} = \SI{0.06}{\Plength}$, $n=14$, $t_\text{fin} = \SI{5000}{\Ptime}$, $N_\text{inters} = 300$ and $\Delta t = \SI{2}{\Ptime}$, unless stated later.\\
+    %TODO : Le "unless stated later" me semble moche. T'as une meilleure traduction pour "sauf future contre-indication" ?
 
       \subsubsection{Embed wave with a centered barrier}
         The potential is given by equation \eqref{eq:pot_A_pot}, represented as figure \ref{fig:v_pot_A_pot}.
         Note that numerically, $+\infty$ is simply given by a sufficiently high number.
+        All values are expressed as Plank energy.
 
         \begin{equation}
           V(x) =
@@ -735,6 +737,8 @@ In both cases the difference oscillates around zero with linearly increasing amp
           \end{cases}
           \label{eq:pot_A_pot}
         \end{equation}
+
+        As $E<\max\bracket{V}$, figure \ref{fig:v_pot_A_evo} shows the effect of quantum tunnelling, as the particle has a probability of being on the right side.
 
         \begin{figure}[h]
           \centering
@@ -753,57 +757,97 @@ In both cases the difference oscillates around zero with linearly increasing amp
           \label{fig:v_pot_A}
         \end{figure}
 
+      \subsubsection{Quantum tunnelling with respect to the width of the barrier}
+        This additionnal study focuses on the transmission probability when the width of the potential barrier from equation \eqref{eq:pot_A_pot} changes.
+        The potential energy is given by equation \eqref{eq:pot_conv}.
+        All values are expressed as Plank energy.
+
+        \begin{equation}
+          V(x) =
+          \begin{cases}
+            0.025,~\text{if $|x| \leq \Delta$}\\
+            0,~\text{if $\Delta < |x| < 200$}\\
+            +\infty,~\text{if $|x| < 200$}
+          \end{cases}
+          \label{eq:pot_conv}
+        \end{equation}
+
+        In this section, $\Delta$ represents half of the width of the potential barrier and will vary as $\Delta \in \left[0, 10\right] \si{\Plength}$ with steps of \SI{0.5}{\Plength}.
+        To get a good enough spacial definition allowing these steps, $N_\text{inters} = \num{800}$ and to strongly reduce the computation time, $\Delta t = \SI{5}{\Ptime}$.
+        Note that $E<\max\bracket{V}$ in all cases which is needed for quantum tunnelling.
+
+        Figure \ref{fig:v_conv_delta} gives the probability for the particle to be on the right side at $t = \SI{1000}{\Ptime}$, which occures after the first quantum tunnelling.
+        This figure shows the non-linearity of this effect.
+        Lower widths give a concave curve, but at bigger widths, the curve becomes convex.
+        Thus, the quantum tunnelling slowly decreases and seems to tend to zero when the barrier has a bigger width.
+
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=0.45\textwidth]{graphs/v_conv_delta.eps}
+          \caption{Study of the left-side probability $P_{x>0}$ with respect to half of the potential barrier width $\Delta$ at $t=\SI{1000}{\Ptime}$}
+          \label{fig:v_conv_delta}
+        \end{figure}
+
+        As a summary, quantum tunnelling is a non-neglectable effect when the barrier to overcome is thinner but becomes neglectable when it gets thicker.
+
       \subsubsection{Periodic potential}
-      The potential is given by equation \eqref{eq:pot_Ba_pot}, represented as figure \ref{fig:v_pot_Ba_pot}
-        \begin{equation}
-          V(x) = 0.09\abs{\sin\bracket{\frac{x}{10}}}
-          \label{eq:pot_Ba_pot}
-        \end{equation}
+      This time, the potential energy, which is given by equation \eqref{eq:pot_Ba_pot}, is given as periodic.
+      All values are expressed as Plank energy and again, $E<\max\bracket{V}$ as shown by the representation of the energy in figure \ref{fig:v_pot_Ba_pot}.
 
-        \begin{figure}[h]
-          \centering
-          \begin{subfigure}[t]{0.45\textwidth}
-            \includegraphics[width=\textwidth]{graphs/v_pot_Ba_evo.eps}
-            \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
-            \label{fig:v_pot_Ba_evo}
-          \end{subfigure}
-          ~
-          \begin{subfigure}[t]{0.45\textwidth}
-            \includegraphics[width=\textwidth]{graphs/v_pot_Ba_pot.eps}
-            \caption{potential energy $V$ with respect to $x$}
-            \label{fig:v_pot_Ba_pot}
-          \end{subfigure}
-          \caption{Evolution of the system for the potential energy given by equation \eqref{eq:pot_Ba_pot}}
-          \label{fig:v_pot_Ba}
-        \end{figure}
+      \begin{equation}
+        V(x) = 0.09\abs{\sin\bracket{\frac{x}{10}}}
+        \label{eq:pot_Ba_pot}
+      \end{equation}
 
-      \subsubsection{\textit{The Pineapple}}
-        The potential is given by equation \eqref{eq:pot_Bb_pot}, represented as figure \ref{fig:v_pot_Bb_pot}.
+      Figure \ref{fig:v_pot_Ba_evo} shows the evolution of the system and shows again the effect of quantum tunnelling.
+      The particles as a probability to overcome the barriers multiple times, with a decreasing probability density the further from the origin.
+      This figure also shows the global oscillation caused by the reflexion at the borders of the system.
 
-        \begin{equation}
-          V(x) = \abs{\sin\bracket{\frac{x}{100}}}
-          \label{eq:pot_Bb_pot}
-        \end{equation}
+      \begin{figure}[h]
+        \centering
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/v_pot_Ba_evo.eps}
+          \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
+          \label{fig:v_pot_Ba_evo}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/v_pot_Ba_pot.eps}
+          \caption{potential energy $V$ with respect to $x$}
+          \label{fig:v_pot_Ba_pot}
+        \end{subfigure}
+        \caption{Evolution of the system for the potential energy given by equation \eqref{eq:pot_Ba_pot}}
+        \label{fig:v_pot_Ba}
+      \end{figure}
 
-        Figure \ref{fig:v_pot_Bb_evo} shows the evolution of the system with this potential.
+    \subsubsection{\textit{The light beacon}}
+      The potential is given by equation \eqref{eq:pot_Bb_pot}, represented as figure \ref{fig:v_pot_Bb_pot}.
 
+      \begin{equation}
+        V(x) = \abs{\sin\bracket{\frac{x}{100}}}
+        \label{eq:pot_Bb_pot}
+      \end{equation}
 
-        \begin{figure}[h]
-          \centering
-          \begin{subfigure}[t]{0.45\textwidth}
-            \includegraphics[width=\textwidth]{graphs/v_pot_Bb_evo.eps}
-            \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
-            \label{fig:v_pot_Bb_evo}
-          \end{subfigure}
-          ~
-          \begin{subfigure}[t]{0.45\textwidth}
-            \includegraphics[width=\textwidth]{graphs/v_pot_Bb_pot.eps}
-            \caption{potential energy $V$ with respect to $x$}
-            \label{fig:v_pot_Bb_pot}
-          \end{subfigure}
-          \caption{Evolution of the system for the potential energy given by equation \eqref{eq:pot_Bb_pot}}
-          \label{fig:v_pot_Bb}
-        \end{figure}
+      Figure \ref{fig:v_pot_Bb_evo} shows the evolution of the system with this potential.
+      It is not a really significant example, but the plot of evolution (Fig. \ref{fig:v_pot_Bb_evo}) shows some density of probability stopping suddenly.
+
+      \begin{figure}[h]
+        \centering
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/v_pot_Bb_evo.eps}
+          \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
+          \label{fig:v_pot_Bb_evo}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/v_pot_Bb_pot.eps}
+          \caption{potential energy $V$ with respect to $x$}
+          \label{fig:v_pot_Bb_pot}
+        \end{subfigure}
+        \caption{Evolution of the system for the potential energy given by equation \eqref{eq:pot_Bb_pot}}
+        \label{fig:v_pot_Bb}
+      \end{figure}
+
 
 
 

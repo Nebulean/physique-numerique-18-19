@@ -57,10 +57,10 @@ double V(double const& x, double const& omega, double const& delta)
   //   return 0.; //BONUS 3
 
   // BONUS A.
-  // if (abs(x) <= 5) {
+  // if (abs(x) <= delta) {
   //   return 0.025;
   // }
-  // else if (abs(x) <= 200 && abs(x) > 0.1) {
+  // else if (abs(x) <= 200 && abs(x) > delta) {
   //   return 0.;
   // }
   // else {
@@ -71,7 +71,7 @@ double V(double const& x, double const& omega, double const& delta)
   // return 0.09*abs(sin(x/10));
 
   // BONUS Bb.
-  return 1+sin(x/100);
+  return abs(sin(x/100));
 
 }
 

@@ -23,7 +23,6 @@ nsimul = 1;
 
 
 
-
 cmd = sprintf("./Exercice8 configuration.in output=%s xL=%0.15f xR=%0.15f omega=%0.15f delta=%0.15f x0=%0.15f sigma_norm=%0.15f n=%0.15f tfin=%0.15f Ninters=%0.15f dt=%0.15f", output, xL, xR, omega, delta, x0, sigma_norm, n, tfin, Ninters, dt);
 
 
@@ -129,7 +128,7 @@ line([xL, xR], [E(1) E(1)], 'color', 'red', 'linewidth', 1.5);
 xlabel("$x~[\ell_P]$");
 ylabel("$V~[E_P]$");
 
-legend(["$V(x)$", "E"]);
+legend(["$V(x)$", "E"], 'location', 'southeast');
 
 box on;
 grid on;
