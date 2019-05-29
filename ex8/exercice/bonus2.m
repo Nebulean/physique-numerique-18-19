@@ -3,7 +3,7 @@ xL = -200;
 xR = 200;
 omega = 0.003;
 sigma_norm = 0.06;
-n = 11;
+n = 11.06;
 tfin = 5000;
 Ninters = 300;
 
@@ -30,7 +30,7 @@ x0 = -delta;
 nsimul = 1;
 
 
-output = sprintf("iv_det");
+output = sprintf("bonus2");
 
 
 

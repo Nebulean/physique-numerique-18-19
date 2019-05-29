@@ -219,20 +219,20 @@ hold off;
 
 %psi2
 
-% figpsi=figure;
-% hold on;
-% 
-% set(gca, 'fontsize', 25);
-% set(gca, 'LineWidth',1.5);
-% 
-% plot(x,psi2(3000, :),'linewidth',1.2);
-% box on;
-% grid on;
-% 
-% xlabel("$x~[\ell_P]$");
-% ylabel("$|\psi(x,t=3000)|^2$");
-% hold off;
-% 
+figpsi=figure;
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+plot(x,psi2(1001, :),'linewidth',1.2);
+box on;
+grid on;
+
+xlabel("$x~[\ell_P]$");
+ylabel("$|\psi(x,t=3000)|^2$");
+hold off;
+
 saveas(figxmoy,'graphs/iv_det_xmoy','epsc');
 saveas(figpmoy,'graphs/iv_det_pmoy','epsc');
 saveas(figH,'graphs/iv_det_H','epsc');
