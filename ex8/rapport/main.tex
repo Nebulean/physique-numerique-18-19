@@ -712,11 +712,99 @@ In both cases the difference oscillates around zero with linearly increasing amp
 \newpage
 \section{Detection of a particle}
 
+\begin{figure}[h]
+        \centering
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iv_det_Evo.eps}
+          \caption{}
+          \label{fig:iv_det_Evo}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iv_det_Prob.eps}
+          \caption{}
+          \label{fig:iv_det_Prob}
+        \end{subfigure}
+        \caption{Evolution of the particle with detection at t=1000}
+        \label{fig:iv_det}
+\end{figure}
+
+\begin{figure}[h]
+        \centering
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iv_neg_3000.eps}
+          \caption{No detection}
+          \label{fig:iv_neg_3000}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iv_det_3000.eps}
+          \caption{After a detection at t=1000}
+          \label{fig:iv_det_3000}
+        \end{subfigure}
+        \caption{Density of probability at t=3000 in both cases}
+        \label{fig:iv_3000}
+\end{figure}
+
+\begin{align}
+ &P_{x<0}(t=3000)=0.5778\\
+ &P_{x>0}(t=3000)=0.4222
+ \label{eq:p3000_neg}
+\end{align}
+
+\begin{align}
+ &P_{x<0}(t=3000)=0.7933\\
+ &P_{x>0}(t=3000)=0.2067
+ \label{eq:p3000_det}
+\end{align}
+
+\begin{figure}[h]
+        \centering
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iv_det_xmoy.eps}
+          \caption{Evolution of the average position}
+          \label{fig:iv_det_xmoy}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iv_det_pmoy.eps}
+          \caption{Evolution of the average momentum}
+          \label{fig:iv_det_pmoy}
+        \end{subfigure}
+        \caption{Average position and momentum of the particle with detection in the right side at $t=1000$}
+        \label{fig:iv_det_xp}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+ \includegraphics[width=0.5\textwidth]{graphs/iv_det_H.eps}
+ \caption{Average energy of the particle with detection in the right side at $t=1000$}
+ \label{fig:iv_det_H}
+\end{figure}
+
+\begin{figure}[h]
+        \centering
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iv_det_delx.eps}
+          \caption{Evolution of the average position uncertainty}
+          \label{fig:iv_det_delx}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/iv_det_delp.eps}
+          \caption{Evolution of the average momentum uncertainty}
+          \label{fig:iv_det_delp}
+        \end{subfigure}
+        \caption{Average movement uncertainties of the particle with detection in the right side at $t=1000$}
+        \label{fig:iv_det_del}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Bonus}
-  This section will present some additionnal studies to the report.\\
+  This section will present some additional studies to the report.\\
 
   \subsection{Alternative potential energy}
     This section presents the evolution of the system given by the following parameters, using some alternative definitions for the potential energy.

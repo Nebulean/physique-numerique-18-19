@@ -3,7 +3,7 @@ xL = -200;
 xR = 200;
 omega = 0.003;
 sigma_norm = 0.06;
-n = 11;
+n = 11.06;
 tfin = 5000;
 Ninters = 300;
 
@@ -67,25 +67,25 @@ set(groot, 'defaultLegendInterpreter', 'latex');
 set(groot, 'defaultTextInterpreter', 'latex');
 set(groot, 'defaultAxesFontSize', 18);
 
-figEvo=figure;
-hold on;
-
-set(gca, 'fontsize', 25);
-set(gca, 'LineWidth',1.5);
-
-pcolor(X, T, psi2);
-colbar=colorbar;
-shading interp;
-
-box on
-
-xlabel("$x~[\ell_P]$");
-ylabel("$t~[t_P]$");
-ylabel(colbar, "$|\psi(x,t)|^2$", 'interpreter', 'latex', 'fontsize', 25);
-
-hold off;
-
-
+% figEvo=figure;
+% hold on;
+% 
+% set(gca, 'fontsize', 25);
+% set(gca, 'LineWidth',1.5);
+% 
+% pcolor(X, T, psi2);
+% colbar=colorbar;
+% shading interp;
+% 
+% box on
+% 
+% xlabel("$x~[\ell_P]$");
+% ylabel("$t~[t_P]$");
+% ylabel(colbar, "$|\psi(x,t)|^2$", 'interpreter', 'latex', 'fontsize', 25);
+% 
+% hold off;
+% 
+% 
 figProb=figure;
 hold on;
 
@@ -105,18 +105,110 @@ legend(["$P_{x<0}(t)$", "$P_{x>0}(t)$"])
 
 hold off;
 
-%psi2
+% %psi2
+% 
+% figpsi=figure;
+% hold on;
+% 
+% set(gca, 'fontsize', 25);
+% set(gca, 'LineWidth',1.5);
+% 
+% plot(x,psi2(3000, :),'linewidth',1.2);
+% box on;
+% grid on;
+% 
+% xlabel("$x~[\ell_P]$");
+% ylabel("$|\psi(x,t=3000)|^2$");
+% hold off;
+% 
+% saveas(figpsi,'graphs/iv_neg_3000','epsc');
 
-figpsi=figure;
-hold on;
+%xmoy
 
-set(gca, 'fontsize', 25);
-set(gca, 'LineWidth',1.5);
-
-plot(x,psi2(3000, :),'linewidth',1.2);
-box on;
-grid on;
-
-xlabel("$x~[\ell_P]$");
-ylabel("$|\psi(x,t=3000)|^2$");
-hold off;
+% figxmoy=figure;
+% hold on;
+% 
+% set(gca, 'fontsize', 25);
+% set(gca, 'LineWidth',1.5);
+% 
+% plot(t, xmoy, '-', 'linewidth', 1.2);
+% 
+% box on
+% grid on;
+% 
+% xlabel("$t~[t_P]$");
+% ylabel("$\langle x \rangle (t)~[\ell_P]$");
+% 
+% hold off;
+% 
+% %pmoy
+% 
+% figpmoy=figure;
+% hold on;
+% 
+% set(gca, 'fontsize', 25);
+% set(gca, 'LineWidth',1.5);
+% 
+% plot(t, pmoy, '-', 'linewidth', 1.2);
+% 
+% box on
+% grid on;
+% 
+% xlabel("$t~[t_P]$");
+% ylabel("$\langle p \rangle (t)~[m_P~c]$");
+% 
+% hold off;
+% 
+% %E
+% 
+% figH=figure;
+% hold on;
+% 
+% set(gca, 'fontsize', 25);
+% set(gca, 'LineWidth',1.5);
+% 
+% plot(t, E, '-', 'linewidth', 1.2);
+% 
+% box on
+% grid on;
+% 
+% xlabel("$t~[t_P]$");
+% ylabel("$\langle H \rangle (t)~[E_P]$");
+% 
+% hold off;
+% 
+% %delx
+% 
+% figdelx=figure;
+% hold on;
+% 
+% set(gca, 'fontsize', 25);
+% set(gca, 'LineWidth',1.5);
+% 
+% plot(t, delx, '-', 'linewidth', 1.2);
+% 
+% box on
+% grid on;
+% 
+% xlabel("$t~[t_P]$");
+% ylabel("$\langle \Delta x \rangle (t)~[\ell_P]$");
+% 
+% hold off;
+% 
+% %delp
+% 
+% figdelp=figure;
+% hold on;
+% 
+% set(gca, 'fontsize', 25);
+% set(gca, 'LineWidth',1.5);
+% 
+% plot(t, delp, '-', 'linewidth', 1.2);
+% 
+% box on
+% grid on;
+% 
+% xlabel("$t~[t_P]$");
+% ylabel("$\langle \Delta p \rangle (t)~[m_P~c]$");
+% 
+% hold off;
