@@ -134,7 +134,7 @@
   During this report, $\hbar$ and $m$ are normalized to simplify the study.
   Note that this normalization implies that all values are considered in Planck units.\\
 
-  The particle is initially given by a Gaussian envlopped wave packet given by equation \eqref{eq:wave_packet}, centered around $x=x_0$ of standard deviation $\sigma_0 = \sigma_{norm}(x_R - x_L)$, with a central wavenumber $k_0 = 2\pi n/(x_R - x_L)$.
+  The particle is initially given by a Gaussian envelopped wave packet given by equation \eqref{eq:wave_packet}, centered around $x=x_0$ of standard deviation $\sigma_0 = \sigma_{norm}(x_R - x_L)$, with a central wavenumber $k_0 = 2\pi n/(x_R - x_L)$.
 
   \begin{equation}
     \psi(x,0) = C\exp(ik_0x)\exp(-(x-x_0)^2/(2\sigma^2))
@@ -153,7 +153,7 @@
     \label{eq:schrödinger_sol}
   \end{equation}
 
-  The report will numerically solve this equation using the semi-implicite numerical method of Crank-Nicholson, test it on a simple harmonic case, compare the movement of the particle with the classic case, study the quantum tunnelling and finally the detection (or not) of a particle.
+  The report will numerically solve this equation using the semi-implicite numerical method of Crank-Nicholson, test it on a simple harmonic case, compare the movement of the particle with the classic case, study the quantum tunnelling and finally detect (or not) particles.
 
 \newpage
 \section{Implementation}\label{sec:impl}
@@ -203,7 +203,7 @@
       \end{equation}
 
     \subsubsection{Construction of A and B}
-      In Crank-Nicholson's semi-implicit method (Eq. \eqref{eq:crank_nicholson}), and by using the matrix H, matrices A and B can be identified as the left hand side respectively the right hand side.
+      In Crank-Nicholson's semi-implicit method (Eq. \eqref{eq:crank_nicholson}), and by using matrix H, matrices A and B can be identified as the left hand side respectively the right hand side.
       Matrices A and B are both tridiagonal matrices, where $d_i^A$ and $d_i^B$ are the diagonals, $a_i^A$ and $a_i^B$ are the subdiagonals and $c_i^A$ and $c_i^B$ are the overdiagonals.
       To summary, A and B are identified as given by equation \eqref{eq:A_B_identification}.
 
@@ -260,7 +260,8 @@
      \psi(x,0)=\exp(ik_0x)\exp\left[-(x-x_0)^2/(2\sigma_0^2)\right]
      \label{eq:psiinit}
     \end{equation}
-    with $k_0=2\pi n/(x_R-x_L)$, $\sigma_0=\sigma_{norm}(x_R-x_L)$. $x_0$, $n$ and $\sigma_{norm}$ are given. In the algorithm, it is simply written as:
+    with $k_0=2\pi n/(x_R-x_L)$, $\sigma_0=\sigma_{norm}(x_R-x_L)$. $x_0$, $n$ and $\sigma_{norm}$ are given numbers.
+    In the algorithm, it is simply written as:
     \begin{equation}
      \psi_j=\exp(ik_0x_j)\exp\left[-(x_j-x_0)^2/(2\sigma_0^2)\right]
      \label{eq:psiinitdis}
@@ -273,7 +274,7 @@
     \end{equation}
 
     To compute this probability and all following integrals with respect to $x$, the trapezoidal rule will be used.\\
-    An estimation of the integral of any integrable function $g$ can be found using the trapezoidal rule, which is given by equation \eqref{eq:trapeze-rule}.
+    This rule states that an estimation of the integral of any integrable function $g$ can be found using this rule, which is given by equation \eqref{eq:trapeze-rule}.
 
     \begin{equation}
       \int_a^b g(x)dx \approx h\sum_{i=1}^N\bracket{\frac{g(x_i) + g(x_{i+1})}{2}}
@@ -362,12 +363,12 @@
 
   \subsection{Evolution of the system}
   The first point to verify is the evolution of the system, which is given by figure \ref{fig:i_evo}.
-  One can verify that the system follows an harmonic oscillator behavious.
+  One can verify that the system follows an harmonic oscillator behavior.
 
   \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{graphs/i_evo.eps}
-    \caption{evolution of the system, $\Delta t = \SI{1}{\Ptime}$}
+    \caption{Evolution of the system, $\Delta t = \SI{1}{\Ptime}$}
     \label{fig:i_evo}
   \end{figure}
 
@@ -424,17 +425,17 @@
       \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{graphs/i_ptotcool.eps}
-        \caption{general behavious}
+        \caption{General behavious}
         \label{fig:i_ptot_cool}
       \end{subfigure}
       ~
       \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{graphs/i_ptot.eps}
-        \caption{close look}
+        \caption{Close look}
         \label{fig:i_ptot_ugly}
       \end{subfigure}
-      \caption{sum of probabilities over time, $\Delta t = \SI{1}{\Ptime}$}
+      \caption{Sum of probabilities over time, $\Delta t = \SI{1}{\Ptime}$}
       \label{fig:i_ptot}
     \end{figure}
 
@@ -444,21 +445,21 @@
     Next, the average energy must be conserved.
 
     Figure \ref{fig:i_E} shows that the average energy is more or less conserved.
-    However, it can be observed that it slightly reduces over time, which is neglectable, as the difference is too small to be shown on the vertical axis.
-    These are the result of numerical roundings, which occures each time a value is numerically computed.
+    However, it can be observed that it slightly reduces over time, which is neglectable, as the difference is again on a rounding error order of magnitude.
+    % These are the result of numerical roundings, which occures each time a value is numerically computed.
     Therefore, the average energy can be considered as exactly conserved.
 
     \begin{figure}[h]
       \centering
       \includegraphics[width=0.45\textwidth]{graphs/i_E.eps}
-      \caption{average energy divided by the initial energy over time, $\Delta t = \SI{1}{\Ptime}$}
+      \caption{Average energy divided by the initial energy over time, $\Delta t = \SI{1}{\Ptime}$}
       \label{fig:i_E}
     \end{figure}
 
   \subsection{Heisenberg's uncertainty principle}
     This last part focuses on the correctness of Heisenberg's uncertainty principle, which states that $\forall t:~\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t) \geq \frac{\hbar}{2}$.
-    Alternatively, it states that the average position and velocity cannot be precisely determined at the same time.
-    Note that, as stated before, a normalized $\hbar$ has been taken, which gives $\hbar=\SI{1}{\Penergy\Ptime}$.\\
+    Alternatively, it states that the average position and the average velocity cannot be precisely determined at the same time.
+    Note that, as stated before, a normalized $\hbar$ is used, which gives $\hbar=\SI{1}{\Penergy\Ptime}$.\\
 
     The result is given by figure \ref{fig:i_heisenberg} and shows that the principle is overall verified.
     However, the firsts minimums of $\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t)$ are slightly under $\frac{\hbar}{2}$, which is explained by truncation error caused by the integral.
@@ -467,7 +468,7 @@
     \begin{figure}[h]
       \centering
       \includegraphics[width=0.45\textwidth]{graphs/i_heisenberg.eps}
-      \caption{verification of Heisenberg's principle, $\Delta t = \SI{1}{\Ptime}$}
+      \caption{Verification of Heisenberg's principle, $\Delta t = \SI{1}{\Ptime}$}
       \label{fig:i_heisenberg}
     \end{figure}
 
@@ -480,7 +481,7 @@
 \newpage
 \section{Average movement analysis for a particle and comparison with the classical case}
 
-With the same parameters as in section \ref{sec:har_osc}, the average position and momentum of the particle is analysed and compared to the analytical solution, which is found using the ansatz for a harmonic oscillator with potential $V(x)=\frac{1}{2}m\omega^2x^2$:
+With the same parameters as in section \ref{sec:har_osc}, the average position and momentum of the particle is analysed and compared to the analytical solution, which is found using the Ansatz for a harmonic oscillator with potential $V(x)=\frac{1}{2}m\omega^2x^2$:
 \begin{equation}
  x(t)=A \cos(\omega t) + B \sin(\omega t)
  \label{eq:ansatz}
@@ -554,7 +555,7 @@ In both cases the difference oscillates around zero with linearly increasing amp
     Figure \ref{fig:iii_evo_Egeqv0} gives the evolution of the system when $E > V_0$.
     As the potential barrier is smaller than the total energy, the particle freely flows from one side to the other, as shows by figure \ref{fig:iii_evo_Egeqv0_evo}.
     Figure \ref{fig:iii_evo_Egeqv0_prob} shows that the probability for the particle to be each side is periodically inverted, which again shows that the barrier potential is not a problem in this case.
-    No quantum tunnelling takes place in this case.\\
+    No quantum tunnelling takes place here.\\
 
     \begin{figure}[h]
       \centering
@@ -648,7 +649,7 @@ In both cases the difference oscillates around zero with linearly increasing amp
       It can be seen that around $\SI{1000}{\Ptime}$, which is the beginning of the first stable section, the probability of being on each side is approximately the same, as expected.\\
 
       However, this result is limited by the fact that $n$ is integer.
-      To improve the result, the best resuls can be interpolated by a second order curve, as shown by figure \ref{fig:iii_findn_n}.
+      To improve the result, an interpolation by a second order curve of the three best $n$ is done, as shown on figure \ref{fig:iii_findn_n}.
       This way, a more accurate value of $n$, based on the current result can be approximated, and is given by $n\approx\num{11.04}$.
       To further improve this result, it is also possible to change the implementation, and consider $n$ as a real number.
       Thus, the next section will apply the same study to a real $n$, in order to improve the result.\\
@@ -917,7 +918,7 @@ In both cases the difference oscillates around zero with linearly increasing amp
       \end{equation}
 
       Figure \ref{fig:v_pot_Bb_evo} shows the evolution of the system with this potential.
-      It is not a really significant example, but the plot of evolution (Fig. \ref{fig:v_pot_Bb_evo}) shows some density of probability stopping suddenly.
+      It is not a really significant example, but the plot of evolution (Fig. \ref{fig:v_pot_Bb_evo}) shows some density of probability suddenly stopping.
 
       \begin{figure}[h]
         \centering
