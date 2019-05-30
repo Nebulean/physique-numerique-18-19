@@ -713,6 +713,8 @@ In both cases the difference oscillates around zero with linearly increasing amp
 \newpage
 \section{Detection of a particle}
 
+In this section, a detector is placed over the right side of the potential barrier ($0\leq x \leq x_R$). For $n=11.06$, two cases are compared: one where the particle is never detected, and one where the particle is detected on the right side at $t=1000~t_\text{P}$. The evolution of the system in the first case is displayed in figure \ref{fig:iii_findn_cont} in the previous section. The evolution of the system in the second case is displayed on figure \ref{fig:iv_det}.
+
 \begin{figure}[h]
         \centering
         \begin{subfigure}[t]{0.45\textwidth}
@@ -730,6 +732,9 @@ In both cases the difference oscillates around zero with linearly increasing amp
         \label{fig:iv_det}
 \end{figure}
 
+When the particle is detected on the right side at $t=1000~t_\text{P}$, the probability of it being on the left side becomes 0, and the wave function is renormalized so that the probability of it being on the right side is 1. This is visible on both plots of figure \ref{fig:iv_det}. After the detection, the system evolves differently from the system where there was no detection.
+The density of probability function for both systems at $t=3000~t_\text{P}$ is displayed on figure \ref{fig:iv_3000}.
+
 \begin{figure}[h]
         \centering
         \begin{subfigure}[t]{0.45\textwidth}
@@ -743,21 +748,28 @@ In both cases the difference oscillates around zero with linearly increasing amp
           \caption{After a detection at t=1000}
           \label{fig:iv_det_3000}
         \end{subfigure}
-        \caption{Density of probability at t=3000 in both cases}
+        \caption{Density of probability at $t=3000~t_\text{P}$ in both cases}
         \label{fig:iv_3000}
 \end{figure}
 
+The probabilities of the particle being on the left or right side at $t=3000~t_\text{P}$ are given by equations \eqref{eq:p3000_neg1} and \eqref{eq:p3000_neg} for the system with no detection, and by equations \eqref{eq:p3000_det1} and \eqref{eq:p3000_det} for the system with detection.
+
 \begin{align}
- &P_{x<0}(t=3000)=0.5778\\
+ &P_{x<0}(t=3000)=0.5778
+ \label{eq:p3000_neg1}\\
  &P_{x>0}(t=3000)=0.4222
  \label{eq:p3000_neg}
 \end{align}
 
 \begin{align}
- &P_{x<0}(t=3000)=0.7933\\
+ &P_{x<0}(t=3000)=0.7933
+ \label{eq:p3000_det1}\\
  &P_{x>0}(t=3000)=0.2067
  \label{eq:p3000_det}
 \end{align}
+
+The repartition of probabilities is very different between the two systems, which confirms that the evolution of the system is different after the detection. However one can notice similarities in the shape of the left side of the curve on figure \ref{fig:iv_3000}. In fact the shapes of the curves for both systems are almost identical for $-200\leq x\leq -100$, although the values are higher for the second system. This can be explained by the process of detection: when the particle is detected on the right side, the wave function $\phi$ on the left side is brought to 0, and the rest of the function is renormalized. So part of the wave function retains its shape, with higher values.
+The evolution of the characteristics of the particle for the second system are given by figures \ref{fig:iv_det_cp}, \ref{fig:iv_det_H} and \ref{fig:iv_det_del}.
 
 \begin{figure}[h]
         \centering
@@ -772,17 +784,18 @@ In both cases the difference oscillates around zero with linearly increasing amp
           \caption{Evolution of the average momentum}
           \label{fig:iv_det_pmoy}
         \end{subfigure}
-        \caption{Average position and momentum of the particle with detection in the right side at $t=1000$}
+        \caption{Average position and momentum of the particle with detection in the right side at $t=1000~t_\text{P}$}
         \label{fig:iv_det_xp}
 \end{figure}
-
 
 \begin{figure}[h!]
 \centering
  \includegraphics[width=0.5\textwidth]{graphs/iv_det_H.eps}
- \caption{Average energy of the particle with detection in the right side at $t=1000$}
+ \caption{Average energy of the particle with detection in the right side at $t=1000~t_\text{P}$}
  \label{fig:iv_det_H}
 \end{figure}
+
+The sharp increase of the average position at the time of detection shown on figure \ref{fig:iv_det_xmoy} is caused by the change of the wave packet as it is ``reduced'' to the right side. The momentum experiences an increase as well, which also translates into a sudden increase of energy, as seen on figure \ref{fig:iv_det_H}. The conservation is thus not observed when detection of a particle occurs. Indeed, as the wave packet is redefined, the system becomes essentially a different system with new initial conditions, including momentum and energy.
 
 \begin{figure}[h]
         \centering
@@ -797,9 +810,11 @@ In both cases the difference oscillates around zero with linearly increasing amp
           \caption{Evolution of the average momentum uncertainty}
           \label{fig:iv_det_delp}
         \end{subfigure}
-        \caption{Average movement uncertainties of the particle with detection in the right side at $t=1000$}
+        \caption{Average movement uncertainties of the particle with detection in the right side at $t=1000~t_\text{P}$}
         \label{fig:iv_det_del}
 \end{figure}
+
+Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both the position and the momentum at the time of detection. The uncertainty on the position is lower as the wave packet is located entirely in the right half of the system immediately after detection.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -809,8 +824,7 @@ In both cases the difference oscillates around zero with linearly increasing amp
 
   \subsection{Alternative potential energy}
     This section presents the evolution of the system given by the following parameters, using some alternative definitions for the potential energy.
-    The parameters are given by $x_L=\SI{-200}{\Plength}$, $x_R=\SI{200}{\Plength}$, $\omega = \SI{0.003}{\Pangularfrequency}$, $\Delta = \SI{64}{\Plength}$, $x_0 = -\Delta$, $\sigma_\text{norm} = \SI{0.06}{\Plength}$, $n=14$, $t_\text{fin} = \SI{5000}{\Ptime}$, $N_\text{inters} = 300$ and $\Delta t = \SI{2}{\Ptime}$, unless stated later.\\
-    %TODO : Le "unless stated later" me semble moche. T'as une meilleure traduction pour "sauf future contre-indication" ?
+    The parameters are given by $x_L=\SI{-200}{\Plength}$, $x_R=\SI{200}{\Plength}$, $\omega = \SI{0.003}{\Pangularfrequency}$, $\Delta = \SI{64}{\Plength}$, $x_0 = -\Delta$, $\sigma_\text{norm} = \SI{0.06}{\Plength}$, $n=14$, $t_\text{fin} = \SI{5000}{\Ptime}$, $N_\text{inters} = 300$ and $\Delta t = \SI{2}{\Ptime}$ for all simulations, unless stated otherwise.\\
 
       \subsubsection{Embed wave with a centered barrier}
         The potential is given by equation \eqref{eq:pot_A_pot}, represented as figure \ref{fig:v_pot_A_pot}.
