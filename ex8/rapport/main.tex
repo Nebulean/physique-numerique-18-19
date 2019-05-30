@@ -766,28 +766,45 @@ In both cases the difference oscillates around zero with linearly increasing amp
         \begin{equation}
           V(x) =
           \begin{cases}
-            0.025,~\text{if $|x| \leq \Delta$}\\
+            0.1,~\text{if $|x| \leq \Delta$}\\
             0,~\text{if $\Delta < |x| < 200$}\\
             +\infty,~\text{if $|x| < 200$}
           \end{cases}
           \label{eq:pot_conv}
         \end{equation}
 
-        In this section, $\Delta$ represents half of the width of the potential barrier and will vary as $\Delta \in \left[0, 10\right] \si{\Plength}$ with steps of \SI{0.5}{\Plength}.
-        To get a good enough spacial definition allowing these steps, $N_\text{inters} = \num{800}$ and to strongly reduce the computation time, $\Delta t = \SI{5}{\Ptime}$.
-        Note that $E<\max\bracket{V}$ in all cases which is needed for quantum tunnelling.
+        In this section, $\Delta$ represents half of the width of the potential barrier and will vary as $\Delta \in \left[0, 6\right] \si{\Plength}$ with steps of \SI{0.3}{\Plength}.
+        To get a good enough spacial definition allowing these steps, $N_\text{inters} = \num{5000}$ and to strongly reduce the computation time, $\Delta t = \SI{5}{\Ptime}$.
+        All the points are taken at $t = \SI{1000}{\Ptime}$.
 
-        Figure \ref{fig:v_conv_delta} gives the probability for the particle to be on the right side at $t = \SI{1000}{\Ptime}$, which occures after the first quantum tunnelling.
-        This figure shows the non-linearity of this effect.
-        Lower widths give a concave curve, but at bigger widths, the curve becomes convex.
-        Thus, the quantum tunnelling slowly decreases and seems to tend to zero when the barrier has a bigger width.
+        Figure \ref{fig:v_conv_delta01} gives the probability for the particle to be on the right side at $t = \SI{1000}{\Ptime}$, which occures after the first quantum tunnelling.
+        % This figure shows the non-linearity of this effect.
+        % Lower widths give a concave curve, but at bigger widths, the curve becomes convex.
+        % Thus, the quantum tunnelling slowly decreases and seems to tend to zero when the barrier has a bigger width.
 
         \begin{figure}[h]
           \centering
-          \includegraphics[width=0.45\textwidth]{graphs/v_conv_delta.eps}
-          \caption{Study of the left-side probability $P_{x>0}$ with respect to half of the potential barrier width $\Delta$ at $t=\SI{1000}{\Ptime}$}
+          \begin{subfigure}[t]{0.45\textwidth}
+            \includegraphics[width=\textwidth]{graphs/v_conv_delta01.eps}
+            \caption{tut}
+            \label{fig:v_conv_delta01}
+          \end{subfigure}
+          ~
+          \begin{subfigure}[t]{0.45\textwidth}
+            \includegraphics[width=\textwidth]{graphs/v_conv_delta_pot.eps}
+            \caption{tut}
+            \label{fig:v_conv_delta_pot}
+          \end{subfigure}
+          \caption{tut}
           \label{fig:v_conv_delta}
         \end{figure}
+
+        % \begin{figure}[h]
+        %   \centering
+        %   \includegraphics[width=0.45\textwidth]{graphs/v_conv_delta01.eps}
+        %   \caption{Study of the left-side probability $P_{x>0}$ with respect to half of the potential barrier width $\Delta$ at $t=\SI{1000}{\Ptime}$}
+        %   \label{fig:v_conv_delta}
+        % \end{figure}
 
         As a summary, quantum tunnelling is a non-neglectable effect when the barrier to overcome is thinner but becomes neglectable when it gets thicker.
 
@@ -821,33 +838,33 @@ In both cases the difference oscillates around zero with linearly increasing amp
         \label{fig:v_pot_Ba}
       \end{figure}
 
-    \subsubsection{\textit{The light beacon}}
-      The potential is given by equation \eqref{eq:pot_Bb_pot}, represented as figure \ref{fig:v_pot_Bb_pot}.
-
-      \begin{equation}
-        V(x) = \abs{\sin\bracket{\frac{x}{100}}}
-        \label{eq:pot_Bb_pot}
-      \end{equation}
-
-      Figure \ref{fig:v_pot_Bb_evo} shows the evolution of the system with this potential.
-      It is not a really significant example, but the plot of evolution (Fig. \ref{fig:v_pot_Bb_evo}) shows some density of probability suddenly stopping.
-
-      \begin{figure}[h]
-        \centering
-        \begin{subfigure}[t]{0.45\textwidth}
-          \includegraphics[width=\textwidth]{graphs/v_pot_Bb_evo.eps}
-          \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
-          \label{fig:v_pot_Bb_evo}
-        \end{subfigure}
-        ~
-        \begin{subfigure}[t]{0.45\textwidth}
-          \includegraphics[width=\textwidth]{graphs/v_pot_Bb_pot.eps}
-          \caption{potential energy $V$ with respect to $x$}
-          \label{fig:v_pot_Bb_pot}
-        \end{subfigure}
-        \caption{Evolution of the system for the potential energy given by equation \eqref{eq:pot_Bb_pot}}
-        \label{fig:v_pot_Bb}
-      \end{figure}
+    % \subsubsection{\textit{The light beacon}}
+    %   The potential is given by equation \eqref{eq:pot_Bb_pot}, represented as figure \ref{fig:v_pot_Bb_pot}.
+    %
+    %   \begin{equation}
+    %     V(x) = \abs{\sin\bracket{\frac{x}{100}}}
+    %     \label{eq:pot_Bb_pot}
+    %   \end{equation}
+    %
+    %   Figure \ref{fig:v_pot_Bb_evo} shows the evolution of the system with this potential.
+    %   It is not a really significant example, but the plot of evolution (Fig. \ref{fig:v_pot_Bb_evo}) shows some density of probability suddenly stopping.
+    %
+    %   \begin{figure}[h]
+    %     \centering
+    %     \begin{subfigure}[t]{0.45\textwidth}
+    %       \includegraphics[width=\textwidth]{graphs/v_pot_Bb_evo.eps}
+    %       \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
+    %       \label{fig:v_pot_Bb_evo}
+    %     \end{subfigure}
+    %     ~
+    %     \begin{subfigure}[t]{0.45\textwidth}
+    %       \includegraphics[width=\textwidth]{graphs/v_pot_Bb_pot.eps}
+    %       \caption{potential energy $V$ with respect to $x$}
+    %       \label{fig:v_pot_Bb_pot}
+    %     \end{subfigure}
+    %     \caption{Evolution of the system for the potential energy given by equation \eqref{eq:pot_Bb_pot}}
+    %     \label{fig:v_pot_Bb}
+    %   \end{figure}
 
 
 
