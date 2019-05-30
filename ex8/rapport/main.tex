@@ -123,7 +123,7 @@
 %=============================== INTRODUCTION ==================================
 %===============================================================================
 \section{Introduction}
-  This report will study the evolution of a particle of mass $m=1$ in a potential $V$ given by equation \eqref{eq:potential}, from the view of quantum mechanics.
+  This report will study the evolution of a particle of mass $m=1$ in a potential $V$ given by equation \eqref{eq:potential}, from the point of view of quantum mechanics.
 
   \begin{equation}
     V(x) = \min\bracket{\frac{1}{2}m\omega^2(x-\Delta)^2, \frac{1}{2}m\omega^2(x+\Delta)^2}
@@ -131,7 +131,7 @@
   \end{equation}
 
   The particle will evolve in a domain $x\in\sqbracket{x_L, x_R}$ with fixed border conditions.
-  During this report, $\hbar$ and $m$ are normalized to simplify the study.
+  In this report, $\hbar$ and $m$ are normalized to simplify the study.
   Note that this normalization implies that all values are considered in Planck units.\\
 
   The particle is initially given by a Gaussian envelopped wave packet given by equation \eqref{eq:wave_packet}, centered around $x=x_0$ of standard deviation $\sigma_0 = \sigma_{norm}(x_R - x_L)$, with a central wavenumber $k_0 = 2\pi n/(x_R - x_L)$.
@@ -153,13 +153,13 @@
     \label{eq:schrödinger_sol}
   \end{equation}
 
-  The report will numerically solve this equation using the semi-implicite numerical method of Crank-Nicholson, test it on a simple harmonic case, compare the movement of the particle with the classic case, study the quantum tunnelling and finally detect (or not) particles.
+  In this report, we will numerically solve this equation using the semi-implicit numerical method of Crank-Nicolson, test it on a simple harmonic case, compare the movement of the particle with the classical case, study the quantum tunnelling effect and finally simulate the detection of particles.
 
 \newpage
 \section{Implementation}\label{sec:impl}
   This first section will focus on the numerical implementation of the problem.
 
-  \subsection{Semi-implicit Crank-Nicholson's numerical method}
+  \subsection{Semi-implicit Crank-Nicolson's numerical method}
     First, the time needs to be discretized: $t_j = t_0 + j\Delta t$.
     Now, apply this discretization to the solution of Schrödinger's equation (Eq. \eqref{eq:schrödinger_sol}), which leads to equation \eqref{eq:schrödinger_sol_disc}.
 
@@ -168,7 +168,7 @@
       \label{eq:schrödinger_sol_disc}
     \end{equation}
 
-    By multiplying both sides by $\exp\bracket{\frac{i}{\hbar}\frac{\Delta t}{2}H}$, and by using a limited development, equation \eqref{eq:crank_nicholson} follows, which is Crank-Nicholson's semi-implicit numerical method.
+    By multiplying both sides by $\exp\bracket{\frac{i}{\hbar}\frac{\Delta t}{2}H}$, and by using a limited development, equation \eqref{eq:crank_nicholson} follows, which is Crank-Nicolson's semi-implicit numerical method.
 
     \begin{equation}
       \bracket{1 + \frac{i}{\hbar}\frac{\Delta t}{2}H}\psi(\mbf{x}, t + \Delta t) = \bracket{1 - \frac{i}{\hbar}\frac{\Delta t}{2}H}\psi(\mbf{x}, t)
@@ -203,8 +203,8 @@
       \end{equation}
 
     \subsubsection{Construction of A and B}
-      In Crank-Nicholson's semi-implicit method (Eq. \eqref{eq:crank_nicholson}), and by using matrix H, matrices A and B can be identified as the left hand side respectively the right hand side.
-      Matrices A and B are both tridiagonal matrices, where $d_i^A$ and $d_i^B$ are the diagonals, $a_i^A$ and $a_i^B$ are the subdiagonals and $c_i^A$ and $c_i^B$ are the overdiagonals.
+      In Crank-Nicolson's semi-implicit method (Eq. \eqref{eq:crank_nicholson}), and by using matrix H, matrices A and B can be identified as the left hand side respectively the right hand side.
+      Matrices A and B are both tridiagonal matrices, where $d_i^A$ and $d_i^B$ are the diagonals, $a_i^A$ and $a_i^B$ are the subdiagonals and $c_i^A$ and $c_i^B$ are the superdiagonals.
       To summary, A and B are identified as given by equation \eqref{eq:A_B_identification}.
 
       \begin{equation}
@@ -318,31 +318,57 @@
 
   \subsection{Average position}
   The average position of the particle is given by:
-  \begin{equation}
+  \begin{equation*}
    \langle x \rangle(t) = \int_{x_L}^{x_R}\psi^*(x,t)x\psi(x,t)dx
-  \end{equation}
+  \end{equation*}
   and in its dicretized form:
-  \begin{equation}
+  \begin{equation*}
    \langle x \rangle(t) = \frac{\Delta x}{2} \sum_{i=1}^{N} \psi_i^*x_i\psi_i + \psi_{i+1}^*x_{i+1}\psi_{i+1}
-  \end{equation}\\
-  The average $x^2$ of the particle is given by:
-  \begin{equation}
+  \end{equation*}\\
+  The average squared position $x^2$ of the particle is given by:
+  \begin{equation*}
    \langle x^2 \rangle(t) = \int_{x_L}^{x_R}\psi^*(x,t)x^2\psi(x,t)dx
-  \end{equation}
+  \end{equation*}
   and in its dicretized form:
-  \begin{equation}
+  \begin{equation*}
    \langle x^2 \rangle(t) = \frac{\Delta x}{2} \sum_{i=1}^{N} \psi_i^*x_i^2\psi_i + \psi_{i+1}^*x_{i+1}^2\psi_{i+1}
-  \end{equation}
+  \end{equation*}
 
   \subsection{Average momentum}
   The average momentum of the particle is given by:
-  \begin{equation}
+  \begin{equation*}
    \langle p \rangle(t) = \int_{x_L}^{x_R}\psi^*(x,t)\left(-i\hbar\frac{\partial\psi(x,t)}{\partial x}\right)dx
-  \end{equation}
-  and by using the finite central differences for the derivative
+  \end{equation*}
+  and by using the central finite differences for the derivative:
   \begin{equation*}
    \left(\frac{\partial\psi}{\partial x}\right)_i = \frac{\psi_{i+1}-\psi_{i-1}}{2\Delta x}
-  \end{equation*}%TODO: clarifier la consigne sur les pts de maillage aux extrémités.
+  \end{equation*}
+  and the forward and backward finite differences respectively for the derivatives at the extremal grid points:
+  \begin{align*}
+   &\left(\frac{\partial\psi}{\partial x}\right)_1 = \frac{\psi_{2}-\psi_{1}}{\Delta x}\\
+   &\left(\frac{\partial\psi}{\partial x}\right)_N = \frac{\psi_{N}-\psi_{N-1}}{\Delta x}
+  \end{align*}
+  we get:
+  \begin{align*}
+   \langle p\rangle(t)= &-\frac{i\hbar}{4}(2\psi_1^*(\psi_2-\psi_1)+\psi_2^*(\psi_3-\psi_1)) - \frac{i\hbar}{4}\left(\sum_{i=2}^{N-1} \psi_i^*(\psi_{i+1}-\psi_{i-1})+\psi_{i+1}^*(\psi_{i+2}-\psi_i)\right)\\
+   & -\frac{i\hbar}{4}(\psi_{N-1}^*(\psi_N-\psi_{N-2})+2\psi_{N}^*(\psi_N-\psi_{N-1}))
+  \end{align*}
+  The average squared momentum $p^2$ is given by:
+  \begin{equation*}
+   \langle p \rangle(t) = \int_{x_L}^{x_R}\psi^*(x,t)\left(-\hbar^2\frac{\partial^2\psi(x,t)}{\partial x^2}\right)dx
+  \end{equation*}
+  and by using the central finite differences for the second derivative:
+  \begin{equation*}
+   \left(\frac{\partial^2\psi}{\partial x^2}\right)_i = \frac{\psi_{i+1}-2\psi_{i}+\psi_{i-1}}{\Delta x^2}
+  \end{equation*}
+  and taking 0 for the second derivatives of the extremal grid points, we get:
+  \begin{align*}
+   \langle p^2\rangle(t)= &-\frac{\hbar^2}{2\Delta x}\left( \psi_2^*(\psi_3-2\psi_2+\psi_1) +\sum_{i=2}^{N-1}\left[\psi_i^*(\psi_{i+1}-2\psi_i+\psi_{i-1})+\psi_{i+1}(\psi_{i+2}-2\psi_{i+1}+\psi_i)\right]\right)\\
+   &-\frac{\hbar^2}{2\Delta x}\left( \psi_{N-1}^*(\psi_N-2\psi_{N-1}+\psi_{N-2})\right)
+  \end{align*}
+
+
+
 
   \subsection{Uncertainty calculation}
   The uncertainties on the position and the momentum are respectively given by:
@@ -769,8 +795,8 @@ The probabilities of the particle being on the left or right side at $t=3000~t_\
  \label{eq:p3000_det}
 \end{align}
 
-The repartition of probabilities is very different between the two systems, which confirms that the evolution of the system is different after the detection. However one can notice similarities in the shape of the left side of the curve on figure \ref{fig:iv_3000}. In fact the shapes of the curves for both systems are almost identical for $-200\leq x\leq -100$, although the values are higher for the second system. This can be explained by the process of detection: when the particle is detected on the right side, the wave function $\phi$ on the left side is brought to 0, and the rest of the function is renormalized. So part of the wave function retains its shape, with higher values.
-The evolution of the characteristics of the particle for the second system are given by figures \ref{fig:iv_det_cp}, \ref{fig:iv_det_H} and \ref{fig:iv_det_del}.
+The repartition of probabilities is very different between the two systems, which confirms that the evolution of the system is different after the detection. However one can notice similarities in the shape of the left side of the curve on figure \ref{fig:iv_3000}. In fact the shapes of the curves for both systems are almost identical for $-200\leq x\leq -100$, although the values are higher for the second system. This can be explained by the process of detection: when the particle is detected on the right side, the wave packet $\psi$ on the left side is nullified, and the rest of the function is renormalized so that the total probability remains 1. So part of the wave function retains its shape, with higher values.
+The evolution of the characteristics of the particle for the second system are given by figures \ref{fig:iv_det_xp}, \ref{fig:iv_det_H} and \ref{fig:iv_det_del}.
 
 \begin{figure}[h]
         \centering
@@ -973,8 +999,7 @@ Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both th
     In this section, the position, size, and number of detectors will be changed. The parameters are the same as in section \ref{sec:det}.
     
     \subsubsection{Detector in the center of the system}
-    Here, a detector with a size of $20$ divisions of interval, is placed in the center of the system at ($140\leq n \leq160$) with 
-    $n$ the position on the discretized interval of size $N=300$, and the particle is detected at $t=1000~t_\text{P}$. The evolution of the system is displayed on figure \ref{fig:bonus1}, and the density of probability at $t=3000~t_\text{P}$ is given by figure \ref{fig:bonus1_psi}.
+    Here, a detector with a size of $20$ divisions of interval, is placed in the center of the system at $-13.3\leq x \leq 13.3$, and the particle is detected at $t=1000~t_\text{P}$. The evolution of the system is displayed on figure \ref{fig:bonus1}, and the density of probability at $t=3000~t_\text{P}$ is given by figure \ref{fig:bonus1_psi}.
     
       \begin{figure}[h]
         \centering
@@ -1006,10 +1031,10 @@ Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both th
     \subsubsection{4 different detectors}
     Here, 4 different detectors are placed in the system with the following positions and times of detections:
     \begin{enumerate}
-     \item $150\leq n\leq 300$; $t_1=300~t_\text{P}$
-     \item $0\leq n\leq 70$; $t_2=100~t_\text{P}$
-     \item $100\leq n\leq 200$; $t=2500~t_\text{P}$
-     \item $50\leq n\leq 300$; $t=3500~t_\text{P}$
+     \item $0\leq x\leq x_R$; $t_1=300~t_\text{P}$
+     \item $-200\leq x\leq -106.7$; $t_2=100~t_\text{P}$
+     \item $-66.7\leq x\leq 66.7$; $t=2500~t_\text{P}$
+     \item $-134.7\leq x\leq 200$; $t=3500~t_\text{P}$
     \end{enumerate}
     
     The evolution of the system is displayed on figure \ref{fig:bonus2}, and the evolution of energy on figure \ref{fig:bonus2_H}.
