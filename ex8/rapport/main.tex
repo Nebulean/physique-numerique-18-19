@@ -55,7 +55,7 @@
 \newcommand{\lapl}[1]{\Delta#1}
 \newcommand{\abs}[1]{\left|#1\right|}
 
-% Définition des unités de Plank
+% Définition des unités de Planck
 \DeclareSIUnit \Plength {\ell_P}
 \DeclareSIUnit \Pmass {\mbox{$m$}_P}
 \DeclareSIUnit \Ptime {\mbox{$t$}_P}
@@ -364,9 +364,8 @@
   and taking 0 for the second derivatives of the extremal grid points, we get:
   \begin{align*}
    \langle p^2\rangle(t)= &-\frac{\hbar^2}{2\Delta x}\left( \psi_2^*(\psi_3-2\psi_2+\psi_1) +\sum_{i=2}^{N-1}\left[\psi_i^*(\psi_{i+1}-2\psi_i+\psi_{i-1})+\psi_{i+1}(\psi_{i+2}-2\psi_{i+1}+\psi_i)\right]\right)\\
-   &-\frac{\hbar^2}{2\Delta x}\left( \psi_{N-1}^*(\psi_N-2\psi_{N-1}+\psi_{N-2})\right)
+   &-\frac{\hbar^2}{2\Delta x} \psi_{N-1}^*(\psi_N-2\psi_{N-1}+\psi_{N-2})
   \end{align*}
-
 
 
 
@@ -427,12 +426,12 @@
         \caption{$\langle \Delta p \rangle (t)$}
         \label{fig:i_conv_dp}
       \end{subfigure}
-      \caption{Convergence study on multiple quantities with respect to $\Delta t$, with $N\in[\num{129}, \num{16380}]$ and $\Delta t = (\num{5000}/N) \si{\Ptime}$. All the values are taken at t=\SI{5000}{\Ptime}.}
+      \caption{Convergence study on different quantities with respect to $\Delta t$, with $N\in[\num{129}, \num{16380}]$ and $\Delta t = (\num{5000}/N) \si{\Ptime}$. All the values are taken at t=\SI{5000}{\Ptime}.}
       \label{fig:i_conv}
     \end{figure}
 
     Figure \ref{fig:i_conv} gives the convergence study on the average position $\langle x \rangle$ (Fig. \ref{fig:i_conv_x}), the average momentum $\langle p \rangle$ (Fig. \ref{fig:i_conv_p}), the average position uncertainty $\langle \Delta x \rangle$ (Fig. \ref{fig:i_conv_dx}) and the average momentum uncertainty $\langle \Delta p \rangle$ (Fig. \ref{fig:i_conv_dp}).
-    These resuts show that the numerical method approximately converges on the 2nd order.
+    These results show that the numerical method approximately converges on the 2nd order.
     %TODO : Je sais pas quoi dire. :|
 
 
@@ -440,7 +439,7 @@
     Next, the total probability must verify $P_\text{tot} = \Sigma_i P_i(t) = 1~\forall t$.
 
     Figure \ref{fig:i_ptot} gives this result, and is divided in two graphs.
-    Figure \ref{fig:i_ptot_cool} gives the general behavious of both the probability on the left and the right sides of the system.
+    Figure \ref{fig:i_ptot_cool} gives the general behaviors of both the probability on the left and the right sides of the system.
     Their sum is approximately equal to 1, and the periodicity of the system is again shown.
     Figure \ref{fig:i_ptot_ugly} gives a close look to the total probability.
     It suggests that the total probability is not exactly conserved.
@@ -488,8 +487,8 @@
     Note that, as stated before, a normalized $\hbar$ is used, which gives $\hbar=\SI{1}{\Penergy\Ptime}$.\\
 
     The result is given by figure \ref{fig:i_heisenberg} and shows that the principle is overall verified.
-    However, the firsts minimums of $\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t)$ are slightly under $\frac{\hbar}{2}$, which is explained by truncation error caused by the integral.
-    But this error is vanishing over time, so it is neglectable.
+    However, the first minima of $\langle \Delta x \rangle(t)\cdot\langle \Delta p \rangle(t)$ are slightly below $\frac{\hbar}{2}$, which is explained by truncation error caused by the integral.
+    But this error fades over time, so it is neglectable.
 
     \begin{figure}[h]
       \centering
@@ -499,7 +498,7 @@
     \end{figure}
 
     \subsection{Summary}
-    Therefore, the conditions stated at the beginning of section \ref{sec:har_osc} describe an harmonic oscillator and the implementation from section \ref{sec:impl} works as expected.
+    Therefore, the conditions stated at the beginning of section \ref{sec:har_osc} describe a harmonic oscillator and the implementation from section \ref{sec:impl} works as expected.
     Further studies can thus be carried out.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -507,7 +506,7 @@
 \newpage
 \section{Average movement analysis for a particle and comparison with the classical case}
 
-With the same parameters as in section \ref{sec:har_osc}, the average position and momentum of the particle is analysed and compared to the analytical solution, which is found using the Ansatz for a harmonic oscillator with potential $V(x)=\frac{1}{2}m\omega^2x^2$:
+With the same parameters as in section \ref{sec:har_osc}, and with $\Delta t = \SI{1}{\Ptime}$, the average position and momentum of the particle is analysed and compared to the analytical solution, which is found using the Ansatz for a harmonic oscillator with potential $V(x)=\frac{1}{2}m\omega^2x^2$:
 \begin{equation}
  x(t)=A \cos(\omega t) + B \sin(\omega t)
  \label{eq:ansatz}
@@ -570,11 +569,11 @@ In both cases the difference oscillates around zero with linearly increasing amp
 
 \newpage
 \section{Quantum tunnelling}\label{sec:quantum_tunnelling}
-  Quantum tunnelling is an effect of quantum physics where particles overcome potential barriers. \cite{wiki:quantum_tunnelling}
+  Quantum tunnelling is an effect of quantum physics in which particles overcome potential barriers. \cite{wiki:quantum_tunnelling}
   This section will thus focus on the study of this effect by means of the implementation described in section \ref{sec:impl}.\\
 
   \subsection{Emphasis of quantum tunnelling}
-    To emphasis this effect, the height of the potential barrier $V_0 = V(x=0)$ will be changed to three different values: $V_0<E$, $V_0 \approx E$ and $V_0>E$.
+    To emphasise this effect, the height of the potential barrier $V_0 = V(x=0)$ will be changed to three different values: $V_0<E$, $V_0 \approx E$ and $V_0>E$.
     This barrier can be change using $\Delta$ and $x_0 = -\Delta$.
     The other parameters for this section are given by $x_L=\SI{-200}{\Plength}$, $x_R=\SI{200}{\Plength}$, $\omega = \SI{0.003}{\Pangularfrequency}$, $\sigma_\text{norm} = \SI{0.06}{\Plength}$, $n=14$, $t_\text{fin} = \SI{5000}{\Ptime}$, $N_\text{inters} = 300$ and $\Delta t = \SI{2}{\Ptime}$.\\
 
@@ -603,8 +602,8 @@ In both cases the difference oscillates around zero with linearly increasing amp
     Figure \ref{fig:iii_evo_Eeqv0} gives the evolution of the system when $E \approx V_0$.
     This time, the particle should not be able to overcome the potential barrier without taking the quantum tunnelling into account.
     What can be observed on figure \ref{fig:iii_evo_Eeqv0_evo} is the fact that the particle still has a probability to reach the other side of the potentiel barrier.
-    Figure \ref{fig:iii_evo_Eeqv0_prob} strengthens this observation.
-    This is a great evidence of quantum tunnelling, as it is the only explaination why particles have a probability of overcoming the potential barrier.\\
+    Figure \ref{fig:iii_evo_Eeqv0_prob} corroborates this observation.
+    This is good evidence of quantum tunnelling, as it is the only explanation why particles have a probability of overcoming the potential barrier.\\
 
 
     \begin{figure}[h]
@@ -625,7 +624,7 @@ In both cases the difference oscillates around zero with linearly increasing amp
     \end{figure}
 
     Finally, figure \ref{fig:iii_evo_Eleqv0} gives the evolution of the system when $E<V_0$.
-    This time, the potential barrier is to high compared to the energy, which results with a particle stuck in a side with no probability of being on the other side.
+    This time, the potential barrier is too high compared to the energy, which results with a particle stuck in a side with no probability of being on the other side.
     Figures \ref{fig:iii_evo_Eleqv0_evo} and \ref{fig:iii_evo_Eleqv0_prob} shows this fact, as the probability for the particle to be on the right side is approximately null.\\
 
     \begin{figure}[h]
@@ -645,7 +644,7 @@ In both cases the difference oscillates around zero with linearly increasing amp
       \label{fig:iii_evo_Eleqv0}
     \end{figure}
 
-    Thus, this section has shown that quantum tunnelling is a notable effect of quantum physics and much be taken into account when the potential barrier is around the total energy.
+    Thus, this section has shown that quantum tunnelling is a notable effect of quantum physics and must be taken into account when the potential barrier is around the total energy.
     However, when the potential barrier is \textit{significantly} higher than the total energy, this effect becomes neglectable.\\
 
   \subsection{\SI{50}{\percent} tunnelling probability}
@@ -654,7 +653,7 @@ In both cases the difference oscillates around zero with linearly increasing amp
     This gives the values $n$ where the probability on both sides are the closest, which is \SI{50}{\percent}.
     The parameter $n$ is initially an integer used to define the wavenumber, which is given by $k_0 = 2\pi n/(x_R-x_L)$.
     However, the best result is still far from an exact \SI{50}{\percent}, so the implementation has been modified to allow a real $n$.
-    Both version are analysed in the following sections.\\
+    Both version are analyzed in the following sections.\\
 
     \subsubsection{$n$ as an integer}
       First, $n$ is considered as an integer.
@@ -740,7 +739,7 @@ In both cases the difference oscillates around zero with linearly increasing amp
 \section{Detection of a particle}
 \label{sec:det}
 
-In this section, a detector is placed over the right side of the potential barrier ($0\leq x \leq x_R$). For $n=11.06$, two cases are compared: one where the particle is never detected, and one where the particle is detected on the right side at $t=1000~t_\text{P}$. The evolution of the system in the first case is displayed in figure \ref{fig:iii_findn_cont} in the previous section. The evolution of the system in the second case is displayed on figure \ref{fig:iv_det}.
+In this section, using the same parameters as in section \ref{sec:quantum_tunnelling}, and with $\Delta t = \SI{1}{\Ptime}$, a detector is placed over the right side of the potential barrier ($0\leq x \leq x_R$). For $n=11.06$, two cases are compared: one where the particle is never detected, and one where the particle is detected on the right side at $t=1000~t_\text{P}$. The evolution of the system in the first case is displayed in figure \ref{fig:iii_findn_cont} in the previous section. The evolution of the system in the second case is displayed on figure \ref{fig:iv_det}.
 
 \begin{figure}[h]
         \centering
@@ -795,7 +794,8 @@ The probabilities of the particle being on the left or right side at $t=3000~t_\
  \label{eq:p3000_det}
 \end{align}
 
-The repartition of probabilities is very different between the two systems, which confirms that the evolution of the system is different after the detection. However one can notice similarities in the shape of the left side of the curve on figure \ref{fig:iv_3000}. In fact the shapes of the curves for both systems are almost identical for $-200\leq x\leq -100$, although the values are higher for the second system. This can be explained by the process of detection: when the particle is detected on the right side, the wave packet $\psi$ on the left side is nullified, and the rest of the function is renormalized so that the total probability remains 1. So part of the wave function retains its shape, with higher values.
+The repartition of probabilities is very different between the two systems, which confirms that the evolution of the system is different after the detection. However one can notice similarities in the shape of the left side of the curve on figure \ref{fig:iv_3000}. In fact the shapes of the curves for both systems are almost identical for $-200\leq x\leq -100$, although the values are higher for the second system. This can be explained by the process of detection: when the particle is detected on the right side, the wave packet $\psi(x,t)$ on the left side is nullified, and the rest of the function is renormalized so that the total probability of presence of the particle remains 1. So part of the wave function retains its shape, with higher values.
+
 The evolution of the characteristics of the particle for the second system are given by figures \ref{fig:iv_det_xp}, \ref{fig:iv_det_H} and \ref{fig:iv_det_del}.
 
 \begin{figure}[h]
@@ -822,7 +822,7 @@ The evolution of the characteristics of the particle for the second system are g
  \label{fig:iv_det_H}
 \end{figure}
 
-The sharp increase of the average position at the time of detection shown on figure \ref{fig:iv_det_xmoy} is caused by the change of the wave packet as it is ``reduced'' to the right side. The momentum experiences an increase as well, which also translates into a sudden increase of energy, as seen on figure \ref{fig:iv_det_H}. The conservation is thus not observed when detection of a particle occurs. Indeed, as the wave packet is redefined, the system becomes essentially a different system with new initial conditions, including momentum and energy.
+The sharp increase of the average position at the time of detection shown on figure \ref{fig:iv_det_xmoy} is caused by the change of the wave packet as it is ``reduced'' to the right side. The momentum experiences an increase as well, which also translates into a sudden increase of energy, as seen on figure \ref{fig:iv_det_H}. The conservation of energy is thus not observed when detection of a particle occurs. Indeed, as the wave packet is redefined, the system becomes essentially a different system with new initial conditions, including momentum and energy.
 
 \begin{figure}[h]
         \centering
@@ -856,7 +856,7 @@ Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both th
       \subsubsection{Embed wave with a centered barrier}
         The potential is given by equation \eqref{eq:pot_A_pot}, represented as figure \ref{fig:v_pot_A_pot}.
         Note that numerically, $+\infty$ is simply given by a sufficiently high number.
-        All values are expressed as Plank energy.
+        All values are expressed in Planck energy.
 
         \begin{equation}
           V(x) =
@@ -888,9 +888,9 @@ Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both th
         \end{figure}
 
       \subsubsection{Quantum tunnelling with respect to the width of the barrier}
-        This additionnal study focuses on the transmission probability when the width of the potential barrier from equation \eqref{eq:pot_A_pot} changes.
+        This additional study focuses on the transmission probability when the width of the potential barrier from equation \eqref{eq:pot_A_pot} changes.
         The potential energy is given by equation \eqref{eq:pot_conv}.
-        All values are expressed as Plank energy.
+        All values are expressed in Planck energy.
 
         \begin{equation}
           V(x) =
@@ -903,7 +903,7 @@ Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both th
         \end{equation}
 
         In this section, $\Delta$ represents half of the width of the potential barrier and will vary as $\Delta \in \left[0, 6\right] \si{\Plength}$ with steps of \SI{0.3}{\Plength}.
-        To get a good enough spacial definition allowing these steps, $N_\text{inters} = \num{5000}$ and to strongly reduce the computation time, $\Delta t = \SI{5}{\Ptime}$.
+        To get a good enough spatial definition allowing these steps, $N_\text{inters} = \num{5000}$ and to strongly reduce the computation time, $\Delta t = \SI{5}{\Ptime}$.
         As shown by figure \ref{fig:v_conv_delta_pot}, $E<V_0=\SI{0.1}{\Penergy}$.
         All the points are taken at $t = \SI{1000}{\Ptime}$.
 
@@ -939,7 +939,7 @@ Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both th
 
       \subsubsection{Periodic potential}
       This time, the potential energy, which is given by equation \eqref{eq:pot_Ba_pot}, is given as periodic.
-      All values are expressed as Plank energy and again, $E<\max\bracket{V}$ as shown by the representation of the energy in figure \ref{fig:v_pot_Ba_pot}.
+      All values are expressed in Planck energy and again, $E<\max\bracket{V}$ as shown by the representation of the energy in figure \ref{fig:v_pot_Ba_pot}.
 
       \begin{equation}
         V(x) = 0.09\abs{\sin\bracket{\frac{x}{10}}}
@@ -947,7 +947,7 @@ Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both th
       \end{equation}
 
       Figure \ref{fig:v_pot_Ba_evo} shows the evolution of the system and shows again the effect of quantum tunnelling.
-      The particles as a probability to overcome the barriers multiple times, with a decreasing probability density the further from the origin.
+      The particle has a probability to overcome the barriers multiple times, with a decreasing probability density the further away it is from the origin.
       This figure also shows the global oscillation caused by the reflexion at the borders of the system.
 
       \begin{figure}[h]
@@ -996,10 +996,10 @@ Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both th
     %   \end{figure}
     
     \subsection{Particle detection}
-    In this section, the position, size, and number of detectors will be changed. The parameters are the same as in section \ref{sec:det}.
+    In this section, the code is modified to allow for the position, size, and number of detectors to be changed. The parameters are the same as in section \ref{sec:det}.
     
     \subsubsection{Detector in the center of the system}
-    Here, a detector with a size of $20$ divisions of interval, is placed in the center of the system at $-13.3\leq x \leq 13.3$, and the particle is detected at $t=1000~t_\text{P}$. The evolution of the system is displayed on figure \ref{fig:bonus1}, and the density of probability at $t=3000~t_\text{P}$ is given by figure \ref{fig:bonus1_psi}.
+    Here, a detector is placed in the center of the system at $-13.3\leq x \leq 13.3$, and the particle is detected at $t=1000~t_\text{P}$. The evolution of the system is displayed on figure \ref{fig:bonus1}, and the density of probability at $t=3000~t_\text{P}$ is given by figure \ref{fig:bonus1_psi}.
     
       \begin{figure}[h]
         \centering
@@ -1030,12 +1030,12 @@ Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both th
 
     \subsubsection{4 different detectors}
     Here, 4 different detectors are placed in the system with the following positions and times of detections:
-    \begin{enumerate}
-     \item $0\leq x\leq x_R$; $t_1=300~t_\text{P}$
-     \item $-200\leq x\leq -106.7$; $t_2=100~t_\text{P}$
-     \item $-66.7\leq x\leq 66.7$; $t=2500~t_\text{P}$
-     \item $-134.7\leq x\leq 200$; $t=3500~t_\text{P}$
-    \end{enumerate}
+    \begin{itemize}
+     \item Detector 1: $0\leq x\leq x_R$; $t_1=300~t_\text{P}$
+     \item Detector 2: $-200\leq x\leq -106.7$; $t_2=100~t_\text{P}$
+     \item Detector 3: $-66.7\leq x\leq 66.7$; $t=2500~t_\text{P}$
+     \item Detector 4: $-134.7\leq x\leq 200$; $t=3500~t_\text{P}$
+    \end{itemize}
     
     The evolution of the system is displayed on figure \ref{fig:bonus2}, and the evolution of energy on figure \ref{fig:bonus2_H}.
 
