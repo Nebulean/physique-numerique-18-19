@@ -238,6 +238,9 @@ hold off;
 % saveas(figH,'graphs/iv_det_H','epsc');
 % saveas(figdelx,'graphs/iv_det_delx','epsc');
 % saveas(figdelp,'graphs/iv_det_delp','epsc');
+saveas(figEvo,'graphs/bonus1_evo','epsc');
+saveas(figProb,'graphs/bonus1_prob','epsc');
+saveas(figpsi,'graphs/bonus1_psi','epsc');
 
 %% Function
 function n = changePrecision(value, digits)

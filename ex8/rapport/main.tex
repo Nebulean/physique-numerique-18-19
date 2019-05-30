@@ -712,6 +712,7 @@ In both cases the difference oscillates around zero with linearly increasing amp
 
 \newpage
 \section{Detection of a particle}
+\label{sec:det}
 
 In this section, a detector is placed over the right side of the potential barrier ($0\leq x \leq x_R$). For $n=11.06$, two cases are compared: one where the particle is never detected, and one where the particle is detected on the right side at $t=1000~t_\text{P}$. The evolution of the system in the first case is displayed in figure \ref{fig:iii_findn_cont} in the previous section. The evolution of the system in the second case is displayed on figure \ref{fig:iv_det}.
 
@@ -719,13 +720,13 @@ In this section, a detector is placed over the right side of the potential barri
         \centering
         \begin{subfigure}[t]{0.45\textwidth}
           \includegraphics[width=\textwidth]{graphs/iv_det_Evo.eps}
-          \caption{}
+          \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
           \label{fig:iv_det_Evo}
         \end{subfigure}
         ~
         \begin{subfigure}[t]{0.45\textwidth}
           \includegraphics[width=\textwidth]{graphs/iv_det_Prob.eps}
-          \caption{}
+          \caption{$P(t)$ with respect to $t$}
           \label{fig:iv_det_Prob}
         \end{subfigure}
         \caption{Evolution of the particle with detection at t=1000}
@@ -967,9 +968,78 @@ Figure \ref{fig:iv_det_del} shows a sharp decrease in the uncertainty of both th
     %     \caption{Evolution of the system for the potential energy given by equation \eqref{eq:pot_Bb_pot}}
     %     \label{fig:v_pot_Bb}
     %   \end{figure}
+    
+    \subsection{Particle detection}
+    In this section, the position, size, and number of detectors will be changed. The parameters are the same as in section \ref{sec:det}.
+    
+    \subsubsection{Detector in the center of the system}
+    Here, a detector with a size of $20$ divisions of interval, is placed in the center of the system at ($140\leq n \leq160$) with 
+    $n$ the position on the discretized interval of size $N=300$, and the particle is detected at $t=1000~t_\text{P}$. The evolution of the system is displayed on figure \ref{fig:bonus1}, and the density of probability at $t=3000~t_\text{P}$ is given by figure \ref{fig:bonus1_psi}.
+    
+      \begin{figure}[h]
+        \centering
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/bonus1_evo.eps}
+          \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
+          \label{fig:bonus1_evo}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/bonus1_prob.eps}
+          \caption{$P(t)$ with respect to $t$}
+          \label{fig:bonus1_prob}
+        \end{subfigure}
+        \caption{Evolution of the system with detection in the center at $t=1000~t_\text{P}$}
+        \label{fig:bonus1}
+      \end{figure}
+      
+      \begin{figure}[h!]
+      \centering
+       \includegraphics[width=0.5\textwidth]{graphs/bonus1_psi.eps}
+       \caption{Density of probability at $t=3000~t_\text{P}$ after detection in the center at $t=1000~t_\text{P}$}
+       \label{fig:bonus1_psi}
+      \end{figure}
+      
+      Since the detector is small and placed in the center of the system, the wave packet evolves with a somewhat symmetrical shape after the detection, and the probabilities of being on either side stay close to $0.5$. It can be noted that the shape of the wave packet becomes much more irregular and ``spiky'' after detection, likely due to the discontinuities caused by the reduction of the wave packet at the detection.
 
 
+    \subsubsection{4 different detectors}
+    Here, 4 different detectors are placed in the system with the following positions and times of detections:
+    \begin{enumerate}
+     \item $150\leq n\leq 300$; $t_1=300~t_\text{P}$
+     \item $0\leq n\leq 70$; $t_2=100~t_\text{P}$
+     \item $100\leq n\leq 200$; $t=2500~t_\text{P}$
+     \item $50\leq n\leq 300$; $t=3500~t_\text{P}$
+    \end{enumerate}
+    
+    The evolution of the system is displayed on figure \ref{fig:bonus2}, and the evolution of energy on figure \ref{fig:bonus2_H}.
 
+
+    \begin{figure}[h]
+        \centering
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/bonus2_evo.eps}
+          \caption{$|\psi(x, t)|^2$ with respect to $x$ and $t$}
+          \label{fig:bonus2_evo}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[t]{0.45\textwidth}
+          \includegraphics[width=\textwidth]{graphs/bonus2_prob.eps}
+          \caption{$P(t)$ with respect to $t$}
+          \label{fig:bonus2_prob}
+        \end{subfigure}
+        \caption{Evolution of the system with 4 successive detections}
+        \label{fig:bonus2}
+      \end{figure}
+      
+      \begin{figure}[h!]
+      \centering
+       \includegraphics[width=0.5\textwidth]{graphs/bonus2_H.eps}
+       \caption{Average energy of the particle with 4 successive detections}
+       \label{fig:bonus2_H}
+      \end{figure}
+      
+      The system goes through abrupt changes after each detection, but the changes after detection 4 are less noticeable: the energy only drops slightly. Indeed, since the detector covers almost the entire system, the wave packet is not modified very much by the detection.
 
 \newpage
 \begin{thebibliography}{99}
