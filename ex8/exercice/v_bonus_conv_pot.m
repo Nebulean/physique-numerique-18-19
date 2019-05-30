@@ -4,8 +4,8 @@ xR = 200;
 omega = 0.003;
 sigma_norm = 0.06;
 n = 14;
-tfin = 5000;
-Ninters = 1200;
+tfin = 10000;
+Ninters = 2500;
 delta = 64;
 dt = 5;
 x0 = -delta;
@@ -13,7 +13,7 @@ x0 = -delta;
 nsimul = 21;
 
 % delta = logspace(-2, 1, nsimul);
-delta = linspace(0, 10, nsimul);
+delta = linspace(0, 6, nsimul);
 
 output = {};
 for i=1:nsimul
@@ -24,7 +24,7 @@ end
 for i=1:nsimul
     cmd = sprintf("./Exercice8 configuration.in output=%s xL=%0.15f xR=%0.15f omega=%0.15f delta=%0.15f x0=%0.15f sigma_norm=%0.15f n=%0.15f tfin=%0.15f Ninters=%0.15f dt=%0.15f", output{i}, xL, xR, omega, delta(i), x0, sigma_norm, n, tfin, Ninters, dt);
     disp(cmd);
-	system(cmd);
+	% system(cmd);
     cmd = "";
 end
 
@@ -32,12 +32,14 @@ end
 % obs: t, probD, probG, E, xmoy, x2moy, pmoy, p2moy
 y_axis1 = zeros(nsimul,1);
 y_axis2 = zeros(nsimul,1);
+E0 = zeros(nsimul,1);
 for i=1:nsimul
     data = load(sprintf("%s_obs.out", output{i}));
     t = data(:,1);
     probG = data(:,2);
     probD = data(:,3);
-    % E = data(:,4)
+    E = data(:,4);
+    E0(i) = E(1);
     
     [time, Tidx] = min(abs(t-1000));
     
@@ -61,7 +63,7 @@ psi2 = load(sprintf("%s_psi2.out", output{end}));
 % 
 data = load(sprintf("%s_pot.out", output{end}));
 x = data(:,1);
-% V = data(:,2);
+V = data(:,2);
 % 
 [X, T] = meshgrid(x,t);
 
@@ -79,13 +81,19 @@ set(gca, 'fontsize', 25);
 set(gca, 'LineWidth',1.5);
 
 % plot(delta, y_axis1, 'x', 'markersize', 10, 'linewidth', 1.5);
-plot(delta, y_axis2, 'x', 'markersize', 10, 'linewidth', 1.5);
+plot(delta, y_axis2, 'x', 'markersize', 10, 'linewidth', 1.5, 'markersize', 10);
 % approx = poly_approx(delta(3:11)', y_axis2(3:11), 1, 1000, false);
 % plot(approx(:,1), approx(:,2), '-');
+
+[expfit, pf] = poly_approx(delta(1:end)', log(y_axis2(1:end)), 1, 1000, false);
+plot(expfit(:,1), exp(expfit(:,2)), '--', 'linewidth', 1.5);
+
 
 % set(gca, 'xscale', 'log');
 % set(gca, 'yscale', 'log');
 % set(gca,'yTickLabel',{'e^-1.28','e^-1','e^0','e^1'})
+
+legend(["data", sprintf("$y=%0.3fe^{%0.3fx}$", exp(pf(2)), pf(1))])
 
 
 xlabel("$\Delta~[\ell_P]$");
@@ -98,6 +106,22 @@ box on;
 
 hold off;
 
+
+% test=figure
+% hold on;
+% m=1;
+% hbar=1;
+% % E0 = E(1);
+% V0 = 0.1;
+% alpha = sqrt(2*m*(V0-E(1)))/hbar;
+% a = 2.*delta;
+% 
+% T = (1+a'.*sinh(alpha)^2./(4.*E0./V0.*(1-E0./V0))).^(-1)
+% 
+% plot(delta, T, 'x');
+% plot(delta, y_axis2, 'x')
+% 
+% hold off;
 
 % figEvo=figure;
 % hold on;
@@ -153,8 +177,29 @@ hold off;
 % hold off;
 % 
 
+figpot=figure; % Pas dans le rapport
+hold on;
+
+set(gca, 'fontsize', 25);
+set(gca, 'LineWidth',1.5);
+
+plot(x, V, '-', 'linewidth', 1.5, 'color', 'blue');
+line([xL, xR], [E(1) E(1)], 'color', 'red', 'linewidth', 1.5);
+
+xlabel("$x~[\ell_P]$");
+ylabel("$V~[E_P]$");
+
+legend(["$V(x)$", "E"], 'location', 'northeast');
+
+box on;
+grid on;
+
+hold off;
+
+
 %% Save
 saveas(figConv, "graphs/v_conv_delta", "epsc");
+saveas(figpot, "graphs/v_conv_delta_pot", "epsc");
 
 %% Function
 function n = changePrecision(value, digits)
@@ -167,7 +212,7 @@ function n = changePrecision(value, digits)
 end
 
 
-function [polynome, slope] = poly_approx(x, y, ordre, steps, isLog)
+function [polynome, param] = poly_approx(x, y, ordre, steps, isLog)
     % =================== POLY_APPROX ===================================
     % RESUMÉ: Permet de faire une approximation d'ordre n d'un set de
     % données.
@@ -193,7 +238,8 @@ function [polynome, slope] = poly_approx(x, y, ordre, steps, isLog)
     length(x)
     length(y)
     pf = polyfit(x, y, ordre);
-    slope = pf(1);
+    %coefvalues(pf)
+    param = pf;
     T = linspace(min(x), max(x), steps);
     n = ordre + 1;
     polynome = zeros(2,length(T));
@@ -208,3 +254,4 @@ function [polynome, slope] = poly_approx(x, y, ordre, steps, isLog)
        polynome = 10.^polynome; 
     end
 end
+

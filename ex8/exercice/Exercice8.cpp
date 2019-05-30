@@ -48,7 +48,7 @@ template <class T> void triangular_solve(vector<T> const& diag,
 // Potentiel V(x) :
 double V(double const& x, double const& omega, double const& delta)
 {
-  // return .5*omega*omega*min((x-delta)*(x-delta),(x+delta)*(x+delta)); // V de l'exercice
+  return .5*omega*omega*min((x-delta)*(x-delta),(x+delta)*(x+delta)); // V de l'exercice
   // return pow(abs(x), 1./100.); // BONUS 1
   // return abs(sin(x)); // BONUS 2
   // if(x < -delta || x > delta)
@@ -58,7 +58,9 @@ double V(double const& x, double const& omega, double const& delta)
 
   // BONUS A.
   // if (abs(x) <= delta) {
-  //   return 0.025;
+  //   // return 0.025;
+  //   return 0.1;
+  //   // return 0.01;
   // }
   // else if (abs(x) <= 200 && abs(x) > delta) {
   //   return 0.;
@@ -71,7 +73,7 @@ double V(double const& x, double const& omega, double const& delta)
   // return 0.09*abs(sin(x/10));
 
   // BONUS Bb.
-  return abs(sin(x/100));
+  // return abs(sin(x/100));
 
 }
 
