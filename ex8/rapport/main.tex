@@ -863,19 +863,19 @@ In both cases the difference oscillates around zero with linearly increasing amp
 
         In this section, $\Delta$ represents half of the width of the potential barrier and will vary as $\Delta \in \left[0, 6\right] \si{\Plength}$ with steps of \SI{0.3}{\Plength}.
         To get a good enough spacial definition allowing these steps, $N_\text{inters} = \num{5000}$ and to strongly reduce the computation time, $\Delta t = \SI{5}{\Ptime}$.
+        As shown by figure \ref{fig:v_conv_delta_pot}, $E<V_0=\SI{0.1}{\Penergy}$.
         All the points are taken at $t = \SI{1000}{\Ptime}$.
 
-        Figure \ref{fig:v_conv_delta01} gives the probability for the particle to be on the right side at $t = \SI{1000}{\Ptime}$, which occures after the first quantum tunnelling.
-        % This figure shows the non-linearity of this effect.
-        % Lower widths give a concave curve, but at bigger widths, the curve becomes convex.
-        % Thus, the quantum tunnelling slowly decreases and seems to tend to zero when the barrier has a bigger width.
+        Figure \ref{fig:v_conv_delta} gives the probability for the particle to be on the right side at $t = \SI{1000}{\Ptime}$ with respect to the width of the potential barrier.
+        The exponential fit shows that the probability for the particle to be on the right side decreases exponentially, as predicted by equation 6-74 from Tipler and Llewellyn's book \cite{tipler-llewellyn}.
+
 
         \begin{figure}[h]
           \centering
           \begin{subfigure}[t]{0.45\textwidth}
-            \includegraphics[width=\textwidth]{graphs/v_conv_delta01.eps}
+            \includegraphics[width=\textwidth]{graphs/v_conv_delta.eps}
             \caption{tut}
-            \label{fig:v_conv_delta01}
+            \label{fig:v_conv_delta}
           \end{subfigure}
           ~
           \begin{subfigure}[t]{0.45\textwidth}
@@ -960,6 +960,8 @@ In both cases the difference oscillates around zero with linearly increasing amp
 \newpage
 \begin{thebibliography}{99}
   \bibitem{wiki:quantum_tunnelling} Wikipedia contributors. (2019, May 6). Quantum tunnelling. In Wikipedia, The Free Encyclopedia. Retrieved 17:01, May 18, 2019, from \url{https://en.wikipedia.org/w/index.php?title=Quantum_tunnelling&oldid=895805434}
+
+  \bibitem{tipler-llewellyn} Tipler, P. and Llewellyn, R. (2008). Modern physics. Fifth edition. New York: W.H. Freeman. pp. 256.
 \end{thebibliography}
 
 \end{document}
